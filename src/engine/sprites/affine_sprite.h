@@ -1,0 +1,34 @@
+//
+// Created by Wouter Groeneveld on 28/07/18.
+//
+
+#ifndef GBA_SPRITE_ENGINE_AFFINE_SPRITE_H
+#define GBA_SPRITE_ENGINE_AFFINE_SPRITE_H
+
+#include "sprite.h"
+
+class SpriteManager;
+
+class AffineSprite : public Sprite {
+private:
+    int affIndex;
+    std::unique_ptr<OBJ_AFFINE> affine;
+    void setTransformationMatrix(OBJ_AFFINE *matrix);
+
+    void rebuildOamAttr1ForAffineIndex();
+
+protected:
+    void buildOam(int tileIndex) override;
+    void syncOam() override;
+
+public:
+    void setAffineIndex(int index) { this->affIndex = index; }
+    void identity();
+    void rotate(u16 alpha);
+    AffineSprite(const u32 *imgData, int imgSize, int xC, int yC, SpriteSize spriteSize) : Sprite(imgData, imgSize, xC, yC, spriteSize), affIndex(0) {
+    }
+
+    friend class SpriteManager;
+};
+
+#endif //GBA_SPRITE_ENGINE_AFFINE_SPRITE_H

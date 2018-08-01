@@ -1,0 +1,63 @@
+//
+// Created by Wouter Groeneveld on 28/07/18.
+//
+
+#include <engine/sprites/affine_sprite.h>
+#include <engine/sprites/sprite_builder.h>
+#include <engine/gba/tonc_memmap.h>
+#include "flying_stuff_scene.h"
+#include "kul.h"
+
+std::vector<Sprite *> FlyingStuffScene::sprites() {
+    return {
+        smiley.get(), kul.get(), kulFlying.get(), player.get()
+    };
+}
+
+std::vector<Background *> FlyingStuffScene::backgrounds() {
+    return {
+        bg.get()
+    };
+}
+
+void FlyingStuffScene::load() {
+    SpriteBuilder<Sprite> builder;
+    SpriteBuilder<AffineSprite> affineBuilder;
+
+    smiley = builder
+            .withData(piskelTiles, sizeof(piskelTiles))
+            .withSize(SIZE_16_16)
+            .withLocation(10, 10)
+            .buildPtr();
+
+    kul = builder
+            .withData(kulTiles, sizeof(kulTiles))
+            .withSize(SIZE_64_32)
+            .withLocation(30, 30)
+            .buildPtr();
+
+    kulFlying = affineBuilder
+            .withData(kulTiles, sizeof(kulTiles))
+            .withSize(SIZE_64_32)
+            .withLocation(100, 50)
+            .withVelocity(1, 1)
+            .buildPtr();
+
+    player = affineBuilder
+            .withData(piskel2Tiles, sizeof(piskel2Tiles))
+            .withSize(SIZE_16_16)
+            .withLocation(150, 60)
+            .buildPtr();
+
+    bg = std::unique_ptr<Background>(new Background(1, background_data, sizeof(background_data), map, sizeof(map)));
+    bg.get()->useMapScreenBlock(16);
+}
+
+void FlyingStuffScene::tick() {
+    scrollX += 1;
+
+    rotation += rotationDiff;
+    kulFlying.get()->rotate(rotation);
+    player.get()->rotate(rotation);
+    bg.get()->scroll(scrollX, scrollY);
+}
