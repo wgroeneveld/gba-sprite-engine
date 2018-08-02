@@ -24,17 +24,18 @@ GBAEngine::GBAEngine() {
     Allocator::free();
 }
 
-void GBAEngine::setScene(Scene& scene) {
+void GBAEngine::setScene(Scene* scene) {
     if(this->currentScene) {
         cleanupPreviousScene();
+        TextStream::instance().clear();
     }
-    scene.load();
+    scene->load();
 
-    auto fgPalette = scene.getForegroundPalette();
+    auto fgPalette = scene->getForegroundPalette();
     if(fgPalette) {
         fgPalette->persist();
     }
-    auto bgPalette = scene.getBackgroundPalette();
+    auto bgPalette = scene->getBackgroundPalette();
     if(bgPalette) {
         bgPalette->persist();
     }
@@ -42,12 +43,12 @@ void GBAEngine::setScene(Scene& scene) {
     Allocator::free();
     TextStream::instance().persist();
 
-    spriteManager.set(scene.sprites());
+    spriteManager.set(scene->sprites());
     spriteManager.persist();
 
-    for(const auto bg : scene.backgrounds()) {
+    for(const auto bg : scene->backgrounds()) {
         bg->persist();
     }
 
-    this->currentScene = &scene;
+    this->currentScene = scene;
 }

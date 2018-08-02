@@ -5,6 +5,7 @@
 #include <engine/sprites/affine_sprite.h>
 #include <engine/sprites/sprite_builder.h>
 #include <engine/gba/tonc_memmap.h>
+#include <engine/background/text_stream.h>
 #include "flying_stuff_scene.h"
 #include "kul.h"
 
@@ -51,6 +52,8 @@ void FlyingStuffScene::load() {
             .withSize(SIZE_16_16)
             .withLocation(150, 60)
             .buildPtr();
+
+    TextStream::instance() << "level 1 ofwa" << "ziet da af";
 
     bg = std::unique_ptr<Background>(new Background(1, background_data, sizeof(background_data), map, sizeof(map)));
     bg.get()->useMapScreenBlock(16);

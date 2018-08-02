@@ -11,11 +11,13 @@
 #include "engine/sprites/sprite.h"
 #include "palette_manager.h"
 
+class GBAEngine;
+
 class Scene {
 protected:
     std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
-    std::function<void (Scene&)> onNextSceneFn;
+    GBAEngine* engine;
 
 public:
     ForegroundPaletteManager* getForegroundPalette() { return foregroundPalette.get(); }
@@ -26,8 +28,7 @@ public:
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
-    void onNextScene(std::function<void(Scene &)> fn) { onNextSceneFn = fn; };
-
+    void setEngineForSceneSwitching(GBAEngine* engine);
 
     Scene() { }
     ~Scene() {

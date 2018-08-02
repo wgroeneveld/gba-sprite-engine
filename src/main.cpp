@@ -15,14 +15,15 @@
  * assumes 8bpp sprites
  */
 int main() {
-    GBAEngine engine;
+    GBAEngine* engine = new GBAEngine();
 
-    SampleStartScene startScene;
-    engine.setScene(startScene);
+    SampleStartScene* startScene = new SampleStartScene();
+    startScene->setEngineForSceneSwitching(engine);
+    engine->setScene(startScene);
 
     while (true) {
-        engine.update();
-        engine.delay(1000);
+        engine->update();
+        engine->delay(1000);
     }
 
     return 0;
