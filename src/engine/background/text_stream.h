@@ -9,9 +9,13 @@
 #include "text.h"
 
 #include <string>
+#include <memory>
+#include <engine/palette_manager.h>
 
 #define CHAR_OFFSET_INDEX 32
 #define TILE_WIDTH 32
+#define PALETTE_COLOR_INDEX 15
+#define PALETTE_TEXT_BANK 15
 
 #define failure(__mess) (consoleLog_func(__FILE__, __LINE__, __PRETTY_FUNCTION__, #__mess))
 void log_text(const char* text);
@@ -20,6 +24,7 @@ void consoleLog_func(const char* fileName, const int lineNr, const char* fnName,
 class TextStream : public Background {
 private:
     int currRow, currCol;
+    std::unique_ptr<BackgroundPaletteManager> palette;
 
     static TextStream* inst;
     TextStream();
@@ -29,7 +34,10 @@ private:
 public:
     void clear();
     void setText(const char* text, int row, int col);
+    void setTextColor(COLOR color);
     static TextStream& instance();
+
+    void persist() override;
 
     TextStream& operator << (const char* s);
     TextStream& operator << (const int s);

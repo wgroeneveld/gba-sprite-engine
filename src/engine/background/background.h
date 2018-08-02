@@ -28,7 +28,7 @@ public:
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
                                                                        screenBlockIndex(0), charBlockIndex(0), mapSize(mapSize) {}
-    void persist();
+    virtual void persist();
     void clearMap();
 };
 

@@ -3,7 +3,10 @@
 //
 
 #include <engine/gba/tonc_memmap.h>
+#include <engine/palette_manager.h>
 #include "text_stream.h"
+
+#include <memory>
 
 TextStream* TextStream::inst;
 
@@ -15,6 +18,8 @@ void TextStream::clear() {
 
 TextStream::TextStream() : Background(0, text_data, sizeof(text_data), nullptr, TILE_WIDTH * TILE_WIDTH), currCol(0), currRow(0) {
     useMapScreenBlock(24);
+    this->palette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
+
     persist();
     clearMap();
 }
@@ -79,4 +84,14 @@ TextStream& TextStream::operator<<(const char * s) {
     setText(s, currRow, currCol);
     currRow++;
     return *this;
+}
+
+void TextStream::setTextColor(COLOR color) {
+    palette.get()->change(PALETTE_TEXT_BANK, PALETTE_COLOR_INDEX, color);
+}
+
+void TextStream::persist() {
+    Background::persist();
+    // WARNING: stream hijacks last bg palette bank, last index, no matter what.
+    setTextColor(PaletteManager::color(31, 31, 31));
 }
