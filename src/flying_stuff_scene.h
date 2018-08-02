@@ -23,12 +23,12 @@ private:
     int rotationDiff = 128;
 public:
     FlyingStuffScene() : rotation(0), rotationDiff(128), scrollX(0), scrollY(0) {}
-    std::vector<Sprite *> sprites() override;
 
+    std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
     void load() override;
-    void tick() override;
+    void tick(u16 i) override;
 };
 
 

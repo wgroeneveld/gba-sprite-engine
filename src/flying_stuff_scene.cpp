@@ -21,6 +21,9 @@ std::vector<Background *> FlyingStuffScene::backgrounds() {
 }
 
 void FlyingStuffScene::load() {
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(bg_palette, sizeof(bg_palette)));
+
     SpriteBuilder<Sprite> builder;
     SpriteBuilder<AffineSprite> affineBuilder;
 
@@ -53,7 +56,7 @@ void FlyingStuffScene::load() {
     bg.get()->useMapScreenBlock(16);
 }
 
-void FlyingStuffScene::tick() {
+void FlyingStuffScene::tick(u16 i) {
     scrollX += 1;
 
     rotation += rotationDiff;

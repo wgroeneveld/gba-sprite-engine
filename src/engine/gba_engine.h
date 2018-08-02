@@ -27,7 +27,8 @@ public:
     GBAEngine();
 
     void setScene(Scene& scene);
-    void render();
+    u16 readKeys();
+    void update();
     void delay(int times) {
         for(int i = 0; i < times; i++){}
     }

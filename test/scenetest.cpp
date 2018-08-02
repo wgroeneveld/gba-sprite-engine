@@ -4,6 +4,7 @@
 
 #include <engine/Scene.h>
 #include <engine/sprites/sprite_builder.h>
+#include <engine/gba_engine.h>
 #include "gtest/gtest.h"
 
 class SceneSuite : public ::testing::Test {
@@ -21,6 +22,9 @@ private:
     std::unique_ptr<Sprite> someSprite1;
     std::unique_ptr<Sprite> someSprite2;
 public:
+    void moveToNextSceneTest(Scene& next) {
+        this->onNextSceneFn(next);
+    }
     std::vector<Sprite *> sprites() override {
         return {
             someSprite1.get(), someSprite2.get()
@@ -31,7 +35,7 @@ public:
         return std::vector<Background *>();
     }
 
-    void tick() override {
+    void tick(u16 i) override {
     }
 
     void load() override {
@@ -43,6 +47,19 @@ public:
                 .buildPtr();
     }
 };
+
+TEST_F(SceneSuite, OnGoToNextScene_Callback_Test) {
+    SomeScene scene;
+    bool called = false;
+
+    auto goToNextScene = [&called](Scene& sceneFromArgs)  {
+        called = true;
+    };
+    scene.onNextScene(goToNextScene);
+    scene.moveToNextSceneTest(scene);
+
+    ASSERT_TRUE(called);
+}
 
 TEST_F(SceneSuite, GetSpritesReturnsPointersOfBuiltSprites) {
     SomeScene scene;
