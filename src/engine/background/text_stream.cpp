@@ -31,8 +31,6 @@ void log_text(const char* text) {
 
 void consoleLog_func(const char* fileName, const int lineNr, const char* fnName, const char* msg) {
     TextStream::instance().clear();
-    char lineNrBuf[10];
-    itoa(lineNr, lineNrBuf, 10);
 
     TextStream::instance() <<
                            (std::string("DEBUG: ") +
@@ -40,7 +38,7 @@ void consoleLog_func(const char* fileName, const int lineNr, const char* fnName,
                             std::string(":") +
                             std::string(fnName) +
                             std::string("@") +
-                            std::string(lineNrBuf) +
+                            std::to_string(lineNr) +
                             std::string(" -- ") +
                             std::string(msg))
                             .c_str();

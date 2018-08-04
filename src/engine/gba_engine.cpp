@@ -10,9 +10,25 @@
 void GBAEngine::update() {
     vsync();
 
+    if(sceneToTransitionTo) {
+        currentEffectForTransition->update();
+
+        if(currentEffectForTransition->isDone()) {
+            setScene(sceneToTransitionTo);
+            sceneToTransitionTo = nullptr;
+            delete currentEffectForTransition;
+        }
+    }
+
     spriteManager.render();
     u16 keys = readKeys();
     this->currentScene->tick(keys);
+}
+
+void GBAEngine::transitionIntoScene(Scene *scene, SceneEffect* effect) {
+    sceneToTransitionTo = scene;
+    currentEffectForTransition = effect;
+    currentEffectForTransition->setSceneToAffect(this->currentScene);
 }
 
 u16 GBAEngine::readKeys() {

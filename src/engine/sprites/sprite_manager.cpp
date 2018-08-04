@@ -58,7 +58,7 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
             // WHY warning: can't do this: obj_aff_mem[affineIndex] = *affineShadow;
             // because that would override OAM also! only want to set non-overlapping affine attribs
 
-            affine->setTransformationMatrix(&obj_aff_mem[1]);
+            affine->setTransformationMatrix(&obj_aff_mem[affineIndex]);
             affine->setAffineIndex(affineIndex);
             affineIndex++;
         }

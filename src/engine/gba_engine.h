@@ -8,12 +8,16 @@
 
 #include <engine/sprites/sprite_manager.h>
 #include <engine/gba/tonc_memmap.h>
+#include <engine/effects/scene_effect.h>
 #include "Scene.h"
 
 class GBAEngine {
 private:
     Scene* currentScene;
     SpriteManager spriteManager;
+
+    Scene* sceneToTransitionTo;
+    SceneEffect* currentEffectForTransition;
 
     void vsync() {
         while (REG_VCOUNT >= 160);
@@ -27,6 +31,8 @@ public:
     GBAEngine();
 
     void setScene(Scene* scene);
+    void transitionIntoScene(Scene* scene, SceneEffect* effect);
+
     u16 readKeys();
     void update();
     void delay(int times) {

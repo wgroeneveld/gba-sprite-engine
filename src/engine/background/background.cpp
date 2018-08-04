@@ -5,7 +5,11 @@
 #include <engine/gba/tonc_memmap.h>
 #include <stdexcept>
 #include <engine/allocator.h>
+#ifdef CODE_COMPILED_AS_PART_OF_TEST
+#include <engine/gba/tonc_core_stub.h>
+#else
 #include <engine/gba/tonc_core.h>
+#endif
 #include "background.h"
 #include "text_stream.h"
 

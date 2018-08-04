@@ -11,6 +11,7 @@
 #define PALETTE_BANK_SIZE 16
 #define PALETTE_MAX_SIZE 256
 
+int getBits(int number, int k, int p);
 
 class PaletteManager {
 protected:
@@ -25,8 +26,13 @@ public:
 
     void persist();
     void persistToBank(int bank);
-    static COLOR color(u32 r, u32 g, u32 b);
     COLOR change(int bank, int index, COLOR newColor);
+    void increaseBrightness(u32 intensity);
+
+    static COLOR color(u32 r, u32 g, u32 b);
+    static u32 red(COLOR r);
+    static u32 green(COLOR r);
+    static u32 blue(COLOR r);
 };
 
 class BackgroundPaletteManager : public PaletteManager {

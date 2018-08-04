@@ -6,6 +6,7 @@
 #include <engine/background/text_stream.h>
 #include <engine/gba/tonc_memdef.h>
 #include <engine/gba_engine.h>
+#include <engine/effects/fade_out_scene.h>
 #include "sample_start_scene.h"
 #include "kul.h"
 #include "flying_stuff_scene.h"
@@ -42,7 +43,6 @@ void SampleStartScene::tick(u16 keys) {
     if(keys & KEY_START) {
         TextStream::instance() << "entered: starting next scene";
 
-        FlyingStuffScene* nextScene = new FlyingStuffScene();
-        engine->setScene(nextScene);
+        engine->transitionIntoScene(new FlyingStuffScene(), new FadeOutScene(2));
     }
 }
