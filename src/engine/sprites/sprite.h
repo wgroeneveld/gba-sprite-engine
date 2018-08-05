@@ -6,7 +6,6 @@
 #define GBA_SPRITE_ENGINE_SPRITE_H
 
 #include <engine/gba/tonc_types.h>
-#include <engine/background/text_stream.h>
 #include <memory>
 
 #define COLOR_MODE_16 0
@@ -52,6 +51,7 @@ protected:
     int w, h, size_bits, shape_bits;
     int imageSize, tileIndex;
     int animationDelay, amountOfFrames, currentFrame, animationCounter;
+    bool animating;
 
     std::unique_ptr<OBJ_ATTR> oam;
 
@@ -66,7 +66,10 @@ public:
     void makeAnimated(int amountOfFrames, int animationDelay) {
         this->amountOfFrames = amountOfFrames;
         this->animationDelay = animationDelay;
+        animate();
     }
+    void animate() { this->animating = true; }
+    void stopAnimating() { this->animating = false; }
     void setVelocity(int dx, int dy) {
         this->dx = dx;
         this->dy = dy;
@@ -83,6 +86,7 @@ public:
     int getHeight() { return h; }
     int getWidth() { return w; }
     int getY() { return y; }
+    int getCurrentFrame() { return currentFrame; }
 
     friend class SpriteManager;
 };

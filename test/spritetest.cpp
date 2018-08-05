@@ -177,36 +177,67 @@ const u32 kul_data [] = {
         0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
 };
 
-
-
-class SpriteSuite : public ::testing::Test {
-protected:
-protected:
-    virtual void TearDown() {
-    }
-
-    virtual void SetUp() {
+class SpriteWithStubOam : public Sprite {
+public:
+    SpriteWithStubOam() : Sprite(nullptr, imageSize, x, y, SIZE_8_8) {
+        oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
     }
 };
 
-TEST_F(SpriteSuite, CollidesWith_B_Right_Of_A_Does_Not_Collide) {
-    auto a = SpriteBuilder<Sprite>().withLocation(10, 10).withSize(SIZE_16_16).build();
-    auto b = SpriteBuilder<Sprite>().withLocation(40, 10).withSize(SIZE_16_16).build();
+class SpriteSuite : public ::testing::Test {
+protected:
+    SpriteWithStubOam *s;
 
-    ASSERT_FALSE(a.collidesWith(b));
+    virtual void TearDown() {
+        delete s;
+    }
+
+    virtual void SetUp() {
+        s = new SpriteWithStubOam();
+    }
+};
+
+
+TEST_F(SpriteSuite, Animated_Sprite_Increases_Current_Frame_After_Delay) {
+    s->makeAnimated(2, 5);
+
+    ASSERT_EQ(0, s->getCurrentFrame());
+    s->update();                     // 1 times
+    ASSERT_EQ(0, s->getCurrentFrame());
+    for(int i = 1; i <= 4; i++) {   // 4 times
+        s->update();
+    }
+    ASSERT_EQ(0, s->getCurrentFrame());
+    s->update();                    // 5th time
+    ASSERT_EQ(1, s->getCurrentFrame());
+}
+
+TEST_F(SpriteSuite, Animated_Sprite_Resets_Current_Frame_After_Hitting_Max) {
+    s->makeAnimated(2, 0);
+    s->update();
+    ASSERT_EQ(1, s->getCurrentFrame());
+    s->update();
+    ASSERT_EQ(0, s->getCurrentFrame());
+}
+
+TEST_F(SpriteSuite, CollidesWith_B_Right_Of_A_Does_Not_Collide) {
+    auto a = SpriteBuilder<Sprite>().withLocation(10, 10).withSize(SIZE_16_16).buildPtr();
+    auto b = SpriteBuilder<Sprite>().withLocation(40, 10).withSize(SIZE_16_16).buildPtr();
+
+    ASSERT_FALSE(a->collidesWith(*b));
 }
 
 TEST_F(SpriteSuite, CollidesWith_B_Half_In_A_On_X_Axis_Collides) {
-    auto a = SpriteBuilder<Sprite>().withLocation(10, 10).withSize(SIZE_16_16).build();
-    auto b = SpriteBuilder<Sprite>().withLocation(20, 10).withSize(SIZE_16_16).build();
+    auto a = SpriteBuilder<Sprite>().withLocation(10, 10).withSize(SIZE_16_16).buildPtr();
+    auto b = SpriteBuilder<Sprite>().withLocation(20, 10).withSize(SIZE_16_16).buildPtr();
 
-    ASSERT_TRUE(a.collidesWith(b));
+    ASSERT_TRUE(a->collidesWith(*b));
 }
 
 TEST_F(SpriteSuite, BuildingWithSize_SetsWidthAndHeight) {
-    auto s = SpriteBuilder<Sprite>().withSize(SIZE_64_32).build();
-    ASSERT_EQ(64, s.getWidth());
-    ASSERT_EQ(32, s.getHeight());
+    auto s = SpriteBuilder<Sprite>().withSize(SIZE_64_32).buildPtr();
+    ASSERT_EQ(64, s->getWidth());
+    ASSERT_EQ(32, s->getHeight());
 }
 
 TEST_F(SpriteSuite, SpriteBuilderFillsSpriteWithData) {
@@ -214,10 +245,10 @@ TEST_F(SpriteSuite, SpriteBuilderFillsSpriteWithData) {
         .withData(kul_data, sizeof(kul_data))
             .withLocation(10, 20)
             .withSize(SIZE_32_64)
-        .build();
+        .buildPtr();
 
-    ASSERT_EQ(32, sprite.getWidth());
-    ASSERT_EQ(64, sprite.getHeight());
-    ASSERT_EQ(10, sprite.getX());
-    ASSERT_EQ(20, sprite.getY());
+    ASSERT_EQ(32, sprite->getWidth());
+    ASSERT_EQ(64, sprite->getHeight());
+    ASSERT_EQ(10, sprite->getX());
+    ASSERT_EQ(20, sprite->getY());
 }

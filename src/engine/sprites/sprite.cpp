@@ -41,7 +41,7 @@ void Sprite::syncVelocity() {
 }
 
 void Sprite::syncAnimation() {
-    if(amountOfFrames == 0) return;
+    if(!animating) return;
     int newTileIndex = this->tileIndex + (currentFrame * w);
 
     oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
@@ -55,11 +55,11 @@ void Sprite::syncOam() {
 
 void Sprite::updateVelocity() {
     this->x += this->dx;
-    this-> y += this->dy;
+    this->y += this->dy;
 }
 
 void Sprite::updateAnimation() {
-    if(amountOfFrames == 0) return;
+    if(!animating) return;
 
     animationCounter++;
     if(animationCounter > animationDelay) {
