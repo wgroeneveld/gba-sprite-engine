@@ -15,8 +15,6 @@ void GBAEngine::update() {
 
         if(currentEffectForTransition->isDone()) {
             setScene(sceneToTransitionTo);
-            sceneToTransitionTo = nullptr;
-            delete currentEffectForTransition;
         }
     }
 
@@ -38,6 +36,12 @@ u16 GBAEngine::readKeys() {
 GBAEngine::GBAEngine() {
     REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
     Allocator::free();
+}
+
+void GBAEngine::cleanupPreviousScene()  {
+    delete currentScene;
+    sceneToTransitionTo = nullptr;
+    delete currentEffectForTransition;
 }
 
 void GBAEngine::setScene(Scene* scene) {

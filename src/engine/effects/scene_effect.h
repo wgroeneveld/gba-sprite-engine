@@ -9,6 +9,7 @@
 
 class SceneEffect {
 protected:
+    // WHY no reference? Scene& operator= is implicitly deleted and no intentions to use that
     Scene* sceneToAffect;
 public:
     void setSceneToAffect(Scene* scene) { sceneToAffect = scene; };

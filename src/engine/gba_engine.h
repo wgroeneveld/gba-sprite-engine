@@ -13,19 +13,18 @@
 
 class GBAEngine {
 private:
+    // WHY raw pointers? the engine does the transition and cleanup work itself
     Scene* currentScene;
-    SpriteManager spriteManager;
-
     Scene* sceneToTransitionTo;
     SceneEffect* currentEffectForTransition;
+
+    SpriteManager spriteManager;
 
     void vsync() {
         while (REG_VCOUNT >= 160);
         while (REG_VCOUNT < 160);
     }
-    void cleanupPreviousScene() {
-        delete currentScene;
-    }
+    void cleanupPreviousScene();
 
 public:
     GBAEngine();

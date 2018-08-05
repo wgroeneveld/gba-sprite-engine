@@ -22,16 +22,18 @@ protected:
 public:
     ForegroundPaletteManager* getForegroundPalette() { return foregroundPalette.get(); }
     BackgroundPaletteManager* getBackgroundPalette() { return backgroundPalette.get(); }
-    // bg music in here
+
+    // WHY raw pointers? they're unwrapped unique_ptrs managed by the scene implementation - will be cleaned up in engine
     virtual std::vector<Sprite*> sprites() = 0;
     virtual std::vector<Background*> backgrounds() = 0;
+
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
     void setEngineForSceneSwitching(std::shared_ptr<GBAEngine> engine);
 
     Scene() { }
-    ~Scene() {
+    virtual ~Scene() {
         // scenes should manage their own resources - use std::unique_ptr
     }
 
