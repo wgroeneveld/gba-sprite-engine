@@ -48,7 +48,7 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
         if(affineIndex > MAX_AFFINE_SIZE) {
             throw std::runtime_error("max amount of sprites with affine matriches reached");
         }
-        sprite->move();
+        sprite->update();
 
         auto oam = sprite->oam.get();
         oam_mem[i] = *oam;

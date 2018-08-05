@@ -25,7 +25,7 @@ public:
     void setAffineIndex(int index) { this->affIndex = index; }
     void identity();
     void rotate(u16 alpha);
-    AffineSprite(const u32 *imgData, int imgSize, int xC, int yC, SpriteSize spriteSize) : Sprite(imgData, imgSize, xC, yC, spriteSize), affIndex(0) {
+    AffineSprite(const void* imgData, int imgSize, int xC, int yC, SpriteSize spriteSize) : Sprite(imgData, imgSize, xC, yC, spriteSize), affIndex(0) {
     }
 
     friend class SpriteManager;

@@ -6,6 +6,7 @@
 #define GBA_SPRITE_ENGINE_SPRITE_H
 
 #include <engine/gba/tonc_types.h>
+#include <engine/background/text_stream.h>
 #include <memory>
 
 #define COLOR_MODE_16 0
@@ -15,6 +16,11 @@
 #define AFFINE_FLAG_NONE_SET_YET 0
 #define HORIZONTAL_FLIP_FLAG 0
 #define VERTICAL_FLIP_FLAG 0
+
+#define FLIP_VERTICAL_CLEAR 0xdfff
+#define FLIP_HORIZONTAL_CLEAR 0xefff
+#define OAM_TILE_OFFSET_CLEAR 0xfc00
+#define OAM_TILE_OFFSET_NEW 0x03ff
 
 enum SpriteSize {
     SIZE_8_8,
@@ -34,11 +40,18 @@ enum SpriteSize {
 class SpriteManager;
 
 class Sprite {
+private:
+    void updateVelocity();
+    void updateAnimation();
+    void syncVelocity();
+    void syncAnimation();
+
 protected:
     const void *data;
     int x, y, priority, dx, dy;
     int w, h, size_bits, shape_bits;
-    int imageSize;
+    int imageSize, tileIndex;
+    int animationDelay, amountOfFrames, currentFrame, animationCounter;
 
     std::unique_ptr<OBJ_ATTR> oam;
 
@@ -48,14 +61,23 @@ protected:
 
 public:
     Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
+    virtual ~Sprite() {}
 
+    void makeAnimated(int amountOfFrames, int animationDelay) {
+        this->amountOfFrames = amountOfFrames;
+        this->animationDelay = animationDelay;
+    }
     void setVelocity(int dx, int dy) {
         this->dx = dx;
         this->dy = dy;
     }
-    void move();
+    void update();
+
     void moveTo(int x, int y);
     bool collidesWith(const Sprite &other);
+
+    void flipVertically(bool flip);
+    void flipHorizontally(bool flip);
 
     int getX() { return x; }
     int getHeight() { return h; }

@@ -4,10 +4,12 @@
 
 #include <cstdlib>
 #include <engine/gba/tonc_memdef.h>
+#include <engine/background/text_stream.h>
 #include "sprite.h"
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
-        : x(x), y(y), data(imageData), imageSize(imageSize) {
+        : x(x), y(y), data(imageData), imageSize(imageSize),
+          animationDelay(0), amountOfFrames(0), currentFrame(0), animationCounter(0) {
     setAttributesBasedOnSize(size);
 }
 
@@ -17,14 +19,62 @@ void Sprite::moveTo(int x, int y) {
     syncOam();
 }
 
-void Sprite::syncOam() {
+void Sprite::flipHorizontally(bool flip) {
+    if(flip) {
+        oam->attr1 |= ATTR1_HFLIP;
+    } else {
+        oam->attr1 &= FLIP_HORIZONTAL_CLEAR;
+    }
+}
+
+void Sprite::flipVertically(bool flip) {
+    if(flip) {
+        oam->attr1 |= ATTR1_VFLIP;
+    } else {
+        oam->attr1 &= FLIP_VERTICAL_CLEAR;
+    }
+}
+
+void Sprite::syncVelocity() {
     oam->attr0 = (oam->attr0 &  ~ATTR0_Y_MASK) | (y & ATTR0_Y_MASK);
     oam->attr1 = (oam->attr1 & ~ATTR1_X_MASK) | (x & ATTR1_X_MASK);
 }
 
-void Sprite::move() {
+void Sprite::syncAnimation() {
+    if(amountOfFrames == 0) return;
+    int newTileIndex = this->tileIndex + (currentFrame * w);
+
+    oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
+    oam->attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);
+}
+
+void Sprite::syncOam() {
+    syncVelocity();
+    syncAnimation();
+}
+
+void Sprite::updateVelocity() {
     this->x += this->dx;
     this-> y += this->dy;
+}
+
+void Sprite::updateAnimation() {
+    if(amountOfFrames == 0) return;
+
+    animationCounter++;
+    if(animationCounter > animationDelay) {
+        currentFrame++;
+        if(currentFrame > (amountOfFrames - 1)) {
+            currentFrame = 0;
+        }
+
+        animationCounter = 0;
+    }
+}
+
+void Sprite::update() {
+    updateVelocity();
+    updateAnimation();
     syncOam();
 }
 
@@ -56,6 +106,7 @@ bool Sprite::collidesWith(const Sprite &o) {
 
 
 void Sprite::buildOam(int tileIndex) {
+    this->tileIndex = tileIndex;
     this->oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
 
     this->oam->attr0 = ATTR0_Y(this->y) |

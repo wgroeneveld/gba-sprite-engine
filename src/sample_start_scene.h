@@ -9,7 +9,7 @@
 
 class SampleStartScene : public Scene {
 private:
-    std::unique_ptr<Sprite> logo;
+    std::unique_ptr<Sprite> animation;
     std::unique_ptr<Sprite> smiley;
 
 public:

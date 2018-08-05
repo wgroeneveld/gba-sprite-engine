@@ -10,17 +10,22 @@
 template<typename T> class SpriteBuilder {
 private:
     int imageSize;
-    const u32 *imageData;
+    const void *imageData;
     int x, y, dx, dy;
+    int numberOfFrames, animationDelay;
     SpriteSize size;
 
     void reset() {
-        imageSize = x = y = dx = dy = 0;
+        imageSize = x = y = dx = dy = numberOfFrames = animationDelay = 0;
         imageData = nullptr;
         size = SIZE_16_16;
     }
 public:
-    SpriteBuilder& withData(const u32 imageData[], int imageSize) {
+    SpriteBuilder() {
+        reset();
+    }
+
+    SpriteBuilder& withData(const void* imageData, int imageSize) {
         this->imageData = imageData;
         this->imageSize = imageSize;
         return *this;
@@ -30,6 +35,7 @@ public:
         this->dy = dy;
         return *this;
     }
+
     SpriteBuilder& withLocation(int x, int y) {
         this->x = x;
         this->y = y;
@@ -39,6 +45,11 @@ public:
         this->size = size;
         return *this;
     }
+    SpriteBuilder& withAnimated(int numberOfFrames, int delay) {
+        this->numberOfFrames = numberOfFrames;
+        this->animationDelay = delay;
+        return *this;
+    }
     T build();
     std::unique_ptr<T> buildPtr();
 };
@@ -46,6 +57,9 @@ public:
 template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
     auto s = new T(this->imageData, this->imageSize, this->x, this->y, this->size);
     s->setVelocity(this->dx, this->dy);
+    if(this->numberOfFrames > 0) {
+        s->makeAnimated(this->numberOfFrames, this->animationDelay);
+    }
 
     reset();
     return std::unique_ptr<T>(s);
@@ -54,6 +68,9 @@ template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
 template<typename T> T SpriteBuilder<T>::build() {
     T s(this->imageData, this->imageSize, this->x, this->y, this->size);
     s.setVelocity(this->dx, this->dy);
+    if(this->numberOfFrames > 0) {
+        s.makeAnimated(this->numberOfFrames, this->animationDelay);
+    }
 
     reset();
     return s;
