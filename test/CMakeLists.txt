@@ -11,5 +11,5 @@ add_definitions(-DCODE_COMPILED_AS_PART_OF_TEST)
 
 include_directories(${GTEST_LIBRARY}/include)
 
-add_executable(unittest maintest.cpp gbatest.cpp spritetest.cpp ../src/engine/background/background.cpp ../src/engine/background/text_stream.cpp ../src/engine/palette_manager.cpp ../src/engine/sprites/sprite.cpp ../src/engine/allocator.cpp scenetest.cpp allocatortest.cpp palettetest.cpp)
+add_executable(unittest maintest.cpp gbatest.cpp spritetest.cpp ../src/engine/background/background.cpp ../src/engine/background/text_stream.cpp ../src/engine/palette/palette_manager.cpp ../src/engine/sprites/sprite.cpp ../src/engine/allocator.cpp scenetest.cpp allocatortest.cpp palettetest.cpp ../src/engine/palette/combined_palette.cpp ../src/engine/palette/combined_palette.h)
 target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a)

@@ -7,11 +7,14 @@
 
 #include <engine/gba/tonc_memmap.h>
 #include <engine/gba/tonc_types.h>
+#include "combined_palette.h"
 
 #define PALETTE_BANK_SIZE 16
 #define PALETTE_MAX_SIZE 256
 
 int getBits(int number, int k, int p);
+
+class CombinedPalette;
 
 class PaletteManager {
 protected:
@@ -24,11 +27,15 @@ public:
     PaletteManager(const u16 paletteData[]) : data(paletteData), size(PALETTE_MAX_SIZE) {}
     PaletteManager(const u16 paletteData[], int size) : data(paletteData), size(size) {}
 
+    CombinedPalette* operator+(const PaletteManager& other);
+
     void persist();
     void persistToBank(int bank);
     COLOR change(int bank, int index, COLOR newColor);
+    COLOR get(int bank, int index) { return paletteBank()[bank][index]; }
     void increaseBrightness(u32 intensity);
 
+    static COLOR modify(COLOR color, u32 intensity);
     static COLOR color(u32 r, u32 g, u32 b);
     static u32 red(COLOR r);
     static u32 green(COLOR r);

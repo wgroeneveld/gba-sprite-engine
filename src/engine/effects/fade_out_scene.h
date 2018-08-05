@@ -13,9 +13,10 @@ class FadeOutScene : public SceneEffect {
 private:
     int timesUpdated;
     int speed;
+    std::unique_ptr<CombinedPalette> palette;
 
 public:
-    FadeOutScene(int speed) : timesUpdated(0), speed(speed) {}
+    FadeOutScene(int speed);
     void update() override;
     bool isDone() override { return timesUpdated >= (32 / speed); }
 

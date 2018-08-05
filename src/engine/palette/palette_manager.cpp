@@ -14,6 +14,10 @@ int getBits(int number, int k, int p) {
     return (((1 << k) - 1) & (number >> p));
 }
 
+CombinedPalette* PaletteManager::operator+(const PaletteManager &other) {
+    return new CombinedPalette(*this, const_cast<PaletteManager&>(other));
+}
+
 void PaletteManager::persist() {
     dma3_cpy(this->paletteAddress(), this->data, this->size);
 }
@@ -44,6 +48,11 @@ u32 PaletteManager::blue(COLOR r) {
     return getBits(r, 5, 10);
 }
 
+COLOR PaletteManager::modify(COLOR color, u32 intensity) {
+    return PaletteManager::color(PaletteManager::red(color) + intensity,
+                                      PaletteManager::green(color) + intensity, PaletteManager::blue(color) + intensity);
+}
+
 void PaletteManager::increaseBrightness(u32 intensity) {
     if(intensity > 31) {
         failure(Brightness_Intensity_Too_High);
@@ -53,9 +62,8 @@ void PaletteManager::increaseBrightness(u32 intensity) {
     auto palBank = this->paletteBank();
     for(int bank = 0; bank < PALETTE_BANK_SIZE; bank++) {
         for(int index = 0; index < PALETTE_BANK_SIZE; index++) {
-            auto current = palBank[bank][index];
-            auto next = PaletteManager::color(PaletteManager::red(current) + intensity,
-                    PaletteManager::green(current) + intensity, PaletteManager::blue(current) + intensity);
+            auto current = get(bank, index);
+            auto next = PaletteManager::modify(current, intensity);
 
             change(bank, index, next);
         }

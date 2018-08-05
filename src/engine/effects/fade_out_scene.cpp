@@ -4,16 +4,22 @@
 
 #include "fade_out_scene.h"
 
+FadeOutScene::FadeOutScene(int speed) : timesUpdated(0), speed(speed) {
+}
 
 void FadeOutScene::update() {
-    sceneToAffect->getForegroundPalette()->increaseBrightness(speed);
+    if(!this->palette.get()) {
+        auto bgPalette = sceneToAffect->getBackgroundPalette();
+        if(!bgPalette) {
+            BackgroundPaletteManager defaultBg({});
+            bgPalette = &defaultBg;
+        }
 
-    auto bgPalette = sceneToAffect->getBackgroundPalette();
-    if(bgPalette) {
-        bgPalette->increaseBrightness(speed);
-    } else {
-        BackgroundPaletteManager defaultBg({});
-        defaultBg.increaseBrightness(speed);
+        auto combined = (*sceneToAffect->getForegroundPalette() + *bgPalette);
+        this->palette = std::unique_ptr<CombinedPalette>(combined);
+
     }
+
+    this->palette.get()->increaseBrightness(speed);
     timesUpdated++;
 }

@@ -9,7 +9,7 @@
 #include <functional>
 #include <engine/background/background.h>
 #include "engine/sprites/sprite.h"
-#include "palette_manager.h"
+#include "engine/palette/palette_manager.h"
 
 class GBAEngine;
 
@@ -17,7 +17,7 @@ class Scene {
 protected:
     std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
-    GBAEngine* engine;
+    std::shared_ptr<GBAEngine> engine;
 
 public:
     ForegroundPaletteManager* getForegroundPalette() { return foregroundPalette.get(); }
@@ -28,7 +28,7 @@ public:
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
-    void setEngineForSceneSwitching(GBAEngine* engine);
+    void setEngineForSceneSwitching(std::shared_ptr<GBAEngine> engine);
 
     Scene() { }
     ~Scene() {

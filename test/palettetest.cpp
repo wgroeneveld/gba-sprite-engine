@@ -2,7 +2,7 @@
 // Created by Wouter Groeneveld on 04/08/18.
 //
 
-#include <engine/palette_manager.h>
+#include <engine/palette/palette_manager.h>
 #include "gtest/gtest.h"
 
 class SomePaletteManager : public PaletteManager {

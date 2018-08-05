@@ -2,7 +2,7 @@
 #include <engine/gba_engine.h>
 #include <engine/background/text.h>
 #include <engine/background/text_stream.h>
-#include <engine/palette_manager.h>
+#include <engine/palette/palette_manager.h>
 #include <engine/allocator.h>
 
 #include "kul.h"
@@ -15,7 +15,7 @@
  * assumes 8bpp sprites
  */
 int main() {
-    GBAEngine* engine = new GBAEngine();
+    std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
     SampleStartScene* startScene = new SampleStartScene();
     startScene->setEngineForSceneSwitching(engine);
