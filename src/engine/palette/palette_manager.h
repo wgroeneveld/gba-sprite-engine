@@ -18,14 +18,14 @@ class CombinedPalette;
 
 class PaletteManager {
 protected:
-    const u16 *data;
+    const COLOR *data;
     int size;
 
     virtual void* paletteAddress() = 0;
     virtual PALBANK* paletteBank() = 0;
 public:
-    PaletteManager(const u16 paletteData[]) : data(paletteData), size(PALETTE_MAX_SIZE) {}
-    PaletteManager(const u16 paletteData[], int size) : data(paletteData), size(size) {}
+    PaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData, PALETTE_MAX_SIZE) {}
+    PaletteManager(const COLOR paletteData[], int size);
 
     CombinedPalette* operator+(const PaletteManager& other);
 
@@ -54,8 +54,8 @@ protected:
 
 public:
     BackgroundPaletteManager() : PaletteManager(nullptr) {}
-    BackgroundPaletteManager(const u16 paletteData[]) : PaletteManager(paletteData) {}
-    BackgroundPaletteManager(const u16 paletteData[], int size) : PaletteManager(paletteData, size) {}
+    BackgroundPaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData) {}
+    BackgroundPaletteManager(const COLOR paletteData[], int size) : PaletteManager(paletteData, size) {}
 };
 
 
@@ -70,8 +70,8 @@ protected:
     }
 
 public:
-    ForegroundPaletteManager(const u16 paletteData[]) : PaletteManager(paletteData) {}
-    ForegroundPaletteManager(const u16 paletteData[], int size) : PaletteManager(paletteData, size) {}
+    ForegroundPaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData) {}
+    ForegroundPaletteManager(const COLOR paletteData[], int size) : PaletteManager(paletteData, size) {}
 };
 
 #endif //GBA_SPRITE_ENGINE_PALETTE_MANAGER_H

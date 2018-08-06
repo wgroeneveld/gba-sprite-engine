@@ -14,6 +14,10 @@ int getBits(int number, int k, int p) {
     return (((1 << k) - 1) & (number >> p));
 }
 
+PaletteManager::PaletteManager(const COLOR *paletteData, int size) : data(paletteData), size(size) {
+
+}
+
 CombinedPalette* PaletteManager::operator+(const PaletteManager &other) {
     return new CombinedPalette(*this, const_cast<PaletteManager&>(other));
 }
@@ -59,7 +63,6 @@ void PaletteManager::increaseBrightness(u32 intensity) {
         return;
     }
 
-    auto palBank = this->paletteBank();
     for(int bank = 0; bank < PALETTE_BANK_SIZE; bank++) {
         for(int index = 0; index < PALETTE_BANK_SIZE; index++) {
             auto current = get(bank, index);
