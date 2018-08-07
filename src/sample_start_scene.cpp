@@ -10,8 +10,8 @@
 #include "sample_start_scene.h"
 #include "flying_stuff_scene.h"
 
-#include "kul.h"
 #include "lama.h"
+#include "sample_sound.h"
 
 std::vector<Background *> SampleStartScene::backgrounds() {
     return {};
@@ -34,6 +34,7 @@ void SampleStartScene::load() {
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
+    engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
 }
 
 void SampleStartScene::tick(u16 keys) {

@@ -5,9 +5,7 @@
 #include <engine/palette/palette_manager.h>
 #include <engine/allocator.h>
 
-#include "sample_sound.h"
 #include "sample_start_scene.h"
-#include "flying_stuff_scene.h"
 
 /**
  * shared palette extracted from grit
@@ -20,8 +18,6 @@ int main() {
     SampleStartScene* startScene = new SampleStartScene();
     startScene->setEngineForSceneSwitching(engine);
     engine->setScene(startScene);
-
-    engine->queueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
 
     while (true) {
         engine->update();
