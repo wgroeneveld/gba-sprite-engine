@@ -8,7 +8,7 @@
 #include "allocator.h"
 
 int x = 0;
-void onvblank() {
+void GBAEngine::onVBlank() {
     REG_IME = 0;
 
     unsigned short tempInterruptState = REG_IF;
@@ -82,8 +82,8 @@ void GBAEngine::queueSound(const s8 *data, int totalSamples, int sampleRate, Sou
     REG_SNDDSCNT |= control.ControlFlags;           // output to both sides, reset fifo
     REG_SNDSTAT = SSTAT_ENABLE;                     // enable all sound
 
-    *(control.DMASourceAddress) = (u32) data;
-    *(control.DMADestinationAddress) = *(control.FiFoBuffer);
+    *(control.DMASourceAddress) = (u32) data;       // WARNING - these are pointers to the address!
+    *(control.DMADestinationAddress) = (u32) control.FiFoBuffer;
     *(control.DMAControl) = DMA_DST_FIXED | DMA_REPEAT | DMA_32 | DMA_SYNC_TO_TIMER | DMA_ENABLE;
 
     u16 ticksPerSample = CLOCK / sampleRate;        // divide the clock (ticks/second) by the sample rate (samples/second)
@@ -101,7 +101,7 @@ GBAEngine::GBAEngine() {
     // setup interrupt control flags for vblank IRQing
     REG_DISPSTAT |= DISPLAY_INTERRUPT_VBLANK_ENABLE;
     REG_IE |= INTERRUPT_VBLANK;
-    *IRQ_CALLBACK = (u32) &onvblank;
+    *IRQ_CALLBACK = (u32) &GBAEngine::onVBlank;
     //REG_IME = 1;
 
     REG_SNDDSCNT = 0;

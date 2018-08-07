@@ -33,8 +33,6 @@ struct SoundControl {
     u16 ControlFlags;
 };
 
-void onvblank();
-
 class GBAEngine {
 private:
     // WHY raw pointers? the engine does the transition and cleanup work itself
@@ -56,6 +54,7 @@ private:
 
     void cleanupPreviousScene();
     void queueSound(const s8* data, int totalSamples, int sampleRate, SoundControl control);
+    static void onVBlank();
 
 public:
     GBAEngine();
