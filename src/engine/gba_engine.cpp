@@ -23,8 +23,12 @@ void GBAEngine::onVBlank() {
     unsigned short tempInterruptState = REG_IF;
 
     if((REG_IF & INTERRUPT_VBLANK) == INTERRUPT_VBLANK) {
-        if(GBAEngine::activeChannelA && GBAEngine::activeChannelA->done()) {
-
+        if(GBAEngine::activeChannelA) {
+            if(GBAEngine::activeChannelA->done()) {
+                GBAEngine::activeChannelA->reset();
+            } else {
+                GBAEngine::activeChannelA->step();
+            }
         }
         if(GBAEngine::activeChannelB) {
             if(GBAEngine::activeChannelB->done()) {

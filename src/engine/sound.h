@@ -33,12 +33,15 @@ private:
     u32 vblanksRemaning;            // updated each vblank, counts down to 0
     u32 vblanksTotal;               // calculated once when enqueueing
 
+    const void* data;
+
 public:
     SoundControl(vu32* dma, vu32* src, vu32* dest, vu32* fifo, u16 flags)
     : DMAControl(dma), DMASourceAddress(src), DMADestinationAddress(dest), FiFoBuffer(fifo), controlFlags(flags), vblanksRemaning(0), vblanksTotal(0) {}
 
     u16 getControlFlags() { return controlFlags; }
     u32 getVBlanksRemaning() { return vblanksRemaning; }
+    void reset();
     void step() { vblanksRemaning--; }
     bool done() { return vblanksRemaning <= 0; }
     u32 getVBlanksTotal() { return vblanksTotal; }

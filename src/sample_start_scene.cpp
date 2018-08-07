@@ -35,15 +35,17 @@ void SampleStartScene::load() {
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
-    engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
+    engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
 void SampleStartScene::tick(u16 keys) {
     if(keys & KEY_START) {
         if(!engine->isTransitioning()) {
+            engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
+
             TextStream::instance() << "entered: starting next scene";
 
-            engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(4));
+            engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }
     } else if(keys & KEY_LEFT) {
         animation->flipHorizontally(true);
