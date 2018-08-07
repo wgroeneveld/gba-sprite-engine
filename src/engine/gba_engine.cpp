@@ -7,8 +7,8 @@
 #include "gba_engine.h"
 #include "allocator.h"
 
-SoundControl* GBAEngine::activeChannelA;
-SoundControl* GBAEngine::activeChannelB;
+std::unique_ptr<SoundControl> GBAEngine::activeChannelA;
+std::unique_ptr<SoundControl> GBAEngine::activeChannelB;
 
 void GBAEngine::vsync() {
     while (REG_VCOUNT >= 160);
@@ -16,6 +16,8 @@ void GBAEngine::vsync() {
 }
 
 void GBAEngine::onVBlank() {
+    // WARNING this is a very dangerous piece of code.
+    // GBA IRQs seem eager to crash or eat up CPU. Get in, disable stuff, work, enable, get out!
     stopOnVBlank();
 
     unsigned short tempInterruptState = REG_IF;
@@ -27,7 +29,7 @@ void GBAEngine::onVBlank() {
         if(GBAEngine::activeChannelB) {
             if(GBAEngine::activeChannelB->done()) {
                 GBAEngine::activeChannelB->disable();
-                delete GBAEngine::activeChannelB;
+                GBAEngine::activeChannelB = nullptr;    // never delete, let unique_ptr do that, known to flip here
             } else {
                 GBAEngine::activeChannelB->step();
             }
@@ -44,6 +46,7 @@ u16 GBAEngine::readKeys() {
 
 void GBAEngine::dequeueAllSounds() {
     stopOnVBlank();
+    vsync();
 
     if(GBAEngine::activeChannelA) {
         GBAEngine::activeChannelA->disable();
@@ -57,16 +60,14 @@ void GBAEngine::enqueueSound(const s8 *data, int totalSamples, int sampleRate, S
     stopOnVBlank();
 
     if(channel == ChannelA) {                       // repeating bg music can be restarted
-        if(GBAEngine::activeChannelA) delete GBAEngine::activeChannelA;
-        control = SoundControl::channelAControl();
-        GBAEngine::activeChannelA = control;
+        GBAEngine::activeChannelA = SoundControl::channelAControl();
+        control = GBAEngine::activeChannelA.get();
     } else {                                        // sound still playing, don't stop that
         if(GBAEngine::activeChannelB) {
             if(!GBAEngine::activeChannelB->done()) return;
-            delete GBAEngine::activeChannelB;
         }
-        control = SoundControl::channelBControl();
-        GBAEngine::activeChannelB = control;
+        GBAEngine::activeChannelB = SoundControl::channelBControl();
+        control = GBAEngine::activeChannelB.get();
     }
 
     REG_TM0CNT = 0;
@@ -98,8 +99,9 @@ GBAEngine::GBAEngine() {
 }
 
 void GBAEngine::update() {
+    vsync();
+
     if(sceneToTransitionTo) {
-        dequeueAllSounds();
         currentEffectForTransition->update();
 
         if(currentEffectForTransition->isDone()) {
@@ -110,7 +112,6 @@ void GBAEngine::update() {
     u16 keys = readKeys();
     this->currentScene->tick(keys);
 
-    vsync();
     spriteManager.render();
 }
 
@@ -127,6 +128,7 @@ void GBAEngine::cleanupPreviousScene()  {
 }
 
 void GBAEngine::setScene(Scene* scene) {
+    dequeueAllSounds();
     if(this->currentScene) {
         cleanupPreviousScene();
         TextStream::instance().clear();
@@ -134,13 +136,15 @@ void GBAEngine::setScene(Scene* scene) {
     scene->load();
 
     auto fgPalette = scene->getForegroundPalette();
-    if(fgPalette) {
-        fgPalette->persist();
+    if(!fgPalette) {
+        failure(NoFgPaletteDefined);
     }
+    fgPalette->persist();
     auto bgPalette = scene->getBackgroundPalette();
-    if(bgPalette) {
-        bgPalette->persist();
+    if(!bgPalette) {
+        failure(NoBgPaletteDefined);
     }
+    bgPalette->persist();
 
     Allocator::free();
     TextStream::instance().persist();

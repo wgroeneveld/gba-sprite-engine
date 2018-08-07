@@ -11,22 +11,22 @@ void SoundControl::accept(const void *data, int totalSamples, int ticksPerSample
     vblanksTotal = vblanksRemaning = totalSamples * ticksPerSample * (1.0 / CYCLES_PER_BLANK);
 };
 
-SoundControl* SoundControl::channelAControl() {
-    return new SoundControl{
+std::unique_ptr<SoundControl> SoundControl::channelAControl() {
+    return std::unique_ptr<SoundControl>(new SoundControl{
             &REG_DMA1CNT,
             &REG_DMA1SAD,
             &REG_DMA1DAD,
             &REG_FIFOA,
             SDS_AR | SDS_AL | SDS_ARESET
-    };
+    });
 }
 
-SoundControl* SoundControl::channelBControl() {
-    return new SoundControl{
+std::unique_ptr<SoundControl> SoundControl::channelBControl() {
+    return std::unique_ptr<SoundControl>(new SoundControl{
             &REG_DMA2CNT,
             &REG_DMA2SAD,
             &REG_DMA2DAD,
             &REG_FIFOB,
             SDS_BR | SDS_BL | SDS_BRESET
-    };
+    });
 }

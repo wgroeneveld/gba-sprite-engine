@@ -53,10 +53,10 @@ public:
     };
     void accept(const void* data, int totalSamples, int ticksPerSample);
 
-    static SoundControl* channelAControl();
-    static SoundControl* channelBControl();
+    static std::unique_ptr<SoundControl> channelAControl();
+    static std::unique_ptr<SoundControl> channelBControl();
 
-    static SoundControl* soundControl(SoundChannel channel) {
+    static std::unique_ptr<SoundControl> soundControl(SoundChannel channel) {
         return channel == ChannelA ? channelAControl() : channelBControl();
     };
 };

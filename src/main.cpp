@@ -15,8 +15,7 @@
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
-    SampleStartScene* startScene = new SampleStartScene();
-    startScene->setEngineForSceneSwitching(engine);
+    SampleStartScene* startScene = new SampleStartScene(engine);
     engine->setScene(startScene);
 
     while (true) {

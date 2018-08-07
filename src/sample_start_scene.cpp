@@ -23,6 +23,7 @@ std::vector<Sprite *> SampleStartScene::sprites() {
 
 void SampleStartScene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(lama_palette, sizeof(lama_palette)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     SpriteBuilder<Sprite> builder;
 
@@ -39,9 +40,11 @@ void SampleStartScene::load() {
 
 void SampleStartScene::tick(u16 keys) {
     if(keys & KEY_START) {
-        TextStream::instance() << "entered: starting next scene";
+        if(!engine->isTransitioning()) {
+            TextStream::instance() << "entered: starting next scene";
 
-        engine->transitionIntoScene(new FlyingStuffScene(), new FadeOutScene(2));
+            engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(4));
+        }
     } else if(keys & KEY_LEFT) {
         animation->flipHorizontally(true);
     } else if(keys & KEY_RIGHT) {

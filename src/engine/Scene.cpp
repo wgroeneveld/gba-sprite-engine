@@ -5,7 +5,3 @@
 #include "Scene.h"
 
 #include <engine/gba_engine.h>
-
-void Scene::setEngineForSceneSwitching(std::shared_ptr<GBAEngine> engine) {
-    this->engine = engine;
-}

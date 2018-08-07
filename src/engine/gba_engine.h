@@ -22,8 +22,8 @@ private:
 
     SpriteManager spriteManager;
 
-    static SoundControl* activeChannelA;
-    static SoundControl* activeChannelB;
+    static std::unique_ptr<SoundControl> activeChannelA;
+    static std::unique_ptr<SoundControl> activeChannelB;
 
     void vsync();
     void cleanupPreviousScene();
@@ -38,6 +38,7 @@ public:
 
     void setScene(Scene* scene);
     void transitionIntoScene(Scene* scene, SceneEffect* effect);
+    bool isTransitioning() { return currentEffectForTransition != nullptr; }
 
     void dequeueAllSounds();
     void enqueueMusic(const s8 *data, int totalSamples) {

@@ -24,6 +24,7 @@ protected:
     virtual void* paletteAddress() = 0;
     virtual PALBANK* paletteBank() = 0;
 public:
+    PaletteManager();
     PaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData, PALETTE_MAX_SIZE) {}
     PaletteManager(const COLOR paletteData[], int size);
 
@@ -53,7 +54,7 @@ protected:
     }
 
 public:
-    BackgroundPaletteManager() : PaletteManager(nullptr) {}
+    BackgroundPaletteManager() : PaletteManager() {}
     BackgroundPaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData) {}
     BackgroundPaletteManager(const COLOR paletteData[], int size) : PaletteManager(paletteData, size) {}
 };
