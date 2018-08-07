@@ -8,6 +8,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "${BASE_CMAKE_LINK_FLAGS} -mthumb-interwork -mthumb -
 
 project(gba-sprite-engine)
 SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-narrowing")
 set(CMAKE_VERBOSE_MAKEFILE on)
 
 include_directories(src)
