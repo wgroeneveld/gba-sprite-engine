@@ -5,10 +5,10 @@
 #ifndef GBA_SPRITE_ENGINE_SOUND_H
 #define GBA_SPRITE_ENGINE_SOUND_H
 
-#include <engine/gba/tonc_types.h>
-#include <engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/gba/tonc_types.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <memory>
-#include <engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
 
 #define CLOCK 16777216
 #define CYCLES_PER_BLANK 280806

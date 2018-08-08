@@ -5,8 +5,8 @@
 #ifndef GBA_SPRITE_ENGINE_PALETTE_MANAGER_H
 #define GBA_SPRITE_ENGINE_PALETTE_MANAGER_H
 
-#include <engine/gba/tonc_memmap.h>
-#include <engine/gba/tonc_types.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/gba/tonc_types.h>
 #include "combined_palette.h"
 
 #define PALETTE_BANK_SIZE 16

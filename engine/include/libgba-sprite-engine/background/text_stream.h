@@ -10,7 +10,7 @@
 
 #include <string>
 #include <memory>
-#include <engine/palette/palette_manager.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
 
 #define CHAR_OFFSET_INDEX 32
 #define TILE_WIDTH 32

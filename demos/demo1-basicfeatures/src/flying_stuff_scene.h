@@ -5,12 +5,12 @@
 #ifndef GBA_SPRITE_ENGINE_FLYING_STUFF_SCENE_H
 #define GBA_SPRITE_ENGINE_FLYING_STUFF_SCENE_H
 
-#include <engine/sprites/sprite.h>
-#include <engine/sprites/affine_sprite.h>
-#include <engine/Scene.h>
-#include <engine/background/background.h>
+#include <libgba-sprite-engine/sprites/sprite.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
+#include <libgba-sprite-engine/scene.h>
+#include <libgba-sprite-engine/background/background.h>
 
-class FlyingStuffScene : public Scene {
+class FlyingStuffScene : public scene {
 private:
     std::unique_ptr<Sprite> smiley;
     std::unique_ptr<AffineSprite> player;
@@ -22,7 +22,7 @@ private:
     int rotation;
     int rotationDiff = 128;
 public:
-    FlyingStuffScene(std::shared_ptr<GBAEngine> engine) : Scene(engine), rotation(0), rotationDiff(128), scrollX(0), scrollY(0) {}
+    FlyingStuffScene(std::shared_ptr<GBAEngine> engine) : scene(engine), rotation(0), rotationDiff(128), scrollX(0), scrollY(0) {}
 
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

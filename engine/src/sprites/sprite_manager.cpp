@@ -2,11 +2,11 @@
 // Created by Wouter Groeneveld on 26/07/18.
 //
 
-#include <engine/sprites/sprite_manager.h>
-#include <engine/sprites/affine_sprite.h>
+#include <libgba-sprite-engine/sprites/sprite_manager.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 
-#include <engine/gba/tonc_core.h>
-#include <engine/allocator.h>
+#include <libgba-sprite-engine/gba/tonc_core.h>
+#include <libgba-sprite-engine/allocator.h>
 
 #define MAX_SPRITE_SIZE 128
 #define MAX_AFFINE_SIZE 31

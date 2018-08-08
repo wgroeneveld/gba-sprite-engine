@@ -5,9 +5,9 @@
 #ifndef GBA_SPRITE_ENGINE_SAMPLE_START_SCENE_H
 #define GBA_SPRITE_ENGINE_SAMPLE_START_SCENE_H
 
-#include <engine/Scene.h>
+#include <libgba-sprite-engine/scene.h>
 
-class SampleStartScene : public Scene {
+class SampleStartScene : public scene {
 private:
     std::unique_ptr<Sprite> animation;
     std::unique_ptr<Sprite> smiley;
@@ -16,7 +16,7 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    SampleStartScene(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
+    SampleStartScene(std::shared_ptr<GBAEngine> engine) : scene(engine) {}
 
     void load() override;
     void tick(u16 keys) override;

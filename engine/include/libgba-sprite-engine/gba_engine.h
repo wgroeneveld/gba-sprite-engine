@@ -6,18 +6,18 @@
 #define GBA_SPRITE_ENGINE_GBAENGINE_H
 
 
-#include <engine/sprites/sprite_manager.h>
-#include <engine/gba/tonc_memmap.h>
-#include <engine/gba/tonc_memdef.h>
-#include <engine/effects/scene_effect.h>
-#include "Scene.h"
+#include <libgba-sprite-engine/sprites/sprite_manager.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/effects/scene_effect.h>
+#include "scene.h"
 #include "sound_control.h"
 
 class GBAEngine {
 private:
     // WHY raw pointers? the engine does the transition and cleanup work itself
-    Scene* currentScene;
-    Scene* sceneToTransitionTo;
+    scene* currentScene;
+    scene* sceneToTransitionTo;
     SceneEffect* currentEffectForTransition;
 
     SpriteManager spriteManager;
@@ -36,8 +36,8 @@ private:
 public:
     GBAEngine();
 
-    void setScene(Scene* scene);
-    void transitionIntoScene(Scene* scene, SceneEffect* effect);
+    void setScene(scene* scene);
+    void transitionIntoScene(scene* scene, SceneEffect* effect);
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
 
     void dequeueAllSounds();

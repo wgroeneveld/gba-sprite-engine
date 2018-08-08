@@ -3,12 +3,12 @@
 //
 
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <engine/gba/tonc_core_stub.h>
+#include <libgba-sprite-engine/gba/tonc_core_stub.h>
 #else
-#include <engine/gba/tonc_core.h>
+#include <libgba-sprite-engine/gba/tonc_core.h>
 #endif
-#include <engine/background/text_stream.h>
-#include <engine/palette/palette_manager.h>
+#include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
 
 const COLOR defaultPaletteData[PALETTE_MAX_SIZE] __attribute__((aligned(4))) = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

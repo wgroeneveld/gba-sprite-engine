@@ -6,7 +6,7 @@
 #define GBA_SPRITE_ENGINE_BACKGROUND_H
 
 
-#include <engine/gba/tonc_types.h>
+#include <libgba-sprite-engine/gba/tonc_types.h>
 
 class Background {
 private:

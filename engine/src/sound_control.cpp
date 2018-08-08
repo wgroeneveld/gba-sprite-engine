@@ -2,8 +2,8 @@
 // Created by Wouter Groeneveld on 07/08/18.
 //
 
-#include <engine/gba/tonc_memmap.h>
-#include <engine/sound_control.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/sound_control.h>
 
 void SoundControl::accept(const void *data, int totalSamples, int ticksPerSample)  {
     this->data = data;

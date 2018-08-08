@@ -2,9 +2,9 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/Scene.h>
-#include <engine/sprites/sprite_builder.h>
-#include <engine/gba_engine.h>
+#include <libgba-sprite-engine/scene.h>
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/gba_engine.h>
 #include "gtest/gtest.h"
 
 class SceneSuite : public ::testing::Test {
@@ -17,12 +17,12 @@ protected:
     }
 };
 
-class SomeScene : public Scene {
+class SomeScene : public scene {
 private:
     std::unique_ptr<Sprite> someSprite1;
     std::unique_ptr<Sprite> someSprite2;
 public:
-    SomeScene() : Scene(nullptr) { };
+    SomeScene() : scene(nullptr) { };
     std::vector<Sprite *> sprites() override {
         return {
             someSprite1.get(), someSprite2.get()

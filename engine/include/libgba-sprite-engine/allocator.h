@@ -7,8 +7,8 @@
 #define GBA_SPRITE_ENGINE_ALLOCATOR_H
 
 
-#include <engine/gba/tonc_types.h>
-#include <engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/gba/tonc_types.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
 #include <vector>
 
 #define MEM_OBJ_VRAM_BASE (MEM_VRAM + VRAM_BG_SIZE)

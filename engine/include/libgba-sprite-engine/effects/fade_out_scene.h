@@ -6,7 +6,7 @@
 #define GBA_SPRITE_ENGINE_FADE_OUT_SCENE_H
 
 
-#include <engine/Scene.h>
+#include <libgba-sprite-engine/scene.h>
 #include "scene_effect.h"
 
 class FadeOutScene : public SceneEffect {

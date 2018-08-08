@@ -2,9 +2,9 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/gba/tonc_memmap.h>
-#include <engine/palette/palette_manager.h>
-#include <engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 
 #include <memory>
 

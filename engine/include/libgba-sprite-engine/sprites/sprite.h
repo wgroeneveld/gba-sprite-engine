@@ -5,7 +5,7 @@
 #ifndef GBA_SPRITE_ENGINE_SPRITE_H
 #define GBA_SPRITE_ENGINE_SPRITE_H
 
-#include <engine/gba/tonc_types.h>
+#include <libgba-sprite-engine/gba/tonc_types.h>
 #include <memory>
 
 #define COLOR_MODE_16 0

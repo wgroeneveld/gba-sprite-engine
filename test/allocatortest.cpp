@@ -2,13 +2,13 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/Scene.h>
-#include <engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/scene.h>
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <gtest/gtest.h>
-#include <engine/allocator.h>
+#include <libgba-sprite-engine/allocator.h>
 #include "gtest/gtest.h"
 #include <iostream>
-#include <engine/background/text.h>
+#include <libgba-sprite-engine/background/text.h>
 #include "real_data.h"
 
 using namespace std;

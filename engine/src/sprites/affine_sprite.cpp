@@ -2,10 +2,10 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/gba/tonc_memdef.h>
-#include <engine/gba/tonc_oam.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/gba/tonc_oam.h>
 
-#include <engine/sprites/affine_sprite.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 void AffineSprite::identity() {
     obj_aff_identity(this->affine.get());

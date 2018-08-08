@@ -1,6 +1,6 @@
 
-#include <engine/sprites/sprite.h>
-#include <engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/sprites/sprite.h>
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "gtest/gtest.h"
 
 const u32 kul_data [] = {

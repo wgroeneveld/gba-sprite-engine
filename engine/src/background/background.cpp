@@ -2,16 +2,16 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
 #include <stdexcept>
-#include <engine/allocator.h>
+#include <libgba-sprite-engine/allocator.h>
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <engine/gba/tonc_core_stub.h>
+#include <libgba-sprite-engine/gba/tonc_core_stub.h>
 #else
-#include <engine/gba/tonc_core.h>
+#include <libgba-sprite-engine/gba/tonc_core.h>
 #endif
-#include <engine/background/background.h>
-#include <engine/background/text_stream.h>
+#include <libgba-sprite-engine/background/background.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 
 #define TRANSPARENT_TILE_NUMBER 192     // as shown in mGBA, next "free" tile after text. Hardcoded indeed.
 

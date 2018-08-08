@@ -2,10 +2,10 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/sprites/affine_sprite.h>
-#include <engine/sprites/sprite_builder.h>
-#include <engine/gba/tonc_memmap.h>
-#include <engine/background/text_stream.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/gba/tonc_memmap.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 #include "flying_stuff_scene.h"
 #include "kul.h"
 

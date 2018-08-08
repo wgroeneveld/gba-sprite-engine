@@ -3,8 +3,8 @@
 //
 
 
-#include <engine/background/text_stream.h>
-#include <engine/palette/palette_manager.h>
+#include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
 
 void CombinedPalette::increaseBrightness(PaletteManager& palette, int bank, int index, u32 intensity) {
     auto current = palette.get(bank, index);

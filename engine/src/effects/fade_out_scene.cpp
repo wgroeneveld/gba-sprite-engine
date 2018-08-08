@@ -2,7 +2,7 @@
 // Created by Wouter Groeneveld on 04/08/18.
 //
 
-#include <engine/effects/fade_out_scene.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 FadeOutScene::FadeOutScene(int speed) : timesUpdated(0), speed(speed) {
 }

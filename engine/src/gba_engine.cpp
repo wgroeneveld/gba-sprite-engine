@@ -2,10 +2,10 @@
 // Created by Wouter Groeneveld on 28/07/18.
 //
 
-#include <engine/gba/tonc_memdef.h>
-#include <engine/background/text_stream.h>
-#include <engine/gba_engine.h>
-#include <engine/allocator.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/allocator.h>
 
 std::unique_ptr<SoundControl> GBAEngine::activeChannelA;
 std::unique_ptr<SoundControl> GBAEngine::activeChannelB;
@@ -119,7 +119,7 @@ void GBAEngine::update() {
     spriteManager.render();
 }
 
-void GBAEngine::transitionIntoScene(Scene *scene, SceneEffect* effect) {
+void GBAEngine::transitionIntoScene(scene *scene, SceneEffect* effect) {
     sceneToTransitionTo = scene;
     currentEffectForTransition = effect;
     currentEffectForTransition->setSceneToAffect(this->currentScene);
@@ -131,7 +131,7 @@ void GBAEngine::cleanupPreviousScene()  {
     delete currentEffectForTransition;
 }
 
-void GBAEngine::setScene(Scene* scene) {
+void GBAEngine::setScene(scene* scene) {
     dequeueAllSounds();
     if(this->currentScene) {
         cleanupPreviousScene();

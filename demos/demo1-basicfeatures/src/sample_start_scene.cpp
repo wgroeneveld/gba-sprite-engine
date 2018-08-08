@@ -2,11 +2,11 @@
 // Created by Wouter Groeneveld on 02/08/18.
 //
 
-#include <engine/sprites/sprite_builder.h>
-#include <engine/background/text_stream.h>
-#include <engine/gba/tonc_memdef.h>
-#include <engine/gba_engine.h>
-#include <engine/effects/fade_out_scene.h>
+#include <libgba-sprite-engine/sprites/sprite_builder.h>
+#include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "sample_start_scene.h"
 #include "flying_stuff_scene.h"
 

@@ -7,13 +7,13 @@
 
 #include <vector>
 #include <functional>
-#include <engine/background/background.h>
-#include "engine/sprites/sprite.h"
-#include "engine/palette/palette_manager.h"
+#include <libgba-sprite-engine/background/background.h>
+#include <libgba-sprite-engine/sprites/sprite.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
 
 class GBAEngine;
 
-class Scene {
+class scene {
 protected:
     std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
@@ -30,8 +30,8 @@ public:
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
-    Scene(std::shared_ptr<GBAEngine> engine) : engine(engine) { }
-    virtual ~Scene() {
+    scene(std::shared_ptr<GBAEngine> engine) : engine(engine) { }
+    virtual ~scene() {
         // scenes should manage their own resources - use std::unique_ptr
     }
 

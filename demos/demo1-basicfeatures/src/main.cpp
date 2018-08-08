@@ -1,9 +1,9 @@
-#include <engine/Scene.h>
-#include <engine/gba_engine.h>
-#include <engine/background/text.h>
-#include <engine/background/text_stream.h>
-#include <engine/palette/palette_manager.h>
-#include <engine/allocator.h>
+#include <libgba-sprite-engine/scene.h>
+#include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/background/text.h>
+#include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/palette/palette_manager.h>
+#include <libgba-sprite-engine/allocator.h>
 
 #include "sample_start_scene.h"
 
