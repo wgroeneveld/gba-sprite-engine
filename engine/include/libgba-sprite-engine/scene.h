@@ -13,7 +13,7 @@
 
 class GBAEngine;
 
-class scene {
+class Scene {
 protected:
     std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
@@ -30,8 +30,8 @@ public:
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
-    scene(std::shared_ptr<GBAEngine> engine) : engine(engine) { }
-    virtual ~scene() {
+    Scene(std::shared_ptr<GBAEngine> engine) : engine(engine) { }
+    virtual ~Scene() {
         // scenes should manage their own resources - use std::unique_ptr
     }
 

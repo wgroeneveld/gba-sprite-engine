@@ -33,6 +33,7 @@ private:
 
 public:
     void clear();
+    void setText(std::string text, int row, int col);
     void setText(const char* text, int row, int col);
     void setTextColor(COLOR color);
     static TextStream& instance();

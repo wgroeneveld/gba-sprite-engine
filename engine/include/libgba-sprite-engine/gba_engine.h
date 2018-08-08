@@ -13,11 +13,14 @@
 #include "scene.h"
 #include "sound_control.h"
 
+#define GBA_SCREEN_WIDTH 240
+#define GBA_SCREEN_HEIGHT 160
+
 class GBAEngine {
 private:
     // WHY raw pointers? the engine does the transition and cleanup work itself
-    scene* currentScene;
-    scene* sceneToTransitionTo;
+    Scene* currentScene;
+    Scene* sceneToTransitionTo;
     SceneEffect* currentEffectForTransition;
 
     SpriteManager spriteManager;
@@ -36,16 +39,16 @@ private:
 public:
     GBAEngine();
 
-    void setScene(scene* scene);
-    void transitionIntoScene(scene* scene, SceneEffect* effect);
+    void setScene(Scene* scene);
+    void transitionIntoScene(Scene* scene, SceneEffect* effect);
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
 
     void dequeueAllSounds();
-    void enqueueMusic(const s8 *data, int totalSamples) {
-        enqueueSound(data, totalSamples, 16000, ChannelA);
+    void enqueueMusic(const s8 *data, int totalSamples, int sampleRate = 16000) {
+        enqueueSound(data, totalSamples, sampleRate, ChannelA);
     }
-    void enqueueSound(const s8 *data, int totalSamples) {
-        enqueueSound(data, totalSamples, 16000, ChannelB);
+    void enqueueSound(const s8 *data, int totalSamples, int sampleRate = 16000) {
+        enqueueSound(data, totalSamples, sampleRate, ChannelB);
     }
 
     u16 readKeys();

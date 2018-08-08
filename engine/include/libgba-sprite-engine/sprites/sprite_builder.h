@@ -10,6 +10,7 @@
 template<typename T> class SpriteBuilder {
 private:
     int imageSize;
+    bool stayWithinBounds;
     const void *imageData;
     int x, y, dx, dy;
     int numberOfFrames, animationDelay;
@@ -24,7 +25,10 @@ public:
     SpriteBuilder() {
         reset();
     }
-
+    SpriteBuilder& withinBounds() {
+        stayWithinBounds = true;
+        return *this;
+    }
     SpriteBuilder& withData(const void* imageData, int imageSize) {
         this->imageData = imageData;
         this->imageSize = imageSize;
@@ -60,6 +64,7 @@ template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
     if(this->numberOfFrames > 0) {
         s->makeAnimated(this->numberOfFrames, this->animationDelay);
     }
+    s->setStayWithinBounds(stayWithinBounds);
 
     reset();
     return std::unique_ptr<T>(s);
@@ -71,6 +76,7 @@ template<typename T> T SpriteBuilder<T>::build() {
     if(this->numberOfFrames > 0) {
         s.makeAnimated(this->numberOfFrames, this->animationDelay);
     }
+    s.setStayWithinBounds(stayWithinBounds);
 
     reset();
     return s;

@@ -6,6 +6,7 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
+#include <libgba-sprite-engine/gba_engine.h>
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
         : x(x), y(y), data(imageData), imageSize(imageSize),
@@ -56,6 +57,13 @@ void Sprite::syncOam() {
 void Sprite::updateVelocity() {
     this->x += this->dx;
     this->y += this->dy;
+
+    if(stayWithinBounds) {
+        if(this->x < 0) this->x = 0;
+        if(this->y < 0) this->y = 0;
+        if(this->x > (GBA_SCREEN_WIDTH - this->w)) this->x = GBA_SCREEN_WIDTH - this->w;
+        if(this->y > (GBA_SCREEN_HEIGHT - this->h)) this->y = GBA_SCREEN_HEIGHT - this->h;
+    }
 }
 
 void Sprite::updateAnimation() {
@@ -95,10 +103,13 @@ void Sprite::setAttributesBasedOnSize(SpriteSize size) {
     }
 }
 
-bool Sprite::collidesWith(const Sprite &o) {
-    const Sprite &s = *this;
-    if((abs(s.x - o.x) < (s.w + o.w) / 2)
-       && abs(s.y - o.y) < (s.h + o.h) / 2) {
+bool Sprite::collidesWith(Sprite &s2) {
+    const Sprite &s1 = *this;
+
+    if(s1.x < s2.x + s2.w &&
+            s1.x + s1.w > s2.x &&
+            s1.y < s2.y + s2.h &&
+            s1.h + s1.y > s2.y) {
         return true;
     }
     return false;

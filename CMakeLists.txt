@@ -22,7 +22,9 @@ project(gba-sprite-engine-project VERSION 0.1 LANGUAGES CXX)
 include(GNUInstallDirs)
 
 add_subdirectory(engine)
-add_subdirectory(demos/demo1-basicfeatures)
 
 # this should be a part of the engine CMakeLists.txt file but cross-compiling and gtest doesn't work
 add_subdirectory(test)
+
+add_subdirectory(demos/demo1-basicfeatures)
+add_subdirectory(demos/demo2-arkanoid)

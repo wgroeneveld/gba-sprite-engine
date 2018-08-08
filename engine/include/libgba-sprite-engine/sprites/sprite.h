@@ -49,6 +49,7 @@ protected:
     const void *data;
     int x, y, priority, dx, dy;
     int w, h, size_bits, shape_bits;
+    bool stayWithinBounds;
     int imageSize, tileIndex;
     int animationDelay, amountOfFrames, currentFrame, animationCounter;
     bool animating;
@@ -70,6 +71,7 @@ public:
     }
     void animate() { this->animating = true; }
     void stopAnimating() { this->animating = false; }
+    void setStayWithinBounds(bool b) { stayWithinBounds = b; }
     void setVelocity(int dx, int dy) {
         this->dx = dx;
         this->dy = dy;
@@ -77,11 +79,13 @@ public:
     void update();
 
     void moveTo(int x, int y);
-    bool collidesWith(const Sprite &other);
+    bool collidesWith(Sprite &s2);
 
     void flipVertically(bool flip);
     void flipHorizontally(bool flip);
 
+    int getDx() { return dx; }
+    int getDy() { return dy; }
     int getX() { return x; }
     int getHeight() { return h; }
     int getWidth() { return w; }

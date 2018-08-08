@@ -61,7 +61,6 @@ void GBAEngine::dequeueAllSounds() {
 
 void GBAEngine::enqueueSound(const s8 *data, int totalSamples, int sampleRate, SoundChannel channel) {
     SoundControl* control;
-    stopOnVBlank();
 
     if(channel == ChannelA) {                       // repeating bg music can be restarted
         GBAEngine::activeChannelA = SoundControl::channelAControl();
@@ -69,11 +68,13 @@ void GBAEngine::enqueueSound(const s8 *data, int totalSamples, int sampleRate, S
     } else {                                        // sound still playing, don't stop that
         if(GBAEngine::activeChannelB) {
             if(!GBAEngine::activeChannelB->done()) return;
+            GBAEngine::activeChannelB = nullptr;
         }
         GBAEngine::activeChannelB = SoundControl::channelBControl();
         control = GBAEngine::activeChannelB.get();
     }
 
+    stopOnVBlank();
     REG_TM0CNT = 0;
     control->disable();
 
@@ -119,7 +120,7 @@ void GBAEngine::update() {
     spriteManager.render();
 }
 
-void GBAEngine::transitionIntoScene(scene *scene, SceneEffect* effect) {
+void GBAEngine::transitionIntoScene(Scene* scene, SceneEffect* effect) {
     sceneToTransitionTo = scene;
     currentEffectForTransition = effect;
     currentEffectForTransition->setSceneToAffect(this->currentScene);
@@ -131,7 +132,7 @@ void GBAEngine::cleanupPreviousScene()  {
     delete currentEffectForTransition;
 }
 
-void GBAEngine::setScene(scene* scene) {
+void GBAEngine::setScene(Scene* scene) {
     dequeueAllSounds();
     if(this->currentScene) {
         cleanupPreviousScene();

@@ -51,6 +51,10 @@ TextStream& TextStream::instance() {
     return *inst;
 }
 
+void TextStream::setText(std::string text, int row, int col) {
+    setText(text.c_str(), row, col);
+}
+
 // thank you Ian
 // http://cs.umw.edu/~finlayson/class/spring18/cpsc305/
 void TextStream::setText(const char* text, int row, int col) {

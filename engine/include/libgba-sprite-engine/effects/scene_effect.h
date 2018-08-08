@@ -10,9 +10,9 @@
 class SceneEffect {
 protected:
     // WHY no reference? Scene& operator= is implicitly deleted and no intentions to use that
-    scene* sceneToAffect;
+    Scene* sceneToAffect;
 public:
-    void setSceneToAffect(scene* scene) { sceneToAffect = scene; };
+    void setSceneToAffect(Scene* scene) { sceneToAffect = scene; };
 
     virtual void update() = 0;
     virtual bool isDone() = 0;

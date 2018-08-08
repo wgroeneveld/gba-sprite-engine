@@ -71,6 +71,7 @@ protected:
     }
 
 public:
+    ForegroundPaletteManager() : PaletteManager() {}
     ForegroundPaletteManager(const COLOR paletteData[]) : PaletteManager(paletteData) {}
     ForegroundPaletteManager(const COLOR paletteData[], int size) : PaletteManager(paletteData, size) {}
 };
