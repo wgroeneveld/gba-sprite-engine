@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <engine/gba/tonc_memdef.h>
 #include <engine/background/text_stream.h>
-#include "sprite.h"
+#include <engine/sprites/sprite.h>
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
         : x(x), y(y), data(imageData), imageSize(imageSize),

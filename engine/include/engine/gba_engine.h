@@ -11,7 +11,7 @@
 #include <engine/gba/tonc_memdef.h>
 #include <engine/effects/scene_effect.h>
 #include "Scene.h"
-#include "sound.h"
+#include "sound_control.h"
 
 class GBAEngine {
 private:

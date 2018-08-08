@@ -4,7 +4,7 @@
 
 #include <engine/gba/tonc_memmap.h>
 #include <engine/palette/palette_manager.h>
-#include "text_stream.h"
+#include <engine/background/text_stream.h>
 
 #include <memory>
 

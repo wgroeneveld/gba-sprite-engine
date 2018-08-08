@@ -2,8 +2,8 @@
 // Created by Wouter Groeneveld on 26/07/18.
 //
 
-#include "sprite_manager.h"
-#include "affine_sprite.h"
+#include <engine/sprites/sprite_manager.h>
+#include <engine/sprites/affine_sprite.h>
 
 #include <engine/gba/tonc_core.h>
 #include <engine/allocator.h>

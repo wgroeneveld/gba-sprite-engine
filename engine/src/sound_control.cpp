@@ -3,7 +3,7 @@
 //
 
 #include <engine/gba/tonc_memmap.h>
-#include "sound.h"
+#include <engine/sound_control.h>
 
 void SoundControl::accept(const void *data, int totalSamples, int ticksPerSample)  {
     this->data = data;

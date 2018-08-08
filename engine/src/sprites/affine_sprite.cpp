@@ -5,7 +5,7 @@
 #include <engine/gba/tonc_memdef.h>
 #include <engine/gba/tonc_oam.h>
 
-#include "affine_sprite.h"
+#include <engine/sprites/affine_sprite.h>
 
 void AffineSprite::identity() {
     obj_aff_identity(this->affine.get());

@@ -9,7 +9,7 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include <engine/background/text.h>
-#include <kul.h>
+#include "real_data.h"
 
 using namespace std;
 

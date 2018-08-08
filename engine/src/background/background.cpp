@@ -10,8 +10,8 @@
 #else
 #include <engine/gba/tonc_core.h>
 #endif
-#include "background.h"
-#include "text_stream.h"
+#include <engine/background/background.h>
+#include <engine/background/text_stream.h>
 
 #define TRANSPARENT_TILE_NUMBER 192     // as shown in mGBA, next "free" tile after text. Hardcoded indeed.
 

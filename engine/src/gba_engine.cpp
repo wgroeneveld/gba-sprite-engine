@@ -4,8 +4,8 @@
 
 #include <engine/gba/tonc_memdef.h>
 #include <engine/background/text_stream.h>
-#include "gba_engine.h"
-#include "allocator.h"
+#include <engine/gba_engine.h>
+#include <engine/allocator.h>
 
 std::unique_ptr<SoundControl> GBAEngine::activeChannelA;
 std::unique_ptr<SoundControl> GBAEngine::activeChannelB;

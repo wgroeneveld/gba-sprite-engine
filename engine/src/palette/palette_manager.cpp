@@ -8,7 +8,7 @@
 #include <engine/gba/tonc_core.h>
 #endif
 #include <engine/background/text_stream.h>
-#include "palette_manager.h"
+#include <engine/palette/palette_manager.h>
 
 const COLOR defaultPaletteData[PALETTE_MAX_SIZE] __attribute__((aligned(4))) = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

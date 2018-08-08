@@ -3,7 +3,7 @@
 //
 
 #include <stdexcept>
-#include "allocator.h"
+#include <engine/allocator.h>
 
 u32 voidPtrToU32(void* ptr) {
     return static_cast<u32>(reinterpret_cast<intptr_t>(ptr));
