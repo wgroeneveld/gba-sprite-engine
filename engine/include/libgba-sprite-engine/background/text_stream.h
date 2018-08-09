@@ -17,7 +17,7 @@
 #define PALETTE_COLOR_INDEX 15
 #define PALETTE_TEXT_BANK 15
 
-#define failure(__mess) (consoleLog_func(__FILE__, __LINE__, __PRETTY_FUNCTION__, #__mess))
+#define failure_gba(__mess) (consoleLog_func(__FILE__, __LINE__, __PRETTY_FUNCTION__, #__mess))
 void log_text(const char* text);
 void consoleLog_func(const char* fileName, const int lineNr, const char* fnName, const char* msg);
 

@@ -142,12 +142,12 @@ void GBAEngine::setScene(Scene* scene) {
 
     auto fgPalette = scene->getForegroundPalette();
     if(!fgPalette) {
-        failure(NoFgPaletteDefined);
+        failure_gba(NoFgPaletteDefined);
     }
     fgPalette->persist();
     auto bgPalette = scene->getBackgroundPalette();
     if(!bgPalette) {
-        failure(NoBgPaletteDefined);
+        failure_gba(NoBgPaletteDefined);
     }
     bgPalette->persist();
 

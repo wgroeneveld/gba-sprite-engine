@@ -21,7 +21,7 @@ void SpriteManager::set(std::vector<Sprite*> sprites) {
 
 void SpriteManager::add(Sprite* sprite) {
     if(sprites.size() == MAX_SPRITE_SIZE) {
-        failure(MaxSpriteSizeReached);
+        failure_gba(MaxSpriteSizeReached);
     }
 
     sprites.push_back(sprite);
@@ -30,7 +30,7 @@ void SpriteManager::add(Sprite* sprite) {
 
 void SpriteManager::render() {
     if(!initialized) {
-        failure(Cant_Render_Before_Init);
+        failure_gba(Cant_Render_Before_Init);
     }
 
     copyOverSpriteOAMToVRAM();
@@ -47,7 +47,7 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
 
     for(auto sprite : this->sprites) {
         if(affineIndex > MAX_AFFINE_SIZE) {
-            failure(MaxSpritesWithAffineReached);
+            failure_gba(MaxSpritesWithAffineReached);
         }
         sprite->update();
 

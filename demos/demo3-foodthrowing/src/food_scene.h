@@ -9,17 +9,18 @@
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
+#include "bullet.h"
 
 class FoodScene : public Scene {
 private:
     std::unique_ptr<AffineSprite> avatar;
-    std::unique_ptr<Sprite> someBullet;
-    std::vector<std::unique_ptr<Sprite>> bullets;
+    std::unique_ptr<Sprite> someBulletSprite;
+    std::vector<std::unique_ptr<Bullet>> bullets;
     int avatarRotation;
     u32 bulletCooldown;
 
     std::unique_ptr<SpriteBuilder<Sprite>> spriteBuilder;
-    std::unique_ptr<Sprite> createBullet();
+    std::unique_ptr<Bullet> createBullet();
     void removeBulletsOffScreen();
 
 public:

@@ -27,6 +27,7 @@ public:
     void rotate(u16 alpha);
     explicit AffineSprite(const AffineSprite& other);
     explicit AffineSprite(const void* imgData, int imgSize, int xC, int yC, SpriteSize spriteSize);
+    OBJ_AFFINE* getMatrix() { return affine.get(); }
 
     friend class SpriteManager;
 };

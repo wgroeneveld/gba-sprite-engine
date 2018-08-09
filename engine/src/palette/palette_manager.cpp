@@ -82,7 +82,7 @@ COLOR PaletteManager::modify(COLOR color, u32 intensity) {
 
 void PaletteManager::increaseBrightness(u32 intensity) {
     if(intensity > 31) {
-        failure(Brightness_Intensity_Too_High);
+        failure_gba(Brightness_Intensity_Too_High);
         return;
     }
 

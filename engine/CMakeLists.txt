@@ -1,6 +1,9 @@
 project(gba-sprite-engine)
 set_property(SOURCE src/gba/sin_lut.s PROPERTY LANGUAGE C)
 
+set_property(SOURCE src/gba/tonc_bios.s PROPERTY LANGUAGE C)
+set_source_files_properties(src/gba/tonc_bios.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
+
 add_library(${PROJECT_NAME}
         src/sprites/sprite_manager.cpp
         src/sprites/sprite.cpp
@@ -8,6 +11,7 @@ add_library(${PROJECT_NAME}
         src/palette/combined_palette.cpp
         src/allocator.cpp
         src/gba/sin_lut.s
+        src/gba/tonc_bios.s
         src/sprites/sprite_builder.cpp
         src/sprites/affine_sprite.cpp
         src/gba_engine.cpp

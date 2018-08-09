@@ -7,6 +7,7 @@
 
 #include <libgba-sprite-engine/gba/tonc_types.h>
 #include <memory>
+#include <libgba-sprite-engine/gba/tonc_math.h>
 
 #define COLOR_MODE_16 0
 #define COLOR_MODE_256 1
@@ -88,6 +89,8 @@ public:
     void flipHorizontally(bool flip);
 
     u32 getTileIndex() { return tileIndex; }
+    VECTOR getPos() { return VECTOR {x, y}; }
+    VECTOR getVelocity() { return VECTOR { dx, dy}; }
     u32 getDx() { return dx; }
     u32 getDy() { return dy; }
     u32 getX() { return x; }
