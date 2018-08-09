@@ -63,7 +63,7 @@ VECTOR randomDestinations[6] = {
 
 void FoodScene::tick(u16 keys) {
     avatar->animateToFrame(0);
-    bool bulletAdded, allowedToShoot;
+    bool allowedToShoot = false;
 
     if(bulletCooldown > 0) {
         bulletCooldown--;
@@ -78,7 +78,6 @@ void FoodScene::tick(u16 keys) {
     TextStream::instance().setText(std::string("angle pc/pd: ") + hex(avatar->getMatrix()->pc) + std::string("/") + hex(avatar->getMatrix()->pd), 4, 1);
 
     /*
-
     int defaultx = hex_int(GBA_SCREEN_WIDTH / 2 - 20), defaulty = hex_int(GBA_SCREEN_HEIGHT - 20);
 
     auto newx = toDecimal((avatar->getMatrix()->pa * defaultx + avatar->getMatrix()->pb * defaulty) >> 8);
@@ -88,10 +87,8 @@ void FoodScene::tick(u16 keys) {
 */
     if(keys & KEY_LEFT) {
         avatarRotation -= AVATAR_ROTATION_DIFF;
-        TextStream::instance().clear();
     } else if(keys & KEY_RIGHT) {
         avatarRotation += AVATAR_ROTATION_DIFF;
-        TextStream::instance().clear();
     }
     if((keys & KEY_A)) {
         avatar->animateToFrame(1);
@@ -99,7 +96,6 @@ void FoodScene::tick(u16 keys) {
         if(allowedToShoot && bullets.size() < MAX_AMOUNT_OF_BULLETS) {
             bulletCooldown = BULLET_COOLDOWN_START;
             bullets.push_back(createBullet());
-            bulletAdded = true;
 
             auto &b = bullets.at(bullets.size() - 1);
             b->setDestination(randomDestinations[rand() % 6]);
@@ -110,10 +106,6 @@ void FoodScene::tick(u16 keys) {
 
     for(auto &b : bullets) {
         b->tick();
-    }
-
-    if(bulletAdded) {
-        engine->updateSpritesInScene();
     }
  }
 

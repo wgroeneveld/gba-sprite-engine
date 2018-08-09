@@ -115,7 +115,11 @@ void GBAEngine::update() {
     }
 
     u16 keys = readKeys();
-    this->currentScene->tick(keys);
+    currentScene->tick(keys);
+
+    if(currentScene->sprites().size() != spriteManager.getSpriteSize()) {
+        updateSpritesInScene();
+    }
 
     spriteManager.render();
 }

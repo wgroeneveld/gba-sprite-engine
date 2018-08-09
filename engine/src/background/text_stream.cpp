@@ -59,6 +59,7 @@ void TextStream::setText(std::string text, int row, int col) {
 // http://cs.umw.edu/~finlayson/class/spring18/cpsc305/
 void TextStream::setText(const char* text, int row, int col) {
     int index = row * TILE_WIDTH + col;
+    int i = 0;
 
     volatile auto ptr = &se_mem[screenBlockIndex][0];
     while (*text) {
@@ -66,8 +67,13 @@ void TextStream::setText(const char* text, int row, int col) {
 
         index++;
         text++;
+        i++;
     }
-
+    while(i < TILE_WIDTH) {
+        ptr[index] = 0;
+        index++;
+        i++;
+    }
 }
 
 TextStream& TextStream::operator<<(const int s) {
