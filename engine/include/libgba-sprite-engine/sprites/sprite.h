@@ -47,11 +47,12 @@ private:
 
 protected:
     const void *data;
-    int x, y, priority, dx, dy;
-    int w, h, size_bits, shape_bits;
+    u32 x, y, priority, dx, dy;
+    u32 w, h, size_bits, shape_bits;
     bool stayWithinBounds;
-    int imageSize, tileIndex;
-    int animationDelay, amountOfFrames, currentFrame, animationCounter;
+    u32 imageSize, tileIndex;
+    SpriteSize spriteSize;
+    u32 animationDelay, amountOfFrames, currentFrame, animationCounter;
     bool animating;
 
     std::unique_ptr<OBJ_ATTR> oam;
@@ -61,6 +62,7 @@ protected:
     void setAttributesBasedOnSize(SpriteSize size);
 
 public:
+    explicit Sprite(const Sprite& other);
     explicit Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
     virtual ~Sprite() {}
 
@@ -85,13 +87,14 @@ public:
     void flipVertically(bool flip);
     void flipHorizontally(bool flip);
 
-    int getDx() { return dx; }
-    int getDy() { return dy; }
-    int getX() { return x; }
-    int getHeight() { return h; }
-    int getWidth() { return w; }
-    int getY() { return y; }
-    int getCurrentFrame() { return currentFrame; }
+    u32 getTileIndex() { return tileIndex; }
+    u32 getDx() { return dx; }
+    u32 getDy() { return dy; }
+    u32 getX() { return x; }
+    u32 getHeight() { return h; }
+    u32 getWidth() { return w; }
+    u32 getY() { return y; }
+    u32 getCurrentFrame() { return currentFrame; }
     bool isOffScreen();
 
     friend class SpriteManager;

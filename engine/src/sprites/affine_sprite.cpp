@@ -12,6 +12,14 @@ void AffineSprite::identity() {
     obj_aff_identity(this->affine.get());
 }
 
+AffineSprite::AffineSprite(const AffineSprite &other) : Sprite(other), affIndex(other.affIndex) {
+
+}
+
+AffineSprite::AffineSprite(const void *imgData, int imgSize, int xC, int yC, SpriteSize spriteSize)  : Sprite(imgData, imgSize, xC, yC, spriteSize), affIndex(0) {
+
+}
+
 void AffineSprite::rotate(u16 alpha) {
     obj_aff_rotate(this->affine.get(), alpha);
 }
@@ -48,7 +56,6 @@ void AffineSprite::buildOam(int tileIndex) {
     rebuildOamAttr1ForAffineIndex();
 
     if(!affine) {
-        TextStream::instance() << "building";
         this->affine = std::unique_ptr<OBJ_AFFINE>(new OBJ_AFFINE());
         identity();
     }

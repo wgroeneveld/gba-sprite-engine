@@ -8,8 +8,12 @@
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
+Sprite::Sprite(const Sprite &other) : Sprite(nullptr, 0, other.x, other.y, other.spriteSize) {
+    tileIndex = other.tileIndex;
+}
+
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
-        : x(x), y(y), data(imageData), imageSize(imageSize),
+        : x(x), y(y), data(imageData), imageSize(imageSize), spriteSize(size),
           animationDelay(0), amountOfFrames(0), currentFrame(0), animationCounter(0) {
     setAttributesBasedOnSize(size);
 }
@@ -17,7 +21,9 @@ Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize si
 void Sprite::moveTo(int x, int y) {
     this->x = x;
     this->y = y;
-    syncOam();
+    if(oam) {
+        syncOam();
+    }
 }
 
 bool Sprite::isOffScreen() {
@@ -125,19 +131,19 @@ void Sprite::buildOam(int tileIndex) {
 
     if(!oam) {
         this->oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
-    }
 
-    this->oam->attr0 = ATTR0_Y(this->y) |
-            ATTR0_MODE(0) |
-            (GFX_MODE << 10) |
-            (MOSAIC_MODE << 12) |
-            (COLOR_MODE_256 << 13) |
-            (this->shape_bits << 14);
-    this->oam->attr1 = this->x |
-            (AFFINE_FLAG_NONE_SET_YET << 9) |
-            (HORIZONTAL_FLIP_FLAG << 12) |
-            (VERTICAL_FLIP_FLAG << 13) |
-            (this->size_bits << 14);
+        this->oam->attr0 = ATTR0_Y(this->y) |
+                ATTR0_MODE(0) |
+                (GFX_MODE << 10) |
+                (MOSAIC_MODE << 12) |
+                (COLOR_MODE_256 << 13) |
+                (this->shape_bits << 14);
+        this->oam->attr1 = this->x |
+                (AFFINE_FLAG_NONE_SET_YET << 9) |
+                (HORIZONTAL_FLIP_FLAG << 12) |
+                (VERTICAL_FLIP_FLAG << 13) |
+                (this->size_bits << 14);
+    }
 
     this->oam->attr2 = ATTR2_ID(tileIndex) |
             ATTR2_PRIO(priority) |

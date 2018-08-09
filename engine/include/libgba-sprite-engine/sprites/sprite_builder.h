@@ -9,13 +9,14 @@
 
 template<typename T> class SpriteBuilder {
 private:
-    int imageSize;
+    u32 imageSize;
     bool stayWithinBounds;
     const void *imageData;
-    int x, y, dx, dy;
-    int numberOfFrames, animationDelay;
+    u32 x, y, dx, dy;
+    u32 numberOfFrames, animationDelay;
     SpriteSize size;
 
+    void setProperties(T* sprite);
     void reset() {
         imageSize = x = y = dx = dy = numberOfFrames = animationDelay = 0;
         imageData = nullptr;
@@ -40,7 +41,7 @@ public:
         return *this;
     }
 
-    SpriteBuilder& withLocation(int x, int y) {
+    SpriteBuilder& withLocation(u32 x, u32 y) {
         this->x = x;
         this->y = y;
         return *this;
@@ -56,15 +57,30 @@ public:
     }
     T build();
     std::unique_ptr<T> buildPtr();
+    std::unique_ptr<T> buildWithDataOf(const Sprite &other);
 };
 
-template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
-    auto s = new T(this->imageData, this->imageSize, this->x, this->y, this->size);
+template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildWithDataOf(const Sprite &other) {
+    auto s = new T(other);
+    s->moveTo(this->x, this->y);
+    setProperties(s);
+
+    reset();
+    return std::unique_ptr<T>(s);
+}
+
+template<typename T> void SpriteBuilder<T>::setProperties(T* s) {
     s->setVelocity(this->dx, this->dy);
     if(this->numberOfFrames > 0) {
         s->makeAnimated(this->numberOfFrames, this->animationDelay);
     }
     s->setStayWithinBounds(stayWithinBounds);
+
+}
+
+template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
+    auto s = new T(this->imageData, this->imageSize, this->x, this->y, this->size);
+    setProperties(s);
 
     reset();
     return std::unique_ptr<T>(s);
@@ -72,11 +88,7 @@ template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildPtr() {
 
 template<typename T> T SpriteBuilder<T>::build() {
     T s(this->imageData, this->imageSize, this->x, this->y, this->size);
-    s.setVelocity(this->dx, this->dy);
-    if(this->numberOfFrames > 0) {
-        s.makeAnimated(this->numberOfFrames, this->animationDelay);
-    }
-    s.setStayWithinBounds(stayWithinBounds);
+    setProperties(&s);
 
     reset();
     return s;
