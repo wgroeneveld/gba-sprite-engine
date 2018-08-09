@@ -7,36 +7,37 @@
 
 #include <libgba-sprite-engine/gba/tonc_core.h>
 #include <libgba-sprite-engine/allocator.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 
 #define MAX_SPRITE_SIZE 128
 #define MAX_AFFINE_SIZE 31
 
-void SpriteManager::set(std::vector<Sprite *> sprites) {
+void SpriteManager::set(std::vector<Sprite*> sprites) {
     initialized = false;
 
     this->sprites.clear();
     this->sprites.insert(this->sprites.end(), sprites.begin(), sprites.end());
 }
 
-void SpriteManager::add(const Sprite &sprite) {
+void SpriteManager::add(Sprite* sprite) {
     if(sprites.size() == MAX_SPRITE_SIZE) {
-        throw std::runtime_error("maximum sprite limit reached");
+        failure(MaxSpriteSizeReached);
     }
 
-    const Sprite* sPtr = &sprite;
-    sprites.push_back(const_cast<Sprite*>(sPtr));
+    sprites.push_back(sprite);
+    copyOverImageDataToVRAM(sprite);
 }
 
 void SpriteManager::render() {
     if(!initialized) {
-        throw std::runtime_error("can't render before initialization");
+        failure(Cant_Render_Before_Init);
     }
 
     copyOverSpriteOAMToVRAM();
 }
 
 void SpriteManager::persist() {
-    copyOverImageDataToVRAM();
+   copyOverImageDataToVRAM();
     initialized = true;
 }
 
@@ -46,7 +47,7 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
 
     for(auto sprite : this->sprites) {
         if(affineIndex > MAX_AFFINE_SIZE) {
-            throw std::runtime_error("max amount of sprites with affine matriches reached");
+            failure(MaxSpritesWithAffineReached);
         }
         sprite->update();
 
@@ -70,11 +71,15 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
     }
 }
 
-void SpriteManager::copyOverImageDataToVRAM() {
-    for(auto sprite : this->sprites) {
-        const auto allocated = Allocator::allocateObjectTiles(sprite->imageSize);
-        dma3_cpy(allocated.pointer(), sprite->data, allocated.size);
+void SpriteManager::copyOverImageDataToVRAM(Sprite *sprite) {
+    const auto allocated = Allocator::allocateObjectTiles(sprite->imageSize);
+    dma3_cpy(allocated.pointer(), sprite->data, allocated.size);
 
-        sprite->buildOam(allocated.getTileLocation());
+    sprite->buildOam(allocated.getTileLocation());
+}
+
+void SpriteManager::copyOverImageDataToVRAM() {
+    for(auto sprite : sprites) {
+        copyOverImageDataToVRAM(sprite);
     }
 }

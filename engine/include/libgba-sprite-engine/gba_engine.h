@@ -40,6 +40,7 @@ public:
     GBAEngine();
 
     void setScene(Scene* scene);
+    void dynamicallyAddSprite(Sprite* s) { spriteManager.add(s); }
     void transitionIntoScene(Scene* scene, SceneEffect* effect);
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
 
@@ -53,6 +54,7 @@ public:
 
     u16 readKeys();
     void update();
+    void updateSpritesInScene();
     void delay(int times) {
         for(int i = 0; i < times; i++){}
     }

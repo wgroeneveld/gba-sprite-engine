@@ -151,15 +151,18 @@ void GBAEngine::setScene(Scene* scene) {
     }
     bgPalette->persist();
 
-    Allocator::free();
     TextStream::instance().persist();
-
-    spriteManager.set(scene->sprites());
-    spriteManager.persist();
 
     for(const auto bg : scene->backgrounds()) {
         bg->persist();
     }
 
     this->currentScene = scene;
+    updateSpritesInScene();
+}
+
+void GBAEngine::updateSpritesInScene() {
+    Allocator::free();
+    spriteManager.set(currentScene->sprites());
+    spriteManager.persist();
 }

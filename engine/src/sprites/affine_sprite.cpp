@@ -6,6 +6,7 @@
 #include <libgba-sprite-engine/gba/tonc_oam.h>
 
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
+#include <libgba-sprite-engine/background/text_stream.h>
 
 void AffineSprite::identity() {
     obj_aff_identity(this->affine.get());
@@ -46,6 +47,9 @@ void AffineSprite::buildOam(int tileIndex) {
                        (this->shape_bits << 14);
     rebuildOamAttr1ForAffineIndex();
 
-    this->affine = std::unique_ptr<OBJ_AFFINE>(new OBJ_AFFINE());
-    identity();
+    if(!affine) {
+        TextStream::instance() << "building";
+        this->affine = std::unique_ptr<OBJ_AFFINE>(new OBJ_AFFINE());
+        identity();
+    }
 }

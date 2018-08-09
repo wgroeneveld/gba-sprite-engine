@@ -20,6 +20,10 @@ void Sprite::moveTo(int x, int y) {
     syncOam();
 }
 
+bool Sprite::isOffScreen() {
+    return x < 0 || x > GBA_SCREEN_WIDTH || y < 0 || y > GBA_SCREEN_HEIGHT;
+}
+
 void Sprite::flipHorizontally(bool flip) {
     if(flip) {
         oam->attr1 |= ATTR1_HFLIP;
@@ -42,8 +46,8 @@ void Sprite::syncVelocity() {
 }
 
 void Sprite::syncAnimation() {
-    if(!animating) return;
-    int newTileIndex = this->tileIndex + (currentFrame * w);
+    int offset = w == 64 ? 2 : 1;   // 64xY sprites don't seem to cut currFrame * w
+    int newTileIndex = this->tileIndex + (currentFrame * w * offset);
 
     oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
     oam->attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);
@@ -118,7 +122,10 @@ bool Sprite::collidesWith(Sprite &s2) {
 
 void Sprite::buildOam(int tileIndex) {
     this->tileIndex = tileIndex;
-    this->oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
+
+    if(!oam) {
+        this->oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
+    }
 
     this->oam->attr0 = ATTR0_Y(this->y) |
             ATTR0_MODE(0) |

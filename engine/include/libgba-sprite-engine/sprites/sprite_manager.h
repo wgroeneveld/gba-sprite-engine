@@ -15,12 +15,13 @@ private:
     std::vector<Sprite*> sprites;
 
     void copyOverSpriteOAMToVRAM();
+    void copyOverImageDataToVRAM(Sprite* s);
     void copyOverImageDataToVRAM();
 
 public:
     int getSpriteSize() { return sprites.size(); }
 
-    void add(const Sprite& sprite);
+    void add(Sprite* sprite);
     void set(std::vector<Sprite*> sprites);
     void persist();                      // copies over image and palette data to VRAM, modifies sprite OAM indiches
     void render();                       // copies over OAM buffer to OAM RAM, called in game loop

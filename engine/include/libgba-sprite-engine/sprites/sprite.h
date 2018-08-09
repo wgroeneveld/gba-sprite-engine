@@ -61,7 +61,7 @@ protected:
     void setAttributesBasedOnSize(SpriteSize size);
 
 public:
-    Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
+    explicit Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
     virtual ~Sprite() {}
 
     void makeAnimated(int amountOfFrames, int animationDelay) {
@@ -70,6 +70,7 @@ public:
         animate();
     }
     void animate() { this->animating = true; }
+    void animateToFrame(int frame) { this->currentFrame = frame; }
     void stopAnimating() { this->animating = false; }
     void setStayWithinBounds(bool b) { stayWithinBounds = b; }
     void setVelocity(int dx, int dy) {
@@ -91,6 +92,7 @@ public:
     int getWidth() { return w; }
     int getY() { return y; }
     int getCurrentFrame() { return currentFrame; }
+    bool isOffScreen();
 
     friend class SpriteManager;
 };

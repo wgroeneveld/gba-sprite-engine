@@ -19,6 +19,8 @@ protected:
     std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
     std::shared_ptr<GBAEngine> engine;
 
+    void addSprite(Sprite* sprite);
+
 public:
     ForegroundPaletteManager* getForegroundPalette() { return foregroundPalette.get(); }
     BackgroundPaletteManager* getBackgroundPalette() { return backgroundPalette.get(); }
