@@ -82,11 +82,17 @@ The `sprites()` method gets periodically called to check whether something has b
 
 A simple fade out scene effect is implemented in demo 1, that converges the palette colors of both palettes to white. It's easy to **create your own effects** by subclassing `SceneEffect`. 
 
+![sample fade out](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/fade.gif?raw=true)
+Sample fade effect, demo 1.
+
 #### Backgrounds
 
 Scrollable backgrounds are present:
 
 Call `scroll()` in your scene update.
+
+![scroll bg](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/scroll.gif?raw=true)
+Sample scrolling background demo 1.
 
 Creating a background: 
 
@@ -105,6 +111,9 @@ Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite y
 
 **Affine sprites can transform** using for example `rotate(angle)` - check out demo 1 or 3 for that. 
 
+![rotation](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/rotate.gif?raw=true)
+Sample rotation demo 3.
+
 **Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). 
 
 Useful sprite methods:
@@ -115,6 +124,9 @@ Useful sprite methods:
 * `setWithinBounds(bool)` automatically keeps your sprite within the GBA resolution bounds
 * `collidesWith(otherSprite)` or `isOffScreen()`
 * Various getters like `getWith()` etc
+
+![stay within bounds](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/bounds.gif?raw=true)
+The paddle auto-stays within bounds.
 
 #### Sound
 
