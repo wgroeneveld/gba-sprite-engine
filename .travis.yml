@@ -20,8 +20,8 @@ before_install:
  - cmake -DBUILD_SHARED_LIBS=ON .
  - make
  - export GTEST_DIR=~/gtest
- #- sudo cp -a include/gtest /usr/include
- #- sudo cp -a libgtest_main.so libgtest.so /usr/lib/
+ - sudo cp -a include/gtest /usr/include
+ - sudo cp -a libgtest_main.so libgtest.so /usr/lib/
 
 script:
  - cd $TRAVIS_BUILD_DIR
