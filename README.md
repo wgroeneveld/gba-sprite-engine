@@ -146,6 +146,8 @@ The engine supports **sounds** and **background music** using GBA's Active Sound
 
 Call `engine->enqueueMusic(data, sizeof(data));` as a repeating music or `enqueueSound()` as a one-timer. If some sound is already playing, it will **not be played**. Background music auto-repeats when done. See demo 1.
 
+Sound can to be converted from a RAW Signed 8-bit PCM using [raw2gba](https://github.com/IanFinlayson/raw2gba). Record something with for example [Audacity](https://www.audacityteam.org/download/) and choose file -> export -> export audio... to change the format. Like sprite raw data, it'll be converted into a C header that you can feed to the methods above.
+
 #### Text
 
 ![default font](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/engine/src/background/text.png?raw=true)
