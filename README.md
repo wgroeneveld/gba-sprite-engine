@@ -45,6 +45,8 @@ A portion of [ToncLib](https://www.coranac.com/man/tonclib/main.htm) has been us
 
 BIOS methods and Sin/Cos lookup tables are also compiled.
 
+
+
 ### Implementing your own GBA Game
 
 #### Scenes
@@ -192,7 +194,7 @@ The demos will be in `cmake-build-debug/demox/demoname.gba`.
 Things you might need to change in `CMakeLists.txt` files:
 
 1. I'm assuming your GBA cross compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
-2. I'm assuming your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. 
+2. I'm assuming your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
 
 #### Running unit tests
 
