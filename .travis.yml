@@ -26,8 +26,8 @@ before_install:
  - mkdir build
  - ln -s libgtest_main.so build/libgtest_main.a
  - ln -s libgtest.so build/libgtest.a
- #- sudo cp -a include/gtest /usr/include
- #- sudo cp -a libgtest_main.so libgtest.so /usr/lib/ 
+ - sudo cp -a googletest-release-1.8.0/include/gtest /usr/include
+ - sudo cp -a googletest-release-1.8.0/libgtest_main.so googletest-release-1.8.0/libgtest.so /usr/lib/ 
 
 script:
  - cd $TRAVIS_BUILD_DIR
