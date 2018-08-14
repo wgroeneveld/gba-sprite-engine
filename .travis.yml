@@ -15,7 +15,6 @@ before_install:
 script:
  - mkdir build
  - cd build
- - cmake -DCMAKE_CXX_COMPILER=$BIN_PATH/clang++ -DCMAKE_INSTALL_PREFIX=./ ../
- - cd test
+ - cmake ../test/
  - make
  - ./unittest
