@@ -35,7 +35,10 @@ public:
     void clear();
     void setText(std::string text, int row, int col);
     void setText(const char* text, int row, int col);
-    void setTextColor(COLOR color);
+
+    void setFontColor(COLOR color);
+    void setFontStyle(const void *data, int size);
+
     static TextStream& instance();
 
     void persist() override;

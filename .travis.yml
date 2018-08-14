@@ -26,6 +26,7 @@ before_install:
  - mkdir build
  - cp libgtest_main.so build/libgtest_main.a
  - cp libgtest.so build/libgtest.a
+ # still needed to actually execute the binary
  - sudo cp -a include/gtest /usr/include
  - sudo cp -a libgtest_main.so libgtest.so /usr/lib/ 
 

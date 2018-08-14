@@ -21,7 +21,7 @@ TextStream::TextStream() : Background(0, text_data, sizeof(text_data), nullptr, 
     this->palette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     persist();
-    clearMap();
+    clear();
 }
 
 void log_text(const char* text) {
@@ -94,12 +94,21 @@ TextStream& TextStream::operator<<(const char * s) {
     return *this;
 }
 
-void TextStream::setTextColor(COLOR color) {
+// WARNING: resets map and font color. Assumes a fixed tile width of TILE_WIDTH
+void TextStream::setFontStyle(const void *data, int size) {
+    this->data = data;
+    this->size = size;
+
+    persist();
+    clear();
+}
+
+void TextStream::setFontColor(COLOR color) {
     palette.get()->change(PALETTE_TEXT_BANK, PALETTE_COLOR_INDEX, color);
 }
 
 void TextStream::persist() {
     Background::persist();
     // WARNING: stream hijacks last bg palette bank, last index, no matter what.
-    setTextColor(PaletteManager::color(31, 31, 31));
+    setFontColor(PaletteManager::color(31, 31, 31));
 }

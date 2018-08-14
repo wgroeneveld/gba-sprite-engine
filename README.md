@@ -1,7 +1,7 @@
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
-![travis build status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)
+[![Build Status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-sprite-engine)
 
 That's a mouthful - let's break that down:
 
@@ -160,7 +160,10 @@ Useful text manipulation:
 
 * `setText(txt, row, col)`
 * `<< text` or `<< int` etc: append to text stream for debugging purposes.
-* `setTextColor(COLOR)`: changes default color palette (white). 
+* `setFontColor(COLOR)`: changes default color palette (white).
+* `setFontStyle(const void* data, int size)` if you prefer your own font face.
+
+Changing the font style assumes a tile width of 32 and the same symbol indexes! It also resets the font color and map so call this before doing anything else. 
 
 #### Error logging
 
