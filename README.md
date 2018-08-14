@@ -136,6 +136,10 @@ Useful sprite methods:
 
 The paddle auto-stays within bounds.
 
+Each sprite has own raw data, so there's no shared sprite image (for the better). The palette of course is shared, so think about that when exporting with a tool like [grit](https://www.coranac.com/man/grit/html/grit.htm) or [png2gba](https://github.com/IanFinlayson/png2gba). Grit has flags to export a shared palette:
+
+> ./../grit pic1.png pic2.png kul.png -ftc -pS -gB8 -O shared.c
+
 #### Sound
 
 The engine supports **sounds** and **background music** using GBA's Active Sound channel A and B. It's a simple implementation meaning no mixing in either channels (but A and B are mixed).
