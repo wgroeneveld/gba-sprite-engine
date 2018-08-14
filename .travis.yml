@@ -4,6 +4,9 @@ compiler: g++
 notifications:
   email: false
 
+env:
+ - GTEST_DIR=~/gtest
+
 before_install:
  # Install a supported cmake version
  - mkdir -p ~/cmake
@@ -19,9 +22,6 @@ before_install:
  - cd googletest-release-1.8.0
  - cmake -DBUILD_SHARED_LIBS=ON .
  - make
- - export GTEST_DIR=~/gtest
- - sudo cp -a include/gtest /usr/include
- - sudo cp -a libgtest_main.so libgtest.so /usr/lib/
 
 script:
  - cd $TRAVIS_BUILD_DIR
