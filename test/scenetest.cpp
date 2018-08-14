@@ -17,12 +17,12 @@ protected:
     }
 };
 
-class SomeScene : public scene {
+class SomeScene : public Scene {
 private:
     std::unique_ptr<Sprite> someSprite1;
     std::unique_ptr<Sprite> someSprite2;
 public:
-    SomeScene() : scene(nullptr) { };
+    SomeScene() : Scene(nullptr) { };
     std::vector<Sprite *> sprites() override {
         return {
             someSprite1.get(), someSprite2.get()

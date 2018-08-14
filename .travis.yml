@@ -1,0 +1,15 @@
+language: cpp
+compiler: g++
+
+before_install:
+ # Install a supported cmake version
+ - wget -O cmake.sh https://cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.sh 
+ - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
+
+ script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=$BIN_PATH/clang++ -DCMAKE_INSTALL_PREFIX=./ ../
+  - cd test
+  - make
+  - ./unittest

@@ -48,8 +48,8 @@ private:
 
 protected:
     const void *data;
-    u32 x, y, priority, dx, dy;
-    u32 w, h, size_bits, shape_bits;
+    int x, y, dx, dy;
+    u32 priority, w, h, size_bits, shape_bits;
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;

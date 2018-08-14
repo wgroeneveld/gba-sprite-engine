@@ -1,6 +1,8 @@
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
+![travis build status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)
+
 That's a mouthful - let's break that down:
 
 #### High-level object-oriented
@@ -117,7 +119,9 @@ Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite y
 
 Sample rotation demo 3.
 
-**Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). 
+**Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). Like this:
+
+![lama gif example](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/demos/demo1-basicfeatures/lama.png?raw=true)
 
 Useful sprite methods:
 
@@ -160,15 +164,34 @@ The engine comes with (some) [Google Test](https://github.com/google/googletest)
 
 ### Compiling everything
 
-The project has been developed with CLion. The `.idea` dir is there for you to get started. 
+#### Prerequirements
+
+1. cmake 3.12.x or higher: the cmake linker toolchain set contains a bug in .11
+2. A compiled Google Test 1.8.x or higher with `$GTEST_DIR` env. var
+3. The [DevkitPro toolchain](https://devkitpro.org/wiki/Getting_Started) installed in your `$PATH`
+4. The [mGBA emulator](https://mgba.io/downloads.html)
+
+#### Compiling with cmake
+
+The project has been developed with CLion. The `.idea` dir is there for you to get started. The project can be imported as a cmake project. 
 
 As such, `CMake` was an easy choice. Use the following commands to build everything, including the demos:
 
 1. `mkdir cmake-build-debug && cd cmake-build-debug`
 2. `cmake ./../`
+3. `make`
+
+The demos will be in `cmake-build-debug/demox/demoname.gba`. 
 
 Things you might need to change in `CMakeLists.txt` files:
 
 1. I'm assuming your GBA cross compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
-2. The Google Test Library should be compiled from source in some directory. I have mine hardcoded: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")` so adjust accordinly or exclude the test subproject. 
+2. I'm assuming your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. 
 
+#### Running unit tests
+
+After compiling, execute the `unittest` main executable:
+
+`./cmake-build-debug/test/unittest`
+
+And hope for exit code 0!

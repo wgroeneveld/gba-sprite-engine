@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.12)
 SET(CMAKE_C_COMPILER arm-none-eabi-gcc)
 SET(CMAKE_CXX_COMPILER arm-none-eabi-g++)
 SET(CMAKE_OBJCOPY arm-none-eabi-objcopy)
-SET(CMAKE_AR arm-none-eabi-ar)
+SET(CMAKE_AR arm-none-eabi-ar CACHE FILEPATH "Archiver")
 SET(CMAKE_RANLIB arm-none-eabi-ranlib)
 
 SET(BASE_CMAKE_LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")

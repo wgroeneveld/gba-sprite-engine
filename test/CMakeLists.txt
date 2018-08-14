@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(Unittest)
 enable_testing()
 
-SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")
+SET(GTEST_LIBRARY "$ENV{GTEST_DIR}")
 
 # reset linker flags; ARM + GTest doesn't work
 SET(CMAKE_EXE_LINKER_FLAGS "${BASE_CMAKE_LINK_FLAGS}")
