@@ -8,7 +8,7 @@ before_install:
  # Install a supported cmake version
  - mkdir -p ~/cmake
  - wget -O cmake.sh https://cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.sh 
- - sudo sh cmake.sh --skip-license --exclude-subdir --prefix="${HOME}/cmake
+ - sudo sh cmake.sh --skip-license --exclude-subdir --prefix="${HOME}/cmake"
  - export PATH=~/cmake/bin:$PATH
  - cmake --version
 
