@@ -22,13 +22,10 @@ before_install:
  - cd googletest-release-1.8.0/googletest
  - cmake -DBUILD_SHARED_LIBS=ON .
  - make
- # target cmake requires ".a" OSX binaries, symlink them
+ # target cmake requires ".a" OSX binaries
  - mkdir build
- - ls -la
- - ln -s libgtest_main.so build/libgtest_main.a
- - ln -s libgtest.so build/libgtest.a
- - sudo cp -a include/gtest /usr/include
- - sudo cp -a libgtest_main.so libgtest.so /usr/lib/ 
+ - cp libgtest_main.so build/libgtest_main.a
+ - cp libgtest.so build/libgtest.a
 
 script:
  - cd $TRAVIS_BUILD_DIR

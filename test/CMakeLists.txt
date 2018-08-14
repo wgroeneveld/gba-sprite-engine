@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 SET(CMAKE_CXX_STANDARD 11)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-narrowing")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-narrowing -Wno-int-to-pointer-cast")
 set(CMAKE_VERBOSE_MAKEFILE on)
 
 project(Unittest)
