@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.12)
 # WARNING: CMAKE_AR and RANLIB didn't use find_program() to scan the PATH yet.
 # If using CMake < 3.12, consider using an absolute path. https://gitlab.kitware.com/cmake/cmake/merge_requests/1720
 SET(CMAKE_SYSTEM_NAME Generic)
-SET(CMAKE_C_COMPILER arm-none-eabi-gcc)
+SET(CMAKE_GENERATOR "Unix Makefiles")
+SET(CMAKE_C_COMPILER    arm-none-eabi-gcc)
 SET(CMAKE_CXX_COMPILER arm-none-eabi-g++)
 SET(CMAKE_OBJCOPY arm-none-eabi-objcopy)
 SET(CMAKE_AR arm-none-eabi-ar CACHE FILEPATH "Archiver")
