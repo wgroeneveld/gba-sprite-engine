@@ -59,7 +59,7 @@ void FlyingStuffScene::load() {
     bg.get()->useMapScreenBlock(16);
 }
 
-void FlyingStuffScene::tick(u16 i) {
+void FlyingStuffScene::tick(u16 keys) {
     scrollX += 1;
 
     rotation += rotationDiff;

@@ -32,7 +32,10 @@ public:
     virtual void load() = 0;
     virtual void tick(u16 i) = 0;
 
-    Scene(std::shared_ptr<GBAEngine> engine) : engine(engine) { }
+    Scene(std::shared_ptr<GBAEngine> engine) :
+            engine(engine),
+            foregroundPalette(std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager())),
+            backgroundPalette(std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager())) { }
     virtual ~Scene() {
         // scenes should manage their own resources - use std::unique_ptr
     }

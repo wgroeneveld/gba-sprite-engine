@@ -28,7 +28,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
     void load() override;
-    void tick(u16 i) override;
+    void tick(u16 keys) override;
 };
 
 
