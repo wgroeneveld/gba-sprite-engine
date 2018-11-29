@@ -29,7 +29,17 @@ auto paddle = SpriteBuilder<Sprite>()
 
 To leverage C++11's abilities combined with a clear object-oriented approach using abstraction to hide the hexadecimal addresses? That's the objective of this engine. 
 
-**Speed is NOT my primary concern**! I'm not a C(++) expert and I value clean readable code above speedy algorithms. This is just a concept. That said, feel free to fork or provide patches for sloppy work (that will be present). Thank you!
+**Speed and size are NOT the primary concern**! We value clean readable code above speedy algorithms. This is just a proof-of-concept, intricate games with a lot of data will never work because memory limitations. That said, feel free to fork and/or provide patches.
+The C++ cross-compiler and the GBA work, but create more metadata than the typical C cross-compiler. Take a look at the file size of the following binaries:
+
+```
+-rwxr-xr-x   1 staff    8320 Jul 25 13:54 main_c.gba
+-rwxr-xr-x   1 staff   23328 Jul 22 20:36 main_cpp.gba
+-rwxr-xr-x   1 staff   24032 Jul 25 13:55 main_cpp_stl.gba
+``` 
+
+The C++ ROM is 280% bigger than the C ROM, and if you include <vector>, even 288% bigger - from 8K to 23K!
+Emulating big files is not a problem, and running them on the actual hardware is still possible using cartridges like the EZ-FLASH Omega. 
 
 #### GBA sprite engine
 
@@ -43,9 +53,13 @@ It's compiled as a static library for your convenience. Simply link with the lib
 
 A portion of [ToncLib](https://www.coranac.com/man/tonclib/main.htm) has been used as a low-level GBA accessor. If you know what you're doing, you can safely use those, headers are in `<libgba-sprite-engine/gba>`. 
 
-BIOS methods and Sin/Cos lookup tables are also compiled.
+BIOS methods and Sin/Cos lookup tables are also compiled in Assembly, as `sin_lut`.
 
+Design overview:
 
+![design](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/design.png?raw=true)
+
+Colored blocks are to be implemented in your own game. See below, in section "implementing your game".
 
 ### Implementing your own GBA Game
 
@@ -142,6 +156,8 @@ Each sprite has own raw data, so there's no shared sprite image (for the better)
 
 > ./../grit pic1.png pic2.png kul.png -ftc -pS -gB8 -O shared.c
 
+Consult the [Grit list of cmdline options](https://www.coranac.com/man/grit/html/grit.htm) for more information.
+
 #### Sound
 
 The engine supports **sounds** and **background music** using GBA's Active Sound channel A and B. It's a simple implementation meaning no mixing in either channels (but A and B are mixed).
@@ -196,8 +212,14 @@ The demos will be in `cmake-build-debug/demox/demoname.gba`.
 
 Things you might need to change in `CMakeLists.txt` files:
 
-1. I'm assuming your GBA cross compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
-2. I'm assuming your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
+1. gba-sprite-engine assumes your GBA cross-compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
+2. gba-sprite-engine assumes your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
+
+##### Building using Windows
+
+Tested ander working under Windows 10. Use [MinGW](http://www.mingw.org) or Cygwin, and add the `-G "Unix Makefiles"` option to your `cmake ./../` command. 
+
+Cygwin is also a possibility, but combined with CLion the Unix and Windows path structures will clash. If using an IDE like CLion, resort to using MinGW.
 
 #### Running unit tests
 
