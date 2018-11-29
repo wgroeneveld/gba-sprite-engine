@@ -30,6 +30,7 @@ public:
                                                                        screenBlockIndex(0), charBlockIndex(0), mapSize(mapSize) {}
     virtual void persist();
     void clearMap();
+    void clearData();
 };
 
 

@@ -154,9 +154,19 @@ The paddle auto-stays within bounds.
 
 Each sprite has own raw data, so there's no shared sprite image (for the better). The palette of course is shared, so think about that when exporting with a tool like [grit](https://www.coranac.com/man/grit/html/grit.htm) or [png2gba](https://github.com/IanFinlayson/png2gba). Grit has flags to export a shared palette:
 
-> ./../grit pic1.png pic2.png kul.png -ftc -pS -gB8 -O shared.c
+> grit pic1.png pic2.png kul.png -ftc -pS -gB8 -O shared.c
 
 Consult the [Grit list of cmdline options](https://www.coranac.com/man/grit/html/grit.htm) for more information.
+
+Extracting a tilemap from a big image to create a splash-like intro screen can be done using these options:
+
+> grit splashimage.png -gt -gB8 -mRtpf -mLs -ftc
+
+It will export:
+
+1. A tileset. Your data, to be injected into background VRAM char blocks.
+2. A tilemap. Your metadata, to be injected into the next free background VRAM screen block.
+3. A palette. Your one and only background palette.  
 
 #### Sound
 

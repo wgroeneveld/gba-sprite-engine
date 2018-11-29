@@ -23,6 +23,7 @@ private:
     Scene* sceneToTransitionTo;
     SceneEffect* currentEffectForTransition;
 
+    bool disableTextBg;
     SpriteManager spriteManager;
 
     static std::unique_ptr<SoundControl> activeChannelA;
@@ -43,6 +44,8 @@ public:
     void dynamicallyAddSprite(Sprite* s) { spriteManager.add(s); }
     void transitionIntoScene(Scene* scene, SceneEffect* effect);
     bool isTransitioning() { return currentEffectForTransition != nullptr; }
+    void disableText() { this->disableTextBg = true; }
+    void enableText() { this->disableTextBg = false; }
 
     void dequeueAllSounds();
     void enqueueMusic(const s8 *data, int totalSamples, int sampleRate = 16000) {

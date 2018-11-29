@@ -36,6 +36,12 @@ void Background::persist() {
     buildRegister();
 }
 
+void Background::clearData() {
+    this->clearMap();
+    int empty[this->size];
+    dma3_cpy(char_block(bgIndex), empty, this->size);
+}
+
 void Background::clearMap() {
     volatile auto ptr = &se_mem[screenBlockIndex][0];
     for (int i = 0; i < this->mapSize; i++) {

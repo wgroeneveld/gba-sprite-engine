@@ -30,7 +30,7 @@ public:
     virtual std::vector<Background*> backgrounds() = 0;
 
     virtual void load() = 0;
-    virtual void tick(u16 i) = 0;
+    virtual void tick(u16 keys) = 0;
 
     Scene(std::shared_ptr<GBAEngine> engine) :
             engine(engine),

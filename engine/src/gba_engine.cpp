@@ -100,6 +100,7 @@ GBAEngine::GBAEngine() {
     *IRQ_CALLBACK = (u32) &GBAEngine::onVBlank;
 
     REG_SNDDSCNT = 0;
+    disableTextBg = false;
     Allocator::free();
 }
 
@@ -131,6 +132,10 @@ void GBAEngine::transitionIntoScene(Scene* scene, SceneEffect* effect) {
 }
 
 void GBAEngine::cleanupPreviousScene()  {
+    for(auto bg : currentScene->backgrounds()) {
+        bg->clearData();
+    }
+
     delete currentScene;
     sceneToTransitionTo = nullptr;
     delete currentEffectForTransition;
@@ -140,9 +145,11 @@ void GBAEngine::setScene(Scene* scene) {
     dequeueAllSounds();
     if(this->currentScene) {
         cleanupPreviousScene();
-        TextStream::instance().clear();
     }
     scene->load();
+    if(!this->disableTextBg) {
+        TextStream::instance().clear();
+    }
 
     auto fgPalette = scene->getForegroundPalette();
     if(!fgPalette) {
@@ -155,7 +162,9 @@ void GBAEngine::setScene(Scene* scene) {
     }
     bgPalette->persist();
 
-    TextStream::instance().persist();
+    if(!this->disableTextBg) {
+        TextStream::instance().persist();
+    }
 
     for(const auto bg : scene->backgrounds()) {
         bg->persist();
