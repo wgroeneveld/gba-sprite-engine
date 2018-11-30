@@ -26,6 +26,11 @@ void* char_block(unsigned long block) {
     return (void*) (0x6000000 + (block * 0x4000));
 }
 
+void Background::updateMap(const void *map) {
+    this->map = map;
+    dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
+}
+
 void Background::persist() {
     dma3_cpy(char_block(bgIndex), this->data, this->size);
 

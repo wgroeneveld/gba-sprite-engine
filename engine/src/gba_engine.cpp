@@ -145,11 +145,11 @@ void GBAEngine::setScene(Scene* scene) {
     dequeueAllSounds();
     if(this->currentScene) {
         cleanupPreviousScene();
+        if(!this->disableTextBg) {
+            TextStream::instance().clear();
+        }
     }
     scene->load();
-    if(!this->disableTextBg) {
-        TextStream::instance().clear();
-    }
 
     auto fgPalette = scene->getForegroundPalette();
     if(!fgPalette) {
