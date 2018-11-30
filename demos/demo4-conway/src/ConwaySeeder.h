@@ -11,6 +11,7 @@
 class ConwaySeeder : public Scene {
 private:
     int delta;
+    int impl;
     int percentage;
     std::unique_ptr<Sprite> conwaySprite;
 
