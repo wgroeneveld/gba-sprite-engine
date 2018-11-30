@@ -22,23 +22,12 @@ std::vector<Background *> ConwayScene::backgrounds() {
     return { bg.get() };
 }
 
-u16 ConwayScene::getNextState(int x, int y) {
-    int pos = y * MAP_WIDTH + x;
+u16 ConwayScene::getNextState(int x, int y, int pos) {
     int amountAlive = countAmountOfNeighbouringCellsAlive(pos, x, y);
 
     int currentState = map[pos];
-
-    if(currentState == DEAD) {
-        if(amountAlive == 3) {
-            return ALIVE;
-        }
-        return DEAD;
-    } else {
-        if (amountAlive < 2 || amountAlive > 3) {
-            return DEAD;
-        }
-        return ALIVE;
-    }
+    // speed optimization: skip the ifs. "? ALIVE : DEAD" can also be skipped if you're sure they are 1 and 0.
+    return (amountAlive == 3 || (amountAlive == 2 && (currentState == ALIVE))) ? ALIVE : DEAD;
 }
 
 int ConwayScene::countAmountOfNeighbouringCellsAlive(int pos, int x, int y) {
@@ -68,10 +57,6 @@ void ConwayScene::load() {
 }
 
 void ConwayScene::seedRandomMap(int seedcount) {
-    for(int i = 0; i < MAP_SIZE; i++) {
-        map[i] = DEAD;
-    }
-
     for(int i = 0; i < seedcount; i++) {
         int x = qran_range(0, MAP_WIDTH);
         int y = qran_range(0, MAP_HEIGHT);

@@ -57,11 +57,11 @@ void ConwaySeeder::tick(u16 keys) {
         }
     } else if(keys & KEY_UP && percentage < 90) {
         delta = 1;
-    } else if(keys & KEY_DOWN && percentage > 10) {
+    } else if(keys & KEY_DOWN && percentage > 5) {
         delta = -1;
     } else {
         if(delta != 0) {
-            percentage += 10 * delta;
+            percentage += 5 * delta;
             delta = 0;
         }
     }
