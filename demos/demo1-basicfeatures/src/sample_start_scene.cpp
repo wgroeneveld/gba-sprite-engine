@@ -42,7 +42,7 @@ void SampleStartScene::tick(u16 keys) {
     if(keys & KEY_START) {
         if(!engine->isTransitioning()) {
             engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
-
+            //dit is een test om te kijken of github in orde is
             TextStream::instance() << "entered: starting next scene";
 
             engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
