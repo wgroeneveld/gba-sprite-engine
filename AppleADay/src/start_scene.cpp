@@ -33,7 +33,8 @@ void StartScene::load() {
             .buildPtr();
             */
 
-    TextStream::instance().setText("PRESS START", 3, 8);
+    TextStream::instance().setText("An Apple A Day", 3, 2);
+    TextStream::instance().setText("Keeps The Windows Away", 6, 2);
     //engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
