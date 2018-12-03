@@ -22,12 +22,16 @@ std::vector<Background *> ConwayScene::backgrounds() {
     return { bg.get() };
 }
 
+u16 ConwayScene::getNextStateWithCount(int currentState, int amountAlive) {
+    // speed optimization: skip the ifs. "? ALIVE : DEAD" can also be skipped if you're sure they are 1 and 0.
+    return (amountAlive == 3 || (amountAlive == 2 && (currentState == ALIVE))) ? ALIVE : DEAD;
+}
+
 u16 ConwayScene::getNextState(int x, int y, int pos) {
     int amountAlive = countAmountOfNeighbouringCellsAlive(pos, x, y);
 
     int currentState = map[pos];
-    // speed optimization: skip the ifs. "? ALIVE : DEAD" can also be skipped if you're sure they are 1 and 0.
-    return (amountAlive == 3 || (amountAlive == 2 && (currentState == ALIVE))) ? ALIVE : DEAD;
+    return getNextStateWithCount(currentState, amountAlive);
 }
 
 int ConwayScene::countAmountOfNeighbouringCellsAlive(int pos, int x, int y) {

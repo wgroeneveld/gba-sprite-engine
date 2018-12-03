@@ -10,12 +10,15 @@
 
 struct cell {
     bool taken;
-    int x, y;
+    int x, y, pos;
+    u8 futureState;
 };
 
 class ActiveTrackingConwayScene : public ConwayScene {
 private:
-    cell activeCellIndex[MAP_SIZE] = {0}, activeCellIndexBuffer[MAP_SIZE] = {0};
+    int totalAmountAlive = 0;
+    int neighbourCount[MAP_SIZE] = {0};
+    cell activeCellIndex[MAP_SIZE + 1] = {0}, activeCellIndexBuffer[MAP_SIZE + 1] = {0};
 
 public:
     ActiveTrackingConwayScene(const std::shared_ptr<GBAEngine> &engine, u8 percentageSeed);

@@ -19,7 +19,7 @@ void NaiveConwayScene::tick(u16 keys) {
     // "Naïve" implementation:
     // 1. O(n^2) loop
     //  2. for each element, check x-1, x, x+y, y-1, y,y+1
-    // totals to min. 4096 * 8 = +32.768 instructions, each update(), at only 16.8 MHz!
+    // totals to min. 600 * 8 = +4800 instructions, each update(), at only 16.8 MHz!
 
     // speed optimization: reverse x/y in loop, calculate index in outer for
     // speed optimization: (needed for gba, as we copypaste this literally into VRAM) single-depth array with * lookup

@@ -25,6 +25,7 @@ protected:
     void seedRandomMap(int seedcount);
     int countAmountOfNeighbouringCellsAlive(int pos, int x, int y);
     u16 getNextState(int x, int y, int pos);
+    u16 getNextStateWithCount(int currentState, int count);
 
 public:
     ConwayScene(const std::shared_ptr<GBAEngine> &engine, u8 percentageSeed) : Scene(engine), percentageSeed(percentageSeed) {}
