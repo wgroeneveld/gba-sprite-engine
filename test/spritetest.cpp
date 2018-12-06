@@ -182,6 +182,12 @@ public:
     SpriteWithStubOam() : Sprite(nullptr, imageSize, x, y, SIZE_8_8) {
         oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
     }
+
+    OBJ_ATTR* buildOamForTesting() {
+        buildOam(0);
+        return oam.get();
+    }
+
 };
 
 class SpriteSuite : public ::testing::Test {
@@ -232,6 +238,16 @@ TEST_F(SpriteSuite, CollidesWith_B_Half_In_A_On_X_Axis_Collides) {
     auto b = SpriteBuilder<Sprite>().withLocation(20, 10).withSize(SIZE_16_16).buildPtr();
 
     ASSERT_TRUE(a->collidesWith(*b));
+}
+
+TEST_F(SpriteSuite, MovesToNegativeCoordsAreMaskedIntoOAM) {
+    s->moveTo(-10, -15);
+    auto oam = s->buildOamForTesting();
+    auto attr0 = std::bitset<16>(oam->attr0).to_string();
+    auto attr1 = std::bitset<16>(oam->attr1).to_string();
+
+    ASSERT_EQ(std::string("0000000011110001"), attr0);
+    ASSERT_EQ(std::string("0000000111110110"), attr1);
 }
 
 TEST_F(SpriteSuite, BuildingWithSize_SetsWidthAndHeight) {
