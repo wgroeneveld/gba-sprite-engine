@@ -191,6 +191,16 @@ Useful text manipulation:
 
 Changing the font style assumes a tile width of 32 and the same symbol indexes! It also resets the font color and map so call this before doing anything else. 
 
+#### Utilities
+
+There's a game `Timer` class available using `engine->getTimer()`. It counts miliseconds, seconds, minutes and hours. 
+Do not forget this is an estimate as modulo and divide operations are expensive. 
+
+Each VBlank occurs every 280806 cycles (`CYCLES_PER_BLANK`), each cycle is 59.59ns
+So, each VBlank occurs every 16.73322954 miliseconds or 16733.22954 microseconds.
+The microseconds after the comma are rounded so irregularities are bound to occur after hours of timing..
+
+
 #### Error logging
 
 The text stream is also used if something goes wrong, there's a macro `failure_gba(WHOOPS)` that prints file, line, method and "exception" message to the text stream background. 

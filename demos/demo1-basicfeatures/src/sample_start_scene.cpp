@@ -43,10 +43,19 @@ void SampleStartScene::load() {
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
+
+    engine->getTimer()->start();
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
 void SampleStartScene::tick(u16 keys) {
+    TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
+
+    if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
+        engine->getTimer()->toggle();
+        pressingAorB = false;
+    }
+
     if(keys & KEY_START) {
         if(!engine->isTransitioning()) {
             engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
@@ -63,5 +72,7 @@ void SampleStartScene::tick(u16 keys) {
         animation->flipVertically(true);
     } else if(keys & KEY_DOWN) {
         animation->flipVertically(false);
+    } else if((keys & KEY_A) || (keys & KEY_B)) {
+        pressingAorB = true;
     }
 }

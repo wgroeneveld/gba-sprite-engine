@@ -12,6 +12,7 @@
 #include <libgba-sprite-engine/effects/scene_effect.h>
 #include "scene.h"
 #include "sound_control.h"
+#include "timer.h"
 
 #define GBA_SCREEN_WIDTH 240
 #define GBA_SCREEN_HEIGHT 160
@@ -26,6 +27,7 @@ private:
     bool disableTextBg;
     SpriteManager spriteManager;
 
+    static std::unique_ptr<Timer> timer;
     static std::unique_ptr<SoundControl> activeChannelA;
     static std::unique_ptr<SoundControl> activeChannelB;
 
@@ -40,6 +42,7 @@ private:
 public:
     GBAEngine();
 
+    Timer* getTimer();
     void setScene(Scene* scene);
     void dynamicallyAddSprite(Sprite* s) { spriteManager.add(s); }
     void transitionIntoScene(Scene* scene, SceneEffect* effect);
