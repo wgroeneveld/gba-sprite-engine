@@ -53,7 +53,8 @@ void Sprite::syncVelocity() {
 
 void Sprite::syncAnimation() {
     int offset = w == 64 ? 2 : 1;   // 64xY sprites don't seem to cut currFrame * w
-    int newTileIndex = this->tileIndex + (currentFrame * w * offset);
+    int width = w == 16 ? 8 : w;    // 16xY sprites: frame 192 -> 200 (x8) (skip last 2 bpps)
+    int newTileIndex = this->tileIndex + (currentFrame * width * offset);
 
     oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
     oam->attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);

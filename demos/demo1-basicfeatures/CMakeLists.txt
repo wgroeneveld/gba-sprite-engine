@@ -8,7 +8,7 @@ add_executable(${PROJECT_NAME}.elf
         src/sample_sound.h
         src/kul.h
         src/flying_stuff_scene.cpp
-        src/flying_stuff_scene.h)
+        src/flying_stuff_scene.h src/ff.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

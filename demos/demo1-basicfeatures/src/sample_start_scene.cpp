@@ -11,6 +11,7 @@
 #include "flying_stuff_scene.h"
 
 #include "lama.h"
+#include "ff.h"
 #include "sample_sound.h"
 
 std::vector<Background *> SampleStartScene::backgrounds() {
@@ -18,20 +19,27 @@ std::vector<Background *> SampleStartScene::backgrounds() {
 }
 
 std::vector<Sprite *> SampleStartScene::sprites() {
-    return {  animation.get() };
+    return {  animation.get(), finalFantasyGuy.get() };
 }
 
 void SampleStartScene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(lama_palette, sizeof(lama_palette)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     SpriteBuilder<Sprite> builder;
 
     animation = builder
-            .withData(lama_data, sizeof(lama_data))
+            .withData(lamaTiles, sizeof(lamaTiles))
             .withSize(SIZE_32_32)
             .withAnimated(6, 3)
             .withLocation(50, 50)
+            .buildPtr();
+
+    finalFantasyGuy = builder
+            .withData(lopen_jongenTiles, sizeof(lopen_jongenTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(2, 10)
+            .withLocation(10, 10)
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
