@@ -44,11 +44,11 @@ private:
     void updateVelocity();
     void updateAnimation();
     void syncVelocity();
-    void syncAnimation();
 
 protected:
     const void *data;
     int x, y, dx, dy;
+    u8 animation_offset;
     u32 priority, w, h, size_bits, shape_bits;
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
@@ -58,6 +58,7 @@ protected:
 
     std::unique_ptr<OBJ_ATTR> oam;
 
+    void syncAnimation();
     virtual void syncOam();
     virtual void buildOam(int tileIndex);
     void setAttributesBasedOnSize(SpriteSize size);

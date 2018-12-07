@@ -181,12 +181,12 @@ const u32 kul_data [] = {
 
 class SpriteWithStubOam : public Sprite {
 public:
-    SpriteWithStubOam() : Sprite(nullptr, imageSize, x, y, SIZE_8_8) {
+    SpriteWithStubOam(SpriteSize size) : Sprite(nullptr, imageSize, x, y, size) {
         oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
     }
 
-    OBJ_ATTR* buildOamForTesting() {
-        buildOam(0);
+    OBJ_ATTR* buildOamForTesting(int tileIndex = 0) {
+        buildOam(tileIndex);
         return oam.get();
     }
 
@@ -201,9 +201,20 @@ protected:
     }
 
     virtual void SetUp() {
-        s = new SpriteWithStubOam();
+        s = new SpriteWithStubOam(SIZE_8_8);
     }
 };
+
+TEST_F(SpriteSuite, Sync_Animation_Updates_OAM_To_Next_Frame) {
+    s = new SpriteWithStubOam(SIZE_16_32);
+    s->makeAnimated(2, 0);
+    auto oam = s->buildOamForTesting(208); // should start at 224 (11100000) after a frame update
+    s->update();
+
+    auto attr2 = std::bitset<16>(oam->attr2).to_string();
+
+    ASSERT_EQ(std::string("0000000011100000"), attr2);
+}
 
 
 TEST_F(SpriteSuite, Animated_Sprite_Increases_Current_Frame_After_Delay) {

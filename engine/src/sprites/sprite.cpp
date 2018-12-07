@@ -52,10 +52,7 @@ void Sprite::syncVelocity() {
 }
 
 void Sprite::syncAnimation() {
-    int offset = w == 64 ? 2 : 1;   // 64xY sprites don't seem to cut currFrame * w
-    int width = w == 16 ? 8 : w;    // 16xY sprites: frame 192 -> 200 (x8) (skip last 2 bpps)
-    int newTileIndex = this->tileIndex + (currentFrame * width * offset);
-
+    int newTileIndex = this->tileIndex + (currentFrame * (this->animation_offset * 2));
     oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
     oam->attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);
 }
@@ -99,18 +96,18 @@ void Sprite::update() {
 
 void Sprite::setAttributesBasedOnSize(SpriteSize size) {
     switch (size) {
-        case SIZE_8_8:   size_bits = 0; shape_bits = 0; w = 8; h = 8; break;
-        case SIZE_16_16: size_bits = 1; shape_bits = 0; w = 16; h = 16; break;
-        case SIZE_32_32: size_bits = 2; shape_bits = 0; w = 32; h = 32; break;
-        case SIZE_64_64: size_bits = 3; shape_bits = 0; w = 64; h = 64; break;
-        case SIZE_16_8:  size_bits = 0; shape_bits = 1; w = 16; h = 8; break;
-        case SIZE_32_8:  size_bits = 1; shape_bits = 1; w = 32; h = 8; break;
-        case SIZE_32_16: size_bits = 2; shape_bits = 1; w = 32; h = 16; break;
-        case SIZE_64_32: size_bits = 3; shape_bits = 1; w = 64; h = 32; break;
-        case SIZE_8_16:  size_bits = 0; shape_bits = 2; w = 8; h = 16; break;
-        case SIZE_8_32:  size_bits = 1; shape_bits = 2; w = 8; h = 32; break;
-        case SIZE_16_32: size_bits = 2; shape_bits = 2; w = 16; h = 32; break;
-        case SIZE_32_64: size_bits = 3; shape_bits = 2; w = 32; h = 64; break;
+        case SIZE_8_8:   size_bits = 0; shape_bits = 0; w = 8; h = 8; animation_offset = 1; break;
+        case SIZE_16_16: size_bits = 1; shape_bits = 0; w = 16; h = 16; animation_offset = 4; break;
+        case SIZE_32_32: size_bits = 2; shape_bits = 0; w = 32; h = 32; animation_offset = 16; break;
+        case SIZE_64_64: size_bits = 3; shape_bits = 0; w = 64; h = 64; animation_offset = 64; break;
+        case SIZE_16_8:  size_bits = 0; shape_bits = 1; w = 16; h = 8; animation_offset = 2; break;
+        case SIZE_32_8:  size_bits = 1; shape_bits = 1; w = 32; h = 8; animation_offset = 4; break;
+        case SIZE_32_16: size_bits = 2; shape_bits = 1; w = 32; h = 16; animation_offset = 8; break;
+        case SIZE_64_32: size_bits = 3; shape_bits = 1; w = 64; h = 32; animation_offset = 32; break;
+        case SIZE_8_16:  size_bits = 0; shape_bits = 2; w = 8; h = 16; animation_offset = 2; break;
+        case SIZE_8_32:  size_bits = 1; shape_bits = 2; w = 8; h = 32; animation_offset = 4; break;
+        case SIZE_16_32: size_bits = 2; shape_bits = 2; w = 16; h = 32; animation_offset = 8; break;
+        case SIZE_32_64: size_bits = 3; shape_bits = 2; w = 32; h = 64; animation_offset = 32; break;
     }
 }
 
