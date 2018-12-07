@@ -137,7 +137,7 @@ Sample rotation demo 3.
 
 **Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). Like this:
 
-![lama gif example](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/demos/demo1-basicfeatures/lama.png?raw=true)
+![lama gif example](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/demos/demo1-basicfeatures/img/lama.png?raw=true)
 
 Useful sprite methods:
 
