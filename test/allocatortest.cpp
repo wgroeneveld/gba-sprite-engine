@@ -69,7 +69,7 @@ TEST_F(AllocatorSuite, Allocate_Sprite_Pointers_Reservers_Some_Tile_Space) {
     auto curr2 = Allocator::getCurrentSpriteIndex();
     auto diff2 = curr2 - curr;
 
-    cout << "prev: " << prev << " - curr: " << curr << " (diff: " << diff << ")" << " and " << curr2 <<  endl;
+    cout << "prev: " << prev << " - curr: " << curr << " (delta: " << diff << ")" << " and " << curr2 <<  endl;
 
     ASSERT_EQ(prev, allocated.currentAddress);
     ASSERT_EQ(curr, allocated2.currentAddress);

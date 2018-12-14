@@ -8,13 +8,13 @@
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <libgba-sprite-engine/gba/tonc_math.h>
+#include <deque>
 
 class Bullet {
 private:
     std::unique_ptr<Sprite> sprite;
+    std::deque<VECTOR> coords;
     VECTOR dest;
-    VECTOR diff;
-    VECTOR directionToCover;
 
 public:
     Bullet(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), dest(VECTOR()) {}

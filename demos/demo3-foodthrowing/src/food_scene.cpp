@@ -128,5 +128,5 @@ void FoodScene::load() {
     bulletCooldown = BULLET_COOLDOWN_START;
 
     // rotation of a point on a circle within the resolution means our radius should be big enough
-    defaultBulletTarget = { GBA_SCREEN_WIDTH / 2, GBA_SCREEN_HEIGHT + (GBA_SCREEN_WIDTH / 2) - avatar->getCenter().y};
+    defaultBulletTarget = { GBA_SCREEN_WIDTH / 2, GBA_SCREEN_HEIGHT + (GBA_SCREEN_WIDTH / 2) - avatar->getCenter().y + 40};
 }
