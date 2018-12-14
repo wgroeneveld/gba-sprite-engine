@@ -28,6 +28,7 @@ add_executable(unittest
         allocatortest.cpp
         palettetest.cpp
         real_data.h
+        ../engine/src/gba/sin_lut.s
         ../engine/src/background/background.cpp
         ../engine/src/background/text_stream.cpp
         ../engine/src/palette/palette_manager.cpp
@@ -35,7 +36,7 @@ add_executable(unittest
         ../engine/src/allocator.cpp
         ../engine/src/palette/combined_palette.cpp
         ../engine/src/timer.cpp
-        ../engine/src/math.cpp
-        timertest.cpp mathtest.cpp)
+        ../engine/src/gbavector.cpp
+        timertest.cpp gbavectortest.cpp)
 
 target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a)

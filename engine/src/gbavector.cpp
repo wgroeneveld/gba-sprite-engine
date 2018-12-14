@@ -2,10 +2,27 @@
 // Created by Wouter Groeneveld on 14/12/18.
 //
 
-#include <libgba-sprite-engine/math.h>
+#include <libgba-sprite-engine/gbavector.h>
 
-std::deque<VECTOR> Math::bresenhamLineBetween(VECTOR src, VECTOR dest) {
+VECTOR GBAVector::rotateAsCenter(VECTOR point, uint angle) {
+    auto center = this->v;
+    s32 centerx = center.x, centery = center.y;
+    s32 defaultx = point.x, defaulty = point.y;
+
+    s32 cos = lu_cos(angle) >> 4;
+    s32 sin = lu_sin(angle) >> 4;
+
+    // affine matriches are 8.8 fixed point numbers, so shift all input 8 spaces up and forth
+    // possibilities: instead of between [-1.0, 1.0] it's between [-256, +256]
+    // 90° rotation in inversed y-axis needs to flip sin sign
+    return {
+            ( cos * (defaultx - centerx) + sin * (defaulty - centery) + (centerx << 8)) >> 8,
+            (-sin * (defaultx - centerx) + cos * (defaulty - centery) + (centery << 8)) >> 8};
+}
+
+std::deque<VECTOR> GBAVector::bresenhamLineTo(VECTOR dest) {
     // https://www.coranac.com/tonc/text/bitmaps.htm - Bresenham's line algorithm with fixed points
+    VECTOR src = this->v;
     VECTOR step, delta;
 
     std::deque<VECTOR> coords;

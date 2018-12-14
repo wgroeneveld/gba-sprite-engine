@@ -14,7 +14,7 @@ public:
     }
 
     virtual ~SomePaletteManager() {
-        delete palette;
+        delete[] palette;
     }
 
 protected:

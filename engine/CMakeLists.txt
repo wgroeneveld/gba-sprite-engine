@@ -1,6 +1,5 @@
 project(gba-sprite-engine)
 set_property(SOURCE src/gba/sin_lut.s PROPERTY LANGUAGE C)
-
 set_property(SOURCE src/gba/tonc_bios.s PROPERTY LANGUAGE C)
 set_source_files_properties(src/gba/tonc_bios.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 
@@ -18,7 +17,7 @@ add_library(${PROJECT_NAME}
         src/background/text_stream.cpp
         src/background/background.cpp
         src/effects/fade_out_scene.cpp
-        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/math.h src/math.cpp)
+        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

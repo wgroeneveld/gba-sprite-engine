@@ -5,15 +5,15 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_bios.h>
 #include <cmath>
-#include <libgba-sprite-engine/math.h>
+#include <libgba-sprite-engine/gbavector.h>
 #include "bullet.h"
 
 
 void Bullet::setDestination(VECTOR destination) {
-    auto currentPos = sprite->getPos();
+    auto currentPos = sprite->getPosAsVector();
     this->dest = destination;
 
-    this->coords = Math::bresenhamLineBetween(currentPos, destination);
+    this->coords = currentPos.bresenhamLineTo(destination);
 }
 
 void Bullet::tick() {

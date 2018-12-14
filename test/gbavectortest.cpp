@@ -5,20 +5,54 @@
 
 
 #include <gtest/gtest.h>
-#include <libgba-sprite-engine/math.h>
+#include <libgba-sprite-engine/gbavector.h>
 
-class MathSuite : public ::testing::Test {
+class GBAVectorSuite : public ::testing::Test {
 protected:
+    GBAVector vector;
+    VECTOR bottomHalf;
 
     virtual void TearDown() {
     }
 
     virtual void SetUp() {
+        vector = GBAVector({120, 80});
+        bottomHalf = { 120, 200 };
     }
 };
 
-TEST_F(MathSuite, LineBetween_Diagonal_ToTopRightCorner) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {240, 0});
+// Angle in DEGREES for readability - converted in tonc_math_stub!
+TEST_F(GBAVectorSuite, Rotate_FromBottomHalf_0_Degrees) {
+    auto result = vector.rotateAsCenter(bottomHalf, 0);
+    ASSERT_EQ(120, result.x);
+    ASSERT_EQ(200, result.y);
+}
+
+TEST_F(GBAVectorSuite, Rotate_FromBottomHalf_90_Degrees) {
+    auto result = vector.rotateAsCenter(bottomHalf, 90);
+    ASSERT_EQ(240, result.x);
+    ASSERT_EQ(80, result.y);
+}
+
+TEST_F(GBAVectorSuite, Rotate_FromBottomHalf_180_Degrees) {
+    auto result = vector.rotateAsCenter(bottomHalf, 180);
+    ASSERT_EQ(120, result.x);
+    ASSERT_EQ(-40, result.y);
+}
+
+TEST_F(GBAVectorSuite, Rotate_FromBottomHalf_270_Degrees) {
+    auto result = vector.rotateAsCenter(bottomHalf, 270);
+    ASSERT_EQ(0, result.x);
+    ASSERT_EQ(80, result.y);
+}
+// ---- //
+
+TEST_F(GBAVectorSuite, ToString) {
+    ASSERT_EQ(std::string("(120,80)"), vector.to_string());
+}
+
+TEST_F(GBAVectorSuite, LineBetween_Diagonal_ToTopRightCorner) {
+    auto points = vector.bresenhamLineTo({240, 0});
     ASSERT_EQ(121, points.size());
     VECTOR pt;
 
@@ -37,8 +71,8 @@ TEST_F(MathSuite, LineBetween_Diagonal_ToTopRightCorner) {
     ASSERT_EQ(13, pt.y);
 }
 
-TEST_F(MathSuite, LineBetween_Diagonal_ToTopLeftCorner) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {0, 0});
+TEST_F(GBAVectorSuite, LineBetween_Diagonal_ToTopLeftCorner) {
+    auto points = vector.bresenhamLineTo({0, 0});
     ASSERT_EQ(121, points.size());
     VECTOR pt;
 
@@ -57,8 +91,8 @@ TEST_F(MathSuite, LineBetween_Diagonal_ToTopLeftCorner) {
     ASSERT_EQ(13, pt.y);
 }
 
-TEST_F(MathSuite, LineBetween_Diagonal_ToBottomLeftCorner) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {0, 160});
+TEST_F(GBAVectorSuite, LineBetween_Diagonal_ToBottomLeftCorner) {
+    auto points = vector.bresenhamLineTo({0, 160});
     ASSERT_EQ(121, points.size());
     VECTOR pt;
 
@@ -77,8 +111,8 @@ TEST_F(MathSuite, LineBetween_Diagonal_ToBottomLeftCorner) {
     ASSERT_EQ(147, pt.y);
 }
 
-TEST_F(MathSuite, LineBetween_Diagonal_ToBottomRightCorner) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {240, 160});
+TEST_F(GBAVectorSuite, LineBetween_Diagonal_ToBottomRightCorner) {
+    auto points = vector.bresenhamLineTo({240, 160});
     ASSERT_EQ(121, points.size());
     VECTOR pt;
 
@@ -97,8 +131,8 @@ TEST_F(MathSuite, LineBetween_Diagonal_ToBottomRightCorner) {
     ASSERT_EQ(147, pt.y);
 }
 
-TEST_F(MathSuite, LineBetween_Horizontal_FromCenterToHalfYZeroX) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {0, 80});
+TEST_F(GBAVectorSuite, LineBetween_Horizontal_FromCenterToHalfYZeroX) {
+    auto points = vector.bresenhamLineTo({0, 80});
     ASSERT_EQ(121, points.size());
     for(int i = 0; i <= 120; i++) {
         auto &vec = points.front();
@@ -108,8 +142,8 @@ TEST_F(MathSuite, LineBetween_Horizontal_FromCenterToHalfYZeroX) {
     }
 }
 
-TEST_F(MathSuite, LineBetween_Vertical_FromCenterToHalfXFullY) {
-    auto points = Math::bresenhamLineBetween({120, 80}, {120, 160});
+TEST_F(GBAVectorSuite, LineBetween_Vertical_FromCenterToHalfXFullY) {
+    auto points = vector.bresenhamLineTo({120, 160});
     ASSERT_EQ(81, points.size());
     for(int i = 0; i <= (160 - 80); i++) {
         auto &vec = points.front();

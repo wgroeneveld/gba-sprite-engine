@@ -14,7 +14,12 @@
 #include "tonc_memmap.h"
 #include "tonc_memdef.h"
 #include "tonc_core.h"
+#ifdef CODE_COMPILED_AS_PART_OF_TEST
+#include "tonc_math_stub.h"
+#else
 #include "tonc_math.h"
+#endif
+
 
 // --------------------------------------------------------------------
 // OBJECTS

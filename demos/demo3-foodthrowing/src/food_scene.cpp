@@ -42,18 +42,7 @@ void FoodScene::removeBulletsOffScreen() {
 }
 
 VECTOR FoodScene::rotateAround(VECTOR center, VECTOR point) {
-    s32 centerx = center.x, centery = center.y;
-    s32 defaultx = point.x, defaulty = point.y;
-
-    s32 cos = lu_cos(avatarRotation) >> 4;
-    s32 sin = lu_sin(avatarRotation) >> 4;
-
-    // affine matriches are 8.8 fixed point numbers, so shift all input 8 spaces up and forth
-    // possibilities: instead of between [-1.0, 1.0] it's between [-256, +256]
-    // 90° rotation in inversed y-axis needs to flip sin sign
-    return {
-            ( cos * (defaultx - centerx) + sin * (defaulty - centery) + (centerx << 8)) >> 8,
-            (-sin * (defaultx - centerx) + cos * (defaulty - centery) + (centery << 8)) >> 8};
+    return GBAVector(center).rotateAsCenter(point, avatarRotation);
 }
 
 void FoodScene::tick(u16 keys) {
