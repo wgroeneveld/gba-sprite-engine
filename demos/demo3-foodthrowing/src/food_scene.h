@@ -23,6 +23,9 @@ private:
     std::unique_ptr<Bullet> createBullet();
     void removeBulletsOffScreen();
 
+    VECTOR rotateAround(VECTOR center, VECTOR point);
+    VECTOR defaultBulletTarget;
+
 public:
     explicit FoodScene(const std::shared_ptr<GBAEngine> &engine);
     FoodScene(FoodScene& other) = delete;
