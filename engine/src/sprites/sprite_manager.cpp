@@ -30,10 +30,6 @@ void SpriteManager::add(Sprite* sprite) {
 
 void SpriteManager::render() {
     // WARNING - This is called every time in the main update loop; keep amount of instructions as minimal as possible in here!
-    if(!initialized) {
-        failure_gba(Cant_Render_Before_Init);
-    }
-
     copyOverSpriteOAMToVRAM();
 }
 
@@ -63,10 +59,6 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
         }
 
         i++;
-    }
-
-    if(affineIndex > MAX_AFFINE_SIZE) {
-        failure_gba(MaxSpritesWithAffineReached);
     }
 }
 
