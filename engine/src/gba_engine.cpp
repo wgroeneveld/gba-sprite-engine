@@ -113,6 +113,8 @@ GBAEngine::GBAEngine() {
 }
 
 void GBAEngine::update() {
+    // main update loop, in while(true) {}.
+    // WARNING - keep amount of instructions as minimal as possible in here!
     if(sceneToTransitionTo) {
         currentEffectForTransition->update();
 
@@ -122,12 +124,16 @@ void GBAEngine::update() {
     }
 
     u16 keys = readKeys();
+    // main scene update loop call. This *might* take a while.
     currentScene->tick(keys);
 
-    if(currentScene->sprites().size() != spriteManager.getSpriteSize()) {
-        updateSpritesInScene();
-    }
+    // Intentionally commented out: asking the scene for sprites() rebuilds the vector each time
+    // Causing a big performance hit. Instead, you should call updateSpritesInScene() yourself!
+    // if(currentScene->sprites().size() != spriteManager.getSpriteSize()) {
+    //     updateSpritesInScene();
+    // }
 
+    // TODO use software interrupt Vsyncing instead of 2 wasteful whiles
     vsync();
     spriteManager.render();
 }
@@ -156,6 +162,7 @@ void GBAEngine::setScene(Scene* scene) {
             TextStream::instance().clear();
         }
     }
+    spriteManager.hideAll();
     scene->load();
 
     auto fgPalette = scene->getForegroundPalette();

@@ -21,6 +21,7 @@ private:
 public:
     int getSpriteSize() { return sprites.size(); }
 
+    void hideAll();
     void add(Sprite* sprite);
     void set(std::vector<Sprite*> sprites);
     void persist();                      // copies over image and palette data to VRAM, modifies sprite OAM indiches
