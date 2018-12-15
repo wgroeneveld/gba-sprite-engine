@@ -113,8 +113,6 @@ GBAEngine::GBAEngine() {
 }
 
 void GBAEngine::update() {
-    vsync();
-
     if(sceneToTransitionTo) {
         currentEffectForTransition->update();
 
@@ -130,6 +128,7 @@ void GBAEngine::update() {
         updateSpritesInScene();
     }
 
+    vsync();
     spriteManager.render();
 }
 
