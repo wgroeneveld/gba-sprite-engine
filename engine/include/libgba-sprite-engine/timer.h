@@ -30,6 +30,7 @@ public:
 
     std::string to_string();
 
+    int getTotalMsecs();
     int getMsecs() { return msecs; }
     int getSecs() { return secs; }
     int getMinutes() { return minutes; }

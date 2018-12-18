@@ -33,6 +33,10 @@ void Timer::onvblank() {
     }
 }
 
+int Timer::getTotalMsecs() {
+    return msecs + (hours * 60 * 60 + minutes * 60 + secs) * 1000;
+}
+
 std::string Timer::to_string() {
     std::ostringstream stringStream;
     stringStream << *this;

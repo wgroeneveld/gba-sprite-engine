@@ -67,6 +67,8 @@ void Sprite::syncOam() {
 }
 
 void Sprite::updateVelocity() {
+    if(dx == 0 && dy == 0) return;
+
     this->x += this->dx;
     this->y += this->dy;
 

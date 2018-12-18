@@ -35,6 +35,8 @@ private:
     void cleanupPreviousScene();
     void enqueueSound(const s8 *data, int totalSamples, int sampleRate, SoundChannel channel);
 
+    void enableTimer0AndVBlank();
+    void disableTimer0AndVBlank();
     static void startOnVBlank() { REG_IME = 1; }
     static void stopOnVBlank() { REG_IME = 0; }
     static void onVBlank();

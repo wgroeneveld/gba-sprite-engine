@@ -13,6 +13,7 @@
 
 class FoodScene : public Scene {
 private:
+    int counter = 0;
     std::unique_ptr<AffineSprite> avatar;
     std::unique_ptr<Sprite> someBulletSprite;
     std::vector<std::unique_ptr<Bullet>> bullets;

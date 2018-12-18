@@ -56,9 +56,6 @@ u16 GBAEngine::readKeys() {
 }
 
 void GBAEngine::dequeueAllSounds() {
-    stopOnVBlank();
-    vsync();
-
     if(GBAEngine::activeChannelA) {
         GBAEngine::activeChannelA->disable();
     } if(GBAEngine::activeChannelB) {
@@ -81,8 +78,7 @@ void GBAEngine::enqueueSound(const s8 *data, int totalSamples, int sampleRate, S
         control = GBAEngine::activeChannelB.get();
     }
 
-    stopOnVBlank();
-    REG_TM0CNT = 0;
+    disableTimer0AndVBlank();
     control->disable();
 
     REG_SNDDSCNT |= control->getControlFlags();     // output to both sides, reset fifo
@@ -90,11 +86,21 @@ void GBAEngine::enqueueSound(const s8 *data, int totalSamples, int sampleRate, S
     u16 ticksPerSample = CLOCK / sampleRate;        // divide the clock (ticks/second) by the sample rate (samples/second)
 
     control->accept(data, totalSamples, ticksPerSample);
-    startOnVBlank();
     control->enable();
 
     REG_TM0D = OVERFLOW_16_BIT_VALUE - ticksPerSample;
+
+    enableTimer0AndVBlank();
+}
+
+void GBAEngine::disableTimer0AndVBlank() {
+    stopOnVBlank();
+    REG_TM0CNT = 0;
+}
+
+void GBAEngine::enableTimer0AndVBlank() {
     REG_TM0CNT = TM_ENABLE | TM_FREQ_1;             // enable timer - dma auto-syncs to this thanks to DMA_SYNC_TO_TIMER
+    startOnVBlank();
 }
 
 GBAEngine::GBAEngine() {
@@ -106,6 +112,8 @@ GBAEngine::GBAEngine() {
     REG_DISPSTAT |= DISPLAY_INTERRUPT_VBLANK_ENABLE;
     REG_IE |= INTERRUPT_VBLANK;
     *IRQ_CALLBACK = (u32) &GBAEngine::onVBlank;
+
+    enableTimer0AndVBlank();
 
     REG_SNDDSCNT = 0;
     disableTextBg = false;
@@ -156,6 +164,7 @@ void GBAEngine::cleanupPreviousScene()  {
 
 void GBAEngine::setScene(Scene* scene) {
     dequeueAllSounds();
+
     if(this->currentScene) {
         cleanupPreviousScene();
         if(!this->disableTextBg) {
