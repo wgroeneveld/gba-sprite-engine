@@ -160,6 +160,7 @@ void GBAEngine::cleanupPreviousScene()  {
     delete currentScene;
     sceneToTransitionTo = nullptr;
     delete currentEffectForTransition;
+    currentEffectForTransition = nullptr;
 }
 
 void GBAEngine::setScene(Scene* scene) {
