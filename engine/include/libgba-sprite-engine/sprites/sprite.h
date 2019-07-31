@@ -58,7 +58,7 @@ protected:
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;
-    u32 animationDelay, amountOfFrames, currentFrame, animationCounter;
+    u32 animationDelay, amountOfFrames, beginFrame, currentFrame, animationCounter;
     bool animating;
 
     std::unique_ptr<OBJ_ATTR> oam;
@@ -76,6 +76,13 @@ public:
     void makeAnimated(int amountOfFrames, int animationDelay) {
         this->amountOfFrames = amountOfFrames;
         this->animationDelay = animationDelay;
+        animate();
+    }
+    void makeAnimated(int beginFrame, int amountOfFrames, int animationDelay) {
+        this->amountOfFrames = amountOfFrames;
+        this->animationDelay = animationDelay;
+        this->beginFrame = beginFrame;
+        this->currentFrame = beginFrame;
         animate();
     }
     void animate() { this->animating = true; }
@@ -107,6 +114,7 @@ public:
     u32 getWidth() { return w; }
     u32 getY() { return y; }
     u32 getCurrentFrame() { return currentFrame; }
+    bool isAnimating() { return animating; };
     bool isOffScreen();
 
     friend class SpriteManager;
