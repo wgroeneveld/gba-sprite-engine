@@ -107,12 +107,12 @@ public:
     GBAVector getPosAsVector() { return GBAVector(getPos()); }
     VECTOR getCenter() { return { x + w / 2, y + h / 2 }; }
     VECTOR getVelocity() { return { dx, dy}; }
+    u32 getX() { return x; }
+    u32 getY() { return y; }
     u32 getDx() { return dx; }
     u32 getDy() { return dy; }
-    u32 getX() { return x; }
-    u32 getHeight() { return h; }
     u32 getWidth() { return w; }
-    u32 getY() { return y; }
+    u32 getHeight() { return h; }
     u32 getCurrentFrame() { return currentFrame; }
     bool isAnimating() { return animating; };
     bool isOffScreen();
