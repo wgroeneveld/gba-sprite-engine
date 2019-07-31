@@ -79,3 +79,8 @@ void Background::scroll(int x, int y) {
     REG_BG_OFS[bgIndex].x = x;
     REG_BG_OFS[bgIndex].y = y;
 }
+
+void Background::scrollSpeed(int dx, int dy) {
+    REG_BG_OFS[bgIndex].x += dx;
+    REG_BG_OFS[bgIndex].y += dy;
+}
