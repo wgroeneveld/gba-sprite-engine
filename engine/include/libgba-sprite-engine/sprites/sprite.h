@@ -79,14 +79,14 @@ public:
         animate();
     }
     void makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
-        this->numberOfFrames = numberOfFrames;
-        this->animationDelay = animationDelay;
-        this->beginFrame = beginFrame;
-        this->currentFrame = beginFrame;
+        setBeginFrame(beginFrame);
+        animateToFrame(beginFrame);
+        makeAnimated(numberOfFrames, animationDelay);
         animate();
     }
-    void animate() { this->animating = true; }
+    void setBeginFrame(int frame) { this->beginFrame = frame; }
     void animateToFrame(int frame) { this->currentFrame = frame; }
+    void animate() { this->animating = true; }
     void stopAnimating() { this->animating = false; }
     void setStayWithinBounds(bool b) { stayWithinBounds = b; }
     void setVelocity(int dx, int dy) {
