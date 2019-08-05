@@ -58,7 +58,7 @@ protected:
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;
-    u32 animationDelay, amountOfFrames, currentFrame, animationCounter;
+    u32 animationDelay, numberOfFrames, beginFrame, currentFrame, animationCounter;
     bool animating;
 
     std::unique_ptr<OBJ_ATTR> oam;
@@ -73,13 +73,20 @@ public:
     explicit Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
     virtual ~Sprite() {}
 
-    void makeAnimated(int amountOfFrames, int animationDelay) {
-        this->amountOfFrames = amountOfFrames;
+    void makeAnimated(int numberOfFrames, int animationDelay) {
+        this->numberOfFrames = numberOfFrames;
         this->animationDelay = animationDelay;
         animate();
     }
-    void animate() { this->animating = true; }
+    void makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
+        setBeginFrame(beginFrame);
+        animateToFrame(beginFrame);
+        makeAnimated(numberOfFrames, animationDelay);
+        animate();
+    }
+    void setBeginFrame(int frame) { this->beginFrame = frame; }
     void animateToFrame(int frame) { this->currentFrame = frame; }
+    void animate() { this->animating = true; }
     void stopAnimating() { this->animating = false; }
     void setStayWithinBounds(bool b) { stayWithinBounds = b; }
     void setVelocity(int dx, int dy) {
@@ -100,13 +107,14 @@ public:
     GBAVector getPosAsVector() { return GBAVector(getPos()); }
     VECTOR getCenter() { return { x + w / 2, y + h / 2 }; }
     VECTOR getVelocity() { return { dx, dy}; }
+    u32 getX() { return x; }
+    u32 getY() { return y; }
     u32 getDx() { return dx; }
     u32 getDy() { return dy; }
-    u32 getX() { return x; }
-    u32 getHeight() { return h; }
     u32 getWidth() { return w; }
-    u32 getY() { return y; }
+    u32 getHeight() { return h; }
     u32 getCurrentFrame() { return currentFrame; }
+    bool isAnimating() { return animating; };
     bool isOffScreen();
 
     friend class SpriteManager;

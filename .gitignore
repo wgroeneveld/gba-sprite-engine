@@ -122,3 +122,6 @@ CTestTestfile.cmake
 *.exe
 *.out
 *.app
+
+#VisualStudio code
+.vscode
