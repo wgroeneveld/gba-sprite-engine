@@ -123,10 +123,10 @@ void Sprite::setAttributesBasedOnSize(SpriteSize size) {
 bool Sprite::collidesWith(Sprite &s2) {
     const Sprite &s1 = *this;
 
-    if(s1.x < s2.x + s2.w &&
-            s1.x + s1.w > s2.x &&
-            s1.y < s2.y + s2.h &&
-            s1.h + s1.y > s2.y) {
+    if(s1.x % 256 < s2.x % 256 + s2.w &&
+            s1.x % 256 + s1.w > s2.x % 256 &&
+            s1.y % 256 < s2.y % 256 + s2.h &&
+            s1.h + s1.y % 256 > s2.y % 256) {
         return true;
     }
     return false;
