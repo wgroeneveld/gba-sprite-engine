@@ -31,7 +31,7 @@ void Sprite::moveTo(int x, int y) {
 }
 
 bool Sprite::isOffScreen() {
-    return x < 0 || x > GBA_SCREEN_WIDTH || y < 0 || y > GBA_SCREEN_HEIGHT;
+    return x % 256 < 0 || x % 256 > GBA_SCREEN_WIDTH || y % 256 < 0 || y % 256 > GBA_SCREEN_HEIGHT;
 }
 
 void Sprite::flipHorizontally(bool flip) {
