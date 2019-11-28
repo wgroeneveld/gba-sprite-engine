@@ -6,8 +6,12 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "flying_stuff_scene.h"
 #include "kul.h"
+#include "Last_stage.h"
 
 std::vector<Sprite *> FlyingStuffScene::sprites() {
     return {
@@ -66,4 +70,14 @@ void FlyingStuffScene::tick(u16 keys) {
     kulFlying.get()->rotate(rotation);
     player.get()->rotate(rotation);
     bg.get()->scroll(scrollX, scrollY);
+
+    if(keys & KEY_START) {
+        if(!engine->isTransitioning()) {
+            //engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
+
+            TextStream::instance() << "entered: starting last scene";
+
+            engine->transitionIntoScene(new Last_stage(engine), new FadeOutScene(2));
+        }
+    }
 }
