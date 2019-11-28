@@ -1,0 +1,14 @@
+//
+// Created by woute on 28/11/2019.
+//
+
+#ifndef AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
+#define AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
+
+
+class level1_scene {
+
+};
+
+
+#endif //AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
