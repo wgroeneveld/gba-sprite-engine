@@ -6,6 +6,7 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
+#include "Startscreen.h"
 
 std::vector<Background *> StartScreen::backgrounds() {
     return {};
@@ -15,7 +16,7 @@ std::vector<Sprite *> StartScreen::sprites() {
     return {sp_arrow.get()};
 }
 
-void Startscreen::load() {
+void StartScreen::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal,sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
@@ -33,3 +34,6 @@ void Startscreen::load() {
 }
 
 
+Startscreen::Startscreen(std::shared_ptr<GBAEngine> gameEngine, int charachter) {
+
+}

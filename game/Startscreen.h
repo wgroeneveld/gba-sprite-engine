@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
-class Startscreen : public Scene {
+class StartScreen : public Scene {
 private:
     bool upPressed = false;
     bool downPressed = false;
@@ -18,7 +18,7 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    Startscreen(std::shared_ptr<GBAEngine> gameEngine, int charachter) Scene(gameEngine), charachterChosen(charachter);
+    StartScreen(std::shared_ptr<GBAEngine> gameEngine, int charachter) : Scene(gameEngine), charachterChosen(charachter);
 
     void load_screen();
 };
