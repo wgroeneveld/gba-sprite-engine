@@ -1334,8 +1334,6 @@ const unsigned short aang_jump__1_Pal[256] __attribute__((aligned(4)))=
                 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
         };
 
-
-
 #endif // GRIT_AANG_JUMP__1__H
 
 //}}BLOCK(aang_jump__1_)

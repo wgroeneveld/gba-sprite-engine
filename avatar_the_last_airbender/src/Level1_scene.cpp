@@ -27,7 +27,7 @@ void Level1_scene::load() {
 
     aang = builder
             .withData(aang_jump__1_Pal, sizeof(aang_jump__1_Pal))
-            .withSize(SIZE_32_32)
+            .withSize(SIZE_64_32)
             .withAnimated(6, 3)
             .withLocation(50, 50)
             .buildPtr();
