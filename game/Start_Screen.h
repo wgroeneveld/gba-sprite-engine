@@ -2,8 +2,8 @@
 // Created by Erwin on 20/11/2019.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_STARTSCREEN_H
-#define GBA_SPRITE_ENGINE_PROJECT_STARTSCREEN_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_START_SCREEN_H
+#define GBA_SPRITE_ENGINE_PROJECT_START_SCREEN_H
 
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
@@ -22,4 +22,4 @@ public:
 
     void load_screen();
 };
-#endif //GBA_SPRITE_ENGINE_PROJECT_STARTSCREEN_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_START_SCREEN_H

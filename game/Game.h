@@ -7,11 +7,12 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
-#include "Startscreen.h"
+#include "Start_Screen.h"
 
 class Game {
 private:
-
+    Start_Screen *startScene1b;
+    ChooseCharacter_Screen *chooseCharacterScene;
 public:
     Startscreen *getStartScene(){return startscreen1();}
 

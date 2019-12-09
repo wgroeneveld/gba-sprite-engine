@@ -6,7 +6,7 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "Startscreen.h"
+#include "Start_Screen.h"
 
 std::vector<Background *> StartScreen::backgrounds() {
     return {};

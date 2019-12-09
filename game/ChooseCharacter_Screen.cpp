@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <vector>
 #include "ChooseCharacter_Screen.h"
-#include "startScreen.h"
+#include "Start_Screen.h"
 #include "sprite_data.h"
 
 std::vector<Background *> ChooseCharacter_Screen::backgrounds() {
