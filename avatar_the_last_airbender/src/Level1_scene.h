@@ -1,16 +1,16 @@
 //
-// Created by woute on 28/11/2019.
+// Created by woute on 9/12/2019.
 //
 
-#ifndef AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
-#define AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
-
+#ifndef GBA_SPRITE_ENGINE_PROJECT_LEVEL1_SCENE_H
+#define GBA_SPRITE_ENGINE_PROJECT_LEVEL1_SCENE_H
 
 #include <libgba-sprite-engine/scene.h>
 
 class Level1_scene: public Scene {
 private:
     std::unique_ptr<Sprite> aang;
+    std::unique_ptr<Background> background;
     bool pressingAorB = false;
 
 public:
@@ -25,5 +25,4 @@ public:
 };
 
 
-
-#endif //AVATAR_THE_LAST_AIRBENDER_LEVEL1_SCENE_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_LEVEL1_SCENE_H

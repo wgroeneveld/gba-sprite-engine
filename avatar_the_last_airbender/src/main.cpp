@@ -1,6 +1,7 @@
 
 
 #include <libgba-sprite-engine/gba_engine.h>
+#include "Titlescreen_scene.h"
 #include "Level1_scene.h"
 
 /**
@@ -11,7 +12,8 @@
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
-    Level1_scene* level1Scene = new Level1_scene(engine);
+    Titlescreen_scene* level1Scene = new Titlescreen_scene(engine);
+    Level1_scene* level2Scene = new Level1_scene(engine);
     engine->setScene(level1Scene);
 
     while (true) {
