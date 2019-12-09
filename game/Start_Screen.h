@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
-class StartScreen : public Scene {
+class Start_Screen : public Scene {
 private:
     bool upPressed = false;
     bool downPressed = false;

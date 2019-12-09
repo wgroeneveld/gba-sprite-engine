@@ -8,15 +8,15 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "Start_Screen.h"
 
-std::vector<Background *> StartScreen::backgrounds() {
+std::vector<Background *> Start_Screen::backgrounds() {
     return {};
 }
 
-std::vector<Sprite *> StartScreen::sprites() {
+std::vector<Sprite *> Start_Screen::sprites() {
     return {sp_arrow.get()};
 }
 
-void StartScreen::load() {
+void Start_Screen::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal,sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
@@ -34,6 +34,6 @@ void StartScreen::load() {
 }
 
 
-Startscreen::Startscreen(std::shared_ptr<GBAEngine> gameEngine, int charachter) {
+Startscreen::Start_Screen(std::shared_ptr<GBAEngine> gameEngine, int charachter) {
 
 }
