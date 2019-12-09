@@ -8,18 +8,28 @@
 #include <libgba-sprite-engine/scene.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
-#define char1 1
-#define char2 2
-#define char3 3
-#define char4 4
+#define charBen 1
+#define charErwin 2
+#define charStefan 3
+#define charWeapon 4
 
-class ChooseCharachterScreen : public Scene {
+/** Waardes nog aan te passen */
+#define CHARPTR_X 10
+#define CHARPTR_Y 10
+#define CHARBEN_X 10
+#define CHARBEN_Y 10
+#define CHARERWIN_X 10
+#define CHARERWIN_Y 10
+#define CHARSTEFAN_X 10
+#define CHARSTEFAN_Y 10
+
+class ChooseCharacter_Screen : public Scene {
 private:
-    std::unique_ptr<Sprite> sp_arrow;
-    std::unique_ptr<Sprite> character1;
-    std::unique_ptr<Sprite> character2;
-    std::unique_ptr<Sprite> character3;
-    std::unique_ptr<Sprite> character4;
+    std::unique_ptr<Sprite> character_ptr;
+    std::unique_ptr<Sprite> character_Ben;
+    std::unique_ptr<Sprite> character_Erwin;
+    std::unique_ptr<Sprite> character_Stefan;
+    std::unique_ptr<Sprite> character_Weapon;
 
     bool right_pressed = false;
     bool right_mem = false;
@@ -31,13 +41,13 @@ private:
     bool down_mem = false;
     bool start_pressed = false;
     bool start_mem = false;
-    //1:red (default), 2:blue, 3:green, 4:purple, 5:turquoise, 6:mustard
+    //1:Ben (default character), 2:Erwin, 3:Stefan
     int chosen_ = 1;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    ChooseCarScene(std::shared_ptr<GBAEngine> engine) : Scene(engine){}
+    ChooseCharacterScene(std::shared_ptr<GBAEngine> engine) : Scene(engine){}
 
     void load() override;
     void createSpriteObjects();

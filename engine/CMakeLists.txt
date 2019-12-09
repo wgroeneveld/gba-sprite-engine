@@ -18,7 +18,7 @@ add_library(${PROJECT_NAME}
         src/background/background.cpp
         src/effects/fade_out_scene.cpp
 <<<<<<< HEAD
-        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp ../game/Startscreen.cpp ../game/Startscreen.h ../game/Game.h ../game/Game.cpp ../game/ChooseCharachter_Screen.h ../game/ChooseCharachter_Screen.cpp)
+        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp ../game/Startscreen.cpp ../game/Startscreen.h ../game/Game.h ../game/Game.cpp ../game/ChooseCharacter_Screen.h ../game/ChooseCharacter_Screen.cpp)
 =======
         src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp ../game/main.cpp)
 >>>>>>> master

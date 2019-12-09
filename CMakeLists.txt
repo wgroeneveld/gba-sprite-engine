@@ -27,7 +27,7 @@ add_subdirectory(engine)
 
 # this should be a part of the engine CMakeLists.txt file but cross-compiling and gtest doesn't work
 add_subdirectory(test)
-
+add_subdirectory(game)
 add_subdirectory(demos/demo1-basicfeatures)
 add_subdirectory(demos/demo2-arkanoid)
 add_subdirectory(demos/demo3-foodthrowing)
