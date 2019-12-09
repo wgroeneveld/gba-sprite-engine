@@ -20,15 +20,15 @@ std::vector<Sprite *> Level1_scene::sprites() {
 }
 
 void Level1_scene::load() {
-//    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aang_jump__1_Pal, sizeof(aang_jump__1_Pal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     SpriteBuilder<Sprite> builder;
 
     aang = builder
-            .withData(aang_jump__1_Pal, sizeof(aang_jump__1_Pal))
-            .withSize(SIZE_64_32)
-            .withAnimated(6, 3)
+            .withData(aang_jump__1_Tiles, sizeof(aang_jump__1_Tiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(6, 20)
             .withLocation(50, 50)
             .buildPtr();
 
