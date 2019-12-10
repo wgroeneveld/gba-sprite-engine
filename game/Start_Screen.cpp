@@ -22,8 +22,8 @@ void Start_Screen::load() {
 
     SpriteBuilder<Sprite> builder;
 
-    sp_arrow = builder
-            .withData(arrowTiles, sizeof(arrowTiles))
+    character_ptr = builder
+            .withData(Tiles, sizeof(Tiles))
             .withSize(SIZE_16_16)
             .withLocation(64, 36)
             .buildPtr();
@@ -34,6 +34,6 @@ void Start_Screen::load() {
 }
 
 
-Startscreen::Start_Screen(std::shared_ptr<GBAEngine> gameEngine, int charachter) {
+Startscreen::Start_Screen(std::shared_ptr<GBAEngine> gameEngine, int character) {
 
 }

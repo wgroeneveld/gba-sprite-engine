@@ -18,7 +18,7 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    StartScreen(std::shared_ptr<GBAEngine> gameEngine, int charachter) : Scene(gameEngine), charachterChosen(charachter);
+    StartScreen(std::shared_ptr<GBAEngine> gameEngine, int character) : Scene(gameEngine), characterChosen(character);
 
     void load_screen();
 };

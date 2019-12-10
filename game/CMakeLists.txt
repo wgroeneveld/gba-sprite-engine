@@ -5,9 +5,10 @@ add_executable(${PROJECT_NAME}.elf
         game/ChooseCharachter_Screen.h
         game/Game.cpp
         game/Game.h
-        src/main.cpp
-        game/Startscreen.cpp
-        game/Startscreen.h
+        game/main.cpp
+        game/Start_Screen.cpp
+        game/Start_Screen.h
+        game/Sprites_Data.h
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 
