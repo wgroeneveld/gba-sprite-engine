@@ -30,7 +30,7 @@ void ChooseCharacter_Screen::load() {
     TextStream::instance().setText("CHOOSE YOUR CHARACTER :", 2, 2);
     TextStream::instance().setText("STEFAN IS THE 'BOKKMAN'", 3, 2);
     TextStream::instance().setText("ERWIN IS THE 'SAFMAN'", 4, 2);
-    TextStream::instance().setText("AND BEN = jägerman", 5, 2);
+    TextStream::instance().setText("AND BEN = BEN", 5, 2);
 
 }
 
