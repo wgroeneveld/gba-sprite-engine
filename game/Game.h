@@ -13,12 +13,13 @@
 
 class Game {
 private:
-    Start_Screen *startScene;
-    ChooseCharacter_Screen *chooseCharacterScene;
+    Start_Screen *startScreen;
+    ChooseCharacter_Screen *chooseCharacterScreen;
 public:
-    Start_Screen *getStartScene(){return startScene();}
+    Start_Screen *getStartScene(){return startScreen;}
 
-    void setStartscreen(Start_Screen start) {startScene = start;}
+    void setStartScreen(Start_Screen start) {startScreen = start;}
+    void setCharacterScreen(ChooseCharacter_Screen character){chooseCharacterScreen = character;}
 };
 
 #endif //GBA_SPRITE_ENGINE_PROJECT_GAME_H
