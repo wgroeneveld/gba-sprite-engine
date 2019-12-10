@@ -15,13 +15,13 @@ void shootGun(int level){                   //aantal geweren bepalen dmv level e
     int geweer = 0;
     for(int i=0; i<=(level+10)/10; i++){
         geweer=(rand()% aantalguns+1);
-        shoot(geweer);
+        Game.shoot(geweer);
         shotgun[i] = geweer;
     }
 }
 
 bool geraakt(){
-    if(posbullet == posspeler){
+    if(Game.posbullet == Game.posspeler){
         return 1;
     }else{
         return 0;
