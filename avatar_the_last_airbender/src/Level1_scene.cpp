@@ -5,7 +5,7 @@
 #include "Level1_scene.h"
 #include "aang_jump (1).h"
 #include "aang_jump2.h"
-#include "white_background.h"
+#include "background_water.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -23,41 +23,47 @@ std::vector<Sprite *> Level1_scene::sprites() {
 
 void Level1_scene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aang_jump2_Pal, sizeof(aang_jump2_Pal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(white_backgroundPal, sizeof(white_backgroundPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_water_pal, sizeof(background_water_pal)));
 
-    background = std:: unique_ptr<Background>(new Background(0, white_backgroundTiles, sizeof(white_backgroundTiles), white_backgroundMap, sizeof(white_backgroundMap)));
-    background.get()->useMapScreenBlock(24);
+    background = std:: unique_ptr<Background>(new Background(0, background_water_set, sizeof(background_water_set), background_water_map, sizeof(background_water_map)));
+    //background.get()->useMapScreenBlock(32);
 
     SpriteBuilder<Sprite> builder;
 
     aang = builder
             .withData(aang_jump2_Tiles, sizeof(aang_jump2_Tiles))
             .withSize(SIZE_32_64)
-            .withLocation(50, 50)
+            .withLocation(50, 60)
             .buildPtr();
-
-    TextStream::instance().setText("PRESS UP TO JUMP", 3, 8);
 }
 
-
+int counter = 0;
+bool jump = false;
+int frame = 1;
 
 void Level1_scene::tick(u16 keys) {
-    TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
-
-    if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
-        engine->getTimer()->toggle();
-        pressingAorB = false;
-    }
-
     if((keys & KEY_LEFT)) {
         aang->moveTo(aang->getX() - 2,aang->getY());
     } else if(keys & KEY_RIGHT) {
         aang->moveTo(aang->getX() + 2,aang->getY());
     } else if(keys & KEY_UP) {
-        aang->makeAnimated(1,5,20);
+        if(jump == false) jump = true;
     } else if(keys & KEY_DOWN) {
         aang->flipVertically(false);
     } else if((keys & KEY_A) || (keys & KEY_B)) {
         pressingAorB = true;
+    }
+
+    counter++;
+
+    if(jump && counter == 10) {
+        counter = 0;
+        aang->animateToFrame(frame);
+        if(frame == 5) {
+            jump = false;
+        }
+        else {
+            frame++;
+        }
     }
 }

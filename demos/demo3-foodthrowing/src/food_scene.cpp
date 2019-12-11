@@ -8,7 +8,6 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <sstream>
 #include "food_scene.h"
-#include "avatar.h"
 #include "bullet.h"
 #include "bullet_data.h"
 
