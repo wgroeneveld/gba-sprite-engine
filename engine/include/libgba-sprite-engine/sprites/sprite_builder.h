@@ -80,11 +80,7 @@ template<typename T> std::unique_ptr<T> SpriteBuilder<T>::buildWithDataOf(const 
 template<typename T> void SpriteBuilder<T>::setProperties(T* s) {
     s->setVelocity(this->dx, this->dy);
     if(this->numberOfFrames > 0) {
-        if(this->beginFrame > 0) {
-            s->makeAnimated(this->beginFrame, this->numberOfFrames, this->animationDelay);
-        } else {
-            s->makeAnimated(this->numberOfFrames, this->animationDelay);
-        }
+        s->makeAnimated(this->beginFrame, this->numberOfFrames, this->animationDelay);
     }
     s->setStayWithinBounds(stayWithinBounds);
 

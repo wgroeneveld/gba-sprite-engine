@@ -10,6 +10,10 @@
 
 Sprite::Sprite(const Sprite &other) : Sprite(nullptr, 0, other.x, other.y, other.spriteSize) {
     tileIndex = other.tileIndex;
+    animationDelay = other.animationDelay;
+    numberOfFrames = other.numberOfFrames;
+    currentFrame = other.currentFrame;
+    animationCounter = other.animationCounter;
 }
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
@@ -53,6 +57,14 @@ void Sprite::flipVertically(bool flip) {
 void Sprite::syncVelocity() {
     oam->attr0 = (oam->attr0 &  ~ATTR0_Y_MASK) | (y & ATTR0_Y_MASK);
     oam->attr1 = (oam->attr1 & ~ATTR1_X_MASK) | (x & ATTR1_X_MASK);
+}
+
+void Sprite::makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
+    setBeginFrame(beginFrame);
+    animateToFrame(beginFrame);
+    this->numberOfFrames = numberOfFrames;
+    this->animationDelay = animationDelay;
+    animate();
 }
 
 void Sprite::syncAnimation() {

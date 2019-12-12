@@ -207,7 +207,7 @@ protected:
 
 TEST_F(SpriteSuite, Sync_Animation_Updates_OAM_To_Next_Frame) {
     s = new SpriteWithStubOam(SIZE_16_32);
-    s->makeAnimated(2, 0);
+    s->makeAnimated(0, 2, 0);
     auto oam = s->buildOamForTesting(208); // should start at 224 (11100000) after a frame update
     s->update();
 
@@ -216,9 +216,18 @@ TEST_F(SpriteSuite, Sync_Animation_Updates_OAM_To_Next_Frame) {
     ASSERT_EQ(std::string("0000000011100000"), attr2);
 }
 
+TEST_F(SpriteSuite, Animated_Sprite_Copy_In_Constructor_Takes_Over_Animation_Properties) {
+    s->makeAnimated(0, 2, 5);
+
+    Sprite copy(*s);
+
+    ASSERT_EQ(0, copy.getCurrentFrame());
+    ASSERT_EQ(5, copy.getAnimationDelay());
+    ASSERT_EQ(2, copy.getNumberOfFrames());
+}
 
 TEST_F(SpriteSuite, Animated_Sprite_Increases_Current_Frame_After_Delay) {
-    s->makeAnimated(2, 5);
+    s->makeAnimated(0, 2, 5);
 
     ASSERT_EQ(0, s->getCurrentFrame());
     s->update();                     // 1 times
@@ -232,7 +241,7 @@ TEST_F(SpriteSuite, Animated_Sprite_Increases_Current_Frame_After_Delay) {
 }
 
 TEST_F(SpriteSuite, Animated_Sprite_Resets_Current_Frame_After_Hitting_Max) {
-    s->makeAnimated(2, 0);
+    s->makeAnimated(0, 2, 0);
     s->update();
     ASSERT_EQ(1, s->getCurrentFrame());
     s->update();
