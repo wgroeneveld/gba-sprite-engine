@@ -3,8 +3,8 @@
 //
 
 #include "Titlescreen_scene.h"
-#include "aang_jump (1).h"
-#include "titlescreen.h"
+#include "aang_jump_old/aang_jump (1).h"
+#include "background_title/titlescreen.h"
 #include "Level1_scene.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
