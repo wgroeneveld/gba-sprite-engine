@@ -3,7 +3,6 @@
 //
 
 #include "Titlescreen_scene.h"
-#include "aang_jump_old/aang_jump (1).h"
 #include "background_title/titlescreen.h"
 #include "Level1_scene.h"
 
@@ -22,7 +21,7 @@ std::vector<Sprite *> Titlescreen_scene::sprites() {
 }
 
 void Titlescreen_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aang_jump__1_Pal, sizeof(aang_jump__1_Pal)));
+    //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aang_jump__1_Pal, sizeof(aang_jump__1_Pal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(titlescreenPal, sizeof(titlescreenPal)));
 
     background = std:: unique_ptr<Background>(new Background(0, titlescreenTiles, sizeof(titlescreenTiles), titlescreenMap, sizeof(titlescreenMap)));

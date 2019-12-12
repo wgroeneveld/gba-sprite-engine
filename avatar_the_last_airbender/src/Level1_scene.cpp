@@ -3,13 +3,12 @@
 //
 
 #include "Level1_scene.h"
-#include "aang_jump_old/aang_jump (1).h"
-#include "aang_jump_old/aang_jump2.h"
 #include "background_game/background_water.h"
 #include "background_game/background_earth_tilemap.h"
 #include "background_game/background_earth_data.h"
 
 #include "aang/aang.h"
+#include "math.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -36,38 +35,67 @@ void Level1_scene::load() {
 
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
-            .withSize(SIZE_32_32)
+            .withSize(SIZE_64_64)
             .withLocation(50, 100)
             .buildPtr();
     }
 
-int velocity = 1;
+int xVelocity = 1;
+double yVelocity;
+int time = 1;
+bool isWalking;
+bool isJumping;
 
 void Level1_scene::tick(u16 keys) {
     if((keys & KEY_LEFT)) {
         if(aang->getX()-2>0) {
             aang->flipHorizontally(true);
-            aang->moveTo(aang->getX() - velocity, aang->getY());
-            if(!aang->isAnimating()) aang->makeAnimated(1,2,15);
+            aang->moveTo(aang->getX() - xVelocity, aang->getY());
+            if(!aang->isAnimating()) {
+                isWalking = true;
+                aang->makeAnimated(1,2,15);
+            }
         }
     } else if(keys & KEY_RIGHT) {
         if (aang->getX() + 2 < 240) {
             aang->flipHorizontally(false);
-            aang->moveTo(aang->getX() + velocity, aang->getY());
-            if (!aang->isAnimating()) aang->makeAnimated(1, 2, 15);
+            aang->moveTo(aang->getX() + xVelocity, aang->getY());
+            if (!aang->isAnimating()) {
+                isWalking = true;
+                aang->makeAnimated(1, 2, 15);
+            }
         }
     }
-        /*
-    } else if(keys & KEY_UP) {
-        if(aang->getY()-1>65)
-            aang->moveTo(aang->getX(),aang->getY()-1);
-    } else if(keys & KEY_DOWN) {
-        if (aang->getY() + 1 < 95)
-            aang->moveTo(aang->getX(), aang->getY() + 1);
-    }
-         */
     else {
         aang->stopAnimating();
         aang->animateToFrame(0);
+    }
+
+
+    if(keys & KEY_UP) {
+        if(!isJumping) isJumping = true;
+    }
+
+    if(isJumping) {
+        if (isWalking) {
+            isWalking = false;
+            aang->stopAnimating();
+            aang->animateToFrame(0);
+        }
+        if(!aang->isAnimating()) {
+            aang->makeAnimated(3, 2, 15);
+        }
+        yVelocity = -(pow(((0.2 * time) - 3),2))+((2*time)-3)+12;
+        int yPosition = 100 - yVelocity;
+        aang->moveTo(aang->getX(), yPosition);
+        if(aang->getY() != 100) {
+            time++;
+        }
+        else {
+            isJumping = false;
+            time = 1;
+            aang->stopAnimating();
+            aang->animateToFrame(0);
+        }
     }
 }

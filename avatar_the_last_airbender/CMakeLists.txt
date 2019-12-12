@@ -4,14 +4,17 @@ project(avatar_the_last_airbender)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(avatar_the_last_airbender.elf
-        src/titlescreen.h
         src/main.cpp
         src/Titlescreen_scene.cpp
         src/Titlescreen_scene.h
         src/Level1_scene.cpp
         src/Level1_scene.h
-        src/aang_jump2.h
-        src/white_background.h)
+        src/background_title/titlescreen.h
+        src/background_game/background_earth_data.h
+        src/background_game/background_earth_tilemap.h
+        src/background_game/background_water.h
+        src/background_game/white_background.h
+        src/aang/aang.h)
 
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
