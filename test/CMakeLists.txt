@@ -37,6 +37,6 @@ add_executable(unittest
         ../engine/src/palette/combined_palette.cpp
         ../engine/src/timer.cpp
         ../engine/src/gbavector.cpp
-        timertest.cpp gbavectortest.cpp)
+        timertest.cpp gbavectortest.cpp backgroundtest.cpp)
 
 target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a)

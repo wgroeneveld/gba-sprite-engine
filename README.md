@@ -123,6 +123,8 @@ Creating a background:
 
 Backgrounds work a bit different in VRAM compared to sprites. There are only 4 backgrounds available, and background #4 is taken by the font. Parameter 1 identifies your background used for prioritizing. Remember to use a screen block different than your map data. 
 
+If you want to create bigger maps than 32x32, use `MAPLAYOUT_64x64` or similar in the second constructor.
+
 #### Sprites
 
 Conjuring sprites on the screen is a matter of exposing them to the sprites vector in your scene. Create them in your load and set them as a `std::unique_ptr` member variable in your scene so they get cleaned up automatically. 
