@@ -9,6 +9,7 @@ add_executable(${PROJECT_NAME}.elf
         game/Start_Screen.cpp
         game/Start_Screen.h
         game/Sprites_Data.h
+        game/Game_Room.h
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 
