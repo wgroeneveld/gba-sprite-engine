@@ -36,6 +36,7 @@ std::vector<Sprite *> FoodScene::sprites() {
 }
 
 void FoodScene::removeBulletsOffScreen() {
+    // TODO this is VERY ineffective, but it's a nice example of how C++11 remove_if works.
     bullets.erase(
             std::remove_if(bullets.begin(), bullets.end(), [](std::unique_ptr<Bullet> &s) { return s->isOffScreen(); }),
             bullets.end());
@@ -55,6 +56,7 @@ void FoodScene::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(counter) + std::string(" frames/5sec"), 5, 1);
     TextStream::instance().setText(std::string(engine->getTimer()->to_string()), 6, 1);
 
+
     avatar->animateToFrame(0);
     bool allowedToShoot = false;
     int oldBulletSize = bullets.size();
@@ -66,11 +68,6 @@ void FoodScene::tick(u16 keys) {
     }
 
     removeBulletsOffScreen();
-    TextStream::instance().setText(std::string("bullets: ") + std::to_string(bullets.size()), 1, 1);
-    TextStream::instance().setText(std::string("cooldown: ") + std::to_string(bulletCooldown), 2, 1);
-
-    TextStream::instance().setText(std::string("angle pa/pb: ") + std::to_string(avatar->getMatrix()->pa) + std::string("/") + std::to_string(avatar->getMatrix()->pb), 3, 1);
-    TextStream::instance().setText(std::string("angle pc/pd: ") + std::to_string(avatar->getMatrix()->pc) + std::string("/") + std::to_string(avatar->getMatrix()->pd), 4, 1);
 
     if(keys & KEY_LEFT) {
         avatarRotation -= AVATAR_ROTATION_DIFF;
@@ -92,6 +89,7 @@ void FoodScene::tick(u16 keys) {
     }
 
     avatar->rotate(avatarRotation);
+
     if(oldBulletSize != bullets.size()) {
         engine.get()->updateSpritesInScene();
     }
@@ -131,19 +129,6 @@ void FoodScene::load() {
 
     // rotation of a point on a circle within the resolution means our radius should be big enough
     defaultBulletTarget = { GBA_SCREEN_WIDTH / 2, GBA_SCREEN_HEIGHT + (GBA_SCREEN_WIDTH / 2) - avatar->getCenter().y + 40};
-
-/*
-    for(int i = 0; i < 10; i++) {
-        for(int j = 0; j < 4; j++) {
-            bullets.push_back(createBullet());
-
-            auto &b = bullets.at(bullets.size() - 1);
-            b->getSprite()->moveTo(10 + (i * 20), 10 + (j * 20));
-            if(j >= 1) {
-                b->getSprite()->moveTo(10 + (i * 20), 100 + (j * 20));
-            }
-        }
-    }*/
 
     engine->getTimer()->start();
 }

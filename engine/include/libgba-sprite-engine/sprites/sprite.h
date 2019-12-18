@@ -58,10 +58,9 @@ protected:
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;
-    u32 animationDelay, numberOfFrames, beginFrame, currentFrame, animationCounter;
+    u8 animationDelay, numberOfFrames, beginFrame, currentFrame, previousFrame, animationCounter;
     bool animating;
-
-    std::unique_ptr<OBJ_ATTR> oam;
+    OBJ_ATTR oam;
 
     void syncAnimation();
     virtual void syncOam();
