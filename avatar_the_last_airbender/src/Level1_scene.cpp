@@ -36,18 +36,27 @@ void Level1_scene::load() {
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_64_64)
-            .withLocation(50, 100)
+            .withLocation(50, 83)
             .buildPtr();
-    }
+
+}
+
 
 int xVelocity = 1;
 double yVelocity;
 int time = 1;
 bool isWalking;
 bool isJumping;
+bool isAttacking;
 
 void Level1_scene::tick(u16 keys) {
+
+    ///////////
+    //WALKNIG//
+    ///////////
+
     if((keys & KEY_LEFT)) {
+        if(isAttacking) return;
         if(aang->getX()-2>0) {
             aang->flipHorizontally(true);
             aang->moveTo(aang->getX() - xVelocity, aang->getY());
@@ -57,6 +66,7 @@ void Level1_scene::tick(u16 keys) {
             }
         }
     } else if(keys & KEY_RIGHT) {
+        if(isAttacking) return;
         if (aang->getX() + 2 < 240) {
             aang->flipHorizontally(false);
             aang->moveTo(aang->getX() + xVelocity, aang->getY());
@@ -66,29 +76,38 @@ void Level1_scene::tick(u16 keys) {
             }
         }
     }
-    else {
+    else if(aang->getCurrentFrame() == 1 || aang->getCurrentFrame() == 2){
         aang->stopAnimating();
         aang->animateToFrame(0);
     }
 
+
+    ///////////
+    //JUMPING//
+    ///////////
 
     if(keys & KEY_UP) {
         if(!isJumping) isJumping = true;
     }
 
     if(isJumping) {
+        //Stop walking animation
         if (isWalking) {
             isWalking = false;
             aang->stopAnimating();
             aang->animateToFrame(0);
         }
+
+        //Start flying animation
         if(!aang->isAnimating()) {
             aang->makeAnimated(3, 2, 15);
         }
+
+        //Move sprite
         yVelocity = -(pow(((0.2 * time) - 3),2))+((2*time)-3)+12;
-        int yPosition = 100 - yVelocity;
+        int yPosition = 83 - yVelocity;
         aang->moveTo(aang->getX(), yPosition);
-        if(aang->getY() != 100) {
+        if(aang->getY() != 83) {
             time++;
         }
         else {
@@ -98,4 +117,28 @@ void Level1_scene::tick(u16 keys) {
             aang->animateToFrame(0);
         }
     }
+
+    /////////////
+    //ATTACKING//
+    /////////////
+
+    if(keys & KEY_DOWN) {
+        if(isJumping) return;
+        if(isWalking) {
+            isWalking = false;
+            aang->stopAnimating();
+            aang->animateToFrame(0);
+        }
+
+        if(!aang->isAnimating()) {
+            isAttacking = true;
+            aang->makeAnimated(5, 3, 10);
+        }
+    }
+    if(aang->getCurrentFrame() == 7) {
+        isAttacking = false;
+        aang->stopAnimating();
+        aang->animateToFrame(0);
+    }
+
 }
