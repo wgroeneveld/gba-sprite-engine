@@ -14,6 +14,7 @@ add_executable(avatar_the_last_airbender.elf
         src/background_game/background_earth_tilemap.h
         src/background_game/background_water.h
         src/background_game/white_background.h
+        src/enemy/enemy_sprite.h
         )
 
 

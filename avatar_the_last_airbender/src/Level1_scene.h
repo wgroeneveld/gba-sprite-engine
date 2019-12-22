@@ -10,6 +10,7 @@
 class Level1_scene: public Scene {
 private:
     std::unique_ptr<Sprite> aang;
+    std::unique_ptr<Sprite> enemy;
     std::unique_ptr<Background> background;
     bool pressingAorB = false;
 

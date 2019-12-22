@@ -9,6 +9,7 @@
 
 #include "aang/aang.h"
 #include "math.h"
+#include "enemy/enemy_sprite.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -21,11 +22,13 @@ std::vector<Background *> Level1_scene::backgrounds() {
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
-    return {  aang.get()};
+    return {    aang.get(),
+            enemy.get()};
 }
 
 void Level1_scene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aangPal, sizeof(aangPal)));
+
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
 
     background = std:: unique_ptr<Background>(new Background(0, background_earth_data2Tiles, sizeof(background_earth_data2Tiles),background_earth_tilemap , sizeof(background_earth_tilemap)));
@@ -36,8 +39,16 @@ void Level1_scene::load() {
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_64_64)
-            .withLocation(50, 83)
+            .withLocation(50, 80)
             .buildPtr();
+
+    enemy = builder
+            .withData(run_enemy_withshadowTiles, sizeof(run_enemy_withshadowTiles))
+            .withSize(SIZE_32_32)
+            .withLocation(150,90)
+            .buildPtr();
+
+    enemy->makeAnimated(1, 2, 15);
 
 }
 
@@ -50,6 +61,8 @@ bool isJumping;
 bool isAttacking;
 
 void Level1_scene::tick(u16 keys) {
+
+
 
     ///////////
     //WALKNIG//
@@ -132,7 +145,7 @@ void Level1_scene::tick(u16 keys) {
 
         if(!aang->isAnimating()) {
             isAttacking = true;
-            aang->makeAnimated(5, 3, 10);
+            aang->makeAnimated(5, 3, 12);
         }
     }
     if(aang->getCurrentFrame() == 7) {
