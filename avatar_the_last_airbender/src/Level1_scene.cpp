@@ -122,10 +122,10 @@ void Level1_scene::tick(u16 keys) {
     }
 
     if(isAttacking) {
-        if(!aang->isAnimating()) aang->makeAnimated(5, 3, 12);
+        if(!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
     }
 
-    if(aang->getCurrentFrame() == 7) {
+    if(aang->getCurrentFrame() > 7) {
         isAttacking = false;
         aang->stopAnimating();
         aang->animateToFrame(0);
