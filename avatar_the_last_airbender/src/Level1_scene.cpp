@@ -9,7 +9,7 @@
 
 #include "aang/aang.h"
 #include "math.h"
-#include "enemy/enemy_sprite.h"
+#include "enemy/enemy.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -22,8 +22,7 @@ std::vector<Background *> Level1_scene::backgrounds() {
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
-    return {    aang.get(),
-            enemy.get()};
+    return {    aang.get()};
 }
 
 void Level1_scene::load() {
@@ -42,84 +41,75 @@ void Level1_scene::load() {
             .withLocation(50, 80)
             .buildPtr();
 
-    enemy = builder
-            .withData(run_enemy_withshadowTiles, sizeof(run_enemy_withshadowTiles))
-            .withSize(SIZE_32_32)
+
+    /*enemy = builder
+            .withData(enemyTiles, sizeof(enemyTiles))
+            .withSize(SIZE_64_64)
             .withLocation(150,90)
             .buildPtr();
+            */
 
-    enemy->makeAnimated(1, 2, 15);
+
+
+    //enemy->makeAnimated(1, 2, 15);
 
 }
-
 
 int xVelocity = 1;
 double yVelocity;
 int time = 1;
-bool isWalking;
+
+bool isWalkingLeft;
+bool isWalkingRight;
 bool isJumping;
 bool isAttacking;
 
 void Level1_scene::tick(u16 keys) {
 
-
-
-    ///////////
-    //WALKNIG//
-    ///////////
-
-    if((keys & KEY_LEFT)) {
-        if(isAttacking) return;
-        if(aang->getX()-2>0) {
-            aang->flipHorizontally(true);
-            aang->moveTo(aang->getX() - xVelocity, aang->getY());
-            if(!aang->isAnimating()) {
-                isWalking = true;
-                aang->makeAnimated(1,2,15);
-            }
-        }
-    } else if(keys & KEY_RIGHT) {
-        if(isAttacking) return;
-        if (aang->getX() + 2 < 240) {
-            aang->flipHorizontally(false);
-            aang->moveTo(aang->getX() + xVelocity, aang->getY());
-            if (!aang->isAnimating()) {
-                isWalking = true;
-                aang->makeAnimated(1, 2, 15);
-            }
-        }
+    if(keys & KEY_LEFT) {
+        if(!isWalkingLeft) isWalkingLeft = true;
     }
-    else if(aang->getCurrentFrame() == 1 || aang->getCurrentFrame() == 2){
+    else {
+        isWalkingLeft = false;
+    }
+    if(keys & KEY_RIGHT) {
+        if(!isWalkingRight) isWalkingRight = true;
+    }
+    else {
+        isWalkingRight = false;
+    }
+    if(keys & KEY_UP) {
+        if(!isJumping) isJumping = true;
+    }
+    if(keys & KEY_DOWN) {
+        if(!isAttacking) isAttacking = true;
+    }
+
+    if(isWalkingLeft && !isAttacking) {
+        aang->flipHorizontally(true);
+        aang->moveTo(aang->getX() - xVelocity, aang->getY());
+        if(!aang->isAnimating()) aang->makeAnimated(1,2,15);
+    }
+
+    if(isWalkingRight && !isAttacking) {
+        aang->flipHorizontally(false);
+        aang->moveTo(aang->getX() + xVelocity, aang->getY());
+        if(!aang->isAnimating()) aang->makeAnimated(1,2,15);
+    }
+
+    if(((!isWalkingLeft && !isWalkingRight) || isJumping || isAttacking) && aang->isAnimating() && (aang->getCurrentFrame() == 1 || aang->getCurrentFrame() == 2)) {
         aang->stopAnimating();
         aang->animateToFrame(0);
     }
 
 
-    ///////////
-    //JUMPING//
-    ///////////
-
-    if(keys & KEY_UP) {
-        if(!isJumping) isJumping = true;
-    }
-
     if(isJumping) {
-        //Stop walking animation
-        if (isWalking) {
-            isWalking = false;
-            aang->stopAnimating();
-            aang->animateToFrame(0);
-        }
-
-        //Start flying animation
-        if(!aang->isAnimating()) {
-            aang->makeAnimated(3, 2, 15);
-        }
-
-        //Move sprite
         yVelocity = -(pow(((0.2 * time) - 3),2))+((2*time)-3)+12;
         int yPosition = 83 - yVelocity;
         aang->moveTo(aang->getX(), yPosition);
+
+        if(!aang->isAnimating()) aang->makeAnimated(3, 2, 15);
+
         if(aang->getY() != 83) {
             time++;
         }
@@ -131,27 +121,13 @@ void Level1_scene::tick(u16 keys) {
         }
     }
 
-    /////////////
-    //ATTACKING//
-    /////////////
-
-    if(keys & KEY_DOWN) {
-        if(isJumping) return;
-        if(isWalking) {
-            isWalking = false;
-            aang->stopAnimating();
-            aang->animateToFrame(0);
-        }
-
-        if(!aang->isAnimating()) {
-            isAttacking = true;
-            aang->makeAnimated(5, 3, 12);
-        }
+    if(isAttacking) {
+        if(!aang->isAnimating()) aang->makeAnimated(5, 3, 12);
     }
+
     if(aang->getCurrentFrame() == 7) {
         isAttacking = false;
         aang->stopAnimating();
         aang->animateToFrame(0);
     }
-
 }
