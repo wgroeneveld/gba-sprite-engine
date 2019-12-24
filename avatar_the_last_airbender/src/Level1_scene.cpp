@@ -6,11 +6,12 @@
 #include "background_game/background_water.h"
 #include "background_game/background_earth_tilemap.h"
 #include "background_game/background_earth_data.h"
-#include "aang/aang.h"
 
+#include "grit/aang.h"
+#include "grit/enemy.h"
+#include "grit/shared.h"
 
 #include "math.h"
-#include "enemy/enemy.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
@@ -24,11 +25,11 @@ std::vector<Background *> Level1_scene::backgrounds() {
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
-    return {    aang.get()};
+    return { aang.get(), enemy.get()};
 }
 
 void Level1_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(aangPal, sizeof(aangPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
     //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
 
@@ -36,6 +37,7 @@ void Level1_scene::load() {
     //background.get()->useMapScreenBlock(64);
 
     SpriteBuilder<Sprite> builder;
+
 
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
@@ -45,14 +47,12 @@ void Level1_scene::load() {
 
     aang->setStayWithinBounds(true);
 
-    /*enemy = builder
+
+    enemy = builder
             .withData(enemyTiles, sizeof(enemyTiles))
             .withSize(SIZE_64_64)
             .withLocation(150,80)
-            .buildPtr();*/
-
-
-
+            .buildPtr();
 
     //enemy->makeAnimated(1, 2, 15);
 
