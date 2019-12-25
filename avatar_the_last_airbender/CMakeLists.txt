@@ -14,7 +14,7 @@ add_executable(avatar_the_last_airbender.elf
         src/background_game/background_earth_tilemap.h
         src/background_game/background_water.h
         src/background_game/white_background.h
-        )
+        src/grit/air_ball.h)
 
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)

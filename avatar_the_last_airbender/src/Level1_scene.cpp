@@ -12,12 +12,14 @@
 #include "grit/shared.h"
 
 #include "math.h"
+#include "grit/air_ball.h"
 
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 std::vector<Background *> Level1_scene::backgrounds() {
     //return { background.get()};
@@ -25,42 +27,61 @@ std::vector<Background *> Level1_scene::backgrounds() {
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
-    return { aang.get(), enemy.get()};
+    std::vector<Sprite*> sprites;
+
+
+    sprites.push_back(airBall.get());
+    sprites.push_back(enemy.get());
+    sprites.push_back(aang.get());
+    return { sprites};
 }
 
 void Level1_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal2, sizeof(sharedPal2)));
 
-    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
+   //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
 
     //background = std:: unique_ptr<Background>(new Background(0, background_earth_data2Tiles, sizeof(background_earth_data2Tiles),background_earth_tilemap , sizeof(background_earth_tilemap)));
     //background.get()->useMapScreenBlock(64);
 
     SpriteBuilder<Sprite> builder;
+    SpriteBuilder<AffineSprite> affBuilder;
 
 
-    aang = builder
-            .withData(aangTiles, sizeof(aangTiles))
-            .withSize(SIZE_64_64)
-            .withLocation(50, 80)
+    airBall = affBuilder
+            .withData(air_setTiles, sizeof(air_setTiles))
+            .withSize(SIZE_32_32)
+            .withLocation(100,80)
             .buildPtr();
 
-    aang->setStayWithinBounds(true);
-
-
     enemy = builder
-            .withData(enemyTiles, sizeof(enemyTiles))
+            .withData(enemyTiles2, sizeof(enemyTiles2))
             .withSize(SIZE_64_64)
             .withLocation(150,80)
             .buildPtr();
 
+    aang = builder
+            .withData(aangTiles2, sizeof(aangTiles2))
+            .withSize(SIZE_64_64)
+            .withLocation(50, 80)
+            .buildPtr();
+    aang->setStayWithinBounds(true);
+
+
     //enemy->makeAnimated(1, 2, 15);
+
+
+
+    airBall->makeAnimated(2, 15);
+    airBall.get()->rotate(90);
+
 
 }
 
 int xVelocity = 1;
 double yVelocity;
 int time = 1;
+int countEnemy = 1;
 
 bool isWalkingLeft;
 bool isWalkingRight;
@@ -132,5 +153,22 @@ void Level1_scene::tick(u16 keys) {
         isAttacking = false;
         aang->stopAnimating();
         aang->animateToFrame(0);
+    }
+
+
+    ///////////
+    ///ENEMY///
+    ///////////
+
+    if(countEnemy>=100){
+        countEnemy =0;
+        enemy->moveTo(enemy->getX() -5, enemy->getY());
+        enemy->flipHorizontally(true);
+
+        //if(aang->collidesWith(enemy.get())){
+
+        //}
+    } else{
+        countEnemy++;
     }
 }

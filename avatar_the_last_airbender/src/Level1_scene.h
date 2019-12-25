@@ -6,11 +6,14 @@
 #define GBA_SPRITE_ENGINE_PROJECT_LEVEL1_SCENE_H
 
 #include <libgba-sprite-engine/scene.h>
+#include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 class Level1_scene: public Scene {
 private:
     std::unique_ptr<Sprite> aang;
     std::unique_ptr<Sprite> enemy;
+    std::unique_ptr<AffineSprite> airBall;
+
     std::unique_ptr<Background> background;
     bool pressingAorB = false;
 
