@@ -12,6 +12,8 @@
 
 #include "lama.h"
 #include "ff.h"
+#include "megaman.h"
+#include "metroid.h"
 #include "sample_sound.h"
 
 std::vector<Background *> SampleStartScene::backgrounds() {
@@ -19,7 +21,7 @@ std::vector<Background *> SampleStartScene::backgrounds() {
 }
 
 std::vector<Sprite *> SampleStartScene::sprites() {
-    return {  animation.get(), finalFantasyGuy.get() };
+    return {  /*animation.get(),*/ finalFantasyGuy.get(), megamanMoving.get(), metroidBewegen.get() };
 }
 
 void SampleStartScene::load() {
@@ -27,19 +29,33 @@ void SampleStartScene::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     SpriteBuilder<Sprite> builder;
-
+    /*
     animation = builder
             .withData(lamaTiles, sizeof(lamaTiles))
             .withSize(SIZE_32_32)
             .withAnimated(6, 3)
             .withLocation(50, 50)
             .buildPtr();
-
+    */
     finalFantasyGuy = builder
             .withData(lopen_jongenTiles, sizeof(lopen_jongenTiles))
             .withSize(SIZE_16_16)
             .withAnimated(2, 10)
             .withLocation(10, 10)
+            .buildPtr();
+
+    megamanMoving = builder
+            .withData(megamanTiles, sizeof(megamanTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(3, 5)
+            .withLocation(90, 50)
+            .buildPtr();
+
+    metroidBewegen = builder
+            .withData(metroid_bewegenTiles, sizeof(metroid_bewegenTiles))
+            .withSize(SIZE_32_64)
+            .withAnimated(10, 3)
+            .withLocation(50, 50)
             .buildPtr();
 
     TextStream::instance().setText("PRESS START", 3, 8);
@@ -65,13 +81,13 @@ void SampleStartScene::tick(u16 keys) {
             engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }
     } else if(keys & KEY_LEFT) {
-        animation->flipHorizontally(true);
+        megamanMoving->flipHorizontally(true);
     } else if(keys & KEY_RIGHT) {
-        animation->flipHorizontally(false);
+        megamanMoving->flipHorizontally(false);
     } else if(keys & KEY_UP) {
-        animation->flipVertically(true);
+        megamanMoving->flipVertically(true);
     } else if(keys & KEY_DOWN) {
-        animation->flipVertically(false);
+        megamanMoving->flipVertically(false);
     } else if((keys & KEY_A) || (keys & KEY_B)) {
         pressingAorB = true;
     }
