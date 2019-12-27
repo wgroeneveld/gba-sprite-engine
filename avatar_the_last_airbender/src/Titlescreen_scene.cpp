@@ -30,6 +30,7 @@ void Titlescreen_scene::load() {
 
 void Titlescreen_scene::tick(u16 keys) {
     if((keys & KEY_START)){
-        engine->transitionIntoScene(new Level1_scene(engine), new FadeOutScene(2));
+        auto scene = new Level1_scene(engine);
+        engine->transitionIntoScene(scene, new FadeOutScene(2));
     }
 }

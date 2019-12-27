@@ -367,7 +367,6 @@ const unsigned int enemy_32Tiles[256] __attribute__((aligned(4)))=
                 0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,
         };
 
-
 //}}BLOCK(enemy)
 
 

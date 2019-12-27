@@ -2635,10 +2635,6 @@ const unsigned int aang_32Tiles[2048] __attribute__((aligned(4)))=
                 0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,
         };
 
-//}}BLOCK(aang_32)
-
-
-//}}BLOCK(aang)
 
 
 #endif // GRIT_AANG_H

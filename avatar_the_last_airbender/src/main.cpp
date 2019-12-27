@@ -13,7 +13,7 @@ int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
     Titlescreen_scene* level1Scene = new Titlescreen_scene(engine);
-    Level1_scene* level2Scene = new Level1_scene(engine);
+//    Level1_scene* level2Scene = new Level1_scene(engine);
     engine->setScene(level1Scene);
 
     while (true) {
