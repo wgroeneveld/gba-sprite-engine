@@ -67,6 +67,7 @@ void SampleStartScene::load() {
 void SampleStartScene::tick(u16 keys) {
     TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
+    metroidBewegen->stopAnimating();
     if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
         engine->getTimer()->toggle();
         pressingAorB = false;
@@ -81,14 +82,22 @@ void SampleStartScene::tick(u16 keys) {
             engine->transitionIntoScene(new FlyingStuffScene(engine), new FadeOutScene(2));
         }
     } else if(keys & KEY_LEFT) {
-        megamanMoving->flipHorizontally(true);
+        metroidBewegen->animate();
+        metroidBewegen->flipHorizontally(true);
+        metroidBewegen->setVelocity(-2, 0);
     } else if(keys & KEY_RIGHT) {
-        megamanMoving->flipHorizontally(false);
+        metroidBewegen->animate();
+        metroidBewegen->flipHorizontally(false);
+        metroidBewegen->setVelocity(+2, 0);
     } else if(keys & KEY_UP) {
         megamanMoving->flipVertically(true);
     } else if(keys & KEY_DOWN) {
         megamanMoving->flipVertically(false);
     } else if((keys & KEY_A) || (keys & KEY_B)) {
         pressingAorB = true;
+    } else {
+        metroidBewegen->animateToFrame(0);
+        metroidBewegen->setVelocity(0, 0);
+
     }
 }
