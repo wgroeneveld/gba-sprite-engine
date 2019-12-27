@@ -28,8 +28,6 @@ std::vector<Background *> Level1_scene::backgrounds() {
 
 std::vector<Sprite *> Level1_scene::sprites() {
     std::vector<Sprite*> sprites;
-
-
     sprites.push_back(airBall.get());
     sprites.push_back(enemy.get());
     sprites.push_back(aang.get());
@@ -37,7 +35,7 @@ std::vector<Sprite *> Level1_scene::sprites() {
 }
 
 void Level1_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal2, sizeof(sharedPal2)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal3, sizeof(sharedPal3)));
 
    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
 
@@ -49,28 +47,27 @@ void Level1_scene::load() {
 
 
     airBall = affBuilder
-            .withData(air_setTiles, sizeof(air_setTiles))
-            .withSize(SIZE_32_32)
-            .withLocation(100,80)
+            .withData(air_set_16Tiles, sizeof(air_set_16Tiles))
+            .withSize(SIZE_16_16)
+            .withLocation(100,50)
             .buildPtr();
 
     enemy = builder
-            .withData(enemyTiles2, sizeof(enemyTiles2))
-            .withSize(SIZE_64_64)
-            .withLocation(150,80)
+            .withData(enemy_32Tiles, sizeof(enemy_32Tiles))
+            .withSize(SIZE_32_32)
+            .withLocation(150,100)
             .buildPtr();
 
+
     aang = builder
-            .withData(aangTiles2, sizeof(aangTiles2))
-            .withSize(SIZE_64_64)
-            .withLocation(50, 80)
+            .withData(aang_32Tiles, sizeof(aang_32Tiles))
+            .withSize(SIZE_32_32)
+            .withLocation(50, 100)
             .buildPtr();
     aang->setStayWithinBounds(true);
 
 
     //enemy->makeAnimated(1, 2, 15);
-
-
 
     airBall->makeAnimated(2, 15);
     airBall.get()->rotate(90);
@@ -88,7 +85,14 @@ bool isWalkingRight;
 bool isJumping;
 bool isAttacking;
 
+double healthAang = 10;
+double healthEnemey = 5;
+
+
 void Level1_scene::tick(u16 keys) {
+
+    TextStream::instance().setText( std::string(" Health aang: ") + std::to_string(healthAang), 3, 1);
+    TextStream::instance().setText( std::string(" Health enemy: ") + std::to_string(healthEnemey), 4, 1);
 
     if(keys & KEY_LEFT) {
         if(!isWalkingLeft) isWalkingLeft = true;
@@ -146,6 +150,9 @@ void Level1_scene::tick(u16 keys) {
     }
 
     if(isAttacking) {
+       // if(aang.get()->collidesWith(aang.get()* aang.get()) ){
+
+        //}
         if(!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
     }
 
