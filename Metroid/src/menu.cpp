@@ -10,10 +10,11 @@
 #include "menu.h"
 
 #include "samus_aran.h"
+#include "achtergrond.h"
 #include "sample_sound.h"
 
 std::vector<Background *> Menu::backgrounds() {
-    return {};
+    return {bg.get() };
 }
 
 std::vector<Sprite *> Menu::sprites() {
@@ -22,31 +23,28 @@ std::vector<Sprite *> Menu::sprites() {
 
 void Menu::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(achtergrondPal, sizeof(achtergrondPal)));
 
     SpriteBuilder<Sprite> builder;
 
     metroidBewegen = builder
-            .withData(bewegenTiles, sizeof(bewegenTiles))
-            .withSize(SIZE_32_64)
-            .withAnimated(10, 3)
+            .withData(run_aim_horizontal_64Tiles, sizeof(run_aim_horizontal_64Tiles))
+            .withSize(SIZE_64_64)
+            .withAnimated(9, 3)
             .withLocation(50, 50)
             .buildPtr();
 
-    TextStream::instance().setText("PRESS START", 3, 8);
+    bg = std::unique_ptr<Background>(new Background(1, achtergrondTiles, sizeof(achtergrondTiles), achtergrondMap, sizeof(achtergrondMap)));
+    bg.get()->useMapScreenBlock(16);
 
-    engine->getTimer()->start();
+
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
 void Menu::tick(u16 keys) {
-    TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
     metroidBewegen->stopAnimating();
-    if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
-        engine->getTimer()->toggle();
-        pressingAorB = false;
-    } else if(keys & KEY_LEFT) {
+    if(keys & KEY_LEFT) {
         metroidBewegen->animate();
         metroidBewegen->flipHorizontally(true);
         metroidBewegen->setVelocity(-2, 0);
@@ -54,8 +52,6 @@ void Menu::tick(u16 keys) {
         metroidBewegen->animate();
         metroidBewegen->flipHorizontally(false);
         metroidBewegen->setVelocity(+2, 0);
-    } else if((keys & KEY_A) || (keys & KEY_B)) {
-        pressingAorB = true;
     } else {
         metroidBewegen->animateToFrame(0);
         metroidBewegen->setVelocity(0, 0);

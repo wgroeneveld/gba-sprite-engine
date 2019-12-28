@@ -10,7 +10,7 @@
 class Menu : public Scene {
 private:
     std::unique_ptr<Sprite> metroidBewegen;
-    bool pressingAorB = false;
+    std::unique_ptr<Background> bg;
 
 public:
     std::vector<Sprite *> sprites() override;
