@@ -14,9 +14,16 @@ void Metroid::tick(u16 keys) {
         getMetroid()->flipHorizontally(true);
         getMetroid()->setVelocity(-2, 0);
     } else if(keys & KEY_RIGHT) {
-        getMetroid()->animate();
-        getMetroid()->flipHorizontally(false);
-        getMetroid()->setVelocity(+2, 0);
+        if(getMetroid()->getX()>=158){
+            getMetroid()->animate();
+            getMetroid()->flipHorizontally(false);
+            getMetroid()->setVelocity(0, 0);
+        }
+        else{
+            getMetroid()->animate();
+            getMetroid()->flipHorizontally(false);
+            getMetroid()->setVelocity(+2, 0);
+        }
     } else {
         getMetroid()->animateToFrame(0);
         getMetroid()->setVelocity(0, 0);

@@ -34,6 +34,7 @@ void Menu::load() {
             .withSize(SIZE_64_64)
             .withAnimated(9, 3)
             .withLocation(50, 50)
+            .withinBounds()
             .buildPtr();
 
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
