@@ -11,6 +11,7 @@
 
 #include "samus_aran.h"
 #include "achtergrond.h"
+#include "achtergrond2.h"
 #include "sample_sound.h"
 
 std::vector<Background *> Menu::backgrounds() {
@@ -22,15 +23,15 @@ std::vector<Sprite *> Menu::sprites() {
 }
 
 void Menu::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(animatie_metroidPal, sizeof(animatie_metroidPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(achtergrondPal, sizeof(achtergrondPal)));
 
     SpriteBuilder<Sprite> builder;
 
     metroidBewegen = builder
-            .withData(run_aim_horizontal_64Tiles, sizeof(run_aim_horizontal_64Tiles))
-            .withSize(SIZE_64_64)
-            .withAnimated(9, 3)
+            .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
+            .withSize(SIZE_32_64)
+            .withAnimated(16, 30)
             .withLocation(50, 50)
             .buildPtr();
 
@@ -42,7 +43,7 @@ void Menu::load() {
 }
 
 void Menu::tick(u16 keys) {
-
+    /*
     metroidBewegen->stopAnimating();
     if(keys & KEY_LEFT) {
         metroidBewegen->animate();
@@ -56,5 +57,5 @@ void Menu::tick(u16 keys) {
         metroidBewegen->animateToFrame(0);
         metroidBewegen->setVelocity(0, 0);
 
-    }
+    }*/
 }
