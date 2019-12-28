@@ -6,15 +6,19 @@
 #define GBA_SPRITE_ENGINE_PROJECT_MENU_H
 
 #include <libgba-sprite-engine/scene.h>
+#include "Metroid.h"
 
 class Menu : public Scene {
 private:
     std::unique_ptr<Sprite> metroidBewegen;
+    std::unique_ptr<Metroid> metroidObject;
     std::unique_ptr<Background> bg;
+
 
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
+
 
     Menu(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
 
