@@ -7,18 +7,20 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
+#include <libgba-sprite-engine/sprites/sprite.h>
 #include "menu.h"
 
 #include "samus_aran.h"
 #include "achtergrond.h"
 #include "sample_sound.h"
+#include "Metroid.h"
 
 std::vector<Background *> Menu::backgrounds() {
     return {bg.get() };
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidBewegen.get() };
+    return {  metroidObject->getMetroid() };
 }
 
 void Menu::load() {
@@ -34,6 +36,8 @@ void Menu::load() {
             .withLocation(50, 50)
             .buildPtr();
 
+    metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
+
     bg = std::unique_ptr<Background>(new Background(1, achtergrondTiles, sizeof(achtergrondTiles), achtergrondMap, sizeof(achtergrondMap)));
     bg.get()->useMapScreenBlock(16);
 
@@ -42,8 +46,8 @@ void Menu::load() {
 }
 
 void Menu::tick(u16 keys) {
-
-    metroidBewegen->stopAnimating();
+    metroidObject->tick(keys);
+   /* metroidBewegen->stopAnimating();
     if(keys & KEY_LEFT) {
         metroidBewegen->animate();
         metroidBewegen->flipHorizontally(true);
@@ -56,5 +60,5 @@ void Menu::tick(u16 keys) {
         metroidBewegen->animateToFrame(0);
         metroidBewegen->setVelocity(0, 0);
 
-    }
+    }*/
 }
