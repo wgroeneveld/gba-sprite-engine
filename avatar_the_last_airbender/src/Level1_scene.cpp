@@ -3,9 +3,13 @@
 //
 
 #include "Level1_scene.h"
+/*
 #include "background_game/background_water.h"
 #include "background_game/background_earth_tilemap.h"
 #include "background_game/background_earth_data.h"
+ */
+#include "background_game/background_tileset.h"
+#include "background_game/background_tilemap.h"
 
 #include "grit/aang.h"
 #include "grit/enemy.h"
@@ -27,8 +31,7 @@
 Level1_scene::Level1_scene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Background *> Level1_scene::backgrounds() {
-    //return { background.get()};
-    return {};
+    return { background.get()};
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
@@ -52,9 +55,9 @@ void Level1_scene::removeAirBallsOffScreen() {
 void Level1_scene::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal3, sizeof(sharedPal3)));
 
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(background_earth_data2Pal, sizeof(background_earth_data2Pal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
-    background = std:: unique_ptr<Background>(new Background(1, background_earth_data2Tiles, sizeof(background_earth_data2Tiles),background_earth_tilemap , sizeof(background_earth_tilemap)));
+    background = std:: unique_ptr<Background>(new Background(0, backgroundTiles, sizeof(backgroundTiles),backgroundMap , sizeof(backgroundMap)));
     background.get()->useMapScreenBlock(16);
 
 
@@ -75,7 +78,7 @@ void Level1_scene::load() {
     enemy = affBuilder
             .withData(enemy_32Tiles, sizeof(enemy_32Tiles))
             .withSize(SIZE_32_32)
-            .withLocation(150,100)
+            .withLocation(150,75)
             .buildPtr();
 
 
@@ -154,7 +157,7 @@ void Level1_scene::tick(u16 keys) {
 
 
     if(isJumping) {
-        yVelocity = -(pow(((0.2 * time) - 3),2))+((2*time)-3)+12;
+        yVelocity = -(pow(((0.25 * time) - 3),2))+((2*time)-3)+12;
         int yPosition = 83 - yVelocity;
         aang->moveTo(aang->getX(), yPosition);
 
