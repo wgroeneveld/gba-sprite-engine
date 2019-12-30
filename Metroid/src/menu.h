@@ -11,6 +11,9 @@
 class Menu : public Scene {
 private:
     std::unique_ptr<Sprite> metroidBewegen;
+    std::unique_ptr<Sprite> ball_projectiel;
+    std::unique_ptr<Sprite> enemy;
+    std::unique_ptr<Sprite> projectiel;
     std::unique_ptr<Metroid> metroidObject;
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;

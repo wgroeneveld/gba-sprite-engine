@@ -11,6 +11,9 @@
 #include "menu.h"
 
 #include "samus_aran.h"
+#include "ball.h"
+#include "enemy.h"
+#include "projectiel.h"
 #include "achtergrond.h"
 #include "achtergrond2.h"
 #include "achtergrond3.h"
@@ -22,11 +25,11 @@ std::vector<Background *> Menu::backgrounds() {
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidObject->getMetroid() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemy.get(), projectiel.get() };
 }
 
 void Menu::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(animatie_metroidPal, sizeof(animatie_metroidPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(dungeon_backgroundPal, sizeof(dungeon_backgroundPal)));
 
     SpriteBuilder<Sprite> builder;
@@ -38,6 +41,29 @@ void Menu::load() {
             .withLocation(50, 50)
             .withinBounds()
             .buildPtr();
+
+    ball_projectiel = builder
+            .withData(ballTiles, sizeof(ballTiles))
+            .withSize(SIZE_16_16)
+            .withLocation(60, 60)
+            .withinBounds()
+            .buildPtr();
+
+    enemy = builder
+            .withData(enemyTiles, sizeof(enemyTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(5, 30)
+            .withLocation(80, 50)
+            .withinBounds()
+            .buildPtr();
+
+    projectiel = builder
+            .withData(projectielTiles, sizeof(projectielTiles))
+            .withLocation(70, 40)
+            .withSize(SIZE_8_8)
+            .withinBounds()
+            .buildPtr();
+
 
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
 
