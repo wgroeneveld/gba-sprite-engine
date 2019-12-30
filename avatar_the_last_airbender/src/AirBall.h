@@ -18,15 +18,15 @@
 class AirBall {
 private:
     std::unique_ptr<Sprite> sprite;
-    std::deque<VECTOR> coords;
-    VECTOR dest;
+    bool left;
 
 public:
-    AirBall(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), dest(VECTOR()) {}
+    AirBall(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), left(true) {}
 
     void tick();
-    void setDestination(VECTOR destination);
+    void setLeft(bool left);
     bool isOffScreen() { return sprite->isOffScreen(); }
+    bool collidesWith(Sprite *ohterSprite){ return sprite->collidesWith(*ohterSprite);}
     Sprite* getSprite() { return sprite.get(); }
 };
 

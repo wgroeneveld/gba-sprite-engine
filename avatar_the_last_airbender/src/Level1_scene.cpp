@@ -31,17 +31,17 @@
 Level1_scene::Level1_scene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
 std::vector<Background *> Level1_scene::backgrounds() {
-    return { background.get()};
+    return {  background0.get()};
 }
 
 std::vector<Sprite *> Level1_scene::sprites() {
     std::vector<Sprite*> sprites;
-
     for(auto& ab : airBalls ){
         sprites.push_back(ab->getSprite());
     }
-    sprites.push_back(enemy.get());
+    if(healthEnemey>0) sprites.push_back(enemy.get());
     sprites.push_back(aang.get());
+    sprites.push_back(someAirBallSprite.get());
 
     return sprites;
 }
@@ -57,30 +57,28 @@ void Level1_scene::load() {
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
-    background = std:: unique_ptr<Background>(new Background(0, backgroundTiles, sizeof(backgroundTiles),backgroundMap , sizeof(backgroundMap)));
-    background.get()->useMapScreenBlock(16);
-
+    background0 = std:: unique_ptr<Background>(new Background(1, backgroundTiles, sizeof(backgroundTiles),backgroundMap , sizeof(backgroundMap)));
+    background0.get()->useMapScreenBlock(16);
 
     spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
     SpriteBuilder<Sprite> builder;
     SpriteBuilder<AffineSprite> affBuilder;
 
 
-    someAirBallSprite = spriteBuilder
-            ->withData(air_set_16Tiles, sizeof(air_set_16Tiles))
+    someAirBallSprite = builder
+            .withData(air_set_16Tiles, sizeof(air_set_16Tiles))
             .withSize(SIZE_16_16)
-            .withLocation(GBA_SCREEN_WIDTH - 20, GBA_SCREEN_HEIGHT - 20)
+            .withAnimated(2,5)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
-    angle = 90;
 
-    defaultBulletTarget = { GBA_SCREEN_WIDTH / 2, GBA_SCREEN_HEIGHT + (GBA_SCREEN_WIDTH / 2) - aang->getCenter().y + 40};
+    angle = 90;
 
     enemy = affBuilder
             .withData(enemy_32Tiles, sizeof(enemy_32Tiles))
             .withSize(SIZE_32_32)
             .withLocation(150,75)
             .buildPtr();
-
 
     aang = builder
             .withData(aang_32Tiles, sizeof(aang_32Tiles))
@@ -90,11 +88,9 @@ void Level1_scene::load() {
     aang->setStayWithinBounds(true);
 
 
-}
+    healthAang = 100;
+    healthEnemey = 50;
 
-
-VECTOR Level1_scene::rotateAround(VECTOR center, VECTOR point) {
-    return GBAVector(center).rotateAsCenter(point, angle);
 }
 
 int xVelocity = 1;
@@ -104,11 +100,10 @@ int countEnemy = 1;
 
 bool isWalkingLeft;
 bool isWalkingRight;
+bool aangIsGoingLeft;
 bool isJumping;
 bool isAttacking;
 
-double healthAang = 100;
-double healthEnemey = 50;
 double attackCounter =0;
 
 
@@ -117,16 +112,17 @@ void Level1_scene::tick(u16 keys) {
     TextStream::instance().setText( std::string(" Health aang: ") + std::to_string(healthAang), 3, 1);
     TextStream::instance().setText( std::string(" Health enemy: ") + std::to_string(healthEnemey), 4, 1);
     TextStream::instance().setText(std::string(" Attack counter: ") +std::to_string(attackCounter), 5,1);
-    TextStream::instance().setText(std::string(" Airball angle: ") +std::to_string(angle), 6,1);
 
     if(keys & KEY_LEFT) {
         if(!isWalkingLeft) isWalkingLeft = true;
+        aangIsGoingLeft = true;
     }
     else {
         isWalkingLeft = false;
     }
     if(keys & KEY_RIGHT) {
         if(!isWalkingRight) isWalkingRight = true;
+        aangIsGoingLeft = false;
     }
     else {
         isWalkingRight = false;
@@ -174,19 +170,25 @@ void Level1_scene::tick(u16 keys) {
         }
     }
 
+////COLLISION DETECION AANG AND ENEMY ////
     if(isAttacking) {
         if(attackCounter>= 40 && aang.get()->collidesWith(*enemy.get())){
             healthEnemey--;
+            if(healthEnemey<0) engine.get()->updateSpritesInScene();
             attackCounter=0;
         }
         if(!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
-    }
-    if(!isAttacking) {
+    } else {
         if(attackCounter>= 40 && aang.get()->collidesWith(*enemy.get())){
             healthAang--;
             attackCounter =0;
         }
     }
+
+
+
+
+    ///AIRBALL-SHOOTING + END OF ATTACK ACTION///
 
     int oldAirBallsSize = airBalls.size();
     removeAirBallsOffScreen();
@@ -201,26 +203,38 @@ void Level1_scene::tick(u16 keys) {
             airBalls.push_back(createAirBall());
 
             auto &ab = airBalls.at(airBalls.size()-1);
-            auto destination = rotateAround(aang->getCenter(),defaultBulletTarget);
-            destination.y = 60;
-            destination.x= 999;
-            TextStream::instance().setText(std::string("shooting dest: ") + std::to_string(destination.x) + std::string(",") + std::to_string(destination.y), 16, 1);
-            ab->setDestination(destination);
+            ab->setLeft(aangIsGoingLeft);
+
         }
     }
 
 
     if(oldAirBallsSize != airBalls.size()) {
         engine.get()->updateSpritesInScene();
-
-        TextStream::instance().setText(std::string(" in de tweede if old:") +std::to_string(oldAirBallsSize) +std::string(" new:") +std::to_string(airBalls.size()), 7,1);
     }
 
     for(auto &ab : airBalls) {
-
-        TextStream::instance().setText(std::string(" in the for, voor tick, oldAirBallsSize=  ") +std::to_string(oldAirBallsSize), 7,1);
         ab->tick();
-        TextStream::instance().setText(std::string(" in the for, na tick, oldAirBallsSize=  ") +std::to_string(oldAirBallsSize), 7,1);
+    }
+
+
+    ////COLLISION DETECION ENEMY AND AIRBAL ////
+    int positionToBeDeleted=-1;
+    if(airBalls.size() > 0){
+        int position =0;
+        for(auto& ab : airBalls){
+            if(attackCounter >= 40 && ab.get()->getSprite()->collidesWith(*enemy.get())) {
+                healthEnemey -= 20;
+                attackCounter = 0;
+                positionToBeDeleted = position;
+            }
+            position++;
+        }
+    }
+
+    if(positionToBeDeleted>=0) {
+        airBalls.erase(airBalls.begin()+positionToBeDeleted);
+        engine.get()->updateSpritesInScene();
     }
 
 
@@ -239,8 +253,14 @@ void Level1_scene::tick(u16 keys) {
 }
 
 std::unique_ptr<AirBall> Level1_scene::createAirBall() {
-     return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
-                                                    ->withLocation(aang->getX() + aang->getWidth() / 2, aang->getY() + aang->getHeight() / 2)
-                                                      .buildWithDataOf(*someAirBallSprite.get())));
+    if(aangIsGoingLeft){
+        return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
+                                                            ->withLocation(aang->getX() - aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
+                                                            .buildWithDataOf(*someAirBallSprite.get())));
 
+    }else{
+     return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
+                                                    ->withLocation(aang->getX() + aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
+                                                      .buildWithDataOf(*someAirBallSprite.get())));
+    }
 }

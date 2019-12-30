@@ -12,20 +12,16 @@
 
 
 
-void AirBall::setDestination(VECTOR destination) {
+void AirBall::setLeft(bool left) {
     auto currentPos = sprite->getPosAsVector();
-    this->dest = destination;
-
-    this->coords = currentPos.bresenhamLineTo(destination);
-
-    TextStream::instance().setText(std::string(" in setDest"), 7,1);
+    this->left = left;
 }
 
 void AirBall::tick() {
-    if(coords.empty()) {
-        return;
+    if(left) {
+        sprite->flipHorizontally(true);
+       sprite->moveTo(sprite->getX()-2,sprite->getY());
+    }else{
+        sprite->moveTo(sprite->getX()+2,sprite->getY());
     }
-
-    sprite->moveTo(coords.front());
-    coords.pop_front();
 }

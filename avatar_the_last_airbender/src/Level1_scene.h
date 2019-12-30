@@ -17,8 +17,11 @@ private:
     std::unique_ptr<Sprite> someAirBallSprite;
     std::vector<std::unique_ptr<AirBall>> airBalls;
 
+    std::unique_ptr<Background> background0;
     std::unique_ptr<Background> background;
     int angle;
+    double healthEnemey;
+    double healthAang;
 
     std::unique_ptr<SpriteBuilder<Sprite>> spriteBuilder;
     std::unique_ptr<AirBall> createAirBall();
