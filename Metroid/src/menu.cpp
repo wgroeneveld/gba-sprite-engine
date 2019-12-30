@@ -12,7 +12,7 @@
 
 #include "samus_aran.h"
 #include "ball.h"
-#include "enemy.h"
+#include "Enemy.h"
 #include "projectiel.h"
 #include "achtergrond.h"
 #include "achtergrond2.h"
