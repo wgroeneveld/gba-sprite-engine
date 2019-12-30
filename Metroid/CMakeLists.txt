@@ -5,7 +5,7 @@ add_executable(${PROJECT_NAME}.elf
         src/menu.cpp
         src/menu.h
         src/sample_sound.h
-        src/samus_aran.h src/achtergrond.h src/achtergrond2.h src/Metroid.cpp src/Metroid.h src/achtergrond3.h)
+        src/samus_aran.h src/achtergrond.h src/achtergrond2.h src/Metroid.cpp src/Metroid.h src/achtergrond3.h src/Enemy.cpp src/Enemy.h src/Bullet.cpp src/Bullet.h)
 
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
