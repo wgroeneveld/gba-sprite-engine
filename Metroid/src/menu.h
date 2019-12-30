@@ -13,6 +13,7 @@ private:
     std::unique_ptr<Sprite> metroidBewegen;
     std::unique_ptr<Metroid> metroidObject;
     std::unique_ptr<Background> bg;
+    std::unique_ptr<Background> bg2;
 
 
 public:

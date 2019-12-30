@@ -57,6 +57,8 @@ void FlyingStuffScene::load() {
 
     bg = std::unique_ptr<Background>(new Background(1, background_data, sizeof(background_data), map, sizeof(map)));
     bg.get()->useMapScreenBlock(16);
+    //bg2 = std::unique_ptr<Background>(new Background(2, background_data, sizeof(background_data), map, sizeof(map)));
+    //bg2.get()->useMapScreenBlock(16);
 }
 
 void FlyingStuffScene::tick(u16 keys) {

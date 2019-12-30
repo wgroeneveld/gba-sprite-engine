@@ -17,6 +17,7 @@ private:
     std::unique_ptr<Sprite> kul;
     std::unique_ptr<AffineSprite> kulFlying;
     std::unique_ptr<Background> bg;
+    std::unique_ptr<Background> bg2;
 
     int scrollX, scrollY;
     int rotation;

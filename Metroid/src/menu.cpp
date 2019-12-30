@@ -13,11 +13,12 @@
 #include "samus_aran.h"
 #include "achtergrond.h"
 #include "achtergrond2.h"
+#include "achtergrond3.h"
 #include "sample_sound.h"
 #include "Metroid.h"
 
 std::vector<Background *> Menu::backgrounds() {
-    return {bg.get() };
+    return {bg.get()};
 }
 
 std::vector<Sprite *> Menu::sprites() {
@@ -26,22 +27,24 @@ std::vector<Sprite *> Menu::sprites() {
 
 void Menu::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(animatie_metroidPal, sizeof(animatie_metroidPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(achtergrondPal, sizeof(achtergrondPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(dungeon_backgroundPal, sizeof(dungeon_backgroundPal)));
 
     SpriteBuilder<Sprite> builder;
 
     metroidBewegen = builder
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
-            .withAnimated(16, 30)
+            .withAnimated(11, 3)
             .withLocation(50, 50)
             .withinBounds()
             .buildPtr();
 
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
 
-    bg = std::unique_ptr<Background>(new Background(1, achtergrondTiles, sizeof(achtergrondTiles), achtergrondMap, sizeof(achtergrondMap)));
+    bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
     bg.get()->useMapScreenBlock(16);
+    //bg2 = std::unique_ptr<Background>(new Background(1, wallsTiles, sizeof(wallsTiles), wallsMap, sizeof(wallsMap)));
+    //bg2.get()->useMapScreenBlock(16);
 
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
