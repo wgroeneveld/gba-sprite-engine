@@ -11,11 +11,14 @@
 class Metroid {
 private:
     std::unique_ptr<Sprite> metroid;
+    int lives = 100;
 
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
     Sprite *getMetroid() {return metroid.get();}
     void tick(u16 keys);
+    void reduceLives(int value);
+    int getLives();
 };
 
 
