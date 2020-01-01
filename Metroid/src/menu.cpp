@@ -25,7 +25,7 @@ std::vector<Background *> Menu::backgrounds() {
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemy.get(), projectiel.get() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemy.get(), projectiel.get(), firebolt.get() };
 }
 
 void Menu::load() {
@@ -50,9 +50,9 @@ void Menu::load() {
             .buildPtr();
 
     enemy = builder
-            .withData(enemyTiles, sizeof(enemyTiles))
-            .withSize(SIZE_16_16)
-            .withAnimated(5, 30)
+            .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
+            .withSize(SIZE_16_32)
+            .withAnimated(7, 30)
             .withLocation(80, 50)
             .withinBounds()
             .buildPtr();
@@ -60,6 +60,13 @@ void Menu::load() {
     projectiel = builder
             .withData(projectielTiles, sizeof(projectielTiles))
             .withLocation(70, 40)
+            .withSize(SIZE_8_8)
+            .withinBounds()
+            .buildPtr();
+
+    firebolt = builder
+            .withData(fireboltTiles, sizeof(fireboltTiles))
+            .withLocation(10, 20)
             .withSize(SIZE_8_8)
             .withinBounds()
             .buildPtr();
