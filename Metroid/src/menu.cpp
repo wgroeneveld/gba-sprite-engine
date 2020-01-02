@@ -12,7 +12,7 @@
 
 #include "samus_aran.h"
 #include "ball.h"
-#include "Enemy.h"
+#include "Mario.h"
 #include "projectiel.h"
 #include "achtergrond.h"
 #include "achtergrond2.h"
