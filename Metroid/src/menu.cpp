@@ -25,7 +25,7 @@ std::vector<Background *> Menu::backgrounds() {
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemy.get(), projectiel.get(), firebolt.get() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), projectiel.get(), firebolt.get() };
 }
 
 void Menu::load() {
@@ -52,7 +52,7 @@ void Menu::load() {
     enemy = builder
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
-            .withAnimated(7, 30)
+           // .withAnimated(7, 30)
             .withLocation(80, 50)
             .withinBounds()
             .buildPtr();
@@ -73,6 +73,7 @@ void Menu::load() {
 
 
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
+    enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
 
     bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
     bg.get()->useMapScreenBlock(16);
@@ -86,4 +87,5 @@ void Menu::load() {
 void Menu::tick(u16 keys) {
     
     metroidObject->tick(keys);
+    enemyObject->tick(keys);
 }

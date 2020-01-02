@@ -17,6 +17,7 @@ private:
     std::unique_ptr<Sprite> projectiel;
     std::unique_ptr<Sprite> firebolt;
     std::unique_ptr<Metroid> metroidObject;
+    std::unique_ptr<Mario> enemyObject;
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;
 
