@@ -7,6 +7,7 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include "Metroid.h"
+#include "Enemy.h"
 
 class Menu : public Scene {
 private:
