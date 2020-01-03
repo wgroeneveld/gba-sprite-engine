@@ -23,6 +23,7 @@ private:
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;
     std::unique_ptr<Background> bg3;
+    int scrollX, scrollY;
 
 
 public:
@@ -30,7 +31,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
 
-    Menu(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
+    Menu(std::shared_ptr<GBAEngine> engine) : Scene(engine), scrollX(0), scrollY(0) {}
 
     void load() override;
     void tick(u16 keys) override;

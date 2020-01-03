@@ -93,7 +93,10 @@ void Menu::load() {
 }
 
 void Menu::tick(u16 keys) {
-    
+
+    scrollX += metroidObject->getMetroid()->getDx();
+    bg2.get()->scroll(scrollX, scrollY);
+
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
