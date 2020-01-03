@@ -22,7 +22,7 @@ void Metroid::tick(u16 keys) {
         getMetroid()->flipHorizontally(true);
         getMetroid()->setVelocity(-2, 0);
     } else if(keys & KEY_RIGHT) {
-        if(getMetroid()->getX()>=158){
+        if(getMetroid()->getX()>=208){
             getMetroid()->makeAnimated(6,5);
             getMetroid()->flipHorizontally(false);
             getMetroid()->setVelocity(0, 0);

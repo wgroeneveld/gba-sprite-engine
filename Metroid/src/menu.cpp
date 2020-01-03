@@ -21,7 +21,7 @@
 #include "Metroid.h"
 
 std::vector<Background *> Menu::backgrounds() {
-    return {bg.get()};
+    return {bg.get(), bg2.get(), /*bg3.get()*/};
 }
 
 std::vector<Sprite *> Menu::sprites() {
@@ -30,7 +30,7 @@ std::vector<Sprite *> Menu::sprites() {
 
 void Menu::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(dungeon_backgroundPal, sizeof(dungeon_backgroundPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackgroundPal, sizeof(sharedBackgroundPal)));
 
     SpriteBuilder<Sprite> builder;
 
@@ -59,6 +59,7 @@ void Menu::load() {
 
     projectiel = builder
             .withData(projectielTiles, sizeof(projectielTiles))
+            .withAnimated(5,7)
             .withLocation(70, 40)
             .withSize(SIZE_8_8)
             .withinBounds()
@@ -76,7 +77,12 @@ void Menu::load() {
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
 
     bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
-    bg.get()->useMapScreenBlock(16);
+    bg.get()->useMapScreenBlock(29);
+    bg2 = std::unique_ptr<Background>(new Background(2, MoonTiles, sizeof(MoonTiles), MoonMap, sizeof(MoonMap)));
+    bg2.get()->useMapScreenBlock(26);
+    bg3 = std::unique_ptr<Background>(new Background(3, blackTiles, sizeof(blackTiles), blackMap, sizeof(blackMap)));
+    //bg3.get()->useMapScreenBlock(4);
+
     //bg2 = std::unique_ptr<Background>(new Background(1, wallsTiles, sizeof(wallsTiles), wallsMap, sizeof(wallsMap)));
     //bg2.get()->useMapScreenBlock(16);
 

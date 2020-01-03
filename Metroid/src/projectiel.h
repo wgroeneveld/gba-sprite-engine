@@ -5,24 +5,33 @@
 #ifndef GBA_SPRITE_ENGINE_PROJECT_PROJECTIEL_H
 #define GBA_SPRITE_ENGINE_PROJECT_PROJECTIEL_H
 
+
 //{{BLOCK(projectiel)
 
 //======================================================================
 //
-//	projectiel, 8x8@8,
-//	+ 1 tiles not compressed
-//	Total size: 64 = 64
+//	projectiel, 8x40@8,
+//	+ 5 tiles not compressed
+//	Total size: 320 = 320
 //
-//	Time-stamp: 2020-01-01, 22:38:15
+//	Time-stamp: 2020-01-02, 23:47:47
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
 
-const unsigned int projectielTiles[16] __attribute__((aligned(4)))=
+const unsigned int projectielTiles[80] __attribute__((aligned(4)))=
         {
-                0x22220000,0x00002222,0x22222200,0x00222222,0x21212222,0x22222121,0x22212222,0x22222122,
-                0x22212222,0x22222122,0x21212222,0x22222121,0x22222200,0x00222222,0x22220000,0x00002222,
+                0x26260000,0x00002626,0x24242600,0x00262424,0x26262426,0x26242626,0x24262426,0x26242624,
+                0x24262426,0x26242624,0x26262426,0x26242626,0x24242600,0x00262424,0x26260000,0x00002626,
+                0x21210000,0x00002121,0x26262100,0x00212626,0x21212621,0x21262121,0x26212621,0x21262126,
+                0x26212621,0x21262126,0x21212621,0x21262121,0x26262100,0x00212626,0x21210000,0x00002121,
+                0x22220000,0x00002222,0x26262200,0x00222626,0x22222622,0x22262222,0x26222622,0x22262226,
+                0x26222622,0x22262226,0x22222622,0x22262222,0x26262200,0x00222626,0x22220000,0x00002222,
+                0x25250000,0x00002525,0x26262500,0x00252626,0x25252625,0x25262525,0x26252625,0x25262526,
+                0x26252625,0x25262526,0x25252625,0x25262525,0x26262500,0x00252626,0x25250000,0x00002525,
+                0x23230000,0x00002323,0x26262300,0x00232626,0x23232623,0x23262323,0x26232623,0x23262326,
+                0x26232623,0x23262326,0x23232623,0x23262323,0x26262300,0x00232626,0x23230000,0x00002323,
         };
 
 //}}BLOCK(projectiel)
@@ -36,7 +45,7 @@ const unsigned int projectielTiles[16] __attribute__((aligned(4)))=
 //	+ 1 tiles not compressed
 //	Total size: 64 = 64
 //
-//	Time-stamp: 2020-01-01, 22:38:16
+//	Time-stamp: 2020-01-02, 23:47:47
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -44,10 +53,11 @@ const unsigned int projectielTiles[16] __attribute__((aligned(4)))=
 
 const unsigned int fireboltTiles[16] __attribute__((aligned(4)))=
         {
-                0x00000000,0x00000000,0x23232300,0x23000000,0x23252323,0x00230023,0x25252523,0x23000023,
-                0x25242523,0x23232323,0x24252323,0x23232525,0x25232300,0x00232325,0x23230000,0x00002323,
+                0x00000000,0x00000000,0x27272700,0x27000000,0x27292727,0x00270027,0x29292927,0x27000027,
+                0x29282927,0x27272727,0x28292727,0x27272929,0x29272700,0x00272729,0x27270000,0x00002727,
         };
 
 //}}BLOCK(firebolt)
+
 
 #endif //GBA_SPRITE_ENGINE_PROJECT_PROJECTIEL_H

@@ -1,0 +1,16 @@
+TO-DO LIST PROJECT C++
+
+!!! List not in a particular order !!!
+
+1. Implemantation for gravity
+2. Controls and animations for main character(= MC)
+3. Moving projectiles when characters shoot
+4. AI for regular enemies
+5. Golden balls(=also collectible) serve as power ups for MC ==> more damage and serve as more points towards total score
+6. Map design and determing where to stand and where not
+7. Scoring machanism to give a goal to improve run (Speed of run = more points, losing less health = more points, killing more enemies = more points)
+8. Make timer that keeps track of total run time(show in HUD).
+9. In menu create 2 modes (normal and hard) hard = enemies deal more damage and you have less health
+10. AI for final boss
+11. HUD
+12. Menu screen

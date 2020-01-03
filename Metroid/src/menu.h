@@ -20,6 +20,7 @@ private:
     std::unique_ptr<Mario> enemyObject;
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;
+    std::unique_ptr<Background> bg3;
 
 
 public:

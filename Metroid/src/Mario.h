@@ -30,7 +30,7 @@ public:
 //	+ 56 tiles not compressed
 //	Total size: 3584 = 3584
 //
-//	Time-stamp: 2020-01-01, 22:50:41
+//	Time-stamp: 2020-01-02, 23:47:47
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -166,5 +166,6 @@ const unsigned int enemy_bigTiles[896] __attribute__((aligned(4)))=
         };
 
 //}}BLOCK(enemy_big)
+
 
 #endif //GBA_SPRITE_ENGINE_PROJECT_MARIO_H
