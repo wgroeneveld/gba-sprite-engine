@@ -21,7 +21,7 @@ void Metroid::tick(u16 keys) {
         goLeft =true;
         isCrouching = false;
         if(keys & KEY_B){
- 
+            
         }
         else {
             getMetroid()->makeAnimated(6, 5);
@@ -54,6 +54,8 @@ void Metroid::tick(u16 keys) {
         getMetroid()->setVelocity(0, 0);
         isCrouching = false;
     }
+
+
 
     if(isJumping){
         if(getMetroid()->getY() <= 40){
