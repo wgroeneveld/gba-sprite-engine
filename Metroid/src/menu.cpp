@@ -95,21 +95,21 @@ void Menu::load() {
 
 void Menu::tick(u16 keys) {
 
-   // scrollX += metroidObject->getMetroid()->getDx();
-  //  bg2.get()->scroll(scrollX, scrollY);
+    scrollX += metroidObject->getMetroid()->getDx();
+    bg2.get()->scroll(scrollX, scrollY);
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
 
-    if(keys & KEY_LEFT){
+  /*  if(keys & KEY_LEFT){
         scrollX -= 1;
         bg2.get()->scroll(scrollX, scrollY);
     }
     else if(keys & KEY_RIGHT){
         scrollX += 1;
         bg2.get()->scroll(scrollX, scrollY);
-    }
+    }*/
 
     if(keys & KEY_A) {
         if (!(bulletObject->getIsShooting())) {
