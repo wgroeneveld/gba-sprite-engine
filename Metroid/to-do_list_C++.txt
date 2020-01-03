@@ -14,3 +14,22 @@ TO-DO LIST PROJECT C++
 10. AI for final boss
 11. HUD
 12. Menu screen
+
+
+Info startpositie projectiel:
+Bij rechts schieten:
+x(Metroid) + 30
+y(Metroid) + 33
+
+Bij links schieten:
+x(Metroid) - 6
+y(Metroid) + 33
+
+Bij gehurkt:
+links:
+x(Metroid) - 6
+y(Metroid) + 47
+
+rechts:
+x(Metroid) + 30
+y(Metroid) + 47

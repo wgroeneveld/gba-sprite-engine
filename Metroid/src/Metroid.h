@@ -12,6 +12,8 @@ class Metroid {
 private:
     std::unique_ptr<Sprite> metroid;
     int lives = 100;
+    bool goLeft = false;
+    bool isCrouching = false;
 
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
@@ -19,6 +21,8 @@ public:
     void tick(u16 keys);
     void reduceLives(int value);
     int getLives();
+    bool getGoLeft(){ return goLeft;}
+    bool getIsCrouching(){return isCrouching;}
 };
 
 

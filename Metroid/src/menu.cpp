@@ -19,13 +19,14 @@
 #include "achtergrond3.h"
 #include "sample_sound.h"
 #include "Metroid.h"
+#include "Bullet.h"
 
 std::vector<Background *> Menu::backgrounds() {
     return {bg.get(), bg2.get(), /*bg3.get()*/};
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), projectiel.get(), firebolt.get() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), firebolt.get() };
 }
 
 void Menu::load() {
@@ -38,7 +39,7 @@ void Menu::load() {
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
             .withAnimated(11, 3)
-            .withLocation(50, 50)
+            .withLocation(0, 88)
             .withinBounds()
             .buildPtr();
 
@@ -53,16 +54,16 @@ void Menu::load() {
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
            // .withAnimated(7, 30)
-            .withLocation(80, 50)
+            .withLocation(224, 120)
             .withinBounds()
             .buildPtr();
 
     projectiel = builder
             .withData(projectielTiles, sizeof(projectielTiles))
             .withAnimated(5,7)
-            .withLocation(70, 40)
+            .withLocation(30, 121)
             .withSize(SIZE_8_8)
-            .withinBounds()
+           // .withinBounds()
             .buildPtr();
 
     firebolt = builder
@@ -75,6 +76,7 @@ void Menu::load() {
 
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
+    bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
 
     bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
     bg.get()->useMapScreenBlock(29);
@@ -94,4 +96,35 @@ void Menu::tick(u16 keys) {
     
     metroidObject->tick(keys);
     enemyObject->tick(keys);
+    bulletObject->tick(keys);
+
+    if(keys & KEY_A) {
+        if (!(bulletObject->getIsShooting())) {
+            if (metroidObject->getGoLeft()) {
+                if(metroidObject->getIsCrouching()){
+                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
+                                                      metroidObject->getMetroid()->getY() + 47);
+                    bulletObject->shootBulletLeft();
+                }
+                else {
+                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
+                                                      metroidObject->getMetroid()->getY() + 33);
+                    bulletObject->shootBulletLeft();
+                }
+            } else {
+                if (metroidObject->getIsCrouching()) {
+                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
+                                                      metroidObject->getMetroid()->getY() + 47);
+                    bulletObject->shootBulletRight();
+                } else {
+                bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
+                                                  metroidObject->getMetroid()->getY() + 33);
+                bulletObject->shootBulletRight();
+                }
+            }
+        }
+    }
+ /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
+        TextStream::instance().setText("Auw", 0, 19);
+    }*/
 }

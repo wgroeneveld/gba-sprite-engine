@@ -12,11 +12,17 @@
 class Bullet {
 private:
     std::unique_ptr<Sprite> bullet;
+    bool shootLeft = false;
+    bool shootRight = false;
+    bool isShooting = false;
 
 public:
     Bullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}
     Sprite *getBullet() {return bullet.get();}
     void tick(u16 keys);
+    void shootBulletLeft();
+    void shootBulletRight();
+    bool getIsShooting(){return isShooting;}
 };
 
 

@@ -14,7 +14,7 @@ void Mario::reduceLives(int value) {
 }
 
 void Mario::tick(u16 keys) {
-    for(int i = 0; i < 2000; i++){}
+ //   for(int i = 0; i < 2000; i++){}
     getMario()->stopAnimating();
     if(goLeft) {
         // getEnemy()->animate();
