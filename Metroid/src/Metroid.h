@@ -14,6 +14,7 @@ private:
     int lives = 100;
     bool goLeft = false;
     bool isCrouching = false;
+    bool isJumping = false;
 
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
@@ -21,8 +22,9 @@ public:
     void tick(u16 keys);
     void reduceLives(int value);
     int getLives();
-    bool getGoLeft(){ return goLeft;}
+    bool getGoLeft(){return goLeft;}
     bool getIsCrouching(){return isCrouching;}
+    bool getIsJumping(){return isCrouching;}
 };
 
 

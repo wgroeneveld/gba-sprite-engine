@@ -130,9 +130,9 @@ void Menu::tick(u16 keys) {
                                                       metroidObject->getMetroid()->getY() + 47);
                     bulletObject->shootBulletRight();
                 } else {
-                bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
-                                                  metroidObject->getMetroid()->getY() + 33);
-                bulletObject->shootBulletRight();
+                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
+                                                      metroidObject->getMetroid()->getY() + 33);
+                    bulletObject->shootBulletRight();
                 }
             }
         }
