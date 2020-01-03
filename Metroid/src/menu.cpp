@@ -124,6 +124,10 @@ void Menu::tick(u16 keys) {
             }
         }
     }
+
+    if(bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))){
+        bulletObject->setIsShooting(false);
+    }
  /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
         TextStream::instance().setText("Auw", 0, 19);
     }*/

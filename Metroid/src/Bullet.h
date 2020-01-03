@@ -23,6 +23,7 @@ public:
     void shootBulletLeft();
     void shootBulletRight();
     bool getIsShooting(){return isShooting;}
+    void setIsShooting(bool value);
 };
 
 
