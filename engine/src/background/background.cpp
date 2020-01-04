@@ -85,3 +85,15 @@ void Background::scrollSpeed(int dx, int dy) {
     REG_BG_OFS[bgIndex].x += dx;
     REG_BG_OFS[bgIndex].y += dy;
 }
+
+void Background::setScrollX(int scrollX) {
+    Background::scrollX = scrollX;
+}
+
+void Background::setScrollY(int scrollY) {
+    Background::scrollY = scrollY;
+}
+
+const void *Background::getMap() const {
+    return map;
+}

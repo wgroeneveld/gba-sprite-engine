@@ -149,7 +149,7 @@ void Menu::tick(u16 keys) {
 
             TextStream::instance() << "entered: starting next scene";
 
-            engine->transitionIntoScene(new Level1(engine), new FadeOutScene(2));
+            engine->transitionIntoScene(new Level1(engine), new FadeOutScene(9));
         }
     }
 }

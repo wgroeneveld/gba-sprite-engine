@@ -40,7 +40,7 @@ void Level1::load() {
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
             .withAnimated(11, 3)
-            .withLocation(0, 88)
+            .withLocation(0, 80)
             .withinBounds()
             .buildPtr();
 
@@ -91,8 +91,14 @@ void Level1::load() {
 }
 
 void Level1::tick(u16 keys) {
-
-    scrollX += metroidObject->getMetroid()->getDx();
+    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
+        if(metroidObject->getGoLeft()){
+            scrollX --;
+        }
+        else{
+            scrollX ++;
+        }
+    }
     /*if(keys & KEY_DOWN){
         scrollY -= 1;
     }
@@ -104,6 +110,12 @@ void Level1::tick(u16 keys) {
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
+
+    TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
+    TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
+    TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
+    TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
+
 
     if(keys & KEY_A) {
         if (!(bulletObject->getIsShooting())) {

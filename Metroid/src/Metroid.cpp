@@ -67,7 +67,7 @@ void Metroid::tick(u16 keys) {
             if(keys & KEY_B){
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->stopAnimating();
             }
             else {
@@ -84,7 +84,7 @@ void Metroid::tick(u16 keys) {
             if(keys & KEY_B) {
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->stopAnimating();
             }
             else{

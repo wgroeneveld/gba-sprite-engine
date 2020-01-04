@@ -23,6 +23,7 @@ protected:
     int size, bgIndex;
     int mapSize;
     int screenBlockIndex, charBlockIndex;
+    int scrollX, scrollY;
 
 public:
     const int getScreenBlock() { return screenBlockIndex; }
@@ -30,6 +31,12 @@ public:
     void useMapScreenBlock(int block) { screenBlockIndex = block; }
     void scroll(int x, int y);
     void scrollSpeed(int dx, int dy);
+    int getScrollX() {return scrollX;}
+    int getScrollY() {return scrollY;}
+    void setScrollX(int scrollX);
+    void setScrollY(int scrollY);
+
+    const void *getMap() const;
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
                                                                                         screenBlockIndex(0), charBlockIndex(0), mapSize(mapSize) {}
