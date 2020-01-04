@@ -21,6 +21,7 @@
 #include "sample_sound.h"
 #include "Metroid.h"
 #include "Bullet.h"
+#include "test.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -82,7 +83,7 @@ void Level1::load() {
 
     bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap)));
     bg.get()->useMapScreenBlock(29);
-    bg->setMapData(foregroundMap);
+    bg->setMapData(lvl1Map);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
 
@@ -90,7 +91,7 @@ void Level1::load() {
 }
 
 void Level1::tick(u16 keys) {
-    
+
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     //metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg));
 
