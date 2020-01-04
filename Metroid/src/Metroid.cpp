@@ -17,43 +17,106 @@ void Metroid::reduceLives(int value) {
 
 void Metroid::tick(u16 keys) {
 
-    if(keys & KEY_LEFT) {
-        goLeft =true;
-        isCrouching = false;
-        getMetroid()->makeAnimated(6,5);
-        getMetroid()->flipHorizontally(true);
-        getMetroid()->setVelocity(-2, 0);
-    } else if(keys & KEY_RIGHT) {
-        goLeft = false;
-        isCrouching = false;
-        /*if(getMetroid()->getX()>=208){
-            getMetroid()->makeAnimated(6,5);
-            getMetroid()->flipHorizontally(false);
-            getMetroid()->setVelocity(0, 0);
+    if(isJumping){
+        if(getMetroid()->getY() <= 30){
+            isJumping = false;
+            isFalling = true;
+            if(goLeft){
+                getMetroid()->flipHorizontally(true);
+                getMetroid()->setVelocity(-2,-4);
+            }
+            else{
+                getMetroid()->flipHorizontally(true);
+                getMetroid()->setVelocity(+2,-4);
+            }
         }
-        else{*/
-            getMetroid()->makeAnimated(6,5);
-            getMetroid()->flipHorizontally(false);
-            getMetroid()->setVelocity(+2, 0);
-        //}
+        else {
+            if(goLeft){
+                getMetroid()->flipHorizontally(true);
+                getMetroid()->setVelocity(-1, -2);
+            }
+            else{
+                getMetroid()->flipHorizontally(false);
+                getMetroid()->setVelocity(+1, -2);
+            }
+        }
+    }
+
+    if(isFalling){
+        if(getMetroid()->getY() == 88){
+            getMetroid()->moveTo(getMetroid()->getX(),88);
+            isFalling = false;
+            canJump = true;
+        }
+        else {
+            if(goLeft){
+                getMetroid()->flipHorizontally(true);
+                getMetroid()->setVelocity(-1, 2);
+            }
+            else{
+                getMetroid()->flipHorizontally(false);
+                getMetroid()->setVelocity(+1, 2);
+            }
+        }
+    }
+
+    if(keys & KEY_LEFT) {
+        if(canJump){
+            goLeft =true;
+            isCrouching = false;
+            if(keys & KEY_B){
+                isJumping = true;
+                canJump = false;
+                getMetroid()->animateToFrame(7);
+                getMetroid()->stopAnimating();
+            }
+            else {
+                getMetroid()->makeAnimated(6, 5);
+                getMetroid()->flipHorizontally(true);
+                getMetroid()->setVelocity(-1, 0);
+            }
+        }
+
+    } else if(keys & KEY_RIGHT) {
+        if(canJump){
+            goLeft = false;
+            isCrouching = false;
+            if(keys & KEY_B) {
+                isJumping = true;
+                canJump = false;
+                getMetroid()->animateToFrame(7);
+                getMetroid()->stopAnimating();
+            }
+            else{
+                getMetroid()->makeAnimated(6,5);
+                getMetroid()->flipHorizontally(false);
+                getMetroid()->setVelocity(+1, 0);
+            }
+
+        }
     }
     else if(keys & KEY_DOWN){
-        isCrouching = true;
-        if(goLeft){
+        if(canJump) {
+            isCrouching = true;
             getMetroid()->animateToFrame(10);
-            getMetroid()->flipHorizontally(true);
             getMetroid()->setVelocity(0, 0);
-        }
-        else{
-            getMetroid()->animateToFrame(10);
-            getMetroid()->flipHorizontally(false);
-            getMetroid()->setVelocity(0, 0);
+            if (goLeft) {
+                getMetroid()->flipHorizontally(true);
+            } else {
+                getMetroid()->flipHorizontally(false);
+            }
         }
     }
     else {
-        getMetroid()->animateToFrame(7);
-        getMetroid()->stopAnimating();
-        getMetroid()->setVelocity(0, 0);
-        isCrouching = false;
+        if(canJump) {
+            getMetroid()->animateToFrame(7);
+            getMetroid()->stopAnimating();
+            getMetroid()->setVelocity(0, 0);
+            isCrouching = false;
+        }
     }
+
+
+
+
 }

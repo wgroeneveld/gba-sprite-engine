@@ -93,6 +93,7 @@ void Menu::load() {
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
+
 void Menu::tick(u16 keys) {
 
     scrollX += metroidObject->getMetroid()->getDx();
@@ -108,7 +109,8 @@ void Menu::tick(u16 keys) {
     enemyObject->tick(keys);
     bulletObject->tick(keys);
 
-    if (keys & KEY_A) {
+
+    if(keys & KEY_A) {
         if (!(bulletObject->getIsShooting())) {
             if (metroidObject->getGoLeft()) {
                 if (metroidObject->getIsCrouching()) {
