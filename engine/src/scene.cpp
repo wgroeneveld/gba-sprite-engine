@@ -15,25 +15,25 @@ bool Scene::isObstacleInFront(Sprite sprite, Background background) {
     int realPositionX = sprite.getX() + sprite.getWidth() + background.getScrollX();
     int realPositionY = sprite.getY() + sprite.getHeight() + background.getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    /*if(maparray[placeOnMap+1] == 0x0000){
+    if(background.getMapData()[placeOnMap+1] == 0x0000){
         return FALSE;
     }
     else{
         return TRUE;
-    }*/
+    }
     return TRUE;
 }
 
 bool Scene::isObstacleBehind(Sprite sprite, Background background) {
-    int realPositionX = sprite.getX() + sprite.getWidth() + background.getScrollX();
+    int realPositionX = sprite.getX() + background.getScrollX();
     int realPositionY = sprite.getY() + sprite.getHeight() + background.getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    /*if(maparray[placeOnMap-1] == 0x0000){
+    if(background.getMapData()[placeOnMap-1] == 0x0000){
         return FALSE;
     }
     else{
         return TRUE;
-    }*/
+    }
     return TRUE;
 }
 
