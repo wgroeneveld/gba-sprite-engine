@@ -22,21 +22,21 @@ void Metroid::tick(u16 keys) {
             isJumping = false;
             isFalling = true;
             if(goLeft){
-                getMetroid()->flipHorizontally(true);
+            //    getMetroid()->flipHorizontally(true);
                 getMetroid()->setVelocity(-2,-4);
             }
             else{
-                getMetroid()->flipHorizontally(true);
+         //       getMetroid()->flipHorizontally(true);
                 getMetroid()->setVelocity(+2,-4);
             }
         }
         else {
             if(goLeft){
-                getMetroid()->flipHorizontally(true);
+           //     getMetroid()->flipHorizontally(true);
                 getMetroid()->setVelocity(-1, -2);
             }
             else{
-                getMetroid()->flipHorizontally(false);
+          //      getMetroid()->flipHorizontally(false);
                 getMetroid()->setVelocity(+1, -2);
             }
         }
@@ -50,11 +50,11 @@ void Metroid::tick(u16 keys) {
         }
         else {
             if(goLeft){
-                getMetroid()->flipHorizontally(true);
+          //      getMetroid()->flipHorizontally(true);
                 getMetroid()->setVelocity(-1, 2);
             }
             else{
-                getMetroid()->flipHorizontally(false);
+           //     getMetroid()->flipHorizontally(false);
                 getMetroid()->setVelocity(+1, 2);
             }
         }
@@ -68,6 +68,7 @@ void Metroid::tick(u16 keys) {
                 isJumping = true;
                 canJump = false;
                 getMetroid()->animateToFrame(7);
+                getMetroid()->flipHorizontally(true);
                 getMetroid()->stopAnimating();
             }
             else {
@@ -85,6 +86,7 @@ void Metroid::tick(u16 keys) {
                 isJumping = true;
                 canJump = false;
                 getMetroid()->animateToFrame(7);
+                getMetroid()->flipHorizontally(false);
                 getMetroid()->stopAnimating();
             }
             else{
