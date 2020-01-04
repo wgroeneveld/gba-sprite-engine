@@ -94,5 +94,13 @@ void Background::setScrollY(int scrollY) {
     Background::scrollY = scrollY;
 }
 
+const std::vector<unsigned short> &Background::getMapData() const {
+    return mapData;
+}
+
+void Background::setMapData(const std::vector<unsigned short> &mapData) {
+    Background::mapData = mapData;
+}
+
 
 
