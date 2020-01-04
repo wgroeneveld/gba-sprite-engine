@@ -414,4 +414,30 @@ const unsigned short dungeon_backgroundMap[1024] __attribute__((aligned(4)))=
 //}}BLOCK(dungeon_background)
 
 
+//{{BLOCK(sharedBackground)
+
+//======================================================================
+//
+//	sharedBackground, 16x16@8,
+//	Transparent palette entry: 1.
+//	+ palette 26 entries, not compressed
+//	Total size: 52 = 52
+//
+//	Time-stamp: 2020-01-03, 03:59:40
+//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
+//	( http://www.coranac.com/projects/#grit )
+//
+//======================================================================
+
+const unsigned short sharedBackgroundPal[26] __attribute__((aligned(4)))=
+        {
+                0x1340,0x0000,0x1884,0x1CA6,0x24E8,0x2D29,0x356A,0x35CE,
+                0x3DAD,0x216B,0x3A52,0x42F6,0x4F5A,0x5F9C,0x57DD,0x6FFF,
+                0x7FFF,0x3548,0x3273,0x1464,0x475C,0x3AF9,0x31EE,0x28E8,
+                0x57BF,0x1CA5,
+        };
+
+//}}BLOCK(sharedBackground)
+
+
 #endif // GBA_SPRITE_ENGINE_PROJECT_ACHTERGROND_H

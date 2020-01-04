@@ -4,6 +4,10 @@
 
 #ifndef GBA_SPRITE_ENGINE_BACKGROUND_H
 #define GBA_SPRITE_ENGINE_BACKGROUND_H
+#define MAPLAYOUT_64x64 3
+#define MAPLAYOUT_32x64 2
+#define MAPLAYOUT_64x32 1
+#define MAPLAYOUT_32x32 0
 
 
 #include <libgba-sprite-engine/gba/tonc_types.h>

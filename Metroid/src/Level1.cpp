@@ -1,7 +1,8 @@
 //
-// Created by kyles on 27/12/2019.
+// Created by kyles on 3/01/2020.
 //
 
+#include "Level1.h"
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
@@ -20,19 +21,18 @@
 #include "sample_sound.h"
 #include "Metroid.h"
 #include "Bullet.h"
-#include "Level1.h"
 
-std::vector<Background *> Menu::backgrounds() {
-    return {bg.get(), bg2.get(), /*bg3.get()*/};
+std::vector<Background *> Level1::backgrounds() {
+    return {bg.get(), bg2.get()};
 }
 
-std::vector<Sprite *> Menu::sprites() {
+std::vector<Sprite *> Level1::sprites() {
     return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), firebolt.get() };
 }
 
-void Menu::load() {
+void Level1::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackgroundPal, sizeof(sharedBackgroundPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackground2Pal, sizeof(sharedBackground2Pal)));
 
     SpriteBuilder<Sprite> builder;
 
@@ -54,7 +54,7 @@ void Menu::load() {
     enemy = builder
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
-           // .withAnimated(7, 30)
+                    // .withAnimated(7, 30)
             .withLocation(224, 120)
             .withinBounds()
             .buildPtr();
@@ -64,7 +64,7 @@ void Menu::load() {
             .withAnimated(5,7)
             .withLocation(30, 121)
             .withSize(SIZE_8_8)
-           // .withinBounds()
+                    // .withinBounds()
             .buildPtr();
 
     firebolt = builder
@@ -79,21 +79,18 @@ void Menu::load() {
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
 
-    bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
+    bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap)));
     bg.get()->useMapScreenBlock(29);
-    bg2 = std::unique_ptr<Background>(new Background(2, MoonTiles, sizeof(MoonTiles), MoonMap, sizeof(MoonMap)));
+    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
-    //bg3 = std::unique_ptr<Background>(new Background(3, blackTiles, sizeof(blackTiles), blackMap, sizeof(blackMap)));
-    //bg3.get()->useMapScreenBlock(4);
 
-    //bg2 = std::unique_ptr<Background>(new Background(1, wallsTiles, sizeof(wallsTiles), wallsMap, sizeof(wallsMap)));
-    //bg2.get()->useMapScreenBlock(16);
+
 
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
-void Menu::tick(u16 keys) {
+void Level1::tick(u16 keys) {
 
     scrollX += metroidObject->getMetroid()->getDx();
     /*if(keys & KEY_DOWN){
@@ -102,20 +99,21 @@ void Menu::tick(u16 keys) {
     else if(keys & KEY_UP){
         scrollY += 1;
     }*/
-    bg2.get()->scroll(scrollX, scrollY);
+    bg.get()->scroll(scrollX, scrollY);
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
 
-    if (keys & KEY_A) {
+    if(keys & KEY_A) {
         if (!(bulletObject->getIsShooting())) {
             if (metroidObject->getGoLeft()) {
-                if (metroidObject->getIsCrouching()) {
+                if(metroidObject->getIsCrouching()){
                     bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
                                                       metroidObject->getMetroid()->getY() + 47);
                     bulletObject->shootBulletLeft();
-                } else {
+                }
+                else {
                     bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
                                                       metroidObject->getMetroid()->getY() + 33);
                     bulletObject->shootBulletLeft();
@@ -134,20 +132,11 @@ void Menu::tick(u16 keys) {
         }
     }
 
-    if (bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))) {
+    if(bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))){
         bulletObject->setIsShooting(false);
     }
     /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
            TextStream::instance().setText("Auw", 0, 19);
        }*/
-
-    if (keys & KEY_START) {
-        if (!engine->isTransitioning()) {
-            engine->enqueueSound(zelda_secret_16K_mono, zelda_secret_16K_mono_bytes);
-
-            TextStream::instance() << "entered: starting next scene";
-
-            engine->transitionIntoScene(new Level1(engine), new FadeOutScene(2));
-        }
-    }
 }
+
