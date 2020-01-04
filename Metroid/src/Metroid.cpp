@@ -43,8 +43,8 @@ void Metroid::tick(u16 keys) {
     }
 
     if(isFalling){
-        if(getMetroid()->getY() == 88){
-            getMetroid()->moveTo(getMetroid()->getX(),88);
+        if(getMetroid()->getY() == 80){
+        //    getMetroid()->moveTo(getMetroid()->getX(),80);
             isFalling = false;
             canJump = true;
         }
@@ -67,7 +67,7 @@ void Metroid::tick(u16 keys) {
             if(keys & KEY_B){
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->flipHorizontally(true);
                 getMetroid()->stopAnimating();
             }
@@ -85,7 +85,7 @@ void Metroid::tick(u16 keys) {
             if(keys & KEY_B) {
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->flipHorizontally(false);
                 getMetroid()->stopAnimating();
             }
