@@ -82,7 +82,7 @@ void Level1::load() {
 
     bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap)));
     bg.get()->useMapScreenBlock(29);
-    bg->setMapData(bricksForegroundMap);
+    bg->setMapData(foregroundMap);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
 

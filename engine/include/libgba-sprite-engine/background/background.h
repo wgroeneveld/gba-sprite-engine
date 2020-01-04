@@ -25,7 +25,7 @@ protected:
     int mapSize;
     int screenBlockIndex, charBlockIndex;
     int scrollX, scrollY;
-    std::vector<unsigned short> mapData;
+    std::vector<unsigned short int> mapData;
 
 public:
     const int getScreenBlock() { return screenBlockIndex; }
@@ -38,9 +38,9 @@ public:
     void setScrollX(int scrollX);
     void setScrollY(int scrollY);
 
-    const std::vector<unsigned short> &getMapData() const;
+    const std::vector<unsigned short int> &getMapData() const;
 
-    void setMapData(const std::vector<unsigned short> &mapData);
+    void setMapData(const std::vector<unsigned short int> &mapData);
 
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
