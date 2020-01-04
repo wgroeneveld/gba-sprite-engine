@@ -93,15 +93,17 @@ void Level1::load() {
 void Level1::tick(u16 keys) {
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
-    //metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg));
+    metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
 
 
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
         if(metroidObject->getGoLeft()){
             scrollX --;
+            bg->setScrollX(scrollX);
         }
         else{
             scrollX ++;
+            bg->setScrollX(scrollX);
         }
     }
     /*if(keys & KEY_DOWN){
