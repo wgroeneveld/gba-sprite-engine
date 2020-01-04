@@ -15,6 +15,14 @@ void Metroid::reduceLives(int value) {
     lives -= value;
 }
 
+void Metroid::setCanGoRight(bool value){
+    canGoRight = value;
+}
+
+void Metroid::setCanGoLeft(bool value){
+    canGoLeft = value;
+}
+
 void Metroid::tick(u16 keys) {
 
     if(isJumping){
@@ -43,8 +51,8 @@ void Metroid::tick(u16 keys) {
     }
 
     if(isFalling){
-        if(getMetroid()->getY() == 88){
-            getMetroid()->moveTo(getMetroid()->getX(),88);
+        if(getMetroid()->getY() == 80){
+        //    getMetroid()->moveTo(getMetroid()->getX(),80);
             isFalling = false;
             canJump = true;
         }
@@ -60,14 +68,14 @@ void Metroid::tick(u16 keys) {
         }
     }
 
-    if(keys & KEY_LEFT) {
+    if(keys & KEY_LEFT && canGoLeft) {
         if(canJump){
             goLeft =true;
             isCrouching = false;
             if(keys & KEY_B){
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->flipHorizontally(true);
                 getMetroid()->stopAnimating();
             }
@@ -78,14 +86,14 @@ void Metroid::tick(u16 keys) {
             }
         }
 
-    } else if(keys & KEY_RIGHT) {
+    } else if(keys & KEY_RIGHT && canGoRight) {
         if(canJump){
             goLeft = false;
             isCrouching = false;
             if(keys & KEY_B) {
                 isJumping = true;
                 canJump = false;
-                getMetroid()->animateToFrame(7);
+                getMetroid()->animateToFrame(5);
                 getMetroid()->flipHorizontally(false);
                 getMetroid()->stopAnimating();
             }

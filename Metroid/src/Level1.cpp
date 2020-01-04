@@ -27,7 +27,7 @@ std::vector<Background *> Level1::backgrounds() {
 }
 
 std::vector<Sprite *> Level1::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), firebolt.get() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), marioBulletObject->getBullet() };
 }
 
 void Level1::load() {
@@ -55,7 +55,7 @@ void Level1::load() {
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
                     // .withAnimated(7, 30)
-            .withLocation(224, 120)
+            .withLocation(224, 112)
             .withinBounds()
             .buildPtr();
 
@@ -69,7 +69,7 @@ void Level1::load() {
 
     firebolt = builder
             .withData(fireboltTiles, sizeof(fireboltTiles))
-            .withLocation(10, 20)
+            .withLocation(224, 128)
             .withSize(SIZE_8_8)
             .withinBounds()
             .buildPtr();
@@ -78,19 +78,24 @@ void Level1::load() {
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
+    marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
 
     bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap)));
     bg.get()->useMapScreenBlock(29);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
-
-
+    
 
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
 void Level1::tick(u16 keys) {
+
+    metroidObject->setCanGoRight(!isObstacleInFront(*(metroidObject->getMetroid()), bg));
+    metroidObject->setCanGoLeft(!isObstacleBehind(*(metroidObject->getMetroid()),bg));
+
+
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
         if(metroidObject->getGoLeft()){
             scrollX --;

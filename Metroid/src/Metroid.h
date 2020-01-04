@@ -17,6 +17,8 @@ private:
     bool isJumping = false;
     bool isFalling = false;
     bool canJump = true;
+    bool canGoLeft = true;
+    bool canGoRight = true;
 
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
@@ -27,6 +29,8 @@ public:
     bool getGoLeft(){return goLeft;}
     bool getIsCrouching(){return isCrouching;}
     bool getIsJumping(){return isCrouching;}
+    void setCanGoRight(bool value);
+    void setCanGoLeft(bool value);
 };
 
 
