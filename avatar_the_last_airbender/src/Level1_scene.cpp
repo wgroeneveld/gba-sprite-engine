@@ -8,8 +8,8 @@
 #include "background_game/background_earth_tilemap.h"
 #include "background_game/background_earth_data.h"
  */
-#include "background_game/background_tileset.h"
-#include "background_game/background_tilemap.h"
+#include "background_game/background_set.h"
+#include "background_game/background_map.h"
 
 #include "grit/aang.h"
 #include "grit/enemy.h"
