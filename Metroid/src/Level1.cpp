@@ -86,7 +86,6 @@ void Level1::load() {
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
 
-
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
