@@ -91,8 +91,8 @@ void Level1::load() {
 
 void Level1::tick(u16 keys) {
 
-    metroidObject->setCanGoRight(!isObstacleInFront(metroidObject->getMetroid(), bg));
-    metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg));
+    metroidObject->setCanGoRight(!isObstacleInFront(*(metroidObject->getMetroid()), *bg));
+    //metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg));
 
 
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){

@@ -40,10 +40,10 @@ public:
         // scenes should manage their own resources - use std::unique_ptr
     }
 
-    bool isObstacleInFront(Sprite sprite, Background background);
-    bool isObstacleBehind(Sprite sprite, Background background);
+    bool isObstacleInFront(Sprite* sprite, Background* background);
+    bool isObstacleBehind(Sprite* sprite, Background* background);
     bool isObstacleBelow(Sprite sprite, Background background);
-    bool isObstacleAbove(Sprite sprite, Background background);
+    bool isObstacleAbove(Sprite* sprite, Background* background);
 };
 
 
