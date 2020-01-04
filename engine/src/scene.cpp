@@ -47,7 +47,7 @@ bool Scene::isObstacleAbove(Sprite sprite, Background background) {
     else{
         return TRUE;
     }*/
-    return TRUE;
+    return FALSE;
 }
 
 bool Scene::isObstacleBelow(Sprite sprite, Background background) {

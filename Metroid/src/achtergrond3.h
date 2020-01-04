@@ -62,7 +62,7 @@ const unsigned int bricksForegroundTiles[256] __attribute__((aligned(4)))=
                 0x11111111,0x1111110F,0x0E0E110F,0x0E10100E,0x0E11110F,0x0E0E0E0E,0x1111110F,0x11111111,
         };
 
-const unsigned short bricksForegroundMap[1024] __attribute__((aligned(4)))=
+unsigned short bricksForegroundMap[1024] __attribute__((aligned(4)))=
         {
                 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
                 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
