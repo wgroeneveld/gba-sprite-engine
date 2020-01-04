@@ -84,14 +84,18 @@ void Level1::load() {
     bg.get()->useMapScreenBlock(29);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
-
-
+    
 
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 }
 
 void Level1::tick(u16 keys) {
+
+    metroidObject->setCanGoRight(!isObstacleInFront(*(metroidObject->getMetroid()), bg));
+    metroidObject->setCanGoLeft(!isObstacleBehind(*(metroidObject->getMetroid()),bg));
+
+
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
         if(metroidObject->getGoLeft()){
             scrollX --;

@@ -24,7 +24,7 @@ void MarioBullet::tick(u16 keys) {
     // getBullet()->stopAnimating();
 
     if(!isShooting){
-        
+
     }
 
     if(shootLeft){
