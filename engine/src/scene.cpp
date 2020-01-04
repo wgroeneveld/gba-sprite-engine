@@ -37,9 +37,9 @@ bool Scene::isObstacleBehind(Sprite sprite, Background background) {
     return TRUE;
 }
 
-bool Scene::isObstacleAbove(Sprite sprite, Background background) {
-    int realPositionX = sprite.getX() + background.getScrollX();
-    int realPositionY = sprite.getY() + sprite.getHeight() + background.getScrollY();
+bool Scene::isObstacleAbove(Sprite *sprite, Background *background) {
+    int realPositionX = sprite->getX() + background->getScrollX();
+    int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
     /*if(maparray[placeOnMap-32] == 0x0000){
         return FALSE;
