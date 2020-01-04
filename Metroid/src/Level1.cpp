@@ -90,8 +90,8 @@ void Level1::load() {
 }
 
 void Level1::tick(u16 keys) {
-
-    metroidObject->setCanGoRight(!isObstacleInFront(metroidObject->getMetroid(), bg.get()));
+    
+    metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     //metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg));
 
 
