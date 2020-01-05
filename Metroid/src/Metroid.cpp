@@ -23,10 +23,24 @@ void Metroid::setCanGoLeft(bool value){
     canGoLeft = value;
 }
 
+void Metroid::setTimerValue(int value) {
+    timerValue = value;
+}
+
 void Metroid::tick(u16 keys) {
 
+
+
+  /*  if(canGoDown){
+        isFalling = false;
+        isJumping = false;
+        canJump = true;
+    }*/
+
+
+
     if(isJumping){
-        if(getMetroid()->getY() <= 30){
+        if(timerValue == 1){
             isJumping = false;
             isFalling = true;
             if(goLeft){
@@ -41,11 +55,11 @@ void Metroid::tick(u16 keys) {
         else {
             if(goLeft){
            //     getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(-1, -2);
+                getMetroid()->setVelocity(-1, -1);
             }
             else{
           //      getMetroid()->flipHorizontally(false);
-                getMetroid()->setVelocity(+1, -2);
+                getMetroid()->setVelocity(+1, -1);
             }
         }
     }
@@ -59,11 +73,11 @@ void Metroid::tick(u16 keys) {
         else {
             if(goLeft){
           //      getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(-1, 2);
+                getMetroid()->setVelocity(-1, 1);
             }
             else{
            //     getMetroid()->flipHorizontally(false);
-                getMetroid()->setVelocity(+1, 2);
+                getMetroid()->setVelocity(+1, 1);
             }
         }
     }
