@@ -20,6 +20,7 @@ private:
     bool canGoLeft = true;
     bool canGoRight = true;
 
+
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
     Sprite *getMetroid() {return metroid.get();}
