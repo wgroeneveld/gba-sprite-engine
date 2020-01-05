@@ -41,7 +41,7 @@ void Level1::load() {
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
             .withAnimated(11, 3)
-            .withLocation(0, 80)
+            .withLocation(28, 80)
             .withinBounds()
             .buildPtr();
 
