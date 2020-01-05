@@ -76,10 +76,6 @@ void Metroid::tick(u16 keys) {
         isFalling = false;
         canJump = true;
     }
-    else if(canGoDown){
-        isFalling = true;
-        canJump = false;
-    }
     else if(isJumping){
         if(keys & KEY_LEFT){
             getMetroid()->setDx(-1);
@@ -96,6 +92,10 @@ void Metroid::tick(u16 keys) {
         if(keys & KEY_RIGHT){
             getMetroid()->setDx(1);
         }
+    }
+    else if(canGoDown){
+        isFalling = true;
+        canJump = false;
     }
 
     if(keys & KEY_LEFT && canGoLeft) {
