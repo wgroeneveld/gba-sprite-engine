@@ -44,7 +44,7 @@ public:
     int isObstacleInFrontInt(Sprite* sprite, Background* background);
     unsigned short int isObstacleInFrontIntVector(Sprite* sprite, Background* background);
     bool isObstacleBehind(Sprite* sprite, Background* background);
-    bool isObstacleBelow(Sprite sprite, Background background);
+    bool isObstacleBelow(Sprite* sprite, Background* background);
     bool isObstacleAbove(Sprite* sprite, Background* background);
 };
 

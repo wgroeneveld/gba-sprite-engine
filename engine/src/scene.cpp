@@ -86,27 +86,43 @@ bool Scene::isObstacleBehind(Sprite* sprite, Background* background) {
 }
 
 bool Scene::isObstacleAbove(Sprite *sprite, Background *background) {
-    int realPositionX = sprite->getX() + background->getScrollX();
-    int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
+    int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
+    int realPositionY = sprite->getY() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    /*if(maparray[placeOnMap-32] == 0x0000){
-        return FALSE;
+    bool isBehind;
+    if(sprite->getHeight() == 64){
+        for (int i = 0; i < ((sprite->getHeight())/8)-3 ; ++i) {
+            if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
+                isBehind = FALSE;
+            }
+            else{
+                isBehind = TRUE;
+                break;
+            }
+        }
     }
     else{
-        return TRUE;
-    }*/
-    return FALSE;
+        for (int i = 0; i < ((sprite->getHeight())/8)-1 ; ++i) {
+            if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
+                isBehind = FALSE;
+            }
+            else{
+                isBehind = TRUE;
+                break;
+            }
+        }
+    }
+    return isBehind;
 }
 
-bool Scene::isObstacleBelow(Sprite sprite, Background background) {
-    int realPositionX = sprite.getX() + background.getScrollX();
-    int realPositionY = sprite.getY() + background.getScrollY();
+bool Scene::isObstacleBelow(Sprite *sprite, Background *background) {
+    int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
+    int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    /*if(maparray[placeOnMap+32] == 0x0000){
-        return FALSE;
+    if(background->getMapData()[placeOnMap + 31] != 0x0000 && background->getMapData()[placeOnMap + 31 - sprite->getWidth() -1] != 0x0000){
+        return TRUE;
     }
     else{
-        return TRUE;
-    }*/
-    return TRUE;
+        return FALSE;
+    }
 }
