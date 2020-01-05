@@ -15,13 +15,30 @@ bool Scene::isObstacleInFront(Sprite *sprite, Background *background) {
     int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
     int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    if(background->getMapData()[placeOnMap] == 0x0000){
-        return FALSE;
+    bool isInFront;
+    if(sprite->getHeight() == 64){
+        for (int i = 0; i < ((sprite->getHeight())/8)-3 ; ++i) {
+            if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
+                isInFront = FALSE;
+            }
+            else{
+                isInFront = TRUE;
+                break;
+            }
+        }
     }
     else{
-        return TRUE;
+        for (int i = 0; i < ((sprite->getHeight())/8)-1 ; ++i) {
+            if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
+                isInFront = FALSE;
+            }
+            else{
+                isInFront = TRUE;
+                break;
+            }
+        }
     }
-    return TRUE;
+    return isInFront;
 }
 
 int Scene::isObstacleInFrontInt(Sprite *sprite, Background *background) {
