@@ -114,13 +114,6 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
 
 
-    if(metroidObject->getIsJumping()) engine->getTimer()->start();
-    if(metroidObject->getIsFalling()){
-        engine->getTimer()->stop();
-        engine->getTimer()->reset();
-    }
-    metroidObject->setTimerValue(engine->getTimer()->getSecs());
-
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
         if(metroidObject->getGoLeft()){
             scrollX --;

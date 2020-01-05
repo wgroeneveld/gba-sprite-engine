@@ -23,24 +23,11 @@ void Metroid::setCanGoLeft(bool value){
     canGoLeft = value;
 }
 
-void Metroid::setTimerValue(int value) {
-    timerValue = value;
-}
-
 void Metroid::tick(u16 keys) {
 
 
-
-  /*  if(canGoDown){
-        isFalling = false;
-        isJumping = false;
-        canJump = true;
-    }*/
-
-
-
     if(isJumping){
-        if(timerValue == 1){
+        if(getMetroid()->getY() <= 30){
             isJumping = false;
             isFalling = true;
             if(goLeft){

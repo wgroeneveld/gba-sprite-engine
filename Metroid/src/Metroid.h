@@ -19,9 +19,6 @@ private:
     bool canJump = true;
     bool canGoLeft = true;
     bool canGoRight = true;
-    bool canGoUp = true;
-    bool canGoDown = true;
-    int timerValue;
 
 
 
@@ -36,7 +33,6 @@ public:
     bool getIsJumping(){return isJumping;}
     void setCanGoRight(bool value);
     void setCanGoLeft(bool value);
-    void setTimerValue(int value);
     bool getIsFalling(){return isFalling;}
 
 };
