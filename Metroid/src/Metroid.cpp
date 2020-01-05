@@ -186,10 +186,10 @@ if(isJumping){
     else if (!canGoRight){
         getMetroid()->setDx(0);
     }
-    else if (canGoLeft){
+    else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
     }
-    else if (canGoRight){
+    else if (canGoRight && (keys & KEY_RIGHT)){
         getMetroid()->setDx(1);
     } else{
         getMetroid()->setDx(0);
@@ -208,10 +208,10 @@ else if (isFalling){
     else if (!canGoRight){
         getMetroid()->setDx(0);
     }
-    else if (canGoLeft){
+    else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
     }
-    else if (canGoRight){
+    else if (canGoRight && (keys & KEY_RIGHT)){
         getMetroid()->setDx(1);
     } else{
         getMetroid()->setDx(0);
