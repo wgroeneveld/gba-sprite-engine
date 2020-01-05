@@ -19,6 +19,18 @@ private:
     bool canJump = true;
     bool canGoLeft = true;
     bool canGoRight = true;
+    bool canGoUp = true;
+public:
+    bool isCanGoUp() const;
+
+    void setCanGoUp(bool canGoUp);
+
+    bool isCanGoDown() const;
+
+    void setCanGoDown(bool canGoDown);
+
+private:
+    bool canGoDown = false;
 
 
 

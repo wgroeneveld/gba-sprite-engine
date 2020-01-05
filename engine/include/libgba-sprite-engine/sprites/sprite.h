@@ -53,6 +53,12 @@ private:
 protected:
     const void *data;
     int x, y, dx, dy;
+public:
+    void setDx(int dx);
+
+    void setDy(int dy);
+
+protected:
     u8 animation_offset;
     u32 priority, w, h, size_bits, shape_bits;
     bool stayWithinBounds;

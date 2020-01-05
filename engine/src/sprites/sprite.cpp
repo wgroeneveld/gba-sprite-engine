@@ -156,3 +156,11 @@ void Sprite::buildOam(int tileIndex) {
             ATTR2_PRIO(priority) |
             ATTR2_PALBANK(0);
 }
+
+void Sprite::setDx(int dx) {
+    Sprite::dx = dx;
+}
+
+void Sprite::setDy(int dy) {
+    Sprite::dy = dy;
+}

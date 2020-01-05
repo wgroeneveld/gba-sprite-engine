@@ -35,45 +35,62 @@ void Metroid::tick(u16 keys) {
 
 
     if(isJumping){
-        if(getMetroid()->getY() <= 30){
-            isJumping = false;
-            isFalling = true;
-            if(goLeft){
-            //    getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(-2,-4);
-            }
-            else{
-         //       getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(+2,-4);
-            }
+        if(goLeft){
+            getMetroid()->setVelocity(-1, -1);
         }
-        else {
-            if(goLeft){
-           //     getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(-1, -1);
-            }
-            else{
-          //      getMetroid()->flipHorizontally(false);
-                getMetroid()->setVelocity(+1, -1);
-            }
+        else{
+            getMetroid()->setVelocity(+1, -1);
         }
     }
 
     if(isFalling){
         if(getMetroid()->getY() == 80){
-        //    getMetroid()->moveTo(getMetroid()->getX(),80);
             isFalling = false;
             canJump = true;
         }
         else {
             if(goLeft){
-          //      getMetroid()->flipHorizontally(true);
                 getMetroid()->setVelocity(-1, 1);
             }
             else{
-           //     getMetroid()->flipHorizontally(false);
                 getMetroid()->setVelocity(+1, 1);
             }
+        }
+    }
+
+
+    if(!canGoRight){
+        getMetroid()->setDx(0);
+    }
+    else if(!canGoLeft){
+        getMetroid()->setDx(0);
+    }
+    else if(!canGoUp){
+        if(isJumping){
+            isJumping = false;
+            isFalling = true;
+        }
+    }
+    else if(!canGoDown){
+        getMetroid()->setDy(0);
+        isFalling = false;
+        canJump = true;
+    }
+    else if(isJumping){
+        if(keys & KEY_LEFT){
+            getMetroid()->setDx(-1);
+        }
+        if(keys & KEY_RIGHT){
+            getMetroid()->setDx(1);
+        }
+    }
+    else if(isFalling){
+        getMetroid()->setDy(-1);
+        if(keys & KEY_LEFT){
+            getMetroid()->setDx(-1);
+        }
+        if(keys & KEY_RIGHT){
+            getMetroid()->setDx(1);
         }
     }
 
@@ -138,4 +155,20 @@ void Metroid::tick(u16 keys) {
 
 
 
+}
+
+bool Metroid::isCanGoUp() const {
+    return canGoUp;
+}
+
+void Metroid::setCanGoUp(bool canGoUp) {
+    Metroid::canGoUp = canGoUp;
+}
+
+bool Metroid::isCanGoDown() const {
+    return canGoDown;
+}
+
+void Metroid::setCanGoDown(bool canGoDown) {
+    Metroid::canGoDown = canGoDown;
 }
