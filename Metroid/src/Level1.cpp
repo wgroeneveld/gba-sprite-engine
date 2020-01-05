@@ -92,7 +92,15 @@ void Level1::load() {
 }
 
 void Level1::tick(u16 keys) {
-
+    int bla = 0;
+    if(metroidObject->getIsJumping()){
+        engine->getTimer()->start();
+        bla ++;
+    }
+    if(engine->getTimer()->getSecs() == 2){
+        engine->getTimer()->reset();
+        engine->getTimer()->stop();
+    }
 
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
