@@ -98,14 +98,16 @@ void Level1::tick(u16 keys) {
         engine->getTimer()->start();
         bla ++;
     }
-    if(engine->getTimer()->getSecs() == 2){
+    if(engine->getTimer()->getSecs() == 1){
         engine->getTimer()->reset();
         engine->getTimer()->stop();
+        metroidObject->setIsFalling(true);
+        metroidObject->setIsJumping(false);
     }
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
-  //  TextStream::instance().setText(engine->getTimer()->to_string(), 0, 12);
+    TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);

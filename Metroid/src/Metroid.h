@@ -34,6 +34,8 @@ public:
     void setCanGoRight(bool value);
     void setCanGoLeft(bool value);
     bool getIsFalling(){return isFalling;}
+    void setIsFalling(bool value);
+    void setIsJumping(bool value);
 
 };
 
