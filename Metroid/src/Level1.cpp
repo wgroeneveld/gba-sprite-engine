@@ -98,7 +98,7 @@ void Level1::tick(u16 keys) {
         engine->getTimer()->start();
         bla ++;
     }
-    if(engine->getTimer()->getSecs() == 1){
+    if(engine->getTimer()->getSecs() == 2 || metroidObject->getIsFalling()){
         engine->getTimer()->reset();
         engine->getTimer()->stop();
         metroidObject->setIsFalling(true);
@@ -107,6 +107,8 @@ void Level1::tick(u16 keys) {
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
+    metroidObject->setCanGoDown(!isObstacleBehind(metroidObject->getMetroid(),bg.get()));
+    metroidObject->setCanGoUp(!isObstacleAbove(metroidObject->getMetroid(), bg.get()));
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
