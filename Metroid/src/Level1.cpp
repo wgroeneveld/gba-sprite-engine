@@ -126,12 +126,7 @@ void Level1::tick(u16 keys) {
             bg->setScrollX(scrollX);
         }
     }
-    /*if(keys & KEY_DOWN){
-        scrollY -= 1;
-    }
-    else if(keys & KEY_UP){
-        scrollY += 1;
-    }*/
+
     bg.get()->scroll(scrollX, scrollY);
 
     metroidObject->tick(keys);
