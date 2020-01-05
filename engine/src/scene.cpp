@@ -24,6 +24,20 @@ bool Scene::isObstacleInFront(Sprite *sprite, Background *background) {
     return TRUE;
 }
 
+int Scene::isObstacleInFrontInt(Sprite *sprite, Background *background) {
+    int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
+    int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
+    int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
+    return placeOnMap;
+}
+
+unsigned short int Scene::isObstacleInFrontIntVector(Sprite *sprite, Background *background) {
+    int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
+    int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
+    int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
+    return background->getMapData()[placeOnMap];
+}
+
 bool Scene::isObstacleBehind(Sprite* sprite, Background* background) {
     int realPositionX = sprite->getX() + background->getScrollX();
     int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();

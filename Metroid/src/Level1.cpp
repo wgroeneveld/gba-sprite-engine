@@ -88,12 +88,20 @@ void Level1::load() {
     bg2.get()->useMapScreenBlock(26);
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
+
 }
 
 void Level1::tick(u16 keys) {
-
+    engine->getTimer()->start();
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
+    //TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
+    int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
+    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
+    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
+    TextStream::instance().setText(std::to_string(placeOnScreen) + std::string("PosOnScreen"), 18, 1);
+    TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("PosOnScreen"), 19, 1);
+
 
 
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
