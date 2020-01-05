@@ -89,11 +89,21 @@ bool Scene::isObstacleAbove(Sprite *sprite, Background *background) {
     int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
     int realPositionY = sprite->getY() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    if(background->getMapData()[placeOnMap - 31] != 0x0000 && background->getMapData()[placeOnMap - 31 - sprite->getWidth() + 1] != 0x0000){
-        return TRUE;
+    if(sprite->getHeight() == 64){
+        if(background->getMapData()[placeOnMap - 95] != 0x0000 && background->getMapData()[placeOnMap - 95 - sprite->getWidth() + 1] != 0x0000){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
     }
     else{
-        return FALSE;
+        if(background->getMapData()[placeOnMap - 31] != 0x0000 && background->getMapData()[placeOnMap - 31 - sprite->getWidth() + 1] != 0x0000){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
     }
 }
 
