@@ -103,10 +103,9 @@ void Level1::tick(u16 keys) {
         engine->getTimer()->stop();
     }
 
-    engine->getTimer()->start();
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
-    //TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
+  //  TextStream::instance().setText(engine->getTimer()->to_string(), 0, 12);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
@@ -115,6 +114,12 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
 
 
+    if(metroidObject->getIsJumping()) engine->getTimer()->start();
+    if(metroidObject->getIsFalling()){
+        engine->getTimer()->stop();
+        engine->getTimer()->reset();
+    }
+    metroidObject->setTimerValue(engine->getTimer()->getSecs());
 
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
         if(metroidObject->getGoLeft()){
