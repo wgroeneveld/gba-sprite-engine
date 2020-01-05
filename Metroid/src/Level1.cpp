@@ -98,9 +98,11 @@ void Level1::tick(u16 keys) {
         engine->getTimer()->start();
         bla ++;
     }
-    if(engine->getTimer()->getSecs() == 2){
+    if(engine->getTimer()->getSecs() == 1){
         engine->getTimer()->reset();
         engine->getTimer()->stop();
+        metroidObject->setIsFalling(true);
+        metroidObject->setIsJumping(false);
     }
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));

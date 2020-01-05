@@ -23,6 +23,14 @@ void Metroid::setCanGoLeft(bool value){
     canGoLeft = value;
 }
 
+void Metroid::setIsFalling(bool value) {
+    isFalling = value;
+}
+
+void Metroid::setIsJumping(bool value) {
+    isJumping = value;
+}
+
 void Metroid::tick(u16 keys) {
 
 
