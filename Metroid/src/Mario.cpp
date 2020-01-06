@@ -20,12 +20,12 @@ void Mario::tick(u16 keys) {
         // getEnemy()->animate();
         if(getMario()->getX() <= 0){
             goLeft = false;
-            getMario()->makeAnimated(3,5);
+            getMario()->makeAnimated(3,5, 3);
             getMario()->flipHorizontally(false);
             getMario()->setVelocity(+1, 0);
         }
         else {
-            getMario()->makeAnimated(3,5);
+            getMario()->makeAnimated(3,5,3);
             getMario()->flipHorizontally(true);
             getMario()->setVelocity(-1, 0);
         }
@@ -33,12 +33,12 @@ void Mario::tick(u16 keys) {
     else{
         if(getMario()->getX() >= 224){
             goLeft = true;
-            getMario()->makeAnimated(3,5);
+            getMario()->makeAnimated(3,5,3);
             getMario()->flipHorizontally(true);
             getMario()->setVelocity(-1, 0);
         }
         else{
-            getMario()->makeAnimated(3,5);
+            getMario()->makeAnimated(3,5,3);
             getMario()->flipHorizontally(false);
             getMario()->setVelocity(+1, 0);
         }

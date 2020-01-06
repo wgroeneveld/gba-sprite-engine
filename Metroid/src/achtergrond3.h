@@ -16,7 +16,7 @@
 //	+ regular map (flat), not compressed, 32x32
 //	Total size: 1856 + 2048 = 3904
 //
-//	Time-stamp: 2020-01-05, 18:38:19
+//	Time-stamp: 2020-01-06, 18:17:28
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -250,7 +250,7 @@ const unsigned short rocksMap[1024] __attribute__((aligned(4)))=
 //	+ palette 18 entries, not compressed
 //	Total size: 36 = 36
 //
-//	Time-stamp: 2020-01-05, 18:38:19
+//	Time-stamp: 2020-01-06, 18:17:29
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -276,7 +276,7 @@ const unsigned short sharedBackground2Pal[18] __attribute__((aligned(4)))=
 //	+ regular map (flat), not compressed, 32x32
 //	Total size: 768 + 2048 = 2816
 //
-//	Time-stamp: 2020-01-06, 02:26:51
+//	Time-stamp: 2020-01-06, 18:31:39
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //

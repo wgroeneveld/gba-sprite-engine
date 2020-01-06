@@ -80,11 +80,11 @@ void Level1::load() {
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
     marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
 
-    bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap)));
-    bg.get()->useMapScreenBlock(29);
+    bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap),9,1,MAPLAYOUT_32X32));
+    //bg.get()->useMapScreenBlock(29);
     bg->setMapData(lvl1Map);
-    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
-    bg2.get()->useMapScreenBlock(26);
+    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap),17,2,MAPLAYOUT_32X32));
+    //bg2.get()->useMapScreenBlock(26);
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
 
@@ -121,19 +121,45 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
     TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
 
-
+    int scrollToX = 0;
+    int scrollToY = 0;
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
-        if(metroidObject->getGoLeft()){
-            scrollX --;
-            bg->setScrollX(scrollX);
+        /*if(bg->getScrollX() == 0 || bg->getScrollX() == 16){
+            scrollToX = 0;
+        }
+        /*else if(metroidObject->getMetroid()->getDx() < 0){
+            scrollToX = metroidObject->getMetroid()->getDx();
+            bg->setScrollX(bg->getScrollX()+scrollToX);
         }
         else{
-            scrollX ++;
-            bg->setScrollX(scrollX);
+            scrollToX = metroidObject->getMetroid()->getDx();
+            bg->setScrollX(bg->getScrollX()+scrollToX);
+        }*/
+        if(bg->getScrollX() < 17 && bg->getScrollX() >= 0){
+            if(metroidObject->getMetroid()->getDx() < 0){
+                if(bg->getScrollX() <= 1){
+                    bg->setScrollX(0);
+                }
+                else{
+                    scrollX = (metroidObject->getMetroid()->getDx());
+                    bg->setScrollX(metroidObject->getMetroid()->getDx());
+                }
+            }
+            else if (metroidObject->getMetroid()->getDx() > 0){
+                if(scrollX >= 15){
+                    bg->setScrollX(16);
+                }
+                else{
+                    bg->setScrollX(metroidObject->getMetroid()->getDx());
+                }
+            }
+            else{
+                scrollToX = 0;
+            }
         }
     }
 
-    bg.get()->scroll(scrollX, scrollY);
+    bg.get()->scroll(scrollToX, scrollToY);
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);

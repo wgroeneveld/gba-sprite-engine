@@ -73,7 +73,7 @@ void Background::buildRegister() {
                  (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
                  (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
                  (1 << 13) |       /* wrapping flag */
-                 (mapLayout << 14)
+                 (mapLayout << 14);
 }
 
 void Background::scroll(int x, int y) {
