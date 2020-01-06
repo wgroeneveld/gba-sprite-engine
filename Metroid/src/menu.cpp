@@ -111,6 +111,7 @@ void Menu::tick(u16 keys) {
                 scrollX = scrollX + 2;
                 bg->setScrollX(scrollX);
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
+                //enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()-1,enemyObject->getMario()->getY());
             }
         }
         else if (metroidObject->getMetroid()->getDx() == 0) {
@@ -122,6 +123,7 @@ void Menu::tick(u16 keys) {
             else {
                 scrollX = scrollX -2;
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
+                //enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()+1,enemyObject->getMario()->getY());
                 bg->setScrollX(scrollX);
             }
         }

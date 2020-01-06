@@ -134,6 +134,7 @@ void Level1::tick(u16 keys) {
             else{
                 scrollX = scrollX + 2;
                 bg->setScrollX(scrollX);
+                enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()-2,enemyObject->getMario()->getY());
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
             }
         }
@@ -145,6 +146,7 @@ void Level1::tick(u16 keys) {
                 scrollX = scrollX + 0;
             else {
                 scrollX = scrollX -2;
+                enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()+2,enemyObject->getMario()->getY());
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
                 bg->setScrollX(scrollX);
             }
