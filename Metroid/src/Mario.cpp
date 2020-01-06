@@ -16,7 +16,7 @@ void Mario::reduceLives(int value) {
 void Mario::tick(u16 keys) {
  //   for(int i = 0; i < 2000; i++){}
     getMario()->stopAnimating();
-    if(goLeft) {
+    if(goLeft && canGoLeft) {
         // getEnemy()->animate();
         if(getMario()->getX() <= 0){
             goLeft = false;
@@ -31,16 +31,34 @@ void Mario::tick(u16 keys) {
         }
     }
     else{
-        if(getMario()->getX() >= 224){
-            goLeft = true;
-            getMario()->makeAnimated(3,5,3);
-            getMario()->flipHorizontally(true);
-            getMario()->setVelocity(-1, 0);
-        }
-        else{
-            getMario()->makeAnimated(3,5,3);
-            getMario()->flipHorizontally(false);
-            getMario()->setVelocity(+1, 0);
+        goLeft = false;
+        if(canGoRight) {
+            if (getMario()->getX() >= 224) {
+                goLeft = true;
+                getMario()->makeAnimated(3, 5);
+                getMario()->flipHorizontally(true);
+                getMario()->setVelocity(-1, 0);
+            } else {
+                getMario()->makeAnimated(3, 5);
+                getMario()->flipHorizontally(false);
+                getMario()->setVelocity(+1, 0);
+            }
         }
     }
+}
+
+bool Mario::isCanGoLeft() const {
+    return canGoLeft;
+}
+
+void Mario::setCanGoLeft(bool canGoLeft) {
+    Mario::canGoLeft = canGoLeft;
+}
+
+bool Mario::isCanGoRight() const {
+    return canGoRight;
+}
+
+void Mario::setCanGoRight(bool canGoRight) {
+    Mario::canGoRight = canGoRight;
 }

@@ -112,6 +112,10 @@ void Level1::tick(u16 keys) {
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
     metroidObject->setCanGoDown(!isObstacleBelow(metroidObject->getMetroid(),bg.get()));
     metroidObject->setCanGoUp(!isObstacleAbove(metroidObject->getMetroid(), bg.get()));
+
+    enemyObject->setCanGoLeft(!isObstacleBehind(enemyObject->getMario(), bg.get()));
+    enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
+
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);

@@ -13,6 +13,17 @@ private:
     std::unique_ptr<Sprite> enemy;
     int lives = 100;
     bool goLeft = true;
+    bool canGoLeft = true;
+    bool canGoRight = true;
+public:
+    bool isCanGoLeft() const;
+
+    void setCanGoLeft(bool canGoLeft);
+
+    bool isCanGoRight() const;
+
+    void setCanGoRight(bool canGoRight);
+
 public:
     Mario(std::unique_ptr<Sprite> sprite1) : enemy(std::move(sprite1)){}
     Sprite *getMario() {return enemy.get();}
