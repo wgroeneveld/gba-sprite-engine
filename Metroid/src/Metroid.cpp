@@ -239,7 +239,7 @@ else{
         }
         else {
             getMetroid()->setDx(1);
-            getMetroid()->makeAnimated(6, 3, 3);
+            getMetroid()->makeAnimated(6, 3);
             getMetroid()->flipHorizontally(false);
         }
     }
@@ -252,7 +252,7 @@ else{
         }
         else {
             getMetroid()->setDx(-1);
-            getMetroid()->makeAnimated(6, 3, 3);
+            getMetroid()->makeAnimated(6, 3);
             getMetroid()->flipHorizontally(true);
         }
     }

@@ -90,6 +90,12 @@ public:
     }
     void update();
 
+    void makeAnimated(int numberOfFrames, int animationDelay) {
+        this->numberOfFrames = numberOfFrames;
+        this->animationDelay = animationDelay;
+        animate();
+    }
+
     void moveTo(int x, int y);
     void moveTo(VECTOR location);
     bool collidesWith(Sprite &s2);
