@@ -122,49 +122,7 @@ void Level1::tick(u16 keys) {
     //TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
-    /*
-    int scrollToX = 0;
-    int scrollToY = 0;
-    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
-        if(bg->getScrollX() == 0 || bg->getScrollX() == 16){
-            scrollToX = 0;
-        }
-        else if(metroidObject->getMetroid()->getDx() < 0){
-            scrollToX = metroidObject->getMetroid()->getDx();
-            bg->setScrollX(bg->getScrollX()+scrollToX);
-        }
-        else{
-            scrollToX = metroidObject->getMetroid()->getDx();
-            bg->setScrollX(bg->getScrollX()+scrollToX);
-        }
-        if(bg->getScrollX() < 17 && bg->getScrollX() >= 0){
-            if(metroidObject->getMetroid()->getDx() < 0){
-                if(bg->getScrollX() == 0){
-                    scrollToX = 0;
-                }
-                else{
-                    scrollToX = (metroidObject->getMetroid()->getDx());
-                    bg->setScrollX(metroidObject->getMetroid()->getDx()+bg->getScrollX());
-                }
-            }
-            else if (metroidObject->getMetroid()->getDx() > 0){
-                if(bg->getScrollX() == 16){
-                    scrollToX = 0;
-                }
-                else{
-                    scrollToX =(metroidObject->getMetroid()->getDx());
-                    bg->setScrollX(metroidObject->getMetroid()->getDx()+bg->getScrollX());
-                }
-            }
-            else{
-                scrollToX = 0;
-            }
-        }
-        else{
-            scrollToX = 0;
-        }
-    }
-    */
+
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103) {
         if (metroidObject->getMetroid()->getDx() == 1) {
             if(bg->getScrollX() == 16)
