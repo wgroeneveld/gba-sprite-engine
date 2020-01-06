@@ -39,16 +39,16 @@ void Mario::tick(u16 keys) {
     else{
         goLeft = false;
         if(canGoRight) {
-            if (getMario()->getX() >= 224) {
+         /*   if (getMario()->getX() >= 224) {
                 goLeft = true;
                 getMario()->makeAnimated(3, 5);
                 getMario()->flipHorizontally(true);
                 getMario()->setVelocity(-1, 0);
-            } else {
+            } else { */
                 getMario()->makeAnimated(3, 5);
                 getMario()->flipHorizontally(false);
                 getMario()->setVelocity(+1, 0);
-            }
+         //   }
         }
         else{
             goLeft = true;
@@ -70,4 +70,12 @@ bool Mario::isCanGoRight() const {
 
 void Mario::setCanGoRight(bool canGoRight) {
     Mario::canGoRight = canGoRight;
+}
+
+bool Mario::isGoLeft() const {
+    return goLeft;
+}
+
+void Mario::setGoLeft(bool goLeft) {
+    Mario::goLeft = goLeft;
 }

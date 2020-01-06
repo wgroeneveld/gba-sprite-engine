@@ -13,6 +13,12 @@ private:
     std::unique_ptr<Sprite> enemy;
     int lives = 100;
     bool goLeft = true;
+public:
+    bool isGoLeft() const;
+
+    void setGoLeft(bool goLeft);
+
+private:
     bool canGoLeft = true;
     bool canGoRight = true;
 public:
