@@ -96,13 +96,36 @@ void Menu::load() {
 
 void Menu::tick(u16 keys) {
 
-    scrollX += metroidObject->getMetroid()->getDx();
+    //scrollX += metroidObject->getMetroid()->getDx();
     /*if(keys & KEY_DOWN){
         scrollY -= 1;
     }
     else if(keys & KEY_UP){
         scrollY += 1;
     }*/
+    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 96) {
+        if (metroidObject->getMetroid()->getDx() == 1) {
+            if(bg->getScrollX() == 300)
+                scrollX = scrollX + 0;
+            else{
+                scrollX = scrollX + 2;
+                bg->setScrollX(scrollX);
+                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
+            }
+        }
+        else if (metroidObject->getMetroid()->getDx() == 0) {
+            scrollX = scrollX + 0;
+        }
+        else{
+            if (bg->getScrollX() == 0)
+                scrollX = scrollX + 0;
+            else {
+                scrollX = scrollX -2;
+                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
+                bg->setScrollX(scrollX);
+            }
+        }
+    }
     bg2.get()->scroll(scrollX, scrollY);
 
     metroidObject->tick(keys);
