@@ -56,7 +56,7 @@ void Level1::load() {
             .withSize(SIZE_16_32)
                     // .withAnimated(7, 30)
             .withLocation(224, 112)
-            .withinBounds()
+         //   .withinBounds()
             .buildPtr();
 
     projectiel = builder
