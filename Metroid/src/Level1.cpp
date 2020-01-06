@@ -127,13 +127,14 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
 
-    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103) {
+    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 96) {
         if (metroidObject->getMetroid()->getDx() == 1) {
             if(bg->getScrollX() == 16)
             scrollX = scrollX + 0;
             else{
-                scrollX++;
+                scrollX = scrollX + 2;
                 bg->setScrollX(scrollX);
+                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
             }
         }
         else if (metroidObject->getMetroid()->getDx() == 0) {
@@ -143,7 +144,8 @@ void Level1::tick(u16 keys) {
             if (bg->getScrollX() == 0)
                 scrollX = scrollX + 0;
             else {
-                scrollX--;
+                scrollX = scrollX -2;
+                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
                 bg->setScrollX(scrollX);
             }
         }
