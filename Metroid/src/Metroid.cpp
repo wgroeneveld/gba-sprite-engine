@@ -226,12 +226,11 @@ else{
             getMetroid()->flipHorizontally(false);
             getMetroid()->stopAnimating();
         }
-        else{
-            getMetroid()->animateToFrame(7);
-            getMetroid()->stopAnimating();
-            getMetroid()->setVelocity(0, 0);
-            isCrouching = false;
-        }
+    }
+    else{
+        getMetroid()->animateToFrame(7);
+        getMetroid()->stopAnimating();
+        getMetroid()->setVelocity(0, 0);
     }
 }
 
