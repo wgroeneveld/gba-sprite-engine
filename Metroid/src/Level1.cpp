@@ -114,52 +114,80 @@ void Level1::tick(u16 keys) {
     metroidObject->setCanGoUp(!isObstacleAbove(metroidObject->getMetroid(), bg.get()));
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
-    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
-    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
+    //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
+    //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
     TextStream::instance().setText(std::to_string(placeOnScreen) + std::string("PosOnScreen"), 18, 1);
     TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("PosOnScreen"), 19, 1);
-    TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
-    TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
+    //TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
+    //TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
+    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
+    /*
     int scrollToX = 0;
     int scrollToY = 0;
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
-        /*if(bg->getScrollX() == 0 || bg->getScrollX() == 16){
+        if(bg->getScrollX() == 0 || bg->getScrollX() == 16){
             scrollToX = 0;
         }
-        /*else if(metroidObject->getMetroid()->getDx() < 0){
+        else if(metroidObject->getMetroid()->getDx() < 0){
             scrollToX = metroidObject->getMetroid()->getDx();
             bg->setScrollX(bg->getScrollX()+scrollToX);
         }
         else{
             scrollToX = metroidObject->getMetroid()->getDx();
             bg->setScrollX(bg->getScrollX()+scrollToX);
-        }*/
+        }
         if(bg->getScrollX() < 17 && bg->getScrollX() >= 0){
             if(metroidObject->getMetroid()->getDx() < 0){
-                if(bg->getScrollX() <= 1){
-                    bg->setScrollX(0);
+                if(bg->getScrollX() == 0){
+                    scrollToX = 0;
                 }
                 else{
-                    scrollX = (metroidObject->getMetroid()->getDx());
-                    bg->setScrollX(metroidObject->getMetroid()->getDx());
+                    scrollToX = (metroidObject->getMetroid()->getDx());
+                    bg->setScrollX(metroidObject->getMetroid()->getDx()+bg->getScrollX());
                 }
             }
             else if (metroidObject->getMetroid()->getDx() > 0){
-                if(scrollX >= 15){
-                    bg->setScrollX(16);
+                if(bg->getScrollX() == 16){
+                    scrollToX = 0;
                 }
                 else{
-                    bg->setScrollX(metroidObject->getMetroid()->getDx());
+                    scrollToX =(metroidObject->getMetroid()->getDx());
+                    bg->setScrollX(metroidObject->getMetroid()->getDx()+bg->getScrollX());
                 }
             }
             else{
                 scrollToX = 0;
             }
         }
+        else{
+            scrollToX = 0;
+        }
+    }
+    */
+    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103) {
+        if (metroidObject->getMetroid()->getDx() == 1) {
+            if(bg->getScrollX() == 16)
+            scrollX = scrollX + 0;
+            else{
+                scrollX++;
+                bg->setScrollX(scrollX);
+            }
+        }
+        else if (metroidObject->getMetroid()->getDx() == 0) {
+            scrollX = scrollX + 0;
+        }
+        else{
+            if (bg->getScrollX() == 0)
+                scrollX = scrollX + 0;
+            else {
+                scrollX--;
+                bg->setScrollX(scrollX);
+            }
+        }
     }
 
-    bg.get()->scroll(scrollToX, scrollToY);
+    bg.get()->scroll(scrollX, scrollY);
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);
@@ -167,8 +195,8 @@ void Level1::tick(u16 keys) {
 
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
-    //TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
-    //TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
+    TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
+    TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
 
 
     if(keys & KEY_A) {
