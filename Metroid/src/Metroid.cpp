@@ -225,7 +225,7 @@ else{
     if(keys & KEY_B){
         if(canGoUp){
             isJumping = TRUE;
-            getMetroid()->setDy(-1);
+            getMetroid()->setDy(-2);
             getMetroid()->animateToFrame(5);
             getMetroid()->stopAnimating();
         }
