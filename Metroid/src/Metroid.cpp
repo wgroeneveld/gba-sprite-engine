@@ -176,7 +176,7 @@ void Metroid::tick(u16 keys) {
 
 if(isJumping){
     if(!canGoUp){
-        getMetroid()->setDy(0);
+        //getMetroid()->setDy(1);
         isJumping = FALSE;
         isFalling = TRUE;
     }
@@ -188,16 +188,18 @@ if(isJumping){
     }
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
+        getMetroid()->flipHorizontally(true);
     }
     else if (canGoRight && (keys & KEY_RIGHT)){
         getMetroid()->setDx(1);
+        getMetroid()->flipHorizontally(false);
     } else{
         getMetroid()->setDx(0);
     }
 }
 
 else if (isFalling){
-    getMetroid()->setDy(1);
+    getMetroid()->setDy(2);
     if(!canGoDown){
         isFalling = FALSE;
         getMetroid()->setDy(0);
@@ -210,9 +212,11 @@ else if (isFalling){
     }
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
+        getMetroid()->flipHorizontally(true);
     }
     else if (canGoRight && (keys & KEY_RIGHT)){
         getMetroid()->setDx(1);
+        getMetroid()->flipHorizontally(false);
     } else{
         getMetroid()->setDx(0);
     }
@@ -223,9 +227,38 @@ else{
             isJumping = TRUE;
             getMetroid()->setDy(-1);
             getMetroid()->animateToFrame(5);
-            getMetroid()->flipHorizontally(false);
             getMetroid()->stopAnimating();
         }
+    }
+    else if (keys & KEY_RIGHT && canGoRight){
+        if(canGoDown){
+            isFalling = true;
+            getMetroid()->setDx(0);
+            getMetroid()->animateToFrame(5);
+            getMetroid()->stopAnimating();
+        }
+        else {
+            getMetroid()->setDx(1);
+            getMetroid()->makeAnimated(6, 3);
+            getMetroid()->flipHorizontally(false);
+        }
+    }
+    else if (keys & KEY_LEFT && canGoLeft){
+        if(canGoDown){
+            isFalling = true;
+            getMetroid()->setDx(0);
+            getMetroid()->animateToFrame(5);
+            getMetroid()->stopAnimating();
+        }
+        else {
+            getMetroid()->setDx(-1);
+            getMetroid()->makeAnimated(6, 3);
+            getMetroid()->flipHorizontally(true);
+        }
+    }
+    else if (keys & KEY_DOWN){
+        getMetroid()->animateToFrame(10);
+        getMetroid()->setVelocity(0, 0);
     }
     else{
         getMetroid()->animateToFrame(7);

@@ -45,14 +45,14 @@ int Scene::isObstacleInFrontInt(Sprite *sprite, Background *background) {
     int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
     int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    return placeOnMap;
+    return placeOnMap+95;
 }
 
 unsigned short int Scene::isObstacleInFrontIntVector(Sprite *sprite, Background *background) {
     int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
     int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    return background->getMapData()[placeOnMap];
+    return background->getMapData()[placeOnMap+95];
 }
 
 bool Scene::isObstacleBehind(Sprite* sprite, Background* background) {
@@ -90,19 +90,20 @@ bool Scene::isObstacleAbove(Sprite *sprite, Background *background) {
     int realPositionY = sprite->getY() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
     if(sprite->getHeight() == 64){
-        if(background->getMapData()[placeOnMap - 95] != 0x0000 && background->getMapData()[placeOnMap - 95 - sprite->getWidth() + 1] != 0x0000){
-            return TRUE;
+        if(background->getMapData()[placeOnMap + 127] == 0x0000 && background->getMapData()[placeOnMap + 127 - sprite->getWidth()/8 + 2] == 0x0000
+            && background->getMapData()[placeOnMap + 127 - sprite->getWidth()/8 + 3] == 0x0000){
+            return false;
         }
         else{
-            return FALSE;
+            return true;
         }
     }
     else{
-        if(background->getMapData()[placeOnMap - 31] != 0x0000 && background->getMapData()[placeOnMap - 31 - sprite->getWidth() + 1] != 0x0000){
-            return TRUE;
+        if(background->getMapData()[placeOnMap - 31] == 0x0000 && background->getMapData()[placeOnMap - 31 - sprite->getWidth() + 1] != 0x0000){
+            return false;
         }
         else{
-            return FALSE;
+            return true;
         }
     }
 }
@@ -111,10 +112,11 @@ bool Scene::isObstacleBelow(Sprite *sprite, Background *background) {
     int realPositionX = sprite->getX() + sprite->getWidth() + background->getScrollX();
     int realPositionY = sprite->getY() + sprite->getHeight() + background->getScrollY();
     int placeOnMap = (realPositionX/8) + ((realPositionY/8)-1)*32;
-    if(background->getMapData()[placeOnMap + 31] != 0x0000 && background->getMapData()[placeOnMap + 31 - sprite->getWidth() +1] != 0x0000){
-        return TRUE;
+    if(background->getMapData()[placeOnMap+32] == 0x0000 && background->getMapData()[placeOnMap + 32 - sprite->getWidth()/8 +2] == 0x0000
+    && background->getMapData()[placeOnMap + 32 - sprite->getWidth()/8 +3] == 0x0000){
+        return false;
     }
     else{
-        return FALSE;
+        return true;
     }
 }

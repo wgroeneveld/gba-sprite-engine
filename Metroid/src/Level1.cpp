@@ -42,7 +42,6 @@ void Level1::load() {
             .withSize(SIZE_32_64)
             .withAnimated(11, 3)
             .withLocation(28, 80)
-            .withinBounds()
             .buildPtr();
 
     ball_projectiel = builder
@@ -94,11 +93,15 @@ void Level1::load() {
 void Level1::tick(u16 keys) {
 
     int bla = 0;
+    int up = 0;
     if(metroidObject->getIsJumping()){
         engine->getTimer()->start();
         bla ++;
     }
-    if(engine->getTimer()->getSecs() == 2 || metroidObject->getIsFalling()){
+    if(!isObstacleAbove(metroidObject->getMetroid(),bg.get())){
+        up ++;
+    }
+    if(engine->getTimer()->getSecs() == 3 || metroidObject->getIsFalling()){
         engine->getTimer()->reset();
         engine->getTimer()->stop();
         metroidObject->setIsFalling(true);
@@ -107,7 +110,7 @@ void Level1::tick(u16 keys) {
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
-    metroidObject->setCanGoDown(!isObstacleBehind(metroidObject->getMetroid(),bg.get()));
+    metroidObject->setCanGoDown(!isObstacleBelow(metroidObject->getMetroid(),bg.get()));
     metroidObject->setCanGoUp(!isObstacleAbove(metroidObject->getMetroid(), bg.get()));
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
@@ -116,6 +119,7 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string(placeOnScreen) + std::string("PosOnScreen"), 18, 1);
     TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("PosOnScreen"), 19, 1);
     TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
+    TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
 
 
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 103){
@@ -137,8 +141,8 @@ void Level1::tick(u16 keys) {
 
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
-    TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
-    TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
+    //TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
+    //TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
 
 
     if(keys & KEY_A) {
