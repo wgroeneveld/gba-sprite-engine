@@ -47,7 +47,7 @@ void Level1::load() {
     ball_projectiel = builder
             .withData(ballTiles, sizeof(ballTiles))
             .withSize(SIZE_16_16)
-            .withLocation(60, 60)
+            .withLocation(16, 48)
             .withinBounds()
             .buildPtr();
 
@@ -135,6 +135,7 @@ void Level1::tick(u16 keys) {
                 scrollX = scrollX + 2;
                 bg->setScrollX(scrollX);
                 enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()-2,enemyObject->getMario()->getY());
+                ball_projectiel.get()->moveTo(ball_projectiel->getX()-2,ball_projectiel->getY());
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
             }
         }
@@ -147,6 +148,7 @@ void Level1::tick(u16 keys) {
             else {
                 scrollX = scrollX -2;
                 enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()+2,enemyObject->getMario()->getY());
+                ball_projectiel.get()->moveTo(ball_projectiel->getX()+2,ball_projectiel->getY());
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
                 bg->setScrollX(scrollX);
             }
