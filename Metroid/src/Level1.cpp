@@ -40,7 +40,7 @@ void Level1::load() {
     metroidBewegen = builder
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
-            .withAnimated(11, 3)
+            .withAnimated(11, 1)
             .withLocation(28, 80)
             .buildPtr();
 
@@ -127,33 +127,39 @@ void Level1::tick(u16 keys) {
     TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
 
-    if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 96) {
         if (metroidObject->getMetroid()->getDx() == 1) {
-            if(bg->getScrollX() == 16)
-            scrollX = scrollX + 0;
-            else{
-                scrollX = scrollX + 2;
-                bg->setScrollX(scrollX);
-                enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()-2,enemyObject->getMario()->getY());
-                ball_projectiel.get()->moveTo(ball_projectiel->getX()-2,ball_projectiel->getY());
-                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()-1,metroidObject->getMetroid()->getY());
+            if (metroidObject->getMetroid()->getX() < 122 && metroidObject->getMetroid()->getX() > 96) {
+                if (bg->getScrollX() == 16)
+                    scrollX = scrollX + 0;
+                else {
+                    scrollX = scrollX + 2;
+                    bg->setScrollX(scrollX);
+                    enemyObject->getMario()->moveTo(enemyObject->getMario()->getX() - 2,
+                                                    enemyObject->getMario()->getY());
+                    ball_projectiel.get()->moveTo(ball_projectiel->getX() - 2, ball_projectiel->getY());
+                    metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX() - 1,
+                                                        metroidObject->getMetroid()->getY());
+                }
             }
         }
         else if (metroidObject->getMetroid()->getDx() == 0) {
             scrollX = scrollX + 0;
         }
         else{
-            if (bg->getScrollX() == 0)
-                scrollX = scrollX + 0;
-            else {
-                scrollX = scrollX -2;
-                enemyObject->getMario()->moveTo(enemyObject->getMario()->getX()+2,enemyObject->getMario()->getY());
-                ball_projectiel.get()->moveTo(ball_projectiel->getX()+2,ball_projectiel->getY());
-                metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX()+1,metroidObject->getMetroid()->getY());
-                bg->setScrollX(scrollX);
+            if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 94) {
+                if (bg->getScrollX() == 0)
+                    scrollX = scrollX + 0;
+                else {
+                    scrollX = scrollX - 2;
+                    enemyObject->getMario()->moveTo(enemyObject->getMario()->getX() + 2,
+                                                    enemyObject->getMario()->getY());
+                    ball_projectiel.get()->moveTo(ball_projectiel->getX() + 2, ball_projectiel->getY());
+                    metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX() + 1,
+                                                        metroidObject->getMetroid()->getY());
+                    bg->setScrollX(scrollX);
+                }
             }
         }
-    }
 
     bg.get()->scroll(scrollX, scrollY);
 
