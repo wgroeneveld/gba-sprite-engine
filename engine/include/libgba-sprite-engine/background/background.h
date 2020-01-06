@@ -13,6 +13,11 @@
 #include <libgba-sprite-engine/gba/tonc_types.h>
 #include <vector>
 
+#define MAPLAYOUT_32X32 0
+#define MAPLAYOUT_32X64 1
+#define MAPLAYOUT_64X32 2
+#define MAPLAYOUT_64X64 3
+
 class Background {
 private:
     void buildRegister();
@@ -22,7 +27,7 @@ protected:
     const void *data;
     const void *map;
     int size, bgIndex;
-    int mapSize;
+    int mapSize, mapLayout;
     int screenBlockIndex, charBlockIndex;
     int scrollX, scrollY;
     std::vector<unsigned short int> mapData;
@@ -43,8 +48,15 @@ public:
     void setMapData(const std::vector<unsigned short int> &mapData);
 
 
-    Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map),
-                                                                                        screenBlockIndex(0), charBlockIndex(0), mapSize(mapSize) {}
+    Background(int bgIndex, const void *data, int size, const void* map, int mapSize, int screenBlockIndex, int charBlockIndex, int mapLayout)
+            : Background(bgIndex, data, size, map, mapSize) {
+        this->screenBlockIndex = screenBlockIndex;
+        this->charBlockIndex = charBlockIndex;
+        this->mapLayout = mapLayout;
+    }
+
+    Background(int bgIndex, const void *data, int size, const void* map, int mapSize) : data(data), bgIndex(bgIndex), size(size), map(map), mapLayout(MAPLAYOUT_32X32),
+                                                                                        screenBlockIndex(0), charBlockIndex(bgIndex), mapSize(mapSize) {}
     virtual void persist();
     void updateMap(const void* map);
     void clearMap();

@@ -45,8 +45,7 @@ void SpriteManager::copyOverSpriteOAMToVRAM() {
     for(auto sprite : this->sprites) {
         sprite->update();
 
-        auto oam = sprite->oam.get();
-        oam_mem[i] = *oam;
+        oam_mem[i] = sprite->oam;
 
         auto affine = dynamic_cast<AffineSprite*>(sprite);
         if(affine) {

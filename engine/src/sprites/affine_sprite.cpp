@@ -38,7 +38,7 @@ void AffineSprite::setTransformationMatrix(OBJ_AFFINE *matrix) {
 }
 
 void AffineSprite::rebuildOamAttr1ForAffineIndex() {
-    this->oam->attr1 = this->x |
+    oam.attr1 = this->x |
                        ATTR1_AFF_ID(affIndex) |
                        (HORIZONTAL_FLIP_FLAG << 12) |
                        (VERTICAL_FLIP_FLAG << 13) |
@@ -47,7 +47,7 @@ void AffineSprite::rebuildOamAttr1ForAffineIndex() {
 
 void AffineSprite::buildOam(int tileIndex) {
     Sprite::buildOam(tileIndex);
-    this->oam->attr0 = ATTR0_Y(this->y) |
+    oam.attr0 = ATTR0_Y(this->y) |
                        ATTR0_MODE(1) |
                        (GFX_MODE << 10) |
                        (MOSAIC_MODE << 12) |

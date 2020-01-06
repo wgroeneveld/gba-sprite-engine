@@ -10,6 +10,10 @@
 
 Sprite::Sprite(const Sprite &other) : Sprite(nullptr, 0, other.x, other.y, other.spriteSize) {
     tileIndex = other.tileIndex;
+    animationDelay = other.animationDelay;
+    numberOfFrames = other.numberOfFrames;
+    currentFrame = other.currentFrame;
+    animationCounter = other.animationCounter;
 }
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
@@ -25,9 +29,7 @@ void Sprite::moveTo(VECTOR location) {
 void Sprite::moveTo(int x, int y) {
     this->x = x;
     this->y = y;
-    if(oam) {
-        syncOam();
-    }
+    syncOam();
 }
 
 bool Sprite::isOffScreen() {
@@ -36,29 +38,40 @@ bool Sprite::isOffScreen() {
 
 void Sprite::flipHorizontally(bool flip) {
     if(flip) {
-        oam->attr1 |= ATTR1_HFLIP;
+        oam.attr1 |= ATTR1_HFLIP;
     } else {
-        oam->attr1 &= FLIP_HORIZONTAL_CLEAR;
+        oam.attr1 &= FLIP_HORIZONTAL_CLEAR;
     }
 }
 
 void Sprite::flipVertically(bool flip) {
     if(flip) {
-        oam->attr1 |= ATTR1_VFLIP;
+        oam.attr1 |= ATTR1_VFLIP;
     } else {
-        oam->attr1 &= FLIP_VERTICAL_CLEAR;
+        oam.attr1 &= FLIP_VERTICAL_CLEAR;
     }
 }
 
+void Sprite::makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
+    previousFrame = -1;
+    setBeginFrame(beginFrame);
+    animateToFrame(beginFrame);
+    this->numberOfFrames = numberOfFrames;
+    this->animationDelay = animationDelay;
+    animate();
+}
+
 void Sprite::syncVelocity() {
-    oam->attr0 = (oam->attr0 &  ~ATTR0_Y_MASK) | (y & ATTR0_Y_MASK);
-    oam->attr1 = (oam->attr1 & ~ATTR1_X_MASK) | (x & ATTR1_X_MASK);
+    oam.attr0 = (oam.attr0 &  ~ATTR0_Y_MASK) | (y & ATTR0_Y_MASK);
+    oam.attr1 = (oam.attr1 & ~ATTR1_X_MASK) | (x & ATTR1_X_MASK);
 }
 
 void Sprite::syncAnimation() {
+    if(previousFrame == currentFrame) return;
+
     int newTileIndex = this->tileIndex + (currentFrame * (this->animation_offset * 2));
-    oam->attr2 &= OAM_TILE_OFFSET_CLEAR;
-    oam->attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);
+    oam.attr2 &= OAM_TILE_OFFSET_CLEAR;
+    oam.attr2 |= (newTileIndex & OAM_TILE_OFFSET_NEW);
 }
 
 void Sprite::syncOam() {
@@ -84,6 +97,7 @@ void Sprite::updateAnimation() {
     if(!animating) return;
 
     animationCounter++;
+    previousFrame = currentFrame;
     if(animationCounter > animationDelay) {
         currentFrame++;
         if(currentFrame > (numberOfFrames - 1) + beginFrame) {
@@ -136,23 +150,19 @@ bool Sprite::collidesWith(Sprite &s2) {
 void Sprite::buildOam(int tileIndex) {
     this->tileIndex = tileIndex;
 
-    if(!oam) {
-        this->oam = std::unique_ptr<OBJ_ATTR>(new OBJ_ATTR());
+    oam.attr0 = ATTR0_Y(this->y & 0x00FF) |
+            ATTR0_MODE(0) |
+            (GFX_MODE << 10) |
+            (MOSAIC_MODE << 12) |
+            (COLOR_MODE_256 << 13) |
+            (this->shape_bits << 14);
+    oam.attr1 = (this->x & 0x01FF) |
+            (AFFINE_FLAG_NONE_SET_YET << 9) |
+            (HORIZONTAL_FLIP_FLAG << 12) |
+            (VERTICAL_FLIP_FLAG << 13) |
+            (this->size_bits << 14);
 
-        this->oam->attr0 = ATTR0_Y(this->y & 0x00FF) |
-                ATTR0_MODE(0) |
-                (GFX_MODE << 10) |
-                (MOSAIC_MODE << 12) |
-                (COLOR_MODE_256 << 13) |
-                (this->shape_bits << 14);
-        this->oam->attr1 = (this->x & 0x01FF) |
-                (AFFINE_FLAG_NONE_SET_YET << 9) |
-                (HORIZONTAL_FLIP_FLAG << 12) |
-                (VERTICAL_FLIP_FLAG << 13) |
-                (this->size_bits << 14);
-    }
-
-    this->oam->attr2 = ATTR2_ID(tileIndex) |
+    oam.attr2 = ATTR2_ID(tileIndex) |
             ATTR2_PRIO(priority) |
             ATTR2_PALBANK(0);
 }
