@@ -121,8 +121,8 @@ void Level1::tick(u16 keys) {
     enemyObject->setCanGoLeft(!isObstacleBehind(enemyObject->getMario(), bg.get()));
     enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
 
-    bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
-    bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
+ //   bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
+   // bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
 
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
 
@@ -176,15 +176,17 @@ void Level1::tick(u16 keys) {
 
     bg.get()->scroll(scrollX, scrollY);
 
+    if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ) {
+        bulletObject->setIsShooting(false);
+    }
+
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
     marioBulletObject->tick(keys);
 
 
-    if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ){
-        bulletObject->setIsShooting(false);
-    }
+
 
     //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
