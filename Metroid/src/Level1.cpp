@@ -176,9 +176,30 @@ void Level1::tick(u16 keys) {
 
     bg.get()->scroll(scrollX, scrollY);
 
-    if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ) {
-        bulletObject->setIsShooting(false);
+    if(metroidObject->getMetroid()->getX() < 94){
+        if(bulletObject->getBullet()->getX() < 18){
+            bulletObject->setIsShooting(false);
+        }
+        else if(metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()){
+            bulletObject->setIsShooting(false);
+        }
     }
+    else if(metroidObject->getMetroid()->getX() + bg->getScrollX() > 388){
+        if(bulletObject->getBullet()->getX() > 214){
+            bulletObject->setIsShooting(false);
+        }
+        else if(metroidObject->getMetroid()->getX() - 70 >= bulletObject->getBullet()->getX()){
+            bulletObject->setIsShooting(false);
+        }
+    }
+    else{
+        if((metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -70 >= bulletObject->getBullet()->getX())) {
+            bulletObject->setIsShooting(false);
+        }
+    }
+    /*if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ) {
+        bulletObject->setIsShooting(false);
+    }*/
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);
