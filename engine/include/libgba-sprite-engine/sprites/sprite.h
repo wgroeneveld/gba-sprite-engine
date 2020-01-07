@@ -58,10 +58,9 @@ protected:
     bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;
-    u32 animationDelay, numberOfFrames, beginFrame, currentFrame, animationCounter;
+    u8 animationDelay, numberOfFrames, beginFrame, currentFrame, previousFrame, animationCounter;
     bool animating;
-
-    std::unique_ptr<OBJ_ATTR> oam;
+    OBJ_ATTR oam;
 
     void syncAnimation();
     virtual void syncOam();
@@ -73,17 +72,7 @@ public:
     explicit Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);
     virtual ~Sprite() {}
 
-    void makeAnimated(int numberOfFrames, int animationDelay) {
-        this->numberOfFrames = numberOfFrames;
-        this->animationDelay = animationDelay;
-        animate();
-    }
-    void makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
-        setBeginFrame(beginFrame);
-        animateToFrame(beginFrame);
-        makeAnimated(numberOfFrames, animationDelay);
-        animate();
-    }
+    void makeAnimated(int beginFrame, int numberOfFrames, int animationDelay);
     void setBeginFrame(int frame) { this->beginFrame = frame; }
     void animateToFrame(int frame) { this->currentFrame = frame; }
     void animate() { this->animating = true; }
@@ -113,6 +102,8 @@ public:
     u32 getDy() { return dy; }
     u32 getWidth() { return w; }
     u32 getHeight() { return h; }
+    u32 getAnimationDelay() { return animationDelay; }
+    u32 getNumberOfFrames() { return numberOfFrames; }
     u32 getCurrentFrame() { return currentFrame; }
     bool isAnimating() { return animating; };
     bool isOffScreen();

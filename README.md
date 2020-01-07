@@ -123,6 +123,8 @@ Creating a background:
 
 Backgrounds work a bit different in VRAM compared to sprites. There are only 4 backgrounds available, and background #4 is taken by the font. Parameter 1 identifies your background used for prioritizing. Remember to use a screen block different than your map data. 
 
+If you want to create bigger maps than 32x32, use `MAPLAYOUT_64x64` or similar in the second constructor.
+
 #### Sprites
 
 Conjuring sprites on the screen is a matter of exposing them to the sprites vector in your scene. Create them in your load and set them as a `std::unique_ptr` member variable in your scene so they get cleaned up automatically. 
@@ -234,6 +236,7 @@ Things you might need to change in `CMakeLists.txt` files:
 
 1. gba-sprite-engine assumes your GBA cross-compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
 2. gba-sprite-engine assumes your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
+3. Some Linux distributions seem to miss the default link to `pthread` that should be added manually in that case. When you see errors like "undefined reference to 'pthread_setspecific'" while linking Google Test, change target_link_libraries in the CMakeLists.txt file of the subdir test to: `target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a pthread)`
 
 ##### Building using Windows
 

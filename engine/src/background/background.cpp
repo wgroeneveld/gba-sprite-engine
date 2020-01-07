@@ -32,7 +32,7 @@ void Background::updateMap(const void *map) {
 }
 
 void Background::persist() {
-    dma3_cpy(char_block(bgIndex), this->data, this->size);
+    dma3_cpy(char_block(charBlockIndex), this->data, this->size);
 
     if(this->map) {
         dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
@@ -44,7 +44,7 @@ void Background::persist() {
 void Background::clearData() {
     this->clearMap();
     int empty[this->size];
-    dma3_cpy(char_block(bgIndex), empty, this->size);
+    dma3_cpy(char_block(charBlockIndex), empty, this->size);
 }
 
 void Background::clearMap() {
@@ -67,12 +67,12 @@ u32 Background::getBgControlRegisterIndex() {
 void Background::buildRegister() {
     *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
                  bgIndex |        /* priority, 0 is highest, 3 is lowest */
-                 (bgIndex << 2) |    /* the char block the image data is stored in */
+                 (charBlockIndex << 2) |    /* the char block the image data is stored in */
                  (0 << 6)  |       /* the mosaic flag */
                  (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */
                  (screenBlockIndex << 8) |       /* the screen block the tile data is stored in */
                  (1 << 13) |       /* wrapping flag */
-                 (0 << 14);
+                 (mapLayout << 14);
 }
 
 void Background::scroll(int x, int y) {
