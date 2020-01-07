@@ -29,8 +29,13 @@ void Bullet::tick(u16 keys) {
     }
     else {
         if (isShooting) {
-         //   if(!canGoLeft) isShooting = false;
-         //   if(!canGoRight) isShooting = false;
+            if(!canGoLeft || !canGoRight){
+                isShooting = false;
+                getBullet()->setVelocity(0, 0);
+                getBullet()->moveTo(-60, 0);
+                getBullet()->stopAnimating();
+            } /*isShooting = false;
+            if(!canGoRight) isShooting = false;
          /*  if ((getBullet()->getX() <= 0) || (getBullet()->getX() >= 232)) {
                 getBullet()->setVelocity(0, 0);
                 getBullet()->moveTo(-60, 0);
