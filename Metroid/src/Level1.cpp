@@ -135,15 +135,15 @@ void Level1::tick(u16 keys) {
 
 
 
-    TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
+    //TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
 
    // TextStream::instance().setText(std::to_string(left),9,1);
   //  TextStream::instance().setText(std::to_string(right),11,1);
-    int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
+    //int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
-    TextStream::instance().setText(std::to_string(isObstacleInFrontInt(metroidObject->getMetroid(), bg.get())) + std::string("PosOnScreen"), 18, 1);
-    TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("obstacleOnScreen"), 19, 1);
+    //TextStream::instance().setText(std::to_string(isObstacleInFrontInt(metroidObject->getMetroid(), bg.get())) + std::string("PosOnScreen"), 18, 1);
+    //TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("obstacleOnScreen"), 19, 1);
     //TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
     //TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
@@ -191,10 +191,10 @@ void Level1::tick(u16 keys) {
     marioBulletObject->tick(keys);
  //   bulletObject2->tick(keys);
 
-    TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
-    TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
-    TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
-    TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
+    //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
+    //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
+    //TextStream::instance().setText(std::to_string(scrollX) + std::string("Pos bgX"), 5, 1);
+    //TextStream::instance().setText(std::to_string(scrollY) + std::string("Pos bgY"), 7, 1);
 
 
     if(keys & KEY_A) {
