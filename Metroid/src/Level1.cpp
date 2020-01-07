@@ -28,7 +28,7 @@ std::vector<Background *> Level1::backgrounds() {
 }
 
 std::vector<Sprite *> Level1::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), marioBulletObject->getBullet() };
+    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), marioBulletObject->getBullet()/*, bulletObject2->getBullet()*/};
 }
 
 void Level1::load() {
@@ -67,6 +67,14 @@ void Level1::load() {
                     // .withinBounds()
             .buildPtr();
 
+   /* projectiel2 = builder
+            .withData(projectielTiles, sizeof(projectielTiles))
+            .withAnimated(5,7)
+            .withLocation(30, 121)
+            .withSize(SIZE_8_8)
+                    // .withinBounds()
+            .buildPtr();*/
+
     firebolt = builder
             .withData(fireboltTiles, sizeof(fireboltTiles))
             .withLocation(224, 128)
@@ -79,6 +87,7 @@ void Level1::load() {
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
     marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
+  //  bulletObject2 = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel2)));
 
     bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap),9,1,MAPLAYOUT_32X32));
     //bg.get()->useMapScreenBlock(29);
@@ -179,6 +188,7 @@ void Level1::tick(u16 keys) {
     enemyObject->tick(keys);
     bulletObject->tick(keys);
     marioBulletObject->tick(keys);
+ //   bulletObject2->tick(keys);
 
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
@@ -189,46 +199,35 @@ void Level1::tick(u16 keys) {
     if(keys & KEY_A) {
         if (!(bulletObject->getIsShooting())) {
             if (metroidObject->getGoLeft()) {
-                if(metroidObject->getIsCrouching()){
+                bulletObject->shootBulletLeft();
+                if(metroidObject->getIsCrouching())
                     bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
                                                       metroidObject->getMetroid()->getY() + 47);
-                    bulletObject->shootBulletLeft();
-                }
-                else {
-                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
+                else bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() - 6,
                                                       metroidObject->getMetroid()->getY() + 33);
-                    bulletObject->shootBulletLeft();
-                }
             } else {
-                if (metroidObject->getIsCrouching()) {
+                bulletObject->shootBulletRight();
+                if (metroidObject->getIsCrouching())
                     bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
                                                       metroidObject->getMetroid()->getY() + 47);
-                    bulletObject->shootBulletRight();
-                } else {
-                    bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
+                 else bulletObject->getBullet()->moveTo(metroidObject->getMetroid()->getX() + 30,
                                                       metroidObject->getMetroid()->getY() + 33);
-                    bulletObject->shootBulletRight();
-                }
             }
         }
     }
 
-
-
-        if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
-            if (enemyObject->getGoLeft()) {
-                    marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
-                                                           enemyObject->getMario()->getY() + 16);
-                marioBulletObject->shootBulletLeft();
-            }
-            else{
-                marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() + 30,
-                                                       enemyObject->getMario()->getY() + 16);
-                marioBulletObject->shootBulletRight();
-            }
+    if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
+        if (enemyObject->getGoLeft()) {
+            marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
+                                                   enemyObject->getMario()->getY() + 16);
+            marioBulletObject->shootBulletLeft();
         }
-
-
+        else{
+            marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() + 10,
+                                                   enemyObject->getMario()->getY() + 16);
+            marioBulletObject->shootBulletRight();
+        }
+    }
 
     if(bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))){
         bulletObject->setIsShooting(false);
@@ -239,9 +238,17 @@ void Level1::tick(u16 keys) {
     if(metroidObject->getMetroid()->collidesWith(*(ball_projectiel))){
         ball_projectiel->moveTo(-60,60);
         metroidObject->setPowerUp(true);
-        TextStream::instance().setText("Power up",0,19);
+        TextStream::instance().setText("Power up",3,19);
     }
-    /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
+
+    if(marioBulletObject->getBullet()->collidesWith(*(metroidObject->getMetroid()))){
+        marioBulletObject->getBullet()->moveTo(-60,60);
+        marioBulletObject->setIsShooting(false);
+        marioBulletObject->setCooldown(0);
+        metroidObject->reduceLives(25);
+    }
+
+    TextStream::instance().setText(std::to_string(metroidObject->getLives())+"/100",0,10) ;   /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
            TextStream::instance().setText("Auw", 0, 19);
        }*/
 }
