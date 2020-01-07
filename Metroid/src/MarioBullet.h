@@ -11,6 +11,7 @@
 class MarioBullet {
 private:
     std::unique_ptr<Sprite> bullet;
+    bool canGoLeft = true;
     bool shootLeft = false;
     bool shootRight = false;
     bool isShooting = false;
@@ -26,6 +27,8 @@ public:
     void setIsShooting(bool value);
     int getCooldown(){return cooldown;}
     void setCooldown(int value){cooldown = value;}
+
+
 };
 
 #endif //GBA_SPRITE_ENGINE_PROJECT_MARIOBULLET_H
