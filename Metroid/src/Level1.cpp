@@ -10,6 +10,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include "menu.h"
+#include <libgba-sprite-engine/gba/tonc_math.h>
 
 #include "samus_aran.h"
 #include "ball.h"
@@ -179,6 +180,11 @@ void Level1::tick(u16 keys) {
     enemyObject->tick(keys);
     bulletObject->tick(keys);
     marioBulletObject->tick(keys);
+
+
+    if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ){
+        bulletObject->setIsShooting(false);
+    }
 
     //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
