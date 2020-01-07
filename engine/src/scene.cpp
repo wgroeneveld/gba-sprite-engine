@@ -36,7 +36,7 @@ bool Scene::isObstacleInFront(Sprite *sprite, Background *background) {
         }
     }
     else{
-        for (int i = 0; i < ((sprite->getHeight())/8)-1 ; ++i) {
+        for (int i = 0; i <= ((sprite->getHeight())/8)-1 ; ++i) {
             if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
                 isInFront = FALSE;
             }
@@ -88,7 +88,7 @@ bool Scene::isObstacleBehind(Sprite* sprite, Background* background) {
         }
     }
     else{
-        for (int i = 0; i < ((sprite->getHeight())/8)-1 ; ++i) {
+        for (int i = 0; i <= ((sprite->getHeight())/8)-1 ; ++i) {
             if(background->getMapData()[placeOnMap-(i*32)] == 0x0000){
                 isBehind = FALSE;
             }
