@@ -22,11 +22,11 @@ private:
     bool canGoUp = true;
     bool powerUp = false;
 public:
-    bool isCanGoUp() const;
+    bool getCanGoUp() const;
 
     void setCanGoUp(bool canGoUp);
 
-    bool isCanGoDown() const;
+    bool getCanGoDown() const;
 
     void setCanGoDown(bool canGoDown);
 

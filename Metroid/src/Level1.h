@@ -17,12 +17,10 @@ private:
     std::unique_ptr<Sprite> ball_projectiel;
     std::unique_ptr<Sprite> enemy;
     std::unique_ptr<Sprite> projectiel;
-  //  std::unique_ptr<Sprite> projectiel2;
     std::unique_ptr<Sprite> firebolt;
     std::unique_ptr<Metroid> metroidObject;
     std::unique_ptr<Mario> enemyObject;
     std::unique_ptr<Bullet> bulletObject;
-  //  std::unique_ptr<Bullet> bulletObject2;
     std::unique_ptr<MarioBullet> marioBulletObject;
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;

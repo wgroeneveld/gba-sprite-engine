@@ -276,7 +276,7 @@ else{
 }
 
 
-bool Metroid::isCanGoUp() const {
+bool Metroid::getCanGoUp() const {
     return canGoUp;
 }
 
@@ -284,7 +284,7 @@ void Metroid::setCanGoUp(bool canGoUp) {
     Metroid::canGoUp = canGoUp;
 }
 
-bool Metroid::isCanGoDown() const {
+bool Metroid::getCanGoDown() const {
     return canGoDown;
 }
 
