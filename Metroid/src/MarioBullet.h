@@ -11,11 +11,12 @@
 class MarioBullet {
 private:
     std::unique_ptr<Sprite> bullet;
+    int cooldown = 0;
     bool canGoLeft = true;
     bool shootLeft = false;
     bool shootRight = false;
     bool isShooting = false;
-    int cooldown = 0;
+
 
 public:
     MarioBullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}

@@ -48,7 +48,7 @@ void Level1::load() {
             .withData(ballTiles, sizeof(ballTiles))
             .withSize(SIZE_16_16)
             .withLocation(16, 48)
-            .withinBounds()
+          //  .withinBounds()
             .buildPtr();
 
     enemy = builder
@@ -120,6 +120,8 @@ void Level1::tick(u16 keys) {
     enemyObject->setCanGoLeft(!isObstacleBehind(enemyObject->getMario(), bg.get()));
     enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
 
+    bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
+    bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
 
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
 
@@ -224,7 +226,7 @@ void Level1::tick(u16 keys) {
     }
 
     if(metroidObject->getMetroid()->collidesWith(*(ball_projectiel))){
-        ball_projectiel->moveTo(-60,60);
+        ball_projectiel->moveTo(-20,0);
         metroidObject->setPowerUp(true);
         TextStream::instance().setText("Power up",3,19);
     }
