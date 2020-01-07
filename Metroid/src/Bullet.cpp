@@ -34,6 +34,14 @@ void Bullet::tick(u16 keys) {
     }
     else {
         if (isShooting) {
+            //if(!canGoLeft) isShooting = false;
+          //  if(!canGoRight) isShooting = false;
+           /*  if(!canGoLeft || !canGoRight){
+                getBullet()->setVelocity(0, 0);
+                getBullet()->moveTo(-60, 0);
+                getBullet()->stopAnimating();
+                isShooting = false;
+            }*/
             if ((getBullet()->getX() <= 0) || (getBullet()->getX() >= 232)) {
                 getBullet()->setVelocity(0, 0);
                 getBullet()->moveTo(-60, 0);
@@ -49,33 +57,5 @@ void Bullet::tick(u16 keys) {
     }
     shootLeft = false;
     shootRight = false;
-    /*
-    if(shootLeft){
-        if(getBullet()->getX() <= 0){
-            shootLeft = false;
-            isShooting =false;
-            getBullet()->setVelocity(0,0);
-            getBullet()->moveTo(-60,0);
-            getBullet()->stopAnimating();
-        }
-        else {
-            isShooting= true;
-            getBullet()->animate();
-            getBullet()->setVelocity(-2, 0);
-        }
-    }
-    else if(shootRight) {
-        if (getBullet()->getX() >= 232) {
-            shootRight = false;
-            isShooting = false;
-            getBullet()->setVelocity(0, 0);
-            getBullet()->moveTo(-60, 0);
-            getBullet()->stopAnimating();
-        } else {
-            isShooting = true;
-            getBullet()->animate();
-            getBullet()->setVelocity(2, 0);
-        }
-    }*/
 }
 

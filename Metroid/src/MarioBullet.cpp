@@ -24,7 +24,7 @@ void MarioBullet::tick(u16 keys) {
     // getBullet()->stopAnimating();
 
     if(!isShooting){
-
+        cooldown++;
     }
 
     if(shootLeft){
@@ -43,6 +43,7 @@ void MarioBullet::tick(u16 keys) {
                 getBullet()->setVelocity(0, 0);
                 getBullet()->moveTo(-60, 0);
                 getBullet()->stopAnimating();
+                cooldown = 0;
                 isShooting = false;
             }
         }
