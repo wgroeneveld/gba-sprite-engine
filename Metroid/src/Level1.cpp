@@ -80,10 +80,10 @@ void Level1::load() {
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
     marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
 
-    bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap),9,1,MAPLAYOUT_32X32));
+    bg = std::unique_ptr<Background>(new Background(1, bricksForegroundTiles, sizeof(bricksForegroundTiles), bricksForegroundMap, sizeof(bricksForegroundMap),17,1,MAPLAYOUT_32X64));
     //bg.get()->useMapScreenBlock(29);
     bg->setMapData(lvl1Map);
-    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap),17,2,MAPLAYOUT_32X32));
+    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap),25,2,MAPLAYOUT_32X32));
     //bg2.get()->useMapScreenBlock(26);
 
     engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
@@ -117,19 +117,19 @@ void Level1::tick(u16 keys) {
     enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
 
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
-    int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
+    //int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
-    TextStream::instance().setText(std::to_string(placeOnScreen) + std::string("PosOnScreen"), 18, 1);
-    TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("PosOnScreen"), 19, 1);
+    TextStream::instance().setText(std::to_string(isObstacleInFrontInt(metroidObject->getMetroid(), bg.get())) + std::string("PosOnScreen"), 18, 1);
+    TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("obstacleOnScreen"), 19, 1);
     //TextStream::instance().setText(std::to_string(bla) + std::string("bla"), 10, 1);
     //TextStream::instance().setText(std::to_string(up) + std::string("up"), 5, 1);
-    TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
+    //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
 
         if (metroidObject->getMetroid()->getDx() == 1) {
             if (metroidObject->getMetroid()->getX() < 122 && metroidObject->getMetroid()->getX() > 96) {
-                if (bg->getScrollX() == 16)
+                if (bg->getScrollX() == 272)
                     scrollX = scrollX + 0;
                 else {
                     scrollX = scrollX + 2;
