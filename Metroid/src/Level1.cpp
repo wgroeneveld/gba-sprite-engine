@@ -92,6 +92,7 @@ void Level1::load() {
 
 void Level1::tick(u16 keys) {
 
+
     int bla = 0;
     int up = 0;
     if(metroidObject->getIsJumping()){
@@ -108,6 +109,9 @@ void Level1::tick(u16 keys) {
         metroidObject->setIsJumping(false);
     }
 
+   // bool left = isObstacleBehind(metroidObject->getMetroid(), bg.get());
+   // bool right = !isObstacleInFront(bulletObject->getBullet(), bg.get());
+
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
     metroidObject->setCanGoDown(!isObstacleBelow(metroidObject->getMetroid(),bg.get()));
@@ -116,10 +120,15 @@ void Level1::tick(u16 keys) {
     enemyObject->setCanGoLeft(!isObstacleBehind(enemyObject->getMario(), bg.get()));
     enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
 
-    bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
-    bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
+
+ //   bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
+   // bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
+
+
 
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
+   // TextStream::instance().setText(std::to_string(left),9,1);
+  //  TextStream::instance().setText(std::to_string(right),11,1);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getY()+metroidObject->getMetroid()->getHeight()+bg.get()->getScrollY())/8) + std::string("Yreal"), 17, 1);
@@ -206,7 +215,7 @@ void Level1::tick(u16 keys) {
 
 
 
-        if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50) {
+        if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
             if (enemyObject->getGoLeft()) {
                     marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
                                                            enemyObject->getMario()->getY() + 16);
@@ -223,6 +232,14 @@ void Level1::tick(u16 keys) {
 
     if(bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))){
         bulletObject->setIsShooting(false);
+        if(metroidObject->getPowerUp()) enemyObject->reduceLives(50);
+        else enemyObject->reduceLives(25);
+    }
+
+    if(metroidObject->getMetroid()->collidesWith(*(ball_projectiel))){
+        ball_projectiel->moveTo(-60,60);
+        metroidObject->setPowerUp(true);
+        TextStream::instance().setText("Power up",0,19);
     }
     /*   if(metroidObject->getMetroid()->collidesWith(*(enemyObject->getMario()))){
            TextStream::instance().setText("Auw", 0, 19);

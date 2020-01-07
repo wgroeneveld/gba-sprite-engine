@@ -20,6 +20,7 @@ private:
     bool canGoLeft = true;
     bool canGoRight = true;
     bool canGoUp = true;
+    bool powerUp = false;
 public:
     bool isCanGoUp() const;
 
@@ -48,6 +49,8 @@ public:
     bool getIsFalling(){return isFalling;}
     void setIsFalling(bool value);
     void setIsJumping(bool value);
+    void setPowerUp(bool value){powerUp = value;}
+    bool getPowerUp(){return powerUp;}
 
 };
 

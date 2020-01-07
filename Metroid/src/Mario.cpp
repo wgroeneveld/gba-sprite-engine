@@ -16,37 +16,44 @@ void Mario::reduceLives(int value) {
 void Mario::tick(u16 keys) {
  //   for(int i = 0; i < 2000; i++){}
     getMario()->stopAnimating();
-    if(goLeft && canGoLeft) {
-        // getEnemy()->animate();
-     /*   if(getMario()->getX() <= 0){
-            goLeft = false;
-            getMario()->makeAnimated(3,5);
-            getMario()->flipHorizontally(false);
-            getMario()->setVelocity(+1, 0);
-        }
-        else {*/
+    if(lives <= 0){
+       getMario()->setVelocity(0,0);
+       getMario()->moveTo(-20,20);
+    }
+    else{
+        if(goLeft && canGoLeft) {
+            // getEnemy()->animate();
+            /*   if(getMario()->getX() <= 0){
+                   goLeft = false;
+                   getMario()->makeAnimated(3,5);
+                   getMario()->flipHorizontally(false);
+                   getMario()->setVelocity(+1, 0);
+               }
+               else {*/
             getMario()->makeAnimated(3,5);
             getMario()->flipHorizontally(true);
             getMario()->setVelocity(-1, 0);
-     //   }
-    }
-    else if(goLeft && !canGoLeft){
-        goLeft = false;
-        getMario()->makeAnimated(3,5);
-        getMario()->flipHorizontally(false);
-        getMario()->setVelocity(+1, 0);
-    }
-    else{
-        if(canGoRight) {
-            getMario()->makeAnimated(3, 5);
+            //   }
+        }
+        else if(goLeft && !canGoLeft){
+            goLeft = false;
+            getMario()->makeAnimated(3,5);
             getMario()->flipHorizontally(false);
             getMario()->setVelocity(+1, 0);
-            goLeft = false;
         }
         else{
-            goLeft = true;
+            if(canGoRight) {
+                getMario()->makeAnimated(3, 5);
+                getMario()->flipHorizontally(false);
+                getMario()->setVelocity(+1, 0);
+                goLeft = false;
+            }
+            else{
+                goLeft = true;
+            }
         }
     }
+
 }
 
 bool Mario::isCanGoLeft() const {
