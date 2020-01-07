@@ -14,6 +14,7 @@ private:
     bool shootLeft = false;
     bool shootRight = false;
     bool isShooting = false;
+    int cooldown = 0;
 
 public:
     MarioBullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}
@@ -23,6 +24,8 @@ public:
     void shootBulletRight();
     bool getIsShooting(){return isShooting;}
     void setIsShooting(bool value);
+    int getCooldown(){return cooldown;}
+    void setCooldown(int value){cooldown = value;}
 };
 
 #endif //GBA_SPRITE_ENGINE_PROJECT_MARIOBULLET_H

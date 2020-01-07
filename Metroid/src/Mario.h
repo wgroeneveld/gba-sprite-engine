@@ -36,6 +36,7 @@ public:
     void tick(u16 keys);
     int getLives();
     void reduceLives(int value);
+    bool getGoLeft(){return goLeft;}
 };
 
 

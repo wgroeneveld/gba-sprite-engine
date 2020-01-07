@@ -177,8 +177,8 @@ void Metroid::tick(u16 keys) {
 if(isJumping){
     if(!canGoUp){
         //getMetroid()->setDy(1);
-        isJumping = FALSE;
-        isFalling = TRUE;
+        isJumping = false;
+        isFalling = true;
     }
     else if (!canGoLeft){
         getMetroid()->setDx(0);
@@ -201,7 +201,7 @@ if(isJumping){
 else if (isFalling){
     getMetroid()->setDy(2);
     if(!canGoDown){
-        isFalling = FALSE;
+        isFalling = false;
         getMetroid()->setDy(0);
     }
     else if (!canGoLeft){
@@ -224,13 +224,15 @@ else if (isFalling){
 else{
     if(keys & KEY_B){
         if(canGoUp){
-            isJumping = TRUE;
+            isJumping = true;
             getMetroid()->setDy(-2);
             getMetroid()->animateToFrame(5);
             getMetroid()->stopAnimating();
         }
     }
     else if (keys & KEY_RIGHT && canGoRight){
+        goLeft = false;
+        isCrouching = false;
         if(canGoDown){
             isFalling = true;
             getMetroid()->setDx(0);
@@ -244,6 +246,8 @@ else{
         }
     }
     else if (keys & KEY_LEFT && canGoLeft){
+        goLeft = true;
+        isCrouching = false;
         if(canGoDown){
             isFalling = true;
             getMetroid()->setDx(0);
@@ -257,10 +261,12 @@ else{
         }
     }
     else if (keys & KEY_DOWN){
+        isCrouching = true;
         getMetroid()->animateToFrame(10);
         getMetroid()->setVelocity(0, 0);
     }
     else{
+        isCrouching = false;
         getMetroid()->animateToFrame(7);
         getMetroid()->stopAnimating();
         getMetroid()->setVelocity(0, 0);

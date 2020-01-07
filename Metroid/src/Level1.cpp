@@ -116,6 +116,9 @@ void Level1::tick(u16 keys) {
     enemyObject->setCanGoLeft(!isObstacleBehind(enemyObject->getMario(), bg.get()));
     enemyObject->setCanGoRight(!isObstacleInFront(enemyObject->getMario(), bg.get()));
 
+    bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
+    bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
+
     TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
     int placeOnScreen = isObstacleInFrontInt(metroidObject->getMetroid(), bg.get());
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getX()+metroidObject->getMetroid()->getWidth()+bg.get()->getScrollX())/8) + std::string("Xreal"), 16, 1);
@@ -166,6 +169,7 @@ void Level1::tick(u16 keys) {
     metroidObject->tick(keys);
     enemyObject->tick(keys);
     bulletObject->tick(keys);
+    marioBulletObject->tick(keys);
 
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 1, 1);
     TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 3, 1);
@@ -199,6 +203,23 @@ void Level1::tick(u16 keys) {
             }
         }
     }
+
+
+
+        if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50) {
+            if (enemyObject->getGoLeft()) {
+                    marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
+                                                           enemyObject->getMario()->getY() + 16);
+                marioBulletObject->shootBulletLeft();
+            }
+            else{
+                marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() + 30,
+                                                       enemyObject->getMario()->getY() + 16);
+                marioBulletObject->shootBulletRight();
+            }
+        }
+
+
 
     if(bulletObject->getBullet()->collidesWith(*(enemyObject->getMario()))){
         bulletObject->setIsShooting(false);
