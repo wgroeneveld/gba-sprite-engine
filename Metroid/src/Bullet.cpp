@@ -34,20 +34,20 @@ void Bullet::tick(u16 keys) {
     }
     else {
         if (isShooting) {
-           // if(!canGoLeft && getBullet()->getDx()<0) isShooting = false;
-            if(!canGoRight) isShooting = false;
+            //if(!canGoLeft) isShooting = false;
+          //  if(!canGoRight) isShooting = false;
            /*  if(!canGoLeft || !canGoRight){
                 getBullet()->setVelocity(0, 0);
                 getBullet()->moveTo(-60, 0);
                 getBullet()->stopAnimating();
                 isShooting = false;
-            }
-        /*    if ((getBullet()->getX() <= 0) || (getBullet()->getX() >= 232)) {
+            }*/
+            if ((getBullet()->getX() <= 0) || (getBullet()->getX() >= 232)) {
                 getBullet()->setVelocity(0, 0);
                 getBullet()->moveTo(-60, 0);
                 getBullet()->stopAnimating();
                 isShooting = false;
-            }*/
+            }
         }
         else{
             getBullet()->setVelocity(0, 0);
