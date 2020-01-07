@@ -180,12 +180,12 @@ if(isJumping){
         isJumping = false;
         isFalling = true;
     }
-    else if (!canGoLeft){
+  /*  else if (!canGoLeft){
         getMetroid()->setDx(0);
     }
     else if (!canGoRight){
         getMetroid()->setDx(0);
-    }
+    }*/
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
         getMetroid()->flipHorizontally(true);
@@ -204,12 +204,12 @@ else if (isFalling){
         isFalling = false;
         getMetroid()->setDy(0);
     }
-    else if (!canGoLeft){
+  /*  else if (!canGoLeft){
         getMetroid()->setDx(0);
     }
     else if (!canGoRight){
         getMetroid()->setDx(0);
-    }
+    }*/
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
         getMetroid()->flipHorizontally(true);
