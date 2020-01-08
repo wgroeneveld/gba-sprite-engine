@@ -72,7 +72,7 @@ void Level1::load() {
             .withData(fireboltTiles, sizeof(fireboltTiles))
             .withLocation(224, 128)
             .withSize(SIZE_8_8)
-            .withinBounds()
+           // .withinBounds()
             .buildPtr();
 
 
@@ -176,27 +176,76 @@ void Level1::tick(u16 keys) {
 
     bg.get()->scroll(scrollX, scrollY);
 
-    if(metroidObject->getMetroid()->getX() < 94){
-        if(bulletObject->getBullet()->getX() < 18){
-            bulletObject->setIsShooting(false);
+    if(bulletObject->getIsShooting()){
+        if(metroidObject->getMetroid()->getX() < 94){
+            if(bulletObject->getBullet()->getX() < 18){
+                bulletObject->setIsShooting(false);
+            }
+            else if(metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()){
+                bulletObject->setIsShooting(false);
+            }
         }
-        else if(metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()){
-            bulletObject->setIsShooting(false);
+        else if(metroidObject->getMetroid()->getX() + bg->getScrollX() > 388){
+            if(bulletObject->getBullet()->getX() > 214){
+                bulletObject->setIsShooting(false);
+            }
+            else if(metroidObject->getMetroid()->getX() - 70 >= bulletObject->getBullet()->getX()){
+                bulletObject->setIsShooting(false);
+            }
+        }
+        else{
+            if((metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -70 >= bulletObject->getBullet()->getX())) {
+                bulletObject->setIsShooting(false);
+            }
         }
     }
-    else if(metroidObject->getMetroid()->getX() + bg->getScrollX() > 388){
-        if(bulletObject->getBullet()->getX() > 214){
-            bulletObject->setIsShooting(false);
+
+
+
+    if(marioBulletObject->getIsShooting()){
+        if(enemyObject->getMario()->getX() < 94){
+            if(marioBulletObject->getBullet()->getX() < 18){
+                marioBulletObject->getBullet()->moveTo(-50,0);
+                marioBulletObject->getBullet()->setVelocity(0,0);
+                marioBulletObject->setCooldown(0);
+                marioBulletObject->setIsShooting(false);
+
+            }
+            else if(enemyObject->getMario()->getX() + 102 <= marioBulletObject->getBullet()->getX()){
+                marioBulletObject->getBullet()->moveTo(-50,0);
+                marioBulletObject->getBullet()->setVelocity(0,0);
+                marioBulletObject->setCooldown(0);
+                marioBulletObject->setIsShooting(false);
+            }
         }
-        else if(metroidObject->getMetroid()->getX() - 70 >= bulletObject->getBullet()->getX()){
-            bulletObject->setIsShooting(false);
+        else if(enemyObject->getMario()->getX() + bg->getScrollX() > 404){
+            if(marioBulletObject->getBullet()->getX() > 214){
+                marioBulletObject->getBullet()->moveTo(-50,0);
+                marioBulletObject->getBullet()->setVelocity(0,0);
+                marioBulletObject->setCooldown(0);
+                marioBulletObject->setIsShooting(false);
+
+            }
+            else if(enemyObject->getMario()->getX() - 70 >= marioBulletObject->getBullet()->getX()){
+                marioBulletObject->getBullet()->moveTo(-50,0);
+                marioBulletObject->getBullet()->setVelocity(0,0);
+                marioBulletObject->setCooldown(0);
+                marioBulletObject->setIsShooting(false);
+
+            }
+        }
+        else{
+            if(((enemyObject->getMario()->getX() + 102 <= marioBulletObject->getBullet()->getX())) || (enemyObject->getMario()->getX() -70 >= marioBulletObject->getBullet()->getX())) {
+                marioBulletObject->getBullet()->moveTo(-50,0);
+                marioBulletObject->getBullet()->setVelocity(0,0);
+                marioBulletObject->setCooldown(0);
+                marioBulletObject->setIsShooting(false);
+
+            }
         }
     }
-    else{
-        if((metroidObject->getMetroid()->getX() + 102 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -70 >= bulletObject->getBullet()->getX())) {
-            bulletObject->setIsShooting(false);
-        }
-    }
+
+
     /*if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ) {
         bulletObject->setIsShooting(false);
     }*/
@@ -234,6 +283,8 @@ void Level1::tick(u16 keys) {
             }
         }
     }
+
+
 
     if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
         if (enemyObject->getGoLeft()) {
