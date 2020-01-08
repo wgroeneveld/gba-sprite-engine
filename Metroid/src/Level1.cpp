@@ -308,7 +308,7 @@ void Level1::tick(u16 keys) {
     }
 
     if(metroidObject->getMetroid()->collidesWith(*(ball_projectiel))){
-        ball_projectiel->moveTo(-20,0);
+        ball_projectiel->moveTo(0,230);
         metroidObject->setPowerUp(true);
         TextStream::instance().setText("Power up",3,19);
     }
