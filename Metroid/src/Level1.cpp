@@ -24,6 +24,7 @@
 #include "Bullet.h"
 #include "test.h"
 #include "SoundDeath.h"
+#include "SoundIntro.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -92,7 +93,7 @@ void Level1::load() {
 
 
     //engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
-    engine->enqueueMusic(mission_failed,mission_failed_bytes);
+    engine->enqueueMusic(leaving_earth,leaving_earth_bytes,90000);
 
 }
 
