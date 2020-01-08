@@ -15,13 +15,14 @@
 #include "megaman.h"
 #include "metroid.h"
 #include "sample_sound.h"
+#include "SoundDeath.h"
 
 std::vector<Background *> SampleStartScene::backgrounds() {
     return {};
 }
 
 std::vector<Sprite *> SampleStartScene::sprites() {
-    return {  /*animation.get(),*/ finalFantasyGuy.get(), megamanMoving.get(), metroidBewegen.get() };
+    return {  /*animation.get(),*/ finalFantasyGuy.get(), /*megamanMoving.get(), metroidBewegen.get()*/ };
 }
 
 void SampleStartScene::load() {
@@ -44,6 +45,7 @@ void SampleStartScene::load() {
             .withLocation(10, 10)
             .buildPtr();
 
+    /*
     megamanMoving = builder
             .withData(megamanTiles, sizeof(megamanTiles))
             .withSize(SIZE_32_32)
@@ -58,14 +60,13 @@ void SampleStartScene::load() {
             .withLocation(50, 50)
             .buildPtr();
 
-    TextStream::instance().setText("PRESS START", 3, 8);
+    */
 
-    engine->getTimer()->start();
-    engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
+    engine->enqueueMusic(mission_failed, 100000);
 }
 
 void SampleStartScene::tick(u16 keys) {
-    TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
+    /*TextStream::instance().setText(engine->getTimer()->to_string(), 18, 1);
 
     metroidBewegen->stopAnimating();
     if(pressingAorB && !((keys & KEY_A) || (keys & KEY_B))) {
@@ -99,5 +100,5 @@ void SampleStartScene::tick(u16 keys) {
         metroidBewegen->animateToFrame(0);
         metroidBewegen->setVelocity(0, 0);
 
-    }
+    }*/
 }

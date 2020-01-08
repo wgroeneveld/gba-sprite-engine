@@ -23,6 +23,7 @@
 #include "Metroid.h"
 #include "Bullet.h"
 #include "test.h"
+#include "SoundDeath.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -90,7 +91,8 @@ void Level1::load() {
     //bg2.get()->useMapScreenBlock(26);
 
 
-    engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
+    //engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
+    engine->enqueueMusic(mission_failed,mission_failed_bytes);
 
 }
 
