@@ -1,11 +1,7 @@
-//
-// Created by woute on 25/12/2019.
-//
+#ifndef GBA_SPRITE_ENGINE_PROJECT_SPRITE_AIRBALL_H
+#define GBA_SPRITE_ENGINE_PROJECT_SPRITE_AIRBALL_H
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_AIR_BALL_DATA_H
-#define GBA_SPRITE_ENGINE_PROJECT_AIR_BALL_DATA_H
-
-const unsigned int air_set_16Tiles[128] __attribute__((aligned(4)))=
+const unsigned int airballTiles[128] __attribute__((aligned(4)))=
         {
                 0x00000000,0x3E3E0000,0x00000000,0x3434232B,0x00000000,0x23250000,0x00000000,0x2D000000,
                 0x00000000,0x28240000,0x00000000,0x28414A00,0x33000000,0x432E4848,0x42312D00,0x112C2732,
@@ -26,4 +22,4 @@ const unsigned int air_set_16Tiles[128] __attribute__((aligned(4)))=
                 0x264B3735,0x0000003C,0x334F2F35,0x00000000,0x0033513F,0x00000000,0x0000293E,0x00000000,
         };
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_AIR_BALL_DATA_H
+#endif

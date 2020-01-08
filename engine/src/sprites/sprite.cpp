@@ -52,6 +52,13 @@ void Sprite::flipVertically(bool flip) {
     }
 }
 
+
+void Sprite::makeAnimated(int numberOfFrames, int animationDelay) {
+    this->numberOfFrames = numberOfFrames;
+    this->animationDelay = animationDelay;
+    animate();
+}
+
 void Sprite::makeAnimated(int beginFrame, int numberOfFrames, int animationDelay) {
     previousFrame = -1;
     setBeginFrame(beginFrame);

@@ -1,40 +1,35 @@
-//
-// Created by woute on 9/12/2019.
-//
-
-#include "Level1_scene.h"
-/*
-#include "background_game/background_water.h"
-#include "background_game/background_earth_tilemap.h"
-#include "background_game/background_earth_data.h"
- */
-#include "background_game/background_set.h"
-#include "background_game/background_map.h"
-
-#include "grit/aang.h"
-#include "grit/enemy.h"
-#include "grit/shared.h"
-
-#include "math.h"
-#include "grit/air_ball_data.h"
-
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
+
+#include "Scene_Level1.h"
+
+#include "sprites/sprite_aang.h"
+#include "sprites/sprite_enemy.h"
+#include "sprites/sprite_pal.h"
+#include "sprites/sprite_airball.h"
+
+#include "background_game/background1_set.h"
+#include "background_game/background1_map.h"
+#include "background_game/background2_set.h"
+#include "background_game/background2_map.h"
+#include "background_game/background_pal.h"
+
+#include "math.h"
 #include <algorithm>
 
 #define AIRBALL_ROTATION_DIFF (128*6)
 
-Level1_scene::Level1_scene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
+Scene_Level1::Scene_Level1(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 
-std::vector<Background *> Level1_scene::backgrounds() {
-    return {  background0.get()};
+std::vector<Background *> Scene_Level1::backgrounds() {
+    return {  backgroundGround.get(), backgroundSea.get()};
 }
 
-std::vector<Sprite *> Level1_scene::sprites() {
+std::vector<Sprite *> Scene_Level1::sprites() {
     std::vector<Sprite*> sprites;
     for(auto& ab : airBalls ){
         sprites.push_back(ab->getSprite());
@@ -46,19 +41,19 @@ std::vector<Sprite *> Level1_scene::sprites() {
     return sprites;
 }
 
-void Level1_scene::removeAirBallsOffScreen() {
+
+void Scene_Level1::removeAirBallsOffScreen() {
     airBalls.erase(
             std::remove_if(airBalls.begin(), airBalls.end(), [](std::unique_ptr<AirBall> &s) { return s->isOffScreen(); }),
-            airBalls.end());
+            airBalls.end());*/
 }
 
-void Level1_scene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal3, sizeof(sharedPal3)));
-
+void Scene_Level1::load() {
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
-    background0 = std:: unique_ptr<Background>(new Background(1, backgroundTiles, sizeof(backgroundTiles),backgroundMap , sizeof(backgroundMap)));
-    background0.get()->useMapScreenBlock(16);
+    backgroundGround = std::unique_ptr<Background>(new Background(1, background1Tiles, sizeof(background1Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X64));
+    backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 25, 2, MAPLAYOUT_32X32));
 
     spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
     SpriteBuilder<Sprite> builder;
@@ -66,22 +61,22 @@ void Level1_scene::load() {
 
 
     someAirBallSprite = builder
-            .withData(air_set_16Tiles, sizeof(air_set_16Tiles))
+            .withData(airballTiles, sizeof(airballTiles))
             .withSize(SIZE_16_16)
             .withAnimated(2,5)
             .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
-    angle = 90;
+
 
     enemy = affBuilder
-            .withData(enemy_32Tiles, sizeof(enemy_32Tiles))
+            .withData(enemyTiles, sizeof(enemyTiles))
             .withSize(SIZE_32_32)
             .withLocation(150,75)
             .buildPtr();
 
     aang = builder
-            .withData(aang_32Tiles, sizeof(aang_32Tiles))
+            .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_32_32)
             .withLocation(100,81)
             .buildPtr();
@@ -107,7 +102,7 @@ bool isAttacking;
 double attackCounter =0;
 
 
-void Level1_scene::tick(u16 keys) {
+void Scene_Level1::tick(u16 keys) {
 
     TextStream::instance().setText( std::string(" Health aang: ") + std::to_string(healthAang), 3, 1);
     TextStream::instance().setText( std::string(" Health enemy: ") + std::to_string(healthEnemey), 4, 1);
@@ -252,7 +247,7 @@ void Level1_scene::tick(u16 keys) {
     attackCounter++;
 }
 
-std::unique_ptr<AirBall> Level1_scene::createAirBall() {
+std::unique_ptr<AirBall> Scene_Level1::createAirBall() {
     if(aangIsGoingLeft){
         return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
                                                             ->withLocation(aang->getX() - aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)

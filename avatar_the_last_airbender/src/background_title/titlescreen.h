@@ -1,38 +1,5 @@
-
-//{{BLOCK(titlescreen)
-
-//======================================================================
-//
-//	titlescreen, 240x168@8, 
-//	+ palette 256 entries, not compressed
-//	+ 630 tiles not compressed
-//	Total size: 512 + 40320 = 40832
-//
-//	Time-stamp: 2019-12-09, 20:39:07
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_TITLESCREEN_H
 #define GRIT_TITLESCREEN_H
-
-//{{BLOCK(titlescreen)
-
-//======================================================================
-//
-//	titlescreen, 256x256@8,
-//	Transparent color : 00,62,00
-//	+ palette 256 entries, not compressed
-//	+ 550 tiles (t|f|p reduced) not compressed
-//	+ regular map (in SBBs), not compressed, 32x32
-//	Total size: 512 + 35200 + 2048 = 37760
-//
-//	Time-stamp: 2019-12-25, 09:40:42
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
 
 const unsigned int titlescreenTiles[8768] __attribute__((aligned(4)))=
         {
@@ -1456,12 +1423,4 @@ const unsigned short titlescreenPal[256] __attribute__((aligned(4)))=
                 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
         };
 
-//}}BLOCK(titlescreen)
-
-
-//}}BLOCK(titlescreen)
-
-
-#endif // GRIT_TITLESCREEN_H
-
-//}}BLOCK(titlescreen)
+#endif
