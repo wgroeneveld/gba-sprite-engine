@@ -21,13 +21,15 @@ private:
 public:
     Bullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}
     Sprite *getBullet() {return bullet.get();}
-    void tick(u16 keys);
+    virtual void tick(u16 keys);
     void shootBulletLeft();
     void shootBulletRight();
     bool getIsShooting(){return isShooting;}
     void setIsShooting(bool value);
     void setCanGoLeft(bool value){canGoLeft = value;}
     void setCanGoRight(bool value){canGoRight = value;}
+
+    friend class MarioBullet;
 };
 
 

@@ -3,7 +3,7 @@
 //
 
 #include "MarioBullet.h"
-
+/*
 void MarioBullet::shootBulletLeft() {
         shootLeft = true;
 }
@@ -15,7 +15,7 @@ void MarioBullet::shootBulletRight() {
 void MarioBullet::setIsShooting(bool value) {
     isShooting = value;
 }
-
+*/
 void MarioBullet::tick(u16 keys) {
 
     if(!isShooting){

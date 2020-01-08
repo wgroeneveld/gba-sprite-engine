@@ -7,25 +7,26 @@
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #include <libgba-sprite-engine/gba/tonc_math.h>
+#include "Bullet.h"
 
-class MarioBullet {
+class MarioBullet : public Bullet {
 private:
-    std::unique_ptr<Sprite> bullet;
+    //std::unique_ptr<Sprite> bullet;
     int cooldown = 0;
-    bool canGoLeft = true;
-    bool shootLeft = false;
-    bool shootRight = false;
-    bool isShooting = false;
+   // bool canGoLeft = true;
+  //  bool shootLeft = false;
+  //  bool shootRight = false;
+  //  bool isShooting = false;
 
 
 public:
-    MarioBullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}
-    Sprite *getBullet() {return bullet.get();}
-    void tick(u16 keys);
-    void shootBulletLeft();
-    void shootBulletRight();
-    bool getIsShooting(){return isShooting;}
-    void setIsShooting(bool value);
+    MarioBullet(std::unique_ptr<Sprite> sprite1) : Bullet(std::move(sprite1)){}
+   // Sprite *getBullet() {return bullet.get();}
+    void tick(u16 keys) override;
+   // void shootBulletLeft();
+   // void shootBulletRight();
+   // bool getIsShooting(){return isShooting;}
+   // void setIsShooting(bool value);
     int getCooldown(){return cooldown;}
     void setCooldown(int value){cooldown = value;}
 
