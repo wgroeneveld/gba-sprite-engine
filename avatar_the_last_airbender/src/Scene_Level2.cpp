@@ -12,15 +12,15 @@
 #include "sprites/sprite_pal.h"
 #include "sprites/sprite_airball.h"
 
-#include "background_game/background1_set.h"
-#include "background_game/background1_map.h"
-#include "background_game/background2_set.h"
-#include "background_game/background2_map.h"
-#include "background_game/background3_set.h"
-#include "background_game/background3_map.h"
+#include "background_game/backgroundGround/background13_set.h"
+#include "background_game/backgroundGround/background1_map.h"
+#include "background_game/backgroundSea/background2_set.h"
+#include "background_game/backgroundSea/background2_map.h"
+#include "background_game/backgroundSun/background3_map.h"
 #include "background_game/background_pal.h"
 
 #include "math.h"
+#include "../../engine/include/libgba-sprite-engine/background/text_stream.h"
 
 std::vector<Background *> Scene_Level2::backgrounds() {
     return {  backgroundGround.get(), backgroundSea.get(), backgroundSun.get()};
@@ -34,29 +34,33 @@ std::vector<Sprite *> Scene_Level2::sprites() {
 }
 
 void Scene_Level2::load() {
+    engine.get()->enableText();
+
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
-    backgroundGround = std::unique_ptr<Background>(new Background(1, background1Tiles, sizeof(background1Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X32));
-    backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 20, 2, MAPLAYOUT_32X32));
-    backgroundSun = std::unique_ptr<Background>(new Background(3, background3Tiles, sizeof(background3Tiles),background3Map , sizeof(background3Map), 21, 3, MAPLAYOUT_32X32));
+    backgroundGround = std::unique_ptr<Background>(new Background(1, background13Tiles, sizeof(background13Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X32));
+    backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 25, 2, MAPLAYOUT_32X32));
+    backgroundSun = std::unique_ptr<Background>(new Background(3, background13Tiles, sizeof(background13Tiles),background3Map , sizeof(background3Map), 12, 1, MAPLAYOUT_32X64));
 
     SpriteBuilder<Sprite> builder;
 
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_32_32)
-            .withLocation(100,81)
+            .withLocation(100,90)
             .buildPtr();
 
     enemy = builder
             .withData(enemyTiles, sizeof(enemyTiles))
             .withSize(SIZE_32_32)
-            .withLocation(150,75)
+            .withLocation(150,85)
             .buildPtr();
 }
 
 void Scene_Level2::tick(u16 keys) {
+    //TextStream::instance().setText( std::string(" x: ") + std::to_string(aang->getX()), 3, 1);
+
     if (keys & KEY_LEFT) {
         if (!isWalkingLeft) isWalkingLeft = true;
     } else {
@@ -75,21 +79,24 @@ void Scene_Level2::tick(u16 keys) {
     }
     if (isWalkingLeft && !isAttacking) {
         aang->flipHorizontally(true);
-        //aang->moveTo(aang->getX() - xVelocity, aang->getY());
-        xScrolling--;
-        backgroundGround.get()->scroll(xScrolling * 2/3,0);
-        backgroundSea.get()->scroll(xScrolling * 1/3,0);
         if (!aang->isAnimating()) aang->makeAnimated(1, 2, 10);
-
+        if(aang->getX() > 30) {
+            moveAang();
+        }
+        else {
+            moveOthers();
+        }
     }
 
     if (isWalkingRight && !isAttacking) {
         aang->flipHorizontally(false);
-        //aang->moveTo(aang->getX() + xVelocity, aang->getY());
-        xScrolling++;
-        backgroundGround.get()->scroll(xScrolling * 2/3,0);
-        backgroundSea.get()->scroll(xScrolling * 1/3,0);
         if (!aang->isAnimating()) aang->makeAnimated(1, 2, 10);
+        if(aang->getX() < 190) {
+            moveAang();
+        }
+        else {
+            moveOthers();
+        }
     }
 
     if (((!isWalkingLeft && !isWalkingRight) || isJumping || isAttacking) && aang->isAnimating() &&
@@ -100,19 +107,61 @@ void Scene_Level2::tick(u16 keys) {
 
 
     if (isJumping) {
+        if (!aang->isAnimating()) aang->makeAnimated(3, 2, 15);
+
         yVelocity = -(pow(((0.25 * time) - 3), 2)) + ((2 * time) - 3) + 12;
         int yPosition = 83 - yVelocity;
         aang->moveTo(aang->getX(), yPosition);
 
-        if (!aang->isAnimating()) aang->makeAnimated(3, 2, 15);
-
-        if (aang->getY() != 83) {
+        if (aang->getY() != 90) {
             time++;
         } else {
             isJumping = false;
             time = 1;
             aang->stopAnimating();
             aang->animateToFrame(0);
+        }
+    }
+}
+
+
+void Scene_Level2::moveAang() {
+    if (isWalkingLeft && !isAttacking) {
+        aang->moveTo(aang->getX() - xVelocity, aang->getY());
+    }
+
+    if (isWalkingRight && !isAttacking) {
+        aang->moveTo(aang->getX() + xVelocity, aang->getY());
+    }
+}
+
+
+void Scene_Level2::moveOthers() {
+    if (isWalkingLeft && !isAttacking) {
+        enemy->moveTo(enemy->getX() + xVelocity, enemy->getY());
+        xScrollingGround--;
+        backgroundGround.get()->scroll(xScrollingGround,0);
+        if(xScrollingGround%3 == 0) {
+            xScrollingSea--;
+            backgroundSea.get()->scroll(xScrollingSea,0);
+        }
+        if(xScrollingGround%10 == 0) {
+            xScrollingSun--;
+            if(xScrollingSun > -190) backgroundSun.get()->scroll(xScrollingSun,0);
+        }
+    }
+
+    if (isWalkingRight && !isAttacking) {
+        enemy->moveTo(enemy->getX() - xVelocity, enemy->getY());
+        xScrollingGround++;
+        backgroundGround.get()->scroll(xScrollingGround, 0);
+        if (xScrollingGround % 3 == 0) {
+            xScrollingSea++;
+            backgroundSea.get()->scroll(xScrollingSea, 0);
+        }
+        if (xScrollingGround % 10 == 0) {
+            xScrollingSun++;
+            if (xScrollingSun < 80) backgroundSun.get()->scroll(xScrollingSun, 0);
         }
     }
 }

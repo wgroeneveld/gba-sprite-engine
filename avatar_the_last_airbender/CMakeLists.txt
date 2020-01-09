@@ -13,16 +13,20 @@ add_executable(avatar_the_last_airbender.elf
         src/Scene_Level2.h
         src/AirBall.cpp
         src/AirBall.h
-        src/background_game/background1_set.h
-        src/background_game/background1_map.h
-        src/background_game/background2_set.h
-        src/background_game/background2_map.h
+        src/background_game/backgroundGround/background13_set.h
+        src/background_game/backgroundGround/background1_map.h
+        src/background_game/backgroundSea/background2_set.h
+        src/background_game/backgroundSea/background2_map.h
+        src/background_game/backgroundSun/background3_map.h
         src/background_game/background_pal.h
-        src/background_title/titlescreen.h
+        src/background_title/titlescreen_newgame.h
+        src/background_title/titlescreen_options.h
+        src/background_title/titlescreen_pal.h
         src/sprites/sprite_aang.h
         src/sprites/sprite_enemy.h
         src/sprites/sprite_airball.h
-        src/sprites/sprite_pal.h)
+        src/sprites/sprite_pal.h
+        )
 
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)

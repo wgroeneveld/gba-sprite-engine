@@ -17,7 +17,9 @@ private:
     int xVelocity = 1;
     double yVelocity;
     int time = 1;
-    int xScrolling = 0;
+    int xScrollingGround = 0;
+    int xScrollingSea = 0;
+    int xScrollingSun = 0;
 
     bool isWalkingLeft;
     bool isWalkingRight;
@@ -26,6 +28,9 @@ private:
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
+
+    void moveAang();
+    void moveOthers();
 
     Scene_Level2(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
 

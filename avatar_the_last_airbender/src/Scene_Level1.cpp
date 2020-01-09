@@ -12,11 +12,12 @@
 #include "sprites/sprite_pal.h"
 #include "sprites/sprite_airball.h"
 
-#include "background_game/background1_set.h"
-#include "background_game/background1_map.h"
-#include "background_game/background2_set.h"
-#include "background_game/background2_map.h"
+#include "background_game/backgroundGround/background13_set.h"
+#include "background_game/backgroundGround/background1_map.h"
+#include "background_game/backgroundSea/background2_set.h"
+#include "background_game/backgroundSea/background2_map.h"
 #include "background_game/background_pal.h"
+
 
 #include "math.h"
 #include <algorithm>
@@ -45,14 +46,14 @@ std::vector<Sprite *> Scene_Level1::sprites() {
 void Scene_Level1::removeAirBallsOffScreen() {
     airBalls.erase(
             std::remove_if(airBalls.begin(), airBalls.end(), [](std::unique_ptr<AirBall> &s) { return s->isOffScreen(); }),
-            airBalls.end());*/
+            airBalls.end());
 }
 
 void Scene_Level1::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
-    backgroundGround = std::unique_ptr<Background>(new Background(1, background1Tiles, sizeof(background1Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X64));
+    backgroundGround = std::unique_ptr<Background>(new Background(1, background13Tiles, sizeof(background13Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X64));
     backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 25, 2, MAPLAYOUT_32X32));
 
     spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
