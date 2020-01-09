@@ -10,11 +10,12 @@
 #include <libgba-sprite-engine/allocator.h>
 
 #include "menu.h"
+#include "IntroScene.h"
 
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());
 
-    Menu* startScene = new Menu(engine);
+    IntroScene* startScene = new IntroScene(engine);
     engine->setScene(startScene);
 
     while (true) {

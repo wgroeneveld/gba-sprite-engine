@@ -28,6 +28,7 @@
 #include "SoundIntro.h"
 #include "SoundFX.h"
 #include "SoundFX2.h"
+#include "VictoryScene.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -54,7 +55,7 @@ void Level1::load() {
     ball_projectiel = builder
             .withData(ballTiles, sizeof(ballTiles))
             .withSize(SIZE_16_16)
-            .withLocation(16, 48)
+            .withLocation(16, 47)
           //  .withinBounds()
             .buildPtr();
 
@@ -62,7 +63,7 @@ void Level1::load() {
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
                     // .withAnimated(7, 30)
-            .withLocation(224, 112)
+            .withLocation(430, 112)
          //   .withinBounds()
             .buildPtr();
 
@@ -97,7 +98,7 @@ void Level1::load() {
 
 
     //engine->enqueueMusic(zelda_music_16K_mono, zelda_music_16K_mono_bytes);
-    engine->enqueueMusic(leaving_earth,leaving_earth_bytes,90000);
+    //engine->enqueueMusic(leaving_earth,leaving_earth_bytes,90000);
 
 }
 
@@ -113,6 +114,10 @@ void Level1::tick(u16 keys) {
         engine->getTimer()->stop();
         metroidObject->setIsFalling(true);
         metroidObject->setIsJumping(false);
+    }
+
+    if(engine->getTimer()->getTotalMsecs() < 20 && metroidObject->getIsJumping()){
+        engine->enqueueSound(jump_sound,jump_sound_bytes,90000);
     }
 
 
@@ -333,6 +338,14 @@ void Level1::tick(u16 keys) {
             //TextStream::instance() << "entered: starting next scene";
 
             engine->transitionIntoScene(new DeadScene(engine), new FadeOutScene(6));
+        }
+    }
+    if (bg->getScrollX() + metroidObject->getMetroid()->getX() == 470){
+        if (!engine->isTransitioning()) {
+
+            //TextStream::instance() << "entered: starting next scene";
+
+            engine->transitionIntoScene(new VictoryScene(engine), new FadeOutScene(6));
         }
     }
 }
