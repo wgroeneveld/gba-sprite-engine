@@ -27,8 +27,8 @@ std::vector<Background *> VictoryScene::backgrounds() {
 }
 
 void VictoryScene::tick(u16 keys) {
-    engine->getTimer()->start();
-    if(engine->getTimer()->getSecs() > 7) {
+    //engine->getTimer()->start();
+    if(/*engine->getTimer()->getSecs() > 7*/ keys & KEY_START) {
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new Level2(engine), new FadeOutScene(6));
         }

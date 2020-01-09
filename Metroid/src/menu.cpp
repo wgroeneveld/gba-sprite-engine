@@ -23,19 +23,20 @@
 #include "Level1.h"
 #include "IntroScene.h"
 #include "VictoryScene.h"
+#include "Level2.h"
 
 std::vector<Background *> Menu::backgrounds() {
-    return {bg.get(), bg2.get(), /*bg3.get()*/};
+    return {bg.get()/*, bg2.get(), bg3.get()*/};
 }
 
 std::vector<Sprite *> Menu::sprites() {
-    return {  metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), firebolt.get() };
+    return {  /*metroidObject->getMetroid(), ball_projectiel.get(), enemyObject->getMario(), bulletObject->getBullet(), firebolt.get()*/ };
 }
 
 void Menu::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackground2Pal, sizeof(sharedBackground2Pal)));
-
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tussenschermMapPal, sizeof(tussenschermMapPal)));
+    /*
     SpriteBuilder<Sprite> builder;
 
     metroidBewegen = builder
@@ -80,11 +81,11 @@ void Menu::load() {
     metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
-
-    bg = std::unique_ptr<Background>(new Background(1, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
+    */
+    bg = std::unique_ptr<Background>(new Background(1, tussenschermTiles, sizeof(tussenschermTiles), tussenschermMap, sizeof(tussenschermMap)));
     bg.get()->useMapScreenBlock(29);
-    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
-    bg2.get()->useMapScreenBlock(26);
+    //bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
+    //bg2.get()->useMapScreenBlock(26);
     //bg3 = std::unique_ptr<Background>(new Background(3, blackTiles, sizeof(blackTiles), blackMap, sizeof(blackMap)));
     //bg3.get()->useMapScreenBlock(4);
 
@@ -105,6 +106,7 @@ void Menu::tick(u16 keys) {
     else if(keys & KEY_UP){
         scrollY += 1;
     }*/
+    /*
     if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 96) {
         if (metroidObject->getMetroid()->getDx() == 1) {
             if(bg->getScrollX() == 300)
@@ -176,7 +178,7 @@ void Menu::tick(u16 keys) {
 
             TextStream::instance() << "entered: starting next scene";
 
-            engine->transitionIntoScene(new IntroScene(engine), new FadeOutScene(8));
+            engine->transitionIntoScene(new Level2(engine), new FadeOutScene(8));
         }
     }
 }

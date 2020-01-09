@@ -33,7 +33,7 @@ void OvergangScene1::tick(u16 keys) {
 
 void OvergangScene1::load() {
     engine.get()->disableText();
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tussenschermPal, sizeof(tussenschermPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tussenschermMapPal, sizeof(tussenschermMapPal)));
 
     bg = std::unique_ptr<Background>(new Background(0, tussenschermTiles, sizeof(tussenschermTiles), tussenschermMap, sizeof(tussenschermMap),24,0,MAPLAYOUT_32X32));
 

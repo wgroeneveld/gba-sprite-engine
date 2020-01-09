@@ -43,6 +43,7 @@ void Background::persist() {
 
 void Background::clearData() {
     this->clearMap();
+    mapData.clear();
     int empty[this->size];
     dma3_cpy(char_block(charBlockIndex), empty, this->size);
 }
