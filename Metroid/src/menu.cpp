@@ -21,7 +21,8 @@
 #include "Metroid.h"
 #include "Bullet.h"
 #include "Level1.h"
-#include "DeadScene.h"
+#include "IntroScene.h"
+#include "VictoryScene.h"
 
 std::vector<Background *> Menu::backgrounds() {
     return {bg.get(), bg2.get(), /*bg3.get()*/};
@@ -175,7 +176,7 @@ void Menu::tick(u16 keys) {
 
             TextStream::instance() << "entered: starting next scene";
 
-            engine->transitionIntoScene(new Level1(engine), new FadeOutScene(4));
+            engine->transitionIntoScene(new IntroScene(engine), new FadeOutScene(8));
         }
     }
 }

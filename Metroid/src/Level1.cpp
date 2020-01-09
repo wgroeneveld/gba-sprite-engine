@@ -24,7 +24,10 @@
 #include "Bullet.h"
 #include "test.h"
 #include "SoundDeath.h"
+#include "DeadScene.h"
 #include "SoundIntro.h"
+#include "SoundFX.h"
+#include "SoundFX2.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -35,6 +38,7 @@ std::vector<Sprite *> Level1::sprites() {
 }
 
 void Level1::load() {
+    engine->enableText();
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackground2Pal, sizeof(sharedBackground2Pal)));
 
@@ -100,21 +104,17 @@ void Level1::load() {
 void Level1::tick(u16 keys) {
 
 
-    int bla = 0;
-    int up = 0;
     if(metroidObject->getIsJumping()){
         engine->getTimer()->start();
-        bla ++;
     }
-    if(!isObstacleAbove(metroidObject->getMetroid(),bg.get())){
-        up ++;
-    }
-    if(engine->getTimer()->getSecs() == 3 || metroidObject->getIsFalling()){
+
+    if(engine->getTimer()->getTotalMsecs() > 500 || metroidObject->getIsFalling()){
         engine->getTimer()->reset();
         engine->getTimer()->stop();
         metroidObject->setIsFalling(true);
         metroidObject->setIsJumping(false);
     }
+
 
     metroidObject->setCanGoRight(!isObstacleInFront((metroidObject->getMetroid()), bg.get()));
     metroidObject->setCanGoLeft(!isObstacleBehind(metroidObject->getMetroid(), bg.get()));
@@ -127,7 +127,7 @@ void Level1::tick(u16 keys) {
  //   bulletObject->setCanGoLeft(!isObstacleBehind(bulletObject->getBullet(), bg.get()));
    // bulletObject->setCanGoRight(!isObstacleInFront(bulletObject->getBullet(), bg.get()));
 
-    TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
+    //TextStream::instance().setText(engine->getTimer()->to_string(), 12, 0);
 
 
    // TextStream::instance().setText(std::to_string(left),9,1);
@@ -142,10 +142,11 @@ void Level1::tick(u16 keys) {
     //TextStream::instance().setText(std::to_string((metroidObject->getMetroid()->getDx())) + std::string("dx"), 16, 1);
 
 
-        if (metroidObject->getMetroid()->getDx() == 1) {
+    if (metroidObject->getMetroid()->getDx() == 1) {
             if (metroidObject->getMetroid()->getX() < 122 && metroidObject->getMetroid()->getX() > 96) {
-                if (bg->getScrollX() == 272)
+                if (bg->getScrollX() == 272) {
                     scrollX = scrollX + 0;
+                }
                 else {
                     scrollX = scrollX + 2;
                     bg->setScrollX(scrollX);
@@ -154,7 +155,7 @@ void Level1::tick(u16 keys) {
                     ball_projectiel.get()->moveTo(ball_projectiel->getX() - 2, ball_projectiel->getY());
                     metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX() - 1,
                                                         metroidObject->getMetroid()->getY());
-                
+                    marioBulletObject->getBullet()->moveTo(marioBulletObject->getBullet()->getX()-2,marioBulletObject->getBullet()->getY());
             }
         }
     }
@@ -163,8 +164,9 @@ void Level1::tick(u16 keys) {
     }
     else{
         if(metroidObject->getMetroid()->getX() < 120 && metroidObject->getMetroid()->getX() > 94) {
-            if (bg->getScrollX() == 0)
+            if (bg->getScrollX() == 0) {
                 scrollX = scrollX + 0;
+            }
             else {
                 scrollX = scrollX - 2;
                 enemyObject->getMario()->moveTo(enemyObject->getMario()->getX() + 2,
@@ -172,6 +174,7 @@ void Level1::tick(u16 keys) {
                 ball_projectiel.get()->moveTo(ball_projectiel->getX() + 2, ball_projectiel->getY());
                 metroidObject->getMetroid()->moveTo(metroidObject->getMetroid()->getX() + 1,
                                                     metroidObject->getMetroid()->getY());
+                marioBulletObject->getBullet()->moveTo(marioBulletObject->getBullet()->getX()+2,marioBulletObject->getBullet()->getY());
                 bg->setScrollX(scrollX);
             }
         }
@@ -201,6 +204,9 @@ void Level1::tick(u16 keys) {
                 bulletObject->setIsShooting(false);
             }
         }
+    }
+    if(metroidObject->getMetroid()->getX()+36 == bulletObject->getBullet()->getX() || metroidObject->getMetroid()->getX() == bulletObject->getBullet()->getX()+9 ){
+        engine->enqueueSound(laser_sound,laser_sound_bytes, 90000);
     }
 
 
@@ -248,10 +254,6 @@ void Level1::tick(u16 keys) {
         }
     }
 
-
-    /*if( (metroidObject->getMetroid()->getX() + 80 <= bulletObject->getBullet()->getX()) || (metroidObject->getMetroid()->getX() -64 >= bulletObject->getBullet()->getX()) ) {
-        bulletObject->setIsShooting(false);
-    }*/
 
     metroidObject->tick(keys);
     enemyObject->tick(keys);
@@ -309,6 +311,7 @@ void Level1::tick(u16 keys) {
     }
 
     if(metroidObject->getMetroid()->collidesWith(*(ball_projectiel))){
+        engine->enqueueSound(power_up,power_up_bytes,90000);
         ball_projectiel->moveTo(0,230);
         metroidObject->setPowerUp(true);
         TextStream::instance().setText("Power up",3,19);
@@ -322,6 +325,15 @@ void Level1::tick(u16 keys) {
         metroidObject->reduceLives(25);
     }
 
-    TextStream::instance().setText(std::to_string(metroidObject->getLives())+"/100",0,10) ;
+    TextStream::instance().setText(std::to_string(metroidObject->getLives())+" health",0,2) ;
+
+    if (metroidObject->getLives() <= 0) {
+        if (!engine->isTransitioning()) {
+
+            //TextStream::instance() << "entered: starting next scene";
+
+            engine->transitionIntoScene(new DeadScene(engine), new FadeOutScene(6));
+        }
+    }
 }
 
