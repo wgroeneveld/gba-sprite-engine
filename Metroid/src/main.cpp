@@ -11,6 +11,7 @@
 
 #include "menu.h"
 #include "IntroScene.h"
+#include "Level1.h"
 
 int main() {
     std::shared_ptr<GBAEngine> engine(new GBAEngine());

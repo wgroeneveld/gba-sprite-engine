@@ -34,7 +34,7 @@ std::vector<Sprite *> Menu::sprites() {
 
 void Menu::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackgroundPal, sizeof(sharedBackgroundPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(sharedBackground2Pal, sizeof(sharedBackground2Pal)));
 
     SpriteBuilder<Sprite> builder;
 
@@ -81,9 +81,9 @@ void Menu::load() {
     enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
     bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
 
-    bg = std::unique_ptr<Background>(new Background(1, dungeon_backgroundTiles, sizeof(dungeon_backgroundTiles), dungeon_backgroundMap, sizeof(dungeon_backgroundMap)));
+    bg = std::unique_ptr<Background>(new Background(1, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg.get()->useMapScreenBlock(29);
-    bg2 = std::unique_ptr<Background>(new Background(2, MoonTiles, sizeof(MoonTiles), MoonMap, sizeof(MoonMap)));
+    bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap)));
     bg2.get()->useMapScreenBlock(26);
     //bg3 = std::unique_ptr<Background>(new Background(3, blackTiles, sizeof(blackTiles), blackMap, sizeof(blackMap)));
     //bg3.get()->useMapScreenBlock(4);

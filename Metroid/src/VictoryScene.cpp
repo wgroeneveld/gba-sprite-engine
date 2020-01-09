@@ -10,7 +10,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "SoundIntro.h"
 #include "achtergrondIntro.h"
-#include "Level1.h"
+#include "Level2.h"
 #include "achtergrondVictory.h"
 #include "SoundVictory.h"
 
@@ -27,12 +27,12 @@ std::vector<Background *> VictoryScene::backgrounds() {
 }
 
 void VictoryScene::tick(u16 keys) {
-    if(keys & KEY_START) {
+    engine->getTimer()->start();
+    if(engine->getTimer()->getSecs() > 7) {
         if (!engine->isTransitioning()) {
-            engine->transitionIntoScene(new Level1(engine), new FadeOutScene(6));
+            engine->transitionIntoScene(new Level2(engine), new FadeOutScene(6));
         }
     }
-
 }
 
 void VictoryScene::load() {

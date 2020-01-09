@@ -33,159 +33,12 @@ void Metroid::setIsJumping(bool value) {
 
 void Metroid::tick(u16 keys) {
 
-/*
-    if(isJumping){
-        if(goLeft){
-            getMetroid()->setVelocity(-1, -1);
-        }
-        else{
-            getMetroid()->setVelocity(+1, -1);
-        }
-    }
-
-    if(isFalling){
-        if(getMetroid()->getY() == 80){
-            isFalling = false;
-            canJump = true;
-        }
-        else {
-            if(goLeft){
-                getMetroid()->setVelocity(-1, 1);
-            }
-            else{
-                getMetroid()->setVelocity(+1, 1);
-            }
-        }
-    }
-
-
-    if(!canGoRight){
-        getMetroid()->setDx(0);
-    }
-    else if(!canGoLeft){
-        getMetroid()->setDx(0);
-    }
-    else if(!canGoUp){
-        if(isJumping){
-            isJumping = false;
-            isFalling = true;
-        }
-    }
-    else if(!canGoDown && !isJumping){
-        getMetroid()->setDy(0);
-        isFalling = false;
-        canJump = true;
-    }
-    else if(isJumping){
-        if(keys & KEY_LEFT){
-            getMetroid()->setDx(-1);
-        }
-        if(keys & KEY_RIGHT){
-            getMetroid()->setDx(1);
-        }
-    }
-    else if(isFalling){
-        getMetroid()->setDy(-1);
-        if(keys & KEY_LEFT){
-            getMetroid()->setDx(-1);
-        }
-        if(keys & KEY_RIGHT){
-            getMetroid()->setDx(1);
-        }
-    }
-    else if(canGoDown){
-        isFalling = true;
-        canJump = false;
-    }
-
-    if(keys & KEY_LEFT && canGoLeft) {
-        if(canJump){
-            goLeft =true;
-            isCrouching = false;
-            if(keys & KEY_B){
-                isJumping = true;
-                canJump = false;
-                getMetroid()->animateToFrame(5);
-                getMetroid()->flipHorizontally(true);
-                getMetroid()->stopAnimating();
-            }
-            else {
-                getMetroid()->makeAnimated(6, 5);
-                getMetroid()->flipHorizontally(true);
-                getMetroid()->setVelocity(-1, 0);
-            }
-
-
-    } else if(keys & KEY_RIGHT && canGoRight) {
-        if(canJump){
-            goLeft = false;
-            isCrouching = false;
-            if(keys & KEY_B) {
-                isJumping = true;
-                canJump = false;
-                getMetroid()->animateToFrame(5);
-                getMetroid()->flipHorizontally(false);
-                getMetroid()->stopAnimating();
-            }
-            else{
-                getMetroid()->makeAnimated(6,5);
-                getMetroid()->flipHorizontally(false);
-                getMetroid()->setVelocity(+1, 0);
-            }
-
-
-    }
-    else if(keys & KEY_DOWN){
-        if(canJump) {
-            isCrouching = true;
-            getMetroid()->animateToFrame(10);
-            getMetroid()->setVelocity(0, 0);
-            if (goLeft) {
-                getMetroid()->flipHorizontally(true);
-            } else {
-                getMetroid()->flipHorizontally(false);
-            }
-        }
-    }
-    else if(keys & KEY_B){
-        isJumping = true;
-        canJump = false;
-
-        if(goLeft){
-            getMetroid()->flipHorizontally(true);
-        } else{
-            getMetroid()->flipHorizontally(false);
-        }
-        getMetroid()->animateToFrame(5);
-        getMetroid()->setVelocity(0,1);
-        getMetroid()->stopAnimating();
-    }
-    else {
-        if(canJump) {
-            getMetroid()->animateToFrame(7);
-            getMetroid()->stopAnimating();
-            getMetroid()->setVelocity(0, 0);
-            isCrouching = false;
-        }
-    }
-
-
-
-
-}*/
 
 if(isJumping){
     if(!canGoUp){
-        //getMetroid()->setDy(1);
         isJumping = false;
         isFalling = true;
     }
-  /*  else if (!canGoLeft){
-        getMetroid()->setDx(0);
-    }
-    else if (!canGoRight){
-        getMetroid()->setDx(0);
-    }*/
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
         getMetroid()->flipHorizontally(true);
@@ -206,12 +59,6 @@ else if (isFalling){
         isFalling = false;
         getMetroid()->setDy(0);
     }
-  /*  else if (!canGoLeft){
-        getMetroid()->setDx(0);
-    }
-    else if (!canGoRight){
-        getMetroid()->setDx(0);
-    }*/
     else if (canGoLeft && (keys & KEY_LEFT)){
         getMetroid()->setDx(-1);
         getMetroid()->flipHorizontally(true);
