@@ -11,6 +11,7 @@
 #include "sprites/sprite_enemy.h"
 #include "sprites/sprite_pal.h"
 #include "sprites/sprite_airball.h"
+#include "sprites/sprite_healthbarenemy.h"
 
 #include "background_game/backgroundGround/background13_set.h"
 #include "background_game/backgroundGround/background1_map.h"
@@ -27,23 +28,23 @@ std::vector<Background *> Scene_Level2::backgrounds() {
 }
 
 std::vector<Sprite *> Scene_Level2::sprites() {
+    enemy = createNewEnemy();
     std::vector<Sprite*> sprites;
     sprites.push_back(aang.get());
-    sprites.push_back(enemy.get());
+    sprites.push_back(enemy->getEnemySprite());
+    sprites.push_back(enemy->getHealthBarSprite());
     return sprites;
 }
 
 void Scene_Level2::load() {
     engine.get()->enableText();
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritePal, sizeof(spritePal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
 
     backgroundGround = std::unique_ptr<Background>(new Background(1, background13Tiles, sizeof(background13Tiles),background1Map , sizeof(background1Map), 9, 1, MAPLAYOUT_32X32));
     backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 25, 2, MAPLAYOUT_32X32));
     backgroundSun = std::unique_ptr<Background>(new Background(3, background13Tiles, sizeof(background13Tiles),background3Map , sizeof(background3Map), 12, 1, MAPLAYOUT_32X64));
-
-    SpriteBuilder<Sprite> builder;
 
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
@@ -51,10 +52,12 @@ void Scene_Level2::load() {
             .withLocation(100,90)
             .buildPtr();
 
-    enemy = builder
-            .withData(enemyTiles, sizeof(enemyTiles))
-            .withSize(SIZE_32_32)
-            .withLocation(150,85)
+
+
+    healthbarenemy = builder
+            .withData(healthbarenemyTiles, sizeof(healthbarenemyTiles))
+            .withSize(SIZE_16_8)
+            .withLocation(158,80)
             .buildPtr();
 }
 
@@ -138,7 +141,7 @@ void Scene_Level2::moveAang() {
 
 void Scene_Level2::moveOthers() {
     if (isWalkingLeft && !isAttacking) {
-        enemy->moveTo(enemy->getX() + xVelocity, enemy->getY());
+        enemy->getEnemySprite()->moveTo(enemy->getEnemySprite()->getX() + xVelocity, enemy->getEnemySprite()->getY());
         xScrollingGround--;
         backgroundGround.get()->scroll(xScrollingGround,0);
         if(xScrollingGround%3 == 0) {
@@ -152,7 +155,7 @@ void Scene_Level2::moveOthers() {
     }
 
     if (isWalkingRight && !isAttacking) {
-        enemy->moveTo(enemy->getX() - xVelocity, enemy->getY());
+        enemy->getEnemySprite()->moveTo(enemy->getEnemySprite()->getX() - xVelocity, enemy->getEnemySprite()->getY());
         xScrollingGround++;
         backgroundGround.get()->scroll(xScrollingGround, 0);
         if (xScrollingGround % 3 == 0) {
@@ -164,4 +167,14 @@ void Scene_Level2::moveOthers() {
             if (xScrollingSun < 80) backgroundSun.get()->scroll(xScrollingSun, 0);
         }
     }
+}
+
+std::unique_ptr<Enemy> Scene_Level2::createNewEnemy() {
+    return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_32)
+                                                       .withLocation(150,85)
+                                                       .buildWithDataOf(*enemy->getEnemySprite()),
+                                               builder.withSize(SIZE_16_8)
+                                                       .withLocation(158,80)
+                                                       .buildWithDataOf(*enemy->getHealthBarSprite())));
+
 }
