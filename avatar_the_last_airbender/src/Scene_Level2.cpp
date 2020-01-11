@@ -246,7 +246,7 @@ void Scene_Level2::tick(u16 keys) {
     ///ENEMY///
     ///////////
     int oldEnemysSize = enemys.size();
-    if(enemys.size()<0){
+    if(enemys.size()<3){
         enemys.push_back(createNewEnemy());
     }
 
