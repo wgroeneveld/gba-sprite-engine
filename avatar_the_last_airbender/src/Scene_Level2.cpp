@@ -67,8 +67,6 @@ void Scene_Level2::load() {
             .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
-
-
     someEnemySprite = builder
             .withData(enemyTiles, sizeof(enemyTiles))
             .withSize(SIZE_32_32)
@@ -90,13 +88,12 @@ void Scene_Level2::load() {
 
 
     healthAang = 100;
+    enemySpawn=0;
 }
 
 double attackCounter2 =0;
 
 void Scene_Level2::tick(u16 keys) {
-    //TextStream::instance().setText( std::string(" x: ") + std::to_string(aang->getX()), 3, 1);
-
     if (keys & KEY_LEFT) {
         if (!isWalkingLeft) isWalkingLeft = true;
     } else {
@@ -164,11 +161,10 @@ void Scene_Level2::tick(u16 keys) {
         for (auto &e: enemys) {
             if (attackCounter2 >= 40 && aang.get()->collidesWith(*e->getEnemySprite())) {
                 e->updateHealth(e->getHealth()-1);
-                if(e->getHealth()<=0){
-                    enemys.erase(enemys.begin()+1); //dit klopt nog niet, werkt alleen als er maar enen is
+                if(e->getHealth()<=0) {
+                    enemys.erase(enemys.begin() + 1); //TODO dit klopt nog niet, werkt alleen als er maar enen is
                     engine.get()->updateSpritesInScene();
                 }
-                // TODO nog laten weggaan als dood is
                 attackCounter2 = 0;
             }
             if (!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
@@ -181,9 +177,6 @@ void Scene_Level2::tick(u16 keys) {
             }
         }
     }
-
-
-
 
 
     ///AIRBALL-SHOOTING + END OF ATTACK ACTION///
@@ -199,7 +192,7 @@ void Scene_Level2::tick(u16 keys) {
         // een airball afschieten:
         if(airBalls.size() < 10) {
             airBalls.push_back(createAirBall(isWalkingLeft));
-
+            airBalls.at(airBalls.size()-1).get()->getSprite()->makeAnimated(0,2,10);
         }
     }
 
@@ -241,13 +234,14 @@ void Scene_Level2::tick(u16 keys) {
         engine.get()->updateSpritesInScene();
     }
 
-
-    ///////////
-    ///ENEMY///
-    ///////////
+    ////// ENEMY //////
+    TextStream::instance().setText(std::string("Next enemy will spawn in ") + std::to_string(enemySpawn), 1, 1);
     int oldEnemysSize = enemys.size();
-    if(enemys.size()<3){
+    if(enemySpawn<=0){
         enemys.push_back(createNewEnemy());
+        enemySpawn=400;
+    }else{
+        enemySpawn--;
     }
 
     if(oldEnemysSize != enemys.size()) {

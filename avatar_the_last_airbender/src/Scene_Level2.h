@@ -34,6 +34,7 @@ private:
     bool isAttacking;
 
     double healthAang;
+    double enemySpawn;
 
     SpriteBuilder<Sprite> builder;
     void removeAirBallsOffScreen();
