@@ -6,13 +6,16 @@
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
 
 #include "Enemy.h"
+#include "AirBall.h"
 
 class Scene_Level2: public Scene {
 private:
     std::unique_ptr<Sprite> aang;
-    //std::unique_ptr<Sprite> enemy;
-    std::unique_ptr<Enemy> enemy;
-    std::unique_ptr<Sprite> healthbarenemy;
+    std::unique_ptr<Sprite> someEnemySprite;
+    std::unique_ptr<Sprite> someAirBallSprite;
+    std::unique_ptr<Sprite> someHealthbarSprite;
+    std::vector<std::unique_ptr<AirBall>> airBalls;
+    std::vector<std::unique_ptr<Enemy>> enemys;
 
     std::unique_ptr<Background> backgroundGround;
     std::unique_ptr<Background> backgroundSea;
@@ -30,7 +33,10 @@ private:
     bool isJumping;
     bool isAttacking;
 
+    double healthAang;
+
     SpriteBuilder<Sprite> builder;
+    void removeAirBallsOffScreen();
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
@@ -38,6 +44,7 @@ public:
     void moveAang();
     void moveOthers();
     std::unique_ptr<Enemy> createNewEnemy();
+    std::unique_ptr<AirBall> createAirBall(bool directionToGo);
 
     Scene_Level2(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
 

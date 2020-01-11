@@ -20,6 +20,7 @@
 
 
 #include "math.h"
+#include "sprites/sprite_healthbarenemy.h"
 #include <algorithm>
 
 #define AIRBALL_ROTATION_DIFF (128*6)
@@ -35,9 +36,14 @@ std::vector<Sprite *> Scene_Level1::sprites() {
     for(auto& ab : airBalls ){
         sprites.push_back(ab->getSprite());
     }
-    if(healthEnemey>0) sprites.push_back(enemy.get());
+    for(auto& e : enemys ){
+        sprites.push_back(e->getEnemySprite());
+        sprites.push_back(e->getHealthBarSprite());
+    }
     sprites.push_back(aang.get());
     sprites.push_back(someAirBallSprite.get());
+    sprites.push_back(someHealthbarSprite.get());
+    sprites.push_back(someEnemySprite.get());
 
     return sprites;
 }
@@ -58,7 +64,6 @@ void Scene_Level1::load() {
 
     spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
     SpriteBuilder<Sprite> builder;
-    SpriteBuilder<AffineSprite> affBuilder;
 
 
     someAirBallSprite = builder
@@ -70,22 +75,27 @@ void Scene_Level1::load() {
 
 
 
-    enemy = affBuilder
+    someEnemySprite = builder
             .withData(enemyTiles, sizeof(enemyTiles))
             .withSize(SIZE_32_32)
-            .withLocation(150,75)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
+            .buildPtr();
+
+    someHealthbarSprite = builder
+            .withData(healthbarenemyTiles, sizeof(healthbarenemyTiles))
+            .withSize(SIZE_16_8)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_32_32)
-            .withLocation(100,81)
+            .withLocation(20,81)
             .buildPtr();
     aang->setStayWithinBounds(true);
 
 
     healthAang = 100;
-    healthEnemey = 50;
 
 }
 
@@ -106,7 +116,7 @@ double attackCounter =0;
 void Scene_Level1::tick(u16 keys) {
 
     TextStream::instance().setText( std::string(" Health aang: ") + std::to_string(healthAang), 3, 1);
-    TextStream::instance().setText( std::string(" Health enemy: ") + std::to_string(healthEnemey), 4, 1);
+    TextStream::instance().setText( std::string(" Amount of enemy: ") + std::to_string(enemys.size()), 4, 1);
     TextStream::instance().setText(std::string(" Attack counter: ") +std::to_string(attackCounter), 5,1);
 
     if(keys & KEY_LEFT) {
@@ -168,24 +178,33 @@ void Scene_Level1::tick(u16 keys) {
 
 ////COLLISION DETECION AANG AND ENEMY ////
     if(isAttacking) {
-        if(attackCounter>= 40 && aang.get()->collidesWith(*enemy.get())){
-            healthEnemey--;
-            if(healthEnemey<0) engine.get()->updateSpritesInScene();
-            attackCounter=0;
+        for (auto &e: enemys) {
+            if (attackCounter >= 40 && aang.get()->collidesWith(*e->getEnemySprite())) {
+                e->updateHealth(e->getHealth()-1);
+                if(e->getHealth()<=0){
+                    enemys.erase(enemys.begin()+1); //dit klopt nog niet, werkt alleen als er maar enen is
+                    engine.get()->updateSpritesInScene();
+                }
+                // TODO nog laten weggaan als dood is
+                attackCounter = 0;
+            }
+            if (!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
         }
-        if(!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
-    } else {
-        if(attackCounter>= 40 && aang.get()->collidesWith(*enemy.get())){
-            healthAang--;
-            attackCounter =0;
+    }else {
+        for(auto &e : enemys){
+            if (attackCounter >= 40 && aang.get()->collidesWith(*e->getEnemySprite())) {
+                healthAang--;
+                attackCounter = 0;
+            }
         }
     }
 
 
 
 
-    ///AIRBALL-SHOOTING + END OF ATTACK ACTION///
 
+    ///AIRBALL-SHOOTING + END OF ATTACK ACTION///
+    // TODO zorg dat tijdens het doen van de attack functie deze gegevens niet wordne opgehaald zodat aang vlotter kan slaan
     int oldAirBallsSize = airBalls.size();
     removeAirBallsOffScreen();
     TextStream::instance().setText(std::string("Amount of airBalls: ") + std::to_string(airBalls.size()), 1, 1);
@@ -196,10 +215,7 @@ void Scene_Level1::tick(u16 keys) {
 
         // een airball afschieten:
         if(airBalls.size() < 10) {
-            airBalls.push_back(createAirBall());
-
-            auto &ab = airBalls.at(airBalls.size()-1);
-            ab->setLeft(aangIsGoingLeft);
+            airBalls.push_back(createAirBall(aangIsGoingLeft));
 
         }
     }
@@ -215,17 +231,26 @@ void Scene_Level1::tick(u16 keys) {
 
 
     ////COLLISION DETECION ENEMY AND AIRBAL ////
+
     int positionToBeDeleted=-1;
     if(airBalls.size() > 0){
+
         int position =0;
         for(auto& ab : airBalls){
-            if(attackCounter >= 40 && ab.get()->getSprite()->collidesWith(*enemy.get())) {
-                healthEnemey -= 20;
-                attackCounter = 0;
-                positionToBeDeleted = position;
+            for(auto& e : enemys) {
+                if (attackCounter >= 40 && ab.get()->getSprite()->collidesWith(*e->getEnemySprite())) {
+                    e->updateHealth(e->getHealth()-1);
+                    if(e->getHealth()<=0){
+                        enemys.erase(enemys.begin()+1); //dit klopt nog niet, werkt alleen als er maar enen is
+                        engine.get()->updateSpritesInScene();
+                    }
+                    attackCounter = 0;
+                    positionToBeDeleted = position;
+                }
+                position++;
             }
-            position++;
         }
+
     }
 
     if(positionToBeDeleted>=0) {
@@ -237,26 +262,47 @@ void Scene_Level1::tick(u16 keys) {
     ///////////
     ///ENEMY///
     ///////////
-    if(countEnemy>=100){
-        countEnemy =0;
-        enemy->moveTo(enemy->getX() -5, enemy->getY());
-        enemy->flipHorizontally(true);
-
-    } else{
-        countEnemy++;
+    int oldEnemysSize = enemys.size();
+    if(enemys.size()<1){
+        enemys.push_back(createNewEnemy());
     }
+
+    if(oldEnemysSize != enemys.size()) {
+        engine.get()->updateSpritesInScene();
+    }
+
+    for(auto &e: enemys){
+        if(e.get()->getEnemySprite()->getX()>aang.get()->getX()){
+            e->setDirectionIsLeft(true);
+        }else e->setDirectionIsLeft(false);
+        e->tick();
+    }
+
+
     attackCounter++;
+
 }
 
-std::unique_ptr<AirBall> Scene_Level1::createAirBall() {
+std::unique_ptr<AirBall> Scene_Level1::createAirBall(bool directionTogo) {
     if(aangIsGoingLeft){
         return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
                                                             ->withLocation(aang->getX() - aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
-                                                            .buildWithDataOf(*someAirBallSprite.get())));
+                                                            .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
 
     }else{
-     return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
+        return std::unique_ptr<AirBall>(new AirBall(spriteBuilder
                                                     ->withLocation(aang->getX() + aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
-                                                      .buildWithDataOf(*someAirBallSprite.get())));
+                                                      .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
     }
+}
+
+
+std::unique_ptr<Enemy> Scene_Level1::createNewEnemy() {
+    return std::unique_ptr<Enemy>(new Enemy(   spriteBuilder->withSize(SIZE_32_32)
+                                                       .withLocation(200,85)
+                                                       .buildWithDataOf(*someEnemySprite.get()),
+                                               spriteBuilder->withSize(SIZE_16_8)
+                                                       .withLocation(208,80)
+                                                       .buildWithDataOf(*someHealthbarSprite.get())));
+
 }

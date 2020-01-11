@@ -21,7 +21,8 @@ private:
     bool left;
 
 public:
-    AirBall(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), left(true) {}
+   // AirBall(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), left(true) {}
+    AirBall(std::unique_ptr<Sprite> sprite, bool directionTogo) : sprite(std::move(sprite)), left(directionTogo) {}
 
     void tick();
     void setLeft(bool left);

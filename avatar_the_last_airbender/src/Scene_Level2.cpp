@@ -4,6 +4,7 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
+#include <algorithm>
 
 #include "Scene_Level2.h"
 
@@ -28,12 +29,25 @@ std::vector<Background *> Scene_Level2::backgrounds() {
 }
 
 std::vector<Sprite *> Scene_Level2::sprites() {
-    enemy = createNewEnemy();
     std::vector<Sprite*> sprites;
+    for(auto& ab : airBalls ){
+        sprites.push_back(ab->getSprite());
+    }
+    for(auto& e : enemys ){
+        sprites.push_back(e->getEnemySprite());
+        sprites.push_back(e->getHealthBarSprite());
+    }
     sprites.push_back(aang.get());
-    sprites.push_back(enemy->getEnemySprite());
-    sprites.push_back(enemy->getHealthBarSprite());
+    sprites.push_back(someAirBallSprite.get());
+    sprites.push_back(someHealthbarSprite.get());
+    sprites.push_back(someEnemySprite.get());
     return sprites;
+}
+
+void Scene_Level2::removeAirBallsOffScreen() {
+    airBalls.erase(
+            std::remove_if(airBalls.begin(), airBalls.end(), [](std::unique_ptr<AirBall> &s) { return s->isOffScreen(); }),
+            airBalls.end());
 }
 
 void Scene_Level2::load() {
@@ -46,20 +60,39 @@ void Scene_Level2::load() {
     backgroundSea = std::unique_ptr<Background>(new Background(2, background2Tiles, sizeof(background2Tiles),background2Map , sizeof(background2Map), 25, 2, MAPLAYOUT_32X32));
     backgroundSun = std::unique_ptr<Background>(new Background(3, background13Tiles, sizeof(background13Tiles),background3Map , sizeof(background3Map), 12, 1, MAPLAYOUT_32X64));
 
+    someAirBallSprite = builder
+            .withData(airballTiles, sizeof(airballTiles))
+            .withSize(SIZE_16_16)
+            .withAnimated(2,5)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
+            .buildPtr();
+
+
+
+    someEnemySprite = builder
+            .withData(enemyTiles, sizeof(enemyTiles))
+            .withSize(SIZE_32_32)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
+            .buildPtr();
+
+    someHealthbarSprite = builder
+            .withData(healthbarenemyTiles, sizeof(healthbarenemyTiles))
+            .withSize(SIZE_16_8)
+            .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
+            .buildPtr();
+
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_32_32)
-            .withLocation(100,90)
+            .withLocation(20,81)
             .buildPtr();
+    aang->setStayWithinBounds(true);
 
 
-
-    healthbarenemy = builder
-            .withData(healthbarenemyTiles, sizeof(healthbarenemyTiles))
-            .withSize(SIZE_16_8)
-            .withLocation(158,80)
-            .buildPtr();
+    healthAang = 100;
 }
+
+double attackCounter2 =0;
 
 void Scene_Level2::tick(u16 keys) {
     //TextStream::instance().setText( std::string(" x: ") + std::to_string(aang->getX()), 3, 1);
@@ -125,6 +158,113 @@ void Scene_Level2::tick(u16 keys) {
             aang->animateToFrame(0);
         }
     }
+
+    ////COLLISION DETECION AANG AND ENEMY ////
+    if(isAttacking) {
+        for (auto &e: enemys) {
+            if (attackCounter2 >= 40 && aang.get()->collidesWith(*e->getEnemySprite())) {
+                e->updateHealth(e->getHealth()-1);
+                if(e->getHealth()<=0){
+                    enemys.erase(enemys.begin()+1); //dit klopt nog niet, werkt alleen als er maar enen is
+                    engine.get()->updateSpritesInScene();
+                }
+                // TODO nog laten weggaan als dood is
+                attackCounter2 = 0;
+            }
+            if (!aang->isAnimating()) aang->makeAnimated(5, 4, 12);
+        }
+    }else {
+        for(auto &e : enemys){
+            if (attackCounter2 >= 40 && aang.get()->collidesWith(*e->getEnemySprite())) {
+                healthAang--;
+                attackCounter2 = 0;
+            }
+        }
+    }
+
+
+
+
+
+    ///AIRBALL-SHOOTING + END OF ATTACK ACTION///
+    // TODO zorg dat tijdens het doen van de attack functie deze gegevens niet wordne opgehaald zodat aang vlotter kan slaan
+    int oldAirBallsSize = airBalls.size();
+    removeAirBallsOffScreen();
+    TextStream::instance().setText(std::string("Amount of airBalls: ") + std::to_string(airBalls.size()), 1, 1);
+    if(aang->getCurrentFrame() > 7) {
+        isAttacking = false;
+        aang->stopAnimating();
+        aang->animateToFrame(0);
+
+        // een airball afschieten:
+        if(airBalls.size() < 10) {
+            airBalls.push_back(createAirBall(isWalkingLeft));
+
+        }
+    }
+
+
+    if(oldAirBallsSize != airBalls.size()) {
+        engine.get()->updateSpritesInScene();
+    }
+
+    for(auto &ab : airBalls) {
+        ab->tick();
+    }
+
+
+    ////COLLISION DETECION ENEMY AND AIRBAL ////
+
+    int positionToBeDeleted=-1;
+    if(airBalls.size() > 0){
+
+        int position =0;
+        for(auto& ab : airBalls){
+            for(auto& e : enemys) {
+                if (attackCounter2 >= 40 && ab.get()->getSprite()->collidesWith(*e->getEnemySprite())) {
+                    e->updateHealth(e->getHealth()-1);
+                    if(e->getHealth()<=0){
+                        enemys.erase(enemys.begin()+1); //dit klopt nog niet, werkt alleen als er maar enen is
+                        engine.get()->updateSpritesInScene();
+                    }
+                    attackCounter2 = 0;
+                    positionToBeDeleted = position;
+                }
+                position++;
+            }
+        }
+
+    }
+
+    if(positionToBeDeleted>=0) {
+        airBalls.erase(airBalls.begin()+positionToBeDeleted);
+        engine.get()->updateSpritesInScene();
+    }
+
+
+    ///////////
+    ///ENEMY///
+    ///////////
+    int oldEnemysSize = enemys.size();
+    if(enemys.size()<0){
+        enemys.push_back(createNewEnemy());
+    }
+
+    if(oldEnemysSize != enemys.size()) {
+        engine.get()->updateSpritesInScene();
+    }
+
+    for(auto &e: enemys){
+        if(e.get()->getEnemySprite()->getX()>aang.get()->getX()){
+            e->setDirectionIsLeft(true);
+        }else e->setDirectionIsLeft(false);
+        e->tick();
+    }
+
+
+    attackCounter2++;
+
+
 }
 
 
@@ -141,7 +281,12 @@ void Scene_Level2::moveAang() {
 
 void Scene_Level2::moveOthers() {
     if (isWalkingLeft && !isAttacking) {
-        enemy->getEnemySprite()->moveTo(enemy->getEnemySprite()->getX() + xVelocity, enemy->getEnemySprite()->getY());
+        for(auto& e: enemys) {
+            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() + xVelocity,
+                                            e->getEnemySprite()->getY());
+            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() + xVelocity,
+                                        e->getHealthBarSprite()->getY());
+        }
         xScrollingGround--;
         backgroundGround.get()->scroll(xScrollingGround,0);
         if(xScrollingGround%3 == 0) {
@@ -155,7 +300,13 @@ void Scene_Level2::moveOthers() {
     }
 
     if (isWalkingRight && !isAttacking) {
-        enemy->getEnemySprite()->moveTo(enemy->getEnemySprite()->getX() - xVelocity, enemy->getEnemySprite()->getY());
+        for(auto& e: enemys) {
+            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() - xVelocity,
+                                            e->getEnemySprite()->getY());
+            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() - xVelocity,
+                                        e->getHealthBarSprite()->getY());
+
+        }
         xScrollingGround++;
         backgroundGround.get()->scroll(xScrollingGround, 0);
         if (xScrollingGround % 3 == 0) {
@@ -169,12 +320,26 @@ void Scene_Level2::moveOthers() {
     }
 }
 
+std::unique_ptr<AirBall> Scene_Level2::createAirBall(bool directionTogo) {
+    if(isWalkingLeft){
+        return std::unique_ptr<AirBall>(new AirBall(builder
+                                                            .withLocation(aang->getX() - aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
+                                                            .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
+
+    }else{
+        return std::unique_ptr<AirBall>(new AirBall(builder
+        .withLocation(aang->getX() + aang->getWidth() / 2, aang->getY() + aang->getHeight() / 4)
+                                                            .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
+    }
+}
+
+
 std::unique_ptr<Enemy> Scene_Level2::createNewEnemy() {
     return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_32)
-                                                       .withLocation(150,85)
-                                                       .buildWithDataOf(*enemy->getEnemySprite()),
+                                                       .withLocation(200,85)
+                                                       .buildWithDataOf(*someEnemySprite.get()),
                                                builder.withSize(SIZE_16_8)
-                                                       .withLocation(158,80)
-                                                       .buildWithDataOf(*enemy->getHealthBarSprite())));
+                                                       .withLocation(208,80)
+                                                       .buildWithDataOf(*someHealthbarSprite.get())));
 
 }
