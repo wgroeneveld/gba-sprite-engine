@@ -2,15 +2,15 @@
 // Created by kyles on 27/12/2019.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_MENU_H
-#define GBA_SPRITE_ENGINE_PROJECT_MENU_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_TRANSITION_H
+#define GBA_SPRITE_ENGINE_PROJECT_TRANSITION_H
 
 #include <libgba-sprite-engine/scene.h>
 #include "Metroid.h"
 #include "Mario.h"
 #include "Bullet.h"
 
-class Menu : public Scene {
+class Transition : public Scene {
 private:
     std::unique_ptr<Sprite> metroidBewegen;
     std::unique_ptr<Sprite> ball_projectiel;
@@ -31,11 +31,11 @@ public:
     std::vector<Background *> backgrounds() override;
 
 
-    Menu(std::shared_ptr<GBAEngine> engine) : Scene(engine), scrollX(0), scrollY(0) {}
+    Transition(std::shared_ptr<GBAEngine> engine) : Scene(engine), scrollX(0), scrollY(0) {}
 
     void load() override;
     void tick(u16 keys) override;
 
 };
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_MENU_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_TRANSITION_H

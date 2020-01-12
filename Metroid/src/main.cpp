@@ -9,7 +9,7 @@
 #include <libgba-sprite-engine/palette/palette_manager.h>
 #include <libgba-sprite-engine/allocator.h>
 
-#include "menu.h"
+#include "Transition.h"
 #include "IntroScene.h"
 #include "Level1.h"
 

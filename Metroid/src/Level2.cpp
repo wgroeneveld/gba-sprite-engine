@@ -9,7 +9,7 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
-#include "menu.h"
+#include "Transition.h"
 #include <libgba-sprite-engine/gba/tonc_math.h>
 
 #include "samus_aran.h"
@@ -23,6 +23,7 @@
 #include "SoundFX2.h"
 #include "VictoryScene.h"
 #include "achtergrondDataLvl2.h"
+#include "MapdataLvl2.h"
 
 std::vector<Background *> Level2::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -43,7 +44,7 @@ void Level2::load() {
             .withData(animatie_metroidTiles, sizeof(animatie_metroidTiles))
             .withSize(SIZE_32_64)
             .withAnimated(11, 1)
-            .withLocation(28, 80)
+            .withLocation(28, 88)
             .buildPtr();
 
     ball_projectiel = builder
@@ -77,11 +78,7 @@ void Level2::load() {
             .buildPtr();
 
 
-    metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
-    enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
-    bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
-    marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
-    std::vector<unsigned short int> lvl2Map = {
+    std::vector<unsigned short int> lvl3Map = {
             0x1001,0x2002,0x1003,0x1004,0x1005,0x1006,0x1003,0x1004,
             0x1005,0x1006,0x1003,0x1004,0x1005,0x1006,0x1003,0x1004,
             0x1005,0x1006,0x1003,0x1004,0x1005,0x1006,0x1003,0x1004,
@@ -371,19 +368,18 @@ void Level2::load() {
             0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
     };
 
+    metroidObject = std::unique_ptr<Metroid>(new Metroid(std::move(metroidBewegen)));
+    enemyObject = std::unique_ptr<Mario>(new Mario(std::move(enemy)));
+    bulletObject = std::unique_ptr<Bullet>(new Bullet(std::move(projectiel)));
+    marioBulletObject = std::unique_ptr<MarioBullet>(new MarioBullet(std::move(firebolt)));
+
     bg = std::unique_ptr<Background>(new Background(1, mapForegroundLvl2Tiles, sizeof(mapForegroundLvl2Tiles), mapForegroundLvl2Map, sizeof(mapForegroundLvl2Map),17,1,MAPLAYOUT_32X64));
     bg->setMapData(lvl2Map);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap),25,2,MAPLAYOUT_32X32));
 
-
 }
 
 void Level2::tick(u16 keys) {
-
-    //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getX()) + std::string("Pos X"), 5, 1);
-    //TextStream::instance().setText(std::to_string(metroidObject->getMetroid()->getY()) + std::string("Pos Y"), 7, 1);
-    //TextStream::instance().setText(std::to_string(isObstacleInFrontIntVector(metroidObject->getMetroid(),bg.get())) + std::string("Pos Y obs"), 7, 1);
-
 
     if(metroidObject->getIsJumping()){
         engine->getTimer()->start();
@@ -595,6 +591,7 @@ void Level2::tick(u16 keys) {
     }
     if (bg->getScrollX() + metroidObject->getMetroid()->getX() == 470){
         bg->setScrollX(0);
+        bg->setScrollY(0);
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new VictoryScene(engine), new FadeOutScene(6));
         }

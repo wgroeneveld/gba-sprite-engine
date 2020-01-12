@@ -17,7 +17,7 @@ add_library(${PROJECT_NAME}
         src/background/text_stream.cpp
         src/background/background.cpp
         src/effects/fade_out_scene.cpp
-        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp ../Metroid/src/main.cpp ../Metroid/src/menu.cpp ../Metroid/src/menu.h ../Metroid/src/samus_aran.h)
+        src/sound_control.cpp src/scene.cpp src/timer.cpp include/libgba-sprite-engine/gbavector.h src/gbavector.cpp ../Metroid/src/main.cpp ../Metroid/src/Transition.cpp ../Metroid/src/Transition.h ../Metroid/src/samus_aran.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

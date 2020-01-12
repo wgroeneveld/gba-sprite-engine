@@ -8,9 +8,8 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "SoundIntro.h"
-#include "achtergrondIntro.h"
-#include "Level2.h"
+#include "IntroScene.h"
+#include "Level1.h"
 #include "achtergrondVictory.h"
 #include "SoundVictory.h"
 
@@ -27,10 +26,12 @@ std::vector<Background *> VictoryScene::backgrounds() {
 }
 
 void VictoryScene::tick(u16 keys) {
-    //engine->getTimer()->start();
-    if(/*engine->getTimer()->getSecs() > 7*/ keys & KEY_START) {
+
+    if(keys & KEY_START) {
+        bg->setScrollX(0);
+        bg->setScrollY(0);
         if (!engine->isTransitioning()) {
-            engine->transitionIntoScene(new Level2(engine), new FadeOutScene(6));
+            engine->transitionIntoScene(new IntroScene(engine), new FadeOutScene(6));
         }
     }
 }

@@ -24,7 +24,6 @@ private:
     std::unique_ptr<MarioBullet> marioBulletObject;
     std::unique_ptr<Background> bg;
     std::unique_ptr<Background> bg2;
-    std::unique_ptr<Background> bg3;
     int scrollX, scrollY;
 
 
