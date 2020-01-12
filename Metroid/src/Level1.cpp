@@ -58,15 +58,12 @@ void Level1::load() {
             .withData(ballTiles, sizeof(ballTiles))
             .withSize(SIZE_16_16)
             .withLocation(16, 47)
-          //  .withinBounds()
             .buildPtr();
 
     enemy = builder
             .withData(enemy_bigTiles, sizeof(enemy_bigTiles))
             .withSize(SIZE_16_32)
-                    // .withAnimated(7, 30)
             .withLocation(430, 112)
-         //   .withinBounds()
             .buildPtr();
 
     projectiel = builder
@@ -74,14 +71,12 @@ void Level1::load() {
             .withAnimated(5,7)
             .withLocation(30, 121)
             .withSize(SIZE_8_8)
-                    // .withinBounds()
             .buildPtr();
 
     firebolt = builder
             .withData(fireboltTiles, sizeof(fireboltTiles))
             .withLocation(224, 128)
             .withSize(SIZE_8_8)
-           // .withinBounds()
             .buildPtr();
 
 
@@ -312,8 +307,6 @@ void Level1::tick(u16 keys) {
         bg->setScrollX(0);
         bg->setScrollY(0);
         if (!engine->isTransitioning()) {
-
-            //engine->setScene(new VictoryScene(engine));
             engine->transitionIntoScene(new Transition(engine), new FadeOutScene(6));
         }
     }
