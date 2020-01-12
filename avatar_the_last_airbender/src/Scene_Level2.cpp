@@ -104,10 +104,10 @@ void Scene_Level2::tick(u16 keys) {
     } else {
         isWalkingRight = false;
     }
-    if (keys & KEY_UP) {
+    if (keys & KEY_A) {
         if (!isJumping) isJumping = true;
     }
-    if (keys & KEY_DOWN) {
+    if (keys & KEY_B) {
         if (!isAttacking && !isJumping) isAttacking = true;
     }
     if (isWalkingLeft && !isAttacking) {
