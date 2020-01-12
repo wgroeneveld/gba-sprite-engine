@@ -3,19 +3,7 @@
 //
 
 #include "MarioBullet.h"
-/*
-void MarioBullet::shootBulletLeft() {
-        shootLeft = true;
-}
 
-void MarioBullet::shootBulletRight() {
-        shootRight = true;
-}
-
-void MarioBullet::setIsShooting(bool value) {
-    isShooting = value;
-}
-*/
 void MarioBullet::tick(u16 keys) {
 
     if(!isShooting){
@@ -33,16 +21,7 @@ void MarioBullet::tick(u16 keys) {
         getBullet()->setVelocity(3, 0);
     }
     else {
-        if (isShooting) {
-          /*  if ((getBullet()->getX() <= 0) || (getBullet()->getX() >= 232)) {
-                getBullet()->setVelocity(0, 0);
-                getBullet()->moveTo(-60, 0);
-                getBullet()->stopAnimating();
-                cooldown = 0;
-                isShooting = false;
-            }*/
-        }
-        else{
+        if (!isShooting) {
             getBullet()->setVelocity(0, 0);
             getBullet()->moveTo(-60, 0);
             getBullet()->stopAnimating();

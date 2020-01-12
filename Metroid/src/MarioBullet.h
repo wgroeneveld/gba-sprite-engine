@@ -11,22 +11,12 @@
 
 class MarioBullet : public Bullet {
 private:
-    //std::unique_ptr<Sprite> bullet;
     int cooldown = 0;
-   // bool canGoLeft = true;
-  //  bool shootLeft = false;
-  //  bool shootRight = false;
-  //  bool isShooting = false;
 
 
 public:
     MarioBullet(std::unique_ptr<Sprite> sprite1) : Bullet(std::move(sprite1)){}
-   // Sprite *getBullet() {return bullet.get();}
     void tick(u16 keys) override;
-   // void shootBulletLeft();
-   // void shootBulletRight();
-   // bool getIsShooting(){return isShooting;}
-   // void setIsShooting(bool value);
     int getCooldown(){return cooldown;}
     void setCooldown(int value){cooldown = value;}
 

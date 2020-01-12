@@ -11,7 +11,6 @@
 
 class DeadScene : public Scene {
 private:
-    //std::unique_ptr<Sprite> animation;
     std::unique_ptr<Sprite> metroidDood;
 
 public:

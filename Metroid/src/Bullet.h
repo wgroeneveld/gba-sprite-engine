@@ -15,8 +15,6 @@ private:
     bool shootLeft = false;
     bool shootRight = false;
     bool isShooting = false;
-    bool canGoLeft = true;
-    bool canGoRight = true;
 
 public:
     Bullet(std::unique_ptr<Sprite> sprite1) : bullet(std::move(sprite1)){}
@@ -26,8 +24,6 @@ public:
     void shootBulletRight();
     bool getIsShooting(){return isShooting;}
     void setIsShooting(bool value);
-    void setCanGoLeft(bool value){canGoLeft = value;}
-    void setCanGoRight(bool value){canGoRight = value;}
 
     friend class MarioBullet;
 };

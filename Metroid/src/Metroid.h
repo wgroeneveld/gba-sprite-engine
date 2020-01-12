@@ -20,20 +20,8 @@ private:
     bool canGoLeft = true;
     bool canGoRight = true;
     bool canGoUp = true;
-    bool powerUp = false;
-public:
-    bool getCanGoUp() const;
-
-    void setCanGoUp(bool canGoUp);
-
-    bool getCanGoDown() const;
-
-    void setCanGoDown(bool canGoDown);
-
-private:
     bool canGoDown = false;
-
-
+    bool powerUp = false;
 
 public:
     Metroid(std::unique_ptr<Sprite> sprite1) : metroid(std::move(sprite1)){}
@@ -46,6 +34,8 @@ public:
     bool getIsJumping(){return isJumping;}
     void setCanGoRight(bool value);
     void setCanGoLeft(bool value);
+    void setCanGoUp(bool canGoUp);
+    void setCanGoDown(bool canGoDown);
     bool getIsFalling(){return isFalling;}
     void setIsFalling(bool value);
     void setIsJumping(bool value);
