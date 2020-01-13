@@ -17,8 +17,14 @@ void Enemy::updateHealth(int health) {
             break;
     }
 }
-
+int counter = 0;
 void Enemy::tick() {
+    if(!enemy->isAnimating()) {
+        enemy->makeAnimated(0,3,15);
+    }
+
+    counter++;
+    if(counter%10 != 0) return;
     if(directionIsLeft){
         enemy->flipHorizontally(true);
         enemy->moveTo(enemy->getX()-1,enemy->getY());

@@ -8,7 +8,7 @@
 //	+ 128 tiles not compressed
 //	Total size: 8192 = 8192
 //
-//	Time-stamp: 2020-01-10, 13:25:51
+//	Time-stamp: 2020-01-13, 14:29:23
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -27,7 +27,7 @@
 //	+ 128 tiles not compressed
 //	Total size: 8192 = 8192
 //
-//	Time-stamp: 2020-01-10, 13:25:51
+//	Time-stamp: 2020-01-13, 14:29:23
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //

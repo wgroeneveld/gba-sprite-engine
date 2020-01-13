@@ -69,7 +69,7 @@ void Scene_Level2::load() {
 
     someEnemySprite = builder
             .withData(enemyTiles, sizeof(enemyTiles))
-            .withSize(SIZE_32_32)
+            .withSize(SIZE_32_64)
             .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
@@ -82,7 +82,7 @@ void Scene_Level2::load() {
     aang = builder
             .withData(aangTiles, sizeof(aangTiles))
             .withSize(SIZE_32_32)
-            .withLocation(20,81)
+            .withLocation(20,90)
             .buildPtr();
     aang->setStayWithinBounds(true);
 
@@ -192,7 +192,7 @@ void Scene_Level2::tick(u16 keys) {
         // een airball afschieten:
         if(airBalls.size() < 10) {
             airBalls.push_back(createAirBall(isWalkingLeft));
-            airBalls.at(airBalls.size()-1).get()->getSprite()->makeAnimated(0,2,10);
+
         }
     }
 
@@ -330,10 +330,10 @@ std::unique_ptr<AirBall> Scene_Level2::createAirBall(bool directionTogo) {
 
 std::unique_ptr<Enemy> Scene_Level2::createNewEnemy() {
     return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_32)
-                                                       .withLocation(200,85)
+                                                       .withLocation(200,60)
                                                        .buildWithDataOf(*someEnemySprite.get()),
                                                builder.withSize(SIZE_16_8)
-                                                       .withLocation(208,80)
+                                                       .withLocation(208,65)
                                                        .buildWithDataOf(*someHealthbarSprite.get())));
 
 }

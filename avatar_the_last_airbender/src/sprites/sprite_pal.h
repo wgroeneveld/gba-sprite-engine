@@ -1,57 +1,49 @@
 
-//{{BLOCK(sprite_pal)
+//{{BLOCK(sprites_pal)
 
 //======================================================================
 //
-//	sprite_pal, 16x16@8, 
+//	sprites_pal, 16x16@8, 
 //	Transparent palette entry: 1.
-//	+ palette 86 entries, not compressed
-//	Total size: 172 = 172
+//	+ palette 30 entries, not compressed
+//	Total size: 60 = 60
 //
-//	Time-stamp: 2020-01-10, 13:25:51
+//	Time-stamp: 2020-01-13, 14:29:23
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
 
-#ifndef GRIT_SPRITE_PAL_H
-#define GRIT_SPRITE_PAL_H
+#ifndef GRIT_SPRITES_PAL_H
+#define GRIT_SPRITES_PAL_H
 
 
-//{{BLOCK(sprite_pal)
+//{{BLOCK(sprites_pal)
 
 //======================================================================
 //
-//	sprite_pal, 16x16@8, 
+//	sprites_pal, 16x16@8, 
 //	Transparent palette entry: 1.
-//	+ palette 86 entries, not compressed
-//	Total size: 172 = 172
+//	+ palette 30 entries, not compressed
+//	Total size: 60 = 60
 //
-//	Time-stamp: 2020-01-10, 13:25:51
+//	Time-stamp: 2020-01-13, 14:29:23
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
 
-const unsigned short spritePal[86] __attribute__((aligned(4)))=
+const unsigned short spritePal[30] __attribute__((aligned(4)))=
 {
 	0x0386,0x0000,0x0AFE,0x08F3,0x5AC9,0x5000,0x2A3D,0x7FD8,
 	0x4B7F,0x000E,0x77AE,0x0077,0x0007,0x27FF,0x6983,0x01B4,
-	0x15DF,0x7FFF,0x7ED0,0x0299,0x0466,0x214C,0x006D,0x4E32,
-	0x10A6,0x4B1D,0x0024,0x7BDE,0x1CE7,0x31AF,0x3657,0x0007,
-	0x18EA,0x0864,0x0447,0x5ACA,0x6F77,0x6310,0x7790,0x7FDB,
-	0x630D,0x5373,0x6F6D,0x6B54,0x7FDD,0x630F,0x7793,0x6F70,
-	0x77B7,0x6B4C,0x7BD9,0x6B50,0x672C,0x5EEB,0x6B2F,0x736E,
-	0x7791,0x6F76,0x7BB3,0x7BB7,0x6B51,0x6B4E,0x6B55,0x738F,
-
-	0x672D,0x6731,0x77B2,0x7BB4,0x6F71,0x7FDA,0x7BD8,0x7794,
-	0x6B4D,0x7BDC,0x5393,0x77B0,0x7FD9,0x7BD7,0x7FDE,0x77B1,
-	0x7FD8,0x7371,0x6F75,0x7FDC,0x7FFF,0x001F,
+	0x15DF,0x7FFF,0x7ED0,0x31AF,0x004A,0x62F8,0x01F3,0x18EA,
+	0x4F3D,0x7B09,0x77D5,0x7FFF,0x73AB,0x001F,
 };
 
-//}}BLOCK(sprite_pal)
+//}}BLOCK(sprites_pal)
 
 
-#endif // GRIT_SPRITE_PAL_H
+#endif // GRIT_SPRITES_PAL_H
 
-//}}BLOCK(sprite_pal)
+//}}BLOCK(sprites_pal)
