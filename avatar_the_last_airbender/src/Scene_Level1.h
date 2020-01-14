@@ -12,6 +12,8 @@ class Scene_Level1: public Scene {
 private:
     std::unique_ptr<Sprite> aangDown;
     std::unique_ptr<Sprite> aangUp;
+    std::unique_ptr<Sprite> healtbarAang;
+
     std::unique_ptr<Sprite> someEnemySprite;
     std::unique_ptr<Sprite> someAirBallSprite;
     std::unique_ptr<Sprite> someHealthbarSprite;

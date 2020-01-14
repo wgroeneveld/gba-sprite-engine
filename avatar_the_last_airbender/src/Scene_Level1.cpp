@@ -14,6 +14,7 @@
 #include "data/sprites/sprite_pal.h"
 #include "data/sprites/sprite_airball.h"
 #include "data/sprites/sprite_healthbarenemy.h"
+#include "data/sprites/sprite_healthbaraang.h"
 
 #include "data/background_game/backgroundGround/background13_set.h"
 #include "data/background_game/backgroundGround/background1_map.h"
@@ -40,6 +41,7 @@ std::vector<Sprite *> Scene_Level1::sprites() {
     }
     sprites.push_back(aangDown.get());
     sprites.push_back(aangUp.get());
+    sprites.push_back(healtbarAang.get());
     sprites.push_back(someAirBallSprite.get());
     sprites.push_back(someHealthbarSprite.get());
     sprites.push_back(someEnemySprite.get());
@@ -93,7 +95,15 @@ void Scene_Level1::load() {
             .withSize(SIZE_64_32)
             .withLocation(GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT+10)
             .buildPtr();
-    aangDown->setStayWithinBounds(true);
+
+    healtbarAang = builder
+            .withData(healthbarAangTiles, sizeof(healthbarAangTiles))
+            .withSize(SIZE_32_16)
+            .withAnimated(3,30)
+            .withLocation(10,10)
+            .buildPtr();
+
+
 
 
     healthAang = 100;
