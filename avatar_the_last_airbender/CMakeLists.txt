@@ -9,21 +9,20 @@ add_executable(avatar_the_last_airbender.elf
         src/Scene_Start.h
         src/Scene_Level1.cpp
         src/Scene_Level1.h
-        src/Scene_Level2.cpp
-        src/Scene_Level2.h
         src/AirBall.cpp
         src/AirBall.h
-        src/background_game/backgroundGround/background13_set.h
-        src/background_game/backgroundGround/background1_map.h
-        src/background_game/backgroundSea/background2_set.h
-        src/background_game/backgroundSea/background2_map.h
-        src/background_game/backgroundSun/background3_map.h
-        src/background_game/background_pal.h
-        src/background_title/titlescreen_newgame.h
-        src/sprites/sprite_aang.h
-        src/sprites/sprite_enemy.h
-        src/sprites/sprite_airball.h
-        src/sprites/sprite_pal.h
+        src/data/background_game/backgroundGround/background13_set.h
+        src/data/background_game/backgroundGround/background1_map.h
+        src/data/background_game/backgroundSea/background2_set.h
+        src/data/background_game/backgroundSea/background2_map.h
+        src/data/background_game/backgroundSun/background3_map.h
+        src/data/background_game/background_pal.h
+        src/data/background_title/titlescreen_newgame.h
+        src/data/sprites/sprite_aangdown.h
+        src/data/sprites/sprite_aangup.h
+        src/data/sprites/sprite_enemy.h
+        src/data/sprites/sprite_airball.h
+        src/data/sprites/sprite_pal.h
         src/Enemy.cpp src/Enemy.h)
 
 

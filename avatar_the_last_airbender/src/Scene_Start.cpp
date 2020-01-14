@@ -7,9 +7,8 @@
 #include "Scene_Start.h"
 
 #include "Scene_Level1.h"
-#include "Scene_Level2.h"
 
-#include "background_title/titlescreen_newgame.h"
+#include "data/background_title/titlescreen_newgame.h"
 
 std::vector<Background *> Scene_Start::backgrounds() {
     return { background.get()};
@@ -28,8 +27,7 @@ void Scene_Start::load() {
 
 void Scene_Start::tick(u16 keys) {
     if((keys & KEY_START)){
-        //auto scene_level1 = new Scene_Level1(engine);
-        auto scene_level2 = new Scene_Level2(engine);
+        auto scene_level2 = new Scene_Level1(engine);
         engine->transitionIntoScene(scene_level2, new FadeOutScene(2));
     }
 }

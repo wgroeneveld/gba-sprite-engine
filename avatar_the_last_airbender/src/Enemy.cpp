@@ -20,7 +20,7 @@ void Enemy::updateHealth(int health) {
 int counter = 0;
 void Enemy::tick() {
     if(!enemy->isAnimating()) {
-        enemy->makeAnimated(0,3,15);
+        enemy->makeAnimated(2,25);
     }
 
     counter++;
