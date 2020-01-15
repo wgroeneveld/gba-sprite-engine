@@ -24,7 +24,6 @@
 #include "data/background_game/background_pal.h"
 
 #include "math.h"
-#include "../../engine/include/libgba-sprite-engine/background/text_stream.h"
 
 std::vector<Background *> Scene_Level1::backgrounds() {
     return {  backgroundGround.get(), backgroundSea.get(), backgroundSun.get()};
@@ -39,11 +38,19 @@ std::vector<Sprite *> Scene_Level1::sprites() {
         sprites.push_back(e->getEnemySprite());
         sprites.push_back(e->getHealthBarSprite());
     }
+    sprites.push_back(aang->getAangDownSprite());
+    sprites.push_back(aang->getAangUpSprite());
+    sprites.push_back(aang->getHealthBarSprite());
+    /*
     sprites.push_back(aangDown.get());
     sprites.push_back(aangUp.get());
     sprites.push_back(healtbarAang.get());
+     */
+    //sprites.push_back(someAangDownSprite.get());
+    //sprites.push_back(someAangUpSprite.get());
+    //sprites.push_back(someHealthbarAangSprite.get());
     sprites.push_back(someAirBallSprite.get());
-    sprites.push_back(someHealthbarSprite.get());
+    sprites.push_back(someHealthbarEnemySprite.get());
     sprites.push_back(someEnemySprite.get());
     return sprites;
 }
@@ -77,31 +84,32 @@ void Scene_Level1::load() {
             .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
-    someHealthbarSprite = builder
+    someHealthbarEnemySprite = builder
             .withData(healthbarenemyTiles, sizeof(healthbarenemyTiles))
             .withSize(SIZE_16_8)
             .withLocation( GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT +10)
             .buildPtr();
 
-    aangDown = builder
+    /*
+    someAangDownSprite = builder
             .withData(aangDownTiles, sizeof(aangDownTiles))
             .withSize(SIZE_64_32)
-            .withLocation(20,86)
+            .withLocation(GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT+10)
             .buildPtr();
-    aangDown->setStayWithinBounds(true);
 
-    aangUp = builder
+
+    someAangUpSprite = builder
             .withData(aangUpTiles, sizeof(aangUpTiles))
             .withSize(SIZE_64_32)
             .withLocation(GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT+10)
             .buildPtr();
 
-    healtbarAang = builder
+    someHealthbarAangSprite = builder
             .withData(healthbarAangTiles, sizeof(healthbarAangTiles))
             .withSize(SIZE_32_16)
-            .withAnimated(3,30)
-            .withLocation(10,10)
+            .withLocation(GBA_SCREEN_WIDTH+10,GBA_SCREEN_HEIGHT+10)
             .buildPtr();
+*/
 
 
 
@@ -113,6 +121,12 @@ void Scene_Level1::load() {
 double attackCounter2 =0;
 
 void Scene_Level1::tick(u16 keys) {
+    aang->tick(keys);
+
+    if (aang->isMoveOthers()) {
+        moveOthers();
+    }
+/*
     if (keys & KEY_LEFT) {
         if (!isWalkingLeft) isWalkingLeft = true;
     } else {
@@ -174,12 +188,12 @@ void Scene_Level1::tick(u16 keys) {
             aangUp->makeAnimated(2, 15);
         }
 
-        yVelocity = -(pow(((0.25 * time) - 3), 2)) + ((2 * time) - 3) + 12;
+        yVelocity = -(pow(((0.25 * time) - 3), 2)) + ((2.8 * time) - 3) + 12;
         int yPosition = 83 - yVelocity;
         aangDown->moveTo(aangDown->getX(), yPosition);
         aangUp->moveTo(aangDown->getX(), yPosition - 32);
 
-        if (aangDown->getY() != 86) {
+        if (aangDown->getY() != yPositionDefault) {
             time++;
         } else {
             isJumping = false;
@@ -190,6 +204,7 @@ void Scene_Level1::tick(u16 keys) {
             aangUp->moveTo(GBA_SCREEN_WIDTH + 10, GBA_SCREEN_HEIGHT + 10);
         }
     }
+
 
     ////COLLISION DETECION AANG AND ENEMY ////
     if (isAttacking) {
@@ -313,30 +328,15 @@ void Scene_Level1::tick(u16 keys) {
 
 }
 
-
-void Scene_Level1::moveAang() {
-    if (isWalkingLeft && !isAttacking) {
-        aangDown->moveTo(aangDown->getX() - xVelocity, aangDown->getY());
-        if(isJumping) {
-            aangUp->moveTo(aangDown->getX() - xVelocity, aangDown->getY()-32);
-        }
-    }
-
-    if (isWalkingRight && !isAttacking) {
-        aangDown->moveTo(aangDown->getX() + xVelocity, aangDown->getY());
-        if(isJumping) {
-            aangUp->moveTo(aangDown->getX() + xVelocity, aangDown->getY()-32);
-        }
-    }
+*/
 }
 
-
 void Scene_Level1::moveOthers() {
-    if (isWalkingLeft && !isAttacking) {
+    if (aang->isWalkingLeft() && !aang->isAttacking()) {
         for(auto& e: enemys) {
-            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() + xVelocity,
+            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() + aang->getXVelocity(),
                                             e->getEnemySprite()->getY());
-            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() + xVelocity,
+            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() + aang->getXVelocity(),
                                         e->getHealthBarSprite()->getY());
         }
         xScrollingGround--;
@@ -351,11 +351,11 @@ void Scene_Level1::moveOthers() {
         }
     }
 
-    if (isWalkingRight && !isAttacking) {
+    if (aang->isWalkingRight() && !aang->isAttacking()) {
         for(auto& e: enemys) {
-            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() - xVelocity,
+            e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() - aang->getXVelocity(),
                                             e->getEnemySprite()->getY());
-            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() - xVelocity,
+            e->getHealthBarSprite()->moveTo(e->getHealthBarSprite()->getX() - aang->getXVelocity(),
                                         e->getHealthBarSprite()->getY());
 
         }
@@ -373,25 +373,25 @@ void Scene_Level1::moveOthers() {
 }
 
 std::unique_ptr<AirBall> Scene_Level1::createAirBall(bool directionTogo) {
-    if(isWalkingLeft){
+    if(aang->isWalkingLeft()){
         return std::unique_ptr<AirBall>(new AirBall(builder
-                                                            .withLocation(aangDown->getX() - aangDown->getWidth() / 2, aangDown->getY() + aangDown->getHeight() / 4)
+                                                            .withLocation(aang->getAangDownSprite()->getX() - aang->getAangDownSprite()->getWidth() / 2, aang->getAangDownSprite()->getY() + aang->getAangDownSprite()->getHeight() / 4)
                                                             .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
 
     }else{
         return std::unique_ptr<AirBall>(new AirBall(builder
-        .withLocation(aangDown->getX() + aangDown->getWidth() / 2, aangDown->getY() + aangDown->getHeight() / 4)
+        .withLocation(aang->getAangDownSprite()->getX() + aang->getAangDownSprite()->getWidth() / 2, aang->getAangDownSprite()->getY() + aang->getAangDownSprite()->getHeight() / 4)
                                                             .buildWithDataOf(*someAirBallSprite.get()), directionTogo));
     }
 }
 
 
 std::unique_ptr<Enemy> Scene_Level1::createNewEnemy() {
-    return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_32)
+    return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_64)
                                                        .withLocation(200,60)
                                                        .buildWithDataOf(*someEnemySprite.get()),
                                                builder.withSize(SIZE_16_8)
                                                        .withLocation(208,65)
-                                                       .buildWithDataOf(*someHealthbarSprite.get())));
+                                                       .buildWithDataOf(*someHealthbarEnemySprite.get())));
 
 }
