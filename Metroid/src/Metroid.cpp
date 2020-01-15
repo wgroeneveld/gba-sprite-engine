@@ -3,7 +3,6 @@
 //
 
 #include "Metroid.h"
-#include <libgba-sprite-engine/sprites/sprite.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/gba/tonc_math.h>
 

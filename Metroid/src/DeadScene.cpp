@@ -8,8 +8,9 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "SoundDeath.h"
-#include "samus_aran.h"
+#include "../sound/SoundDeath.h"
+#include "../sprites/samus_aran.h"
+#include "IntroScene.h"
 
 std::vector<Background *> DeadScene::backgrounds() {
     return {};
@@ -32,8 +33,6 @@ void DeadScene::load() {
             .withLocation(104,48)
             .buildPtr();
 
-
-
     engine->enqueueSound(mission_failed, mission_failed_bytes, 90000);
 }
 
@@ -42,5 +41,11 @@ void DeadScene::tick(u16 keys) {
         metroidDood->stopAnimating();
     }
     TextStream::instance().setText(std::string("MISSION FAILED"), 5, 8);
+
+    if(keys & KEY_START) {
+        if (!engine->isTransitioning()) {
+            engine->transitionIntoScene(new IntroScene(engine), new FadeOutScene(6));
+        }
+    }
 
 }

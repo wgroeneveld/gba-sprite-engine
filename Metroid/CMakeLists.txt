@@ -4,8 +4,7 @@ add_executable(${PROJECT_NAME}.elf
         src/main.cpp
         src/Transition.cpp
         src/Transition.h
-        src/sample_sound.h
-        src/samus_aran.h src/achtergrond.h src/achtergrond2.h src/Metroid.cpp src/Metroid.h src/achtergrond3.h src/ball.h src/projectiel.h src/Bullet.cpp src/Bullet.h src/Mario.cpp src/Mario.h src/Level1.cpp src/Level1.h src/MarioBullet.cpp src/MarioBullet.h src/test.h src/DeadScene.cpp src/DeadScene.h src/SoundDeath.h src/SoundIntro.h src/IntroScene.cpp src/IntroScene.h src/achtergrondIntro.h src/VictoryScene.cpp src/VictoryScene.h src/achtergrondVictory.h src/SoundVictory.h src/SoundFX.h src/SoundFX2.h src/MapdataLvl2.h src/Level2.cpp src/Level2.h src/achtergrondDataLvl2.h)
+        sprites/samus_aran.h achtergrond/AchtergrondTransition.h src/Metroid.cpp src/Metroid.h achtergrond/AchtergrondLvl1.h src/ball.h sprites/projectiel.h src/Bullet.cpp src/Bullet.h src/Mario.cpp src/Mario.h src/Level1.cpp src/Level1.h src/MarioBullet.cpp src/MarioBullet.h achtergrond/MapdataLvl1.h src/DeadScene.cpp src/DeadScene.h sound/SoundDeath.h sound/SoundIntro.h src/IntroScene.cpp src/IntroScene.h achtergrond/achtergrondIntro.h src/VictoryScene.cpp src/VictoryScene.h achtergrond/achtergrondVictory.h sound/SoundVictory.h sound/SoundFX.h sound/SoundFX2.h achtergrond/MapdataLvl2.h src/Level2.cpp src/Level2.h achtergrond/AchtergrondLvl2.h)
 
 
 

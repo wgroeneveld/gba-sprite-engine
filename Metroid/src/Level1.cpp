@@ -12,25 +12,17 @@
 #include "Transition.h"
 #include <libgba-sprite-engine/gba/tonc_math.h>
 
-#include "samus_aran.h"
+#include "../sprites/samus_aran.h"
 #include "ball.h"
 #include "Mario.h"
-#include "projectiel.h"
-#include "achtergrond.h"
-#include "achtergrond2.h"
-#include "achtergrond3.h"
-#include "sample_sound.h"
+#include "../sprites/projectiel.h"
+#include "../achtergrond/AchtergrondLvl1.h"
 #include "Metroid.h"
 #include "Bullet.h"
-#include "SoundDeath.h"
 #include "DeadScene.h"
-#include "SoundIntro.h"
-#include "SoundFX.h"
-#include "SoundFX2.h"
-#include "VictoryScene.h"
-#include "Level2.h"
-#include "IntroScene.h"
-#include "test.h"
+#include "../sound/SoundFX.h"
+#include "../sound/SoundFX2.h"
+#include "../achtergrond/MapdataLvl1.h"
 
 std::vector<Background *> Level1::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -261,7 +253,7 @@ void Level1::tick(u16 keys) {
 
 
 
-    if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
+    if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && enemyObject->getLives() > 0) {
         if (enemyObject->getGoLeft()) {
             marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
                                                    enemyObject->getMario()->getY() + 16);

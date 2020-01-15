@@ -2,8 +2,8 @@
 // Created by kyles on 29/12/2019.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_ACHTERGROND3_H
-#define GBA_SPRITE_ENGINE_PROJECT_ACHTERGROND3_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_ACHTERGRONDLVL1_H
+#define GBA_SPRITE_ENGINE_PROJECT_ACHTERGRONDLVL1_H
 
 
 //{{BLOCK(rocks)
@@ -610,4 +610,4 @@ const unsigned short bricksForegroundMap[2048] __attribute__((aligned(4)))=
 //}}BLOCK(bricksForeground)
 
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_ACHTERGROND3_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_ACHTERGRONDLVL1_H

@@ -2,8 +2,8 @@
 // Created by kyles on 4/01/2020.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_TEST_H
-#define GBA_SPRITE_ENGINE_PROJECT_TEST_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_MAPDATALVL1_H
+#define GBA_SPRITE_ENGINE_PROJECT_MAPDATALVL1_H
 #include <vector>
 
 std::vector<unsigned short int> lvl1Map = {
@@ -297,4 +297,4 @@ std::vector<unsigned short int> lvl1Map = {
 };
 
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_TEST_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_MAPDATALVL1_H

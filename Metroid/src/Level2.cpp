@@ -9,21 +9,20 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
-#include "Transition.h"
 #include <libgba-sprite-engine/gba/tonc_math.h>
 
-#include "samus_aran.h"
+#include "../sprites/samus_aran.h"
 #include "ball.h"
 #include "Mario.h"
-#include "projectiel.h"
+#include "../sprites/projectiel.h"
 #include "Metroid.h"
 #include "Bullet.h"
 #include "DeadScene.h"
-#include "SoundFX.h"
-#include "SoundFX2.h"
+#include "../sound/SoundFX.h"
+#include "../sound/SoundFX2.h"
 #include "VictoryScene.h"
-#include "achtergrondDataLvl2.h"
-#include "MapdataLvl2.h"
+#include "../achtergrond/AchtergrondLvl2.h"
+#include "../achtergrond/MapdataLvl2.h"
 
 std::vector<Background *> Level2::backgrounds() {
     return {bg.get(), bg2.get()};
@@ -544,7 +543,7 @@ void Level2::tick(u16 keys) {
         }
     }
 
-    if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && !(enemyObject->getLives() <=0)) {
+    if (!(marioBulletObject->getIsShooting()) && marioBulletObject->getCooldown() == 50 && enemyObject->getLives() > 0) {
         if (enemyObject->getGoLeft()) {
             marioBulletObject->getBullet()->moveTo(enemyObject->getMario()->getX() - 6,
                                                    enemyObject->getMario()->getY() + 16);
@@ -583,9 +582,6 @@ void Level2::tick(u16 keys) {
 
     if (metroidObject->getLives() <= 0) {
         if (!engine->isTransitioning()) {
-
-            //TextStream::instance() << "entered: starting next scene";
-
             engine->transitionIntoScene(new DeadScene(engine), new FadeOutScene(6));
         }
     }

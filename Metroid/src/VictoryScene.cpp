@@ -10,8 +10,8 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "IntroScene.h"
 #include "Level1.h"
-#include "achtergrondVictory.h"
-#include "SoundVictory.h"
+#include "../achtergrond/achtergrondVictory.h"
+#include "../sound/SoundVictory.h"
 
 VictoryScene::VictoryScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
 

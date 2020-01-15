@@ -8,8 +8,8 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "SoundIntro.h"
-#include "achtergrondIntro.h"
+#include "../sound/SoundIntro.h"
+#include "../achtergrond/achtergrondIntro.h"
 #include "Level1.h"
 #include "Level2.h"
 #include "VictoryScene.h"
