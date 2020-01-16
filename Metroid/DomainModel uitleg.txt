@@ -1,0 +1,8 @@
+Bij opstarten van spel krijg je startscene te zien.
+Bij drukken op start gaat over naar level 1.
+In level 1 kan de speler een power-up opnemen en schieten op zijn enemy, die zelf ook op sde speler schiet,
+en moet doorheen een paar obstakels geraken om het eind te bereiken.
+Als speler eind bereikt komt overgangsscene en bij drukken op start komt level 2.
+In level 2 geldt hetzelfde als bij level 2. 
+Als level 2 behaald is komt victoryscene, bij duwen start gaat spel terug naar intro.
+ALs speler op een moment dood gaat gaat speler naar deadscene en bij duwen start terug naar level 1.
