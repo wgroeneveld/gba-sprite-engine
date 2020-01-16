@@ -11,8 +11,6 @@
 #include "../sound/SoundIntro.h"
 #include "../achtergrond/achtergrondIntro.h"
 #include "Level1.h"
-#include "Level2.h"
-#include "VictoryScene.h"
 
 
 IntroScene::IntroScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine),scrollX(0),scrollY(0) {}

@@ -9,7 +9,6 @@
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "IntroScene.h"
-#include "Level1.h"
 #include "../achtergrond/achtergrondVictory.h"
 #include "../sound/SoundVictory.h"
 
