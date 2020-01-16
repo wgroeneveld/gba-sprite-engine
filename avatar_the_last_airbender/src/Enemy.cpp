@@ -24,6 +24,25 @@ void Enemy::updateHealth(int health) {
 //Als de enemy dynamisch is dan loopt die van zijn xBeginPosition naar zijn xEndPosition
 int counter = 0;
 void Enemy::tick() {
+
+
+    counter++;
+    if(counter%10 != 0) return;
+    if(directionLeft){
+        enemySprite->flipHorizontally(true);
+        enemySprite->moveTo(enemySprite->getX() - 1, enemySprite->getY());
+        healthbarSprite->moveTo(healthbarSprite->getX() - 1, healthbarSprite->getY());
+    }
+    else {
+        enemySprite->flipHorizontally(false);
+        enemySprite->moveTo(enemySprite->getX() + 1, enemySprite->getY());
+        healthbarSprite->moveTo(healthbarSprite->getX() + 1, healthbarSprite->getY());
+    }
+    if(!enemySprite->isAnimating()) {
+        enemySprite->makeAnimated(2, 15);
+    }
+
+    /*
     counter++;
     if(staticPosition) {
         if(counter%100 != 0) return;
@@ -56,6 +75,7 @@ void Enemy::tick() {
             enemySprite->makeAnimated(2, 25);
         }
     }
+     */
 }
 
 

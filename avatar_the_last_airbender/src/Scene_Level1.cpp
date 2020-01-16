@@ -1,6 +1,4 @@
-#include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
-#include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <libgba-sprite-engine/sprites/affine_sprite.h>
@@ -23,11 +21,12 @@
 #include "data/background_game/backgroundSun/background3_map.h"
 #include "data/background_game/background_pal.h"
 
-#include "math.h"
 #include "Scene_End.h"
 
 std::vector<Background *> Scene_Level1::backgrounds() {
-    return {  backgroundGround.get(), backgroundSea.get(), backgroundSun.get()};
+    return {  backgroundGround.get(),
+              backgroundSea.get(),
+              backgroundSun.get()};
 }
 
 std::vector<Sprite *> Scene_Level1::sprites() {
@@ -90,7 +89,7 @@ void Scene_Level1::load() {
     aang = std::unique_ptr<Aang>(new Aang(   builder
                                                      .withData(aangDownTiles, sizeof(aangDownTiles))
                                                      .withSize(SIZE_64_32)
-                                                     .withLocation( GBA_SCREEN_WIDTH/2-15,83)
+                                                     .withLocation( (GBA_SCREEN_WIDTH/2)-16,83)
                                                      .buildPtr(),
                                              builder
                                                      .withData(aangUpTiles, sizeof(aangUpTiles))
@@ -100,9 +99,8 @@ void Scene_Level1::load() {
                                              builder
                                                      .withData(healthbarAangTiles, sizeof(healthbarAangTiles))
                                                      .withSize(SIZE_32_16)
-                                                     .withLocation( 10,10)
-                                                     .buildPtr()
-                                                     ));
+                                                     .withLocation( 3,3)
+                                                     .buildPtr()));
 
 
     //COMMENTAAR DAT WEG MAG: Hier maak ik een vector aan van enemies die zich in de eerste section moeten bevinden
@@ -116,6 +114,8 @@ void Scene_Level1::load() {
 
 
 void Scene_Level1::tick(u16 keys) {
+    TextStream::instance().setText(std::string("Score: ") + std::to_string(amountEnemysKilled), 1, 21);
+
     //COMMENTAAR DAT WEG MAG: Ik heb hier alles gestructureerd
     ////////////////////////////// TICKS ///////////////////////////////////
     aang->tick(keys);
@@ -167,10 +167,10 @@ void Scene_Level1::tick(u16 keys) {
     if(newEnemyTimer <= 0) {
         if (activeEnemies.size() < 4) {
             if(previousPosition == RIGHT) {
-                activeEnemies.push_back(createNewEnemy(33, 0, false));
+                activeEnemies.push_back(createNewEnemy(GBA_SCREEN_WIDTH-32));
                 previousPosition = LEFT;
             }else{
-                activeEnemies.push_back(createNewEnemy(GBA_SCREEN_WIDTH-33, 0, false));
+                activeEnemies.push_back(createNewEnemy(0));
                 previousPosition = RIGHT;
             }
             engine->updateSpritesInScene();
@@ -180,13 +180,15 @@ void Scene_Level1::tick(u16 keys) {
         newEnemyTimer= newEnemyTimer - newEnemyTimerVelocity;
     }
     ///UPDATE DIRECTION
-    for(auto &e: activeEnemies){
-        if(e->getEnemySprite()->getX() > aang->getAangDownSprite()->getX()) {
-            e->setDirection(static_cast<Enemy::Direction>(LEFT));
-        }else{
-            e->setDirection(static_cast<Enemy::Direction>(RIGHT));
+
+    for(auto &e: activeEnemies) {
+        int i = rand() % 10 + 1;
+        switch(i) {
+            case 1: e->setDirectionLeft(true);
+            default: e->setDirectionLeft(false);
         }
     }
+
      
 
 
@@ -229,7 +231,8 @@ void Scene_Level1::tick(u16 keys) {
         }
     } else {
         for (auto &e : activeEnemies) {
-            if (attackCounter2 >= 40 && aang->getAangDownSprite()->collidesWith(*e->getEnemySprite())) {
+            //if (attackCounter2 >= 40 && aang->getAangDownSprite()->collidesWith(*e->getEnemySprite())) {
+            if (attackCounter2 >= 40 && collidesWith(*aang->getAangDownSprite(), *e->getEnemySprite())) {
                 aang->setHealth(aang->getHealth()-1);
                 if(aang->getHealth()<=0){
                     auto scene_end = new Scene_End(engine, amountEnemysKilled);
@@ -280,9 +283,7 @@ void Scene_Level1::tick(u16 keys) {
 }
 
 void Scene_Level1::moveOthers() {
-
     if (aang->isWalkingLeft() && !aang->isAttacking()) {
-        if(xScrollingGround == 0) return;
         for(auto& e: activeEnemies) {
             e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() + aang->getXVelocity(),
                                             e->getEnemySprite()->getY());
@@ -302,7 +303,6 @@ void Scene_Level1::moveOthers() {
     }
 
     if (aang->isWalkingRight() && !aang->isAttacking()) {
-
         for(auto& e: activeEnemies) {
             e->getEnemySprite()->moveTo(e->getEnemySprite()->getX() - aang->getXVelocity(),
                                             e->getEnemySprite()->getY());
@@ -324,20 +324,20 @@ void Scene_Level1::moveOthers() {
 }
 
 std::unique_ptr<AirBall> Scene_Level1::createAirBall() {
-    if(aang->isWalkingLeft()){
+    if(aang->isLaunchLeft()){
         return std::unique_ptr<AirBall>(new AirBall(builder
                                                             .withLocation(aang->getAangDownSprite()->getX() - aang->getAangDownSprite()->getWidth() / 2, aang->getAangDownSprite()->getY() + aang->getAangDownSprite()->getHeight() / 4)
-                                                            .buildWithDataOf(*someAirBallSprite), aang->isWalkingLeft()));
+                                                            .buildWithDataOf(*someAirBallSprite), true));
 
     }else{
         return std::unique_ptr<AirBall>(new AirBall(builder
         .withLocation(aang->getAangDownSprite()->getX() + aang->getAangDownSprite()->getWidth() / 2, aang->getAangDownSprite()->getY() + aang->getAangDownSprite()->getHeight() / 4)
-                                                            .buildWithDataOf(*someAirBallSprite), aang->isWalkingLeft()));
+                                                            .buildWithDataOf(*someAirBallSprite), false));
     }
 }
 
 //COMMENTAAR DAT WEG MAG: Heb die methode beetje aangepast doordat ik de constructor van de Enemy heb aangepast
-std::unique_ptr<Enemy> Scene_Level1::createNewEnemy(int beginXPosition, int endXPosition, bool staticPosition) {
+std::unique_ptr<Enemy> Scene_Level1::createNewEnemy(int xPosition) {
 
     /*return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_64)
                                                        .withLocation(200,60)
@@ -347,12 +347,23 @@ std::unique_ptr<Enemy> Scene_Level1::createNewEnemy(int beginXPosition, int endX
                                                        .buildWithDataOf(*someHealthbarEnemySprite)));*/
 
     return std::unique_ptr<Enemy>(new Enemy(   builder.withSize(SIZE_32_64)
-                                                       .withLocation(beginXPosition,65)
+                                                       .withLocation(xPosition,63)
                                                        .buildWithDataOf(*someEnemySprite),
                                                builder.withSize(SIZE_16_8)
-                                                       .withLocation(beginXPosition+8,70)
-                                                       .buildWithDataOf(*someHealthbarEnemySprite), beginXPosition,endXPosition, staticPosition));
+                                                       .withLocation(xPosition+8,68)
+                                                       .buildWithDataOf(*someHealthbarEnemySprite)));
 
 
+}
+
+//Aangepaste methode van de engine
+bool Scene_Level1::collidesWith(Sprite &s1, Sprite &s2) {
+    if(s1.getX() < s2.getX() + s2.getWidth() - 30 &&
+       s1.getX() + s1.getWidth() - 30 > s2.getX() &&
+       s1.getY() < s2.getY() + s2.getHeight() - 30 &&
+       s1.getHeight() + s1.getY() - 30 > s2.getY()) {
+        return true;
+    }
+    return false;
 }
 

@@ -5,30 +5,25 @@
 
 class Enemy {
 private:
-
     std::unique_ptr<Sprite> enemySprite;
     std::unique_ptr<Sprite> healthbarSprite;
 
-    bool staticPosition;
-    int beginXPosition;
-    int endXPosition;
     int health;
+    bool directionLeft;
 public:
-    enum Direction {LEFT, RIGHT}; // ik heb deze twee public gemaakt omdat ik er zo aankom in level1scene
-    Direction direction;
-    Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite, int beginXPosition, int endXPosition, bool staticPosition) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), beginXPosition(beginXPosition), endXPosition(endXPosition), staticPosition(staticPosition), direction(LEFT), health(3) {}
-    //Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), direction(LEFT), health(3) {}
+    Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), directionLeft(true), health(3) {}
 
     Sprite* getEnemySprite() {return enemySprite.get();}
     Sprite* getHealthBarSprite() {return healthbarSprite.get();}
     int getHealth(){return health;}
-    int getBeginXPosition() { return beginXPosition;}
-    int getEndXPosition() { return endXPosition;}
-    bool isStaticPosition() { return isStaticPosition();}
+    bool isDeath(){ return health <= 0; }
+
+    void setDirectionLeft(bool newDirectionLeft) { directionLeft = newDirectionLeft;}
+
     void tick();
     void updateHealth(int health);
-    void setDirection(Direction dir){this->direction = dir;}
-    bool isDeath(){ return health <= 0; }
+
+
 
 };
 

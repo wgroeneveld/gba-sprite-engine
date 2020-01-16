@@ -25,8 +25,6 @@ private:
     std::unique_ptr<Background> backgroundSun;
 
     std::unique_ptr<Aang> aang;
-    std::vector<std::vector<std::unique_ptr<Enemy>>> enemies;
-    std::vector<std::unique_ptr<Enemy>> enemysSection1;
     std::vector<std::unique_ptr<Enemy>> activeEnemies;
     std::vector<std::unique_ptr<AirBall>> airBalls;
 
@@ -42,7 +40,7 @@ private:
     bool enemiesUpdated;
 
     enum Direction {LEFT, RIGHT};
-    Direction previousPosition = LEFT;   //Dit houdt bij aan welke kant van eht scherm de vorige enemy gekomen is
+    Direction previousPosition = RIGHT;   //Dit houdt bij aan welke kant van eht scherm de vorige enemy gekomen is
 
 
     int previousAmountOfAirballs=0;
@@ -54,8 +52,9 @@ public:
     std::vector<Background *> backgrounds() override;
 
     void moveOthers();
-    std::unique_ptr<Enemy> createNewEnemy(int beginXPosition, int endXPosition, bool staticPosition);
+    std::unique_ptr<Enemy> createNewEnemy(int xPosition);
     std::unique_ptr<AirBall> createAirBall();
+    bool collidesWith(Sprite &s1, Sprite &s2);
 
     Scene_Level1(std::shared_ptr<GBAEngine> engine) : Scene(engine) {    }
 

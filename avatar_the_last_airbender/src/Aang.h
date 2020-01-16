@@ -24,6 +24,7 @@ private:
     bool attacking;
     bool moveOthers;
     bool launchAirball;
+    bool launchLeft;
 
 public:
     Aang(std::unique_ptr<Sprite> aangDownSprite, std::unique_ptr<Sprite> aangUpSprite,  std::unique_ptr<Sprite> aangHealthbarSprite) : aangDownSprite(std::move(aangDownSprite)), aangUpSprite(std::move(aangUpSprite)), aangHealthbarSprite(std::move(aangHealthbarSprite)), health(3) {}
@@ -45,6 +46,7 @@ public:
     bool isAttacking() {return attacking;}
     bool isLaunchAirball() {return launchAirball;}
     bool isMoveOthers() {return moveOthers;}
+    bool isLaunchLeft() {return launchLeft;}
 
     void setHealth(int health);
 

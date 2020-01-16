@@ -32,6 +32,7 @@ void Aang::tick(u16 keys) {
 
         aangDownSprite->flipHorizontally(true);
         aangUpSprite->flipHorizontally(true);
+        launchLeft = true;
         if (!aangDownSprite->isAnimating()) {
             aangDownSprite->makeAnimated(1, 2, 10);
         }
@@ -45,6 +46,7 @@ void Aang::tick(u16 keys) {
     if (walkingRight && !attacking) {
         aangDownSprite->flipHorizontally(false);
         aangUpSprite->flipHorizontally(false);
+        launchLeft = false;
         if (!aangDownSprite->isAnimating()) {
             aangDownSprite->makeAnimated(1, 2, 10);
         }
