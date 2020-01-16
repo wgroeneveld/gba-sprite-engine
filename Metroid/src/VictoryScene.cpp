@@ -28,8 +28,6 @@ std::vector<Background *> VictoryScene::backgrounds() {
 void VictoryScene::tick(u16 keys) {
 
     if(keys & KEY_START) {
-        bg->setScrollX(0);
-        bg->setScrollY(0);
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new IntroScene(engine), new FadeOutScene(6));
         }

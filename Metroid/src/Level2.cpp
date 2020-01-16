@@ -374,6 +374,8 @@ void Level2::load() {
 
     bg = std::unique_ptr<Background>(new Background(1, mapForegroundLvl2Tiles, sizeof(mapForegroundLvl2Tiles), mapForegroundLvl2Map, sizeof(mapForegroundLvl2Map),17,1,MAPLAYOUT_32X64));
     bg->setMapData(lvl2Map);
+    bg->setScrollX(0);
+    bg->setScrollY(0);
     bg2 = std::unique_ptr<Background>(new Background(2, rocksTiles, sizeof(rocksTiles), rocksMap, sizeof(rocksMap),25,2,MAPLAYOUT_32X32));
 
 }
@@ -586,8 +588,6 @@ void Level2::tick(u16 keys) {
         }
     }
     if (bg->getScrollX() + metroidObject->getMetroid()->getX() == 470){
-        bg->setScrollX(0);
-        bg->setScrollY(0);
         if (!engine->isTransitioning()) {
             engine->transitionIntoScene(new VictoryScene(engine), new FadeOutScene(6));
         }

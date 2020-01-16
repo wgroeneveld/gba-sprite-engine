@@ -11,6 +11,10 @@
 #include "../sound/SoundDeath.h"
 #include "../sprites/samus_aran.h"
 #include "IntroScene.h"
+#include "Level1.h"
+
+DeadScene::DeadScene(const std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}
+
 
 std::vector<Background *> DeadScene::backgrounds() {
     return {};

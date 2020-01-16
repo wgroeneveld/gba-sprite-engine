@@ -33,7 +33,6 @@ void IntroScene::tick(u16 keys) {
             engine->transitionIntoScene(new Level1(engine), new FadeOutScene(6));
         }
     }
-
 }
 
 void IntroScene::load() {
