@@ -9,5 +9,5 @@
 ## To investigate
 
 - Affine sprites [overwrite the flip flag](https://www.coranac.com/tonc/text/regobj.htm), should the flip functions do something or not? 
-- Would it be possible to dynamically update tiles for a sprite within the same scene? What about size differences? 
+- Would it be possible to dynamically update tiles for a airballSprite within the same scene? What about size differences? 
 - How does saving/loading data to and from RAM work? Can I serialize objects? For instance, binary header-only serialization with [Cereral](https://uscilab.github.io/cereal/quickstart.html)

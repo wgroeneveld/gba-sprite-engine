@@ -69,7 +69,7 @@ void SpriteManager::hideAll() {
 
 void SpriteManager::copyOverImageDataToVRAM(Sprite *sprite) {
     if(!sprite->data && sprite->imageSize == 0) {
-        // assume it's copied over from another sprite
+        // assume it's copied over from another airballSprite
         sprite->buildOam(sprite->tileIndex);
     } else {
         const auto allocated = Allocator::allocateObjectTiles(sprite->imageSize);

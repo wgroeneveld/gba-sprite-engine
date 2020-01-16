@@ -1,7 +1,7 @@
 
-## A high-level object-oriented Gameboy Advance sprite engine library
+## A high-level object-oriented Gameboy Advance airballSprite engine library
 
-[![Build Status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-sprite-engine)
+[![Build Status](https://travis-ci.org/wgroeneveld/gba-airballSprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-airballSprite-engine)
 
 That's a mouthful - let's break that down:
 
@@ -41,7 +41,7 @@ The C++ cross-compiler and the GBA work, but create more metadata than the typic
 The C++ ROM is 280% bigger than the C ROM, and if you include <vector>, even 288% bigger - from 8K to 23K!
 Emulating big files is not a problem, and running them on the actual hardware is still possible using cartridges like the EZ-FLASH Omega. 
 
-#### GBA sprite engine
+#### GBA airballSprite engine
 
 That means `MODE0`. 
 
@@ -51,13 +51,13 @@ It's compiled as a static library for your convenience. Simply link with the lib
 
 ## Engine features
 
-A portion of [ToncLib](https://www.coranac.com/man/tonclib/main.htm) has been used as a low-level GBA accessor. If you know what you're doing, you can safely use those, headers are in `<libgba-sprite-engine/gba>`. 
+A portion of [ToncLib](https://www.coranac.com/man/tonclib/main.htm) has been used as a low-level GBA accessor. If you know what you're doing, you can safely use those, headers are in `<libgba-airballSprite-engine/gba>`. 
 
 BIOS methods and Sin/Cos lookup tables are also compiled in Assembly, as `sin_lut`.
 
 Design overview:
 
-![design](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/design.png?raw=true)
+![design](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/img/design.png?raw=true)
 
 Colored blocks are to be implemented in your own game. See below, in section "implementing your game".
 
@@ -100,7 +100,7 @@ The `sprites()` method gets periodically called to check whether something has b
 
 A simple fade out scene effect is implemented in demo 1, that converges the palette colors of both palettes to white. It's easy to **create your own effects** by subclassing `SceneEffect`. 
 
-![sample fade out](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/fade.gif?raw=true)
+![sample fade out](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/img/fade.gif?raw=true)
 
 Sample fade effect, demo 1.
 
@@ -110,7 +110,7 @@ Scrollable backgrounds are present:
 
 Call `scroll()` in your scene update.
 
-![scroll bg](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/scroll.gif?raw=true)
+![scroll bg](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/img/scroll.gif?raw=true)
 
 Sample scrolling background demo 1.
 
@@ -129,32 +129,32 @@ If you want to create bigger maps than 32x32, use `MAPLAYOUT_64x64` or similar i
 
 Conjuring sprites on the screen is a matter of exposing them to the sprites vector in your scene. Create them in your load and set them as a `std::unique_ptr` member variable in your scene so they get cleaned up automatically. 
 
-Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite you want to make as a template argument (`<Sprite>` or `<AffineSprite>`) and speficy your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
+Creating sprites is easy with the `SpriteBuilder`. Specify what kind of airballSprite you want to make as a template argument (`<Sprite>` or `<AffineSprite>`) and speficy your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
 
 **Affine sprites can transform** using for example `rotate(angle)` - check out demo 1 or 3 for that. 
 
-![rotation](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/rotate.gif?raw=true)
+![rotation](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/img/rotate.gif?raw=true)
 
 Sample rotation demo 3.
 
-**Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). Like this:
+**Sprite animation is built-in**! Just feed your airballSprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). Like this:
 
-![lama gif example](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/demos/demo1-basicfeatures/img/lama.png?raw=true)
+![lama gif example](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/demos/demo1-basicfeatures/img/lama.png?raw=true)
 
-Useful sprite methods:
+Useful airballSprite methods:
 
 * `animate()`, `animateToFrame(x)` or `stopAnimating()`
 * `flipVertically(bool)` or `flipHorizontally(bool)`
 * `setVelocity(dx, dy)` (auto-updates) or `moveTo(x, y)`
-* `setWithinBounds(bool)` automatically keeps your sprite within the GBA resolution bounds
+* `setWithinBounds(bool)` automatically keeps your airballSprite within the GBA resolution bounds
 * `collidesWith(otherSprite)` or `isOffScreen()`
 * Various getters like `getWith()` etc
 
-![stay within bounds](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/bounds.gif?raw=true)
+![stay within bounds](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/img/bounds.gif?raw=true)
 
 The paddle auto-stays within bounds.
 
-Each sprite has own raw data, so there's no shared sprite image (for the better). The palette of course is shared, so think about that when exporting with a tool like [grit](https://www.coranac.com/man/grit/html/grit.htm) or [png2gba](https://github.com/IanFinlayson/png2gba). Grit has flags to export a shared palette:
+Each airballSprite has own raw data, so there's no shared airballSprite image (for the better). The palette of course is shared, so think about that when exporting with a tool like [grit](https://www.coranac.com/man/grit/html/grit.htm) or [png2gba](https://github.com/IanFinlayson/png2gba). Grit has flags to export a shared palette:
 
 > grit pic1.png pic2.png kul.png -ftc -pS -gB8 -O shared.c
 
@@ -176,11 +176,11 @@ The engine supports **sounds** and **background music** using GBA's Active Sound
 
 Call `engine->enqueueMusic(data, sizeof(data));` as a repeating music or `enqueueSound()` as a one-timer. If some sound is already playing, it will **not be played**. Background music auto-repeats when done. See demo 1.
 
-Sound can to be converted from a RAW Signed 8-bit PCM using [raw2gba](https://github.com/IanFinlayson/raw2gba). Record something with for example [Audacity](https://www.audacityteam.org/download/) and choose file -> export -> export audio... to change the format. Like sprite raw data, it'll be converted into a C header that you can feed to the methods above.
+Sound can to be converted from a RAW Signed 8-bit PCM using [raw2gba](https://github.com/IanFinlayson/raw2gba). Record something with for example [Audacity](https://www.audacityteam.org/download/) and choose file -> export -> export audio... to change the format. Like airballSprite raw data, it'll be converted into a C header that you can feed to the methods above.
 
 #### Text
 
-![default font](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/engine/src/background/text.png?raw=true)
+![default font](https://github.com/wgroeneveld/gba-airballSprite-engine/blob/master/engine/src/background/text.png?raw=true)
 
 There's a **default font embedded into the engine** using the `TextStream::instance()` static instance. It takes up background #4 and claims the last background palette bank so watch out with that! 
 
@@ -234,8 +234,8 @@ The demos will be in `cmake-build-debug/demox/demoname.gba`.
 
 Things you might need to change in `CMakeLists.txt` files:
 
-1. gba-sprite-engine assumes your GBA cross-compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
-2. gba-sprite-engine assumes your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
+1. gba-airballSprite-engine assumes your GBA cross-compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
+2. gba-airballSprite-engine assumes your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
 3. Some Linux distributions seem to miss the default link to `pthread` that should be added manually in that case. When you see errors like "undefined reference to 'pthread_setspecific'" while linking Google Test, change target_link_libraries in the CMakeLists.txt file of the subdir test to: `target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a pthread)`
 
 ##### Building using Windows

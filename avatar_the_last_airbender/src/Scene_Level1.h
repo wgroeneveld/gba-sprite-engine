@@ -16,11 +16,8 @@
 class Scene_Level1: public Scene {
 private:
 
-    std::unique_ptr<Sprite> someAangDownSprite;
-    std::unique_ptr<Sprite> someAangUpSprite;
     std::unique_ptr<Sprite> someEnemySprite;
     std::unique_ptr<Sprite> someAirBallSprite;
-    std::unique_ptr<Sprite> someHealthbarAangSprite;
     std::unique_ptr<Sprite> someHealthbarEnemySprite;
 
     std::unique_ptr<Background> backgroundGround;
@@ -28,7 +25,9 @@ private:
     std::unique_ptr<Background> backgroundSun;
 
     std::unique_ptr<Aang> aang;
-    std::vector<std::unique_ptr<Enemy>> enemys;
+    std::vector<std::vector<std::unique_ptr<Enemy>>> enemies;
+    std::vector<std::unique_ptr<Enemy>> enemysSection1;
+    std::vector<std::unique_ptr<Enemy>> activeEnemies;
     std::vector<std::unique_ptr<AirBall>> airBalls;
 
     int xScrollingGround = 0;
@@ -36,26 +35,26 @@ private:
     int xScrollingSun = 0;
 
     int amountEnemysKilled=0;
+    double attackCounter2 =0;
+    //COMMENTAAR DAT WEG MAG: Is niet meer nodig als we de enemies op voorhand plaatsen
+    double newEnemyTimer = 0;
+    bool enemiesUpdated;
 
-    double enemySpawn;
+    int activeSection;
 
     SpriteBuilder<Sprite> builder;
-    void removeAirBallsOffScreen();
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    void moveAang();
     void moveOthers();
-    std::unique_ptr<Enemy> createNewEnemy();
-    std::unique_ptr<AirBall> createAirBall(bool directionToGo);
+    std::unique_ptr<Enemy> createNewEnemy(int beginXPosition, int endXPosition, bool staticPosition);
+    std::unique_ptr<AirBall> createAirBall();
 
     Scene_Level1(std::shared_ptr<GBAEngine> engine) : Scene(engine) {    }
 
     void load() override;
     void tick(u16 keys) override;
-
-    void buildAang();
 };
 
 #endif

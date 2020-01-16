@@ -8,7 +8,7 @@
 #include <libgba-sprite-engine/gba/tonc_types.h>
 #include <memory>
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <libgba-sprite-engine/gba/tonc_math_stub.h>
+#include <libgba-airballSprite-engine/gba/tonc_math_stub.h>
 #else
 #include <libgba-sprite-engine/gba/tonc_math.h>
 #endif

@@ -9,7 +9,7 @@
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <libgba-sprite-engine/gba/tonc_math_stub.h>
+#include <libgba-airballSprite-engine/gba/tonc_math_stub.h>
 #else
 #include <libgba-sprite-engine/gba/tonc_math.h>
 #endif
@@ -17,18 +17,18 @@
 
 class AirBall {
 private:
-    std::unique_ptr<Sprite> sprite;
+    std::unique_ptr<Sprite> airballSprite;
     bool left;
 
 public:
-   // AirBall(std::unique_ptr<Sprite> sprite) : sprite(std::move(sprite)), left(true) {}
-    AirBall(std::unique_ptr<Sprite> sprite, bool directionTogo) : sprite(std::move(sprite)), left(directionTogo) {}
+   // AirBall(std::unique_ptr<Sprite> airballSprite) : airballSprite(std::move(airballSprite)), left(true) {}
+    AirBall(std::unique_ptr<Sprite> airballSprite, bool directionTogo) : airballSprite(std::move(airballSprite)), left(directionTogo) {}
 
     void tick();
     void setLeft(bool left);
-    bool isOffScreen() { return sprite->isOffScreen(); }
-    bool collidesWith(Sprite *ohterSprite){ return sprite->collidesWith(*ohterSprite);}
-    Sprite* getSprite() { return sprite.get(); }
+    bool isOffScreen() { return airballSprite->isOffScreen(); }
+    bool collidesWith(Sprite *ohterSprite){ return airballSprite->collidesWith(*ohterSprite);}
+    Sprite* getSprite() { return airballSprite.get(); }
 };
 
 

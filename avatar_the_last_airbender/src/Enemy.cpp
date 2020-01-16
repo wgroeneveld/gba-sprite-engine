@@ -4,34 +4,57 @@ void Enemy::updateHealth(int health) {
     this->health = health;
     switch (health){
         case 3:
-            healthbar->animateToFrame(0);
+            healthbarSprite->animateToFrame(0);
             break;
         case 2:
-            healthbar->animateToFrame(1);
+            healthbarSprite->animateToFrame(1);
             break;
         case 1:
-            healthbar->animateToFrame(2);
+            healthbarSprite->animateToFrame(2);
             break;
         default:
-            healthbar->animateToFrame(0);
+            healthbarSprite->animateToFrame(0);
             break;
     }
 }
+
+//COMMENTAAR DAT WEG MAG: Ik heb hier alles volledig veranderd
+//Dus je kunt twee types enemy hebben: statisch of dynamisch
+//Als de enemy statisch is blijft die gewoon op een bepaalde plaats en  flip to om de zoveel seconden zodat die toch beetje geanimeerd is
+//Als de enemy dynamisch is dan loopt die van zijn xBeginPosition naar zijn xEndPosition
 int counter = 0;
 void Enemy::tick() {
-    if(!enemy->isAnimating()) {
-        enemy->makeAnimated(2,25);
-    }
-
     counter++;
-    if(counter%10 != 0) return;
-    if(directionIsLeft){
-        enemy->flipHorizontally(true);
-        enemy->moveTo(enemy->getX()-1,enemy->getY());
-        healthbar->moveTo(healthbar->getX()-1,healthbar->getY());
-    }else{
-        enemy->moveTo(enemy->getX()+1,enemy->getY());
-        healthbar->moveTo(healthbar->getX()+1,healthbar->getY());
+    if(staticPosition) {
+        if(counter%100 != 0) return;
+        if(direction == LEFT) {
+            direction = RIGHT;
+            enemySprite->flipHorizontally(false);
+        }
+        else if (direction == RIGHT) {
+            direction = LEFT;
+            enemySprite->flipHorizontally(true);
+        }
+    }
+    else {
+        if(counter%10 != 0) return;
+        if(enemySprite->getX() == beginXPosition) direction = RIGHT;
+        else if(enemySprite->getX() == endXPosition) direction = LEFT;
+
+        if(direction == LEFT){
+            enemySprite->flipHorizontally(true);
+            enemySprite->moveTo(enemySprite->getX() - 1, enemySprite->getY());
+            healthbarSprite->moveTo(healthbarSprite->getX() - 1, healthbarSprite->getY());
+        }
+        else if(direction == RIGHT){
+            enemySprite->flipHorizontally(false);
+            enemySprite->moveTo(enemySprite->getX() + 1, enemySprite->getY());
+            healthbarSprite->moveTo(healthbarSprite->getX() + 1, healthbarSprite->getY());
+        }
+
+        if(!enemySprite->isAnimating()) {
+            enemySprite->makeAnimated(2, 25);
+        }
     }
 }
 

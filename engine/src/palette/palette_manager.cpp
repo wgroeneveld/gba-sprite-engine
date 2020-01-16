@@ -3,7 +3,7 @@
 //
 
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <libgba-sprite-engine/gba/tonc_core_stub.h>
+#include <libgba-airballSprite-engine/gba/tonc_core_stub.h>
 #else
 #include <libgba-sprite-engine/gba/tonc_core.h>
 #endif

@@ -18,9 +18,9 @@ void AirBall::setLeft(bool left) {
 
 void AirBall::tick() {
     if(left) {
-        sprite->flipHorizontally(true);
-       sprite->moveTo(sprite->getX()-2,sprite->getY());
+        airballSprite->flipHorizontally(true);
+       airballSprite->moveTo(airballSprite->getX() - 2, airballSprite->getY());
     }else{
-        sprite->moveTo(sprite->getX()+2,sprite->getY());
+        airballSprite->moveTo(airballSprite->getX() + 2, airballSprite->getY());
     }
 }
