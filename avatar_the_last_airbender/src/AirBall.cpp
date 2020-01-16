@@ -13,7 +13,6 @@
 
 
 void AirBall::setLeft(bool left) {
-    auto currentPos = sprite->getPosAsVector();
     this->left = left;
 }
 

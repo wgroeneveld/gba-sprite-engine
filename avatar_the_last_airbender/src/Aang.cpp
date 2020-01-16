@@ -66,13 +66,14 @@ void Aang::tick(u16 keys) {
         if (!aangDownSprite->isAnimating()) {
             aangDownSprite->makeAnimated(3, 2, 15);
             aangUpSprite->makeAnimated(2, 15);
+            aangUpSprite->moveTo(aangDownSprite->getX(), yPosition-32);
         }
 
-        yPosition = -(pow(((0.25 * time) - 3), 2)) + ((2.8 * time) - 3) + 12;
-        int yPosition = 83 - yPosition;
+        yVelocity = -(pow(((0.25 * time) - 3), 2)) + ((3 * time) - 3) + 12;
+        int yPosition = 83 - yVelocity;
         aangDownSprite->moveTo(aangDownSprite->getX(), yPosition);
         aangUpSprite->moveTo(aangUpSprite->getX(), yPosition - 32);
-/*
+
         if (aangDownSprite->getY() != yPositionDefault) {
             time++;
         } else {
@@ -83,7 +84,7 @@ void Aang::tick(u16 keys) {
             aangUpSprite->stopAnimating();
             aangUpSprite->moveTo(GBA_SCREEN_WIDTH + 10, GBA_SCREEN_HEIGHT + 10);
         }
-            */
+
     }
 
 
@@ -103,5 +104,24 @@ void Aang::moveAang() {
         if(jumping) {
             aangUpSprite->moveTo(aangDownSprite->getX() + xVelocity, aangDownSprite->getY()-32);
         }
+    }
+}
+
+void Aang::setHealth(int health) {
+
+    this->health = health;
+    switch (health){
+        case 3:
+            aangHealthbarSprite->animateToFrame(0);
+            break;
+        case 2:
+            aangHealthbarSprite->animateToFrame(1);
+            break;
+        case 1:
+            aangHealthbarSprite->animateToFrame(2);
+            break;
+        default:
+            aangHealthbarSprite->animateToFrame(0);
+            break;
     }
 }

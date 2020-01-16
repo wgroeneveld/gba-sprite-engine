@@ -10,8 +10,6 @@ private:
     bool directionIsLeft;
     int health;
 public:
-    //Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite) : enemy(std::move(enemySprite)), healthbar(std::move(healthbarSprite)) {}
-
     Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite ) : enemy(std::move(enemySprite)), healthbar(std::move(healthbarSprite)),  directionIsLeft(true), health(3) {}
 
     Sprite* getEnemySprite() {return enemy.get();}

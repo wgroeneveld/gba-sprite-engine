@@ -27,7 +27,7 @@ void Scene_Start::load() {
 
 void Scene_Start::tick(u16 keys) {
     if((keys & KEY_START)){
-        auto scene_level2 = new Scene_Level1(engine);
-        engine->transitionIntoScene(scene_level2, new FadeOutScene(2));
+        auto scene_level1 = new Scene_Level1(engine);
+        engine->transitionIntoScene(scene_level1, new FadeOutScene(2));
     }
 }

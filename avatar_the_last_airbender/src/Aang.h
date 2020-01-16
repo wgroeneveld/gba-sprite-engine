@@ -9,9 +9,10 @@ private:
     std::unique_ptr<Sprite> aangUpSprite;
     std::unique_ptr<Sprite> aangHealthbarSprite;
 
-    int health;
+    int health=3;
     int xVelocity = 1;
     double yPosition;
+    double yVelocity;
     int time;
     int yPositionDefault = 83;
 
@@ -39,7 +40,8 @@ public:
     bool isJumping() {return jumping;}
     bool isAttacking() {return attacking;}
     bool isMoveOthers() {return moveOthers;}
-
+    void stopAttacking(){attacking=false;}
+    void setHealth(int health);
     void moveAang();
 
 
