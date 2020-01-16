@@ -7,6 +7,7 @@ class Scene_Start: public Scene {
 private:
     std::unique_ptr<Background> background;
 
+
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

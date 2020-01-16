@@ -38,9 +38,15 @@ private:
     double attackCounter2 =0;
     //COMMENTAAR DAT WEG MAG: Is niet meer nodig als we de enemies op voorhand plaatsen
     double newEnemyTimer = 0;
+    double newEnemyTimerVelocity =1;
     bool enemiesUpdated;
 
-    int activeSection;
+    enum Direction {LEFT, RIGHT};
+    Direction previousPosition = LEFT;   //Dit houdt bij aan welke kant van eht scherm de vorige enemy gekomen is
+
+
+    int previousAmountOfAirballs=0;
+    int previousAmountOfEnemies =0;
 
     SpriteBuilder<Sprite> builder;
 public:

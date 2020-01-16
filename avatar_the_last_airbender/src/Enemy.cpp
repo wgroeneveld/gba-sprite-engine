@@ -38,8 +38,8 @@ void Enemy::tick() {
     }
     else {
         if(counter%10 != 0) return;
-        if(enemySprite->getX() == beginXPosition) direction = RIGHT;
-        else if(enemySprite->getX() == endXPosition) direction = LEFT;
+        //if(enemySprite->getX() == beginXPosition) direction = RIGHT;
+        //else if(enemySprite->getX() == endXPosition) direction = LEFT;
 
         if(direction == LEFT){
             enemySprite->flipHorizontally(true);

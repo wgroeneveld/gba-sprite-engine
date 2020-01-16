@@ -5,7 +5,6 @@
 
 class Enemy {
 private:
-    enum Direction {LEFT, RIGHT};
 
     std::unique_ptr<Sprite> enemySprite;
     std::unique_ptr<Sprite> healthbarSprite;
@@ -13,9 +12,10 @@ private:
     bool staticPosition;
     int beginXPosition;
     int endXPosition;
-    Direction direction;
     int health;
 public:
+    enum Direction {LEFT, RIGHT}; // ik heb deze twee public gemaakt omdat ik er zo aankom in level1scene
+    Direction direction;
     Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite, int beginXPosition, int endXPosition, bool staticPosition) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), beginXPosition(beginXPosition), endXPosition(endXPosition), staticPosition(staticPosition), direction(LEFT), health(3) {}
     //Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), direction(LEFT), health(3) {}
 
@@ -27,6 +27,8 @@ public:
     bool isStaticPosition() { return isStaticPosition();}
     void tick();
     void updateHealth(int health);
+    void setDirection(Direction dir){this->direction = dir;}
+    bool isDeath(){ return health <= 0; }
 
 };
 

@@ -19,16 +19,19 @@ class AirBall {
 private:
     std::unique_ptr<Sprite> airballSprite;
     bool left;
+    bool collided;
 
 public:
    // AirBall(std::unique_ptr<Sprite> airballSprite) : airballSprite(std::move(airballSprite)), left(true) {}
-    AirBall(std::unique_ptr<Sprite> airballSprite, bool directionTogo) : airballSprite(std::move(airballSprite)), left(directionTogo) {}
+    AirBall(std::unique_ptr<Sprite> airballSprite, bool directionTogo) : airballSprite(std::move(airballSprite)), left(directionTogo), collided(false){}
 
     void tick();
     void setLeft(bool left);
     bool isOffScreen() { return airballSprite->isOffScreen(); }
     bool collidesWith(Sprite *ohterSprite){ return airballSprite->collidesWith(*ohterSprite);}
     Sprite* getSprite() { return airballSprite.get(); }
+    void setCollided(){collided =true;}
+    bool getCollided(){return collided;}
 };
 
 
