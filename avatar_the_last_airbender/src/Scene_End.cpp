@@ -40,7 +40,7 @@ void Scene_End::load() {
     backgroundSun->scroll(0,-64);
 
     TextStream::instance().setText(std::string("YOU DIED!") , 2, 10);
-    TextStream::instance().setText(std::string("You killed ") + std::to_string(amountEnemysKilled)+ std::string(" enemys") , 3, 6);
+    TextStream::instance().setText(std::string("You killed ") + std::to_string(amountEnemysKilled)+ std::string(" enemies") , 3, 6);
     TextStream::instance().setText(std::string("Click START to restart!") , 4, 4);
 
 }

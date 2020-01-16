@@ -20,6 +20,7 @@
 #include "data/background_game/backgroundSea/background2_map.h"
 #include "data/background_game/backgroundSun/background3_map.h"
 #include "data/background_game/background_pal.h"
+#include "data/music/avatar_music.h"
 
 #include "Scene_End.h"
 
@@ -108,6 +109,7 @@ void Scene_Level1::load() {
     //COMMENTAAR DAT WEG MAG: Hier wil ik die vector toevoegen aan de vector van de vector, maar hier geeft het de fout als je wilt compileren
     //enemies.push_back(enemysSection1);
 
+    engine.get()->enqueueSound(avatar_music, sizeof(avatar_music), 62500);
 
 
 }
@@ -179,8 +181,8 @@ void Scene_Level1::tick(u16 keys) {
     }else{
         newEnemyTimer= newEnemyTimer - newEnemyTimerVelocity;
     }
-    ///UPDATE DIRECTION
 
+    ///UPDATE DIRECTION
     for(auto &e: activeEnemies) {
         int i = rand() % 10 + 1;
         switch(i) {
