@@ -1,7 +1,3 @@
-//
-// Created by woute on 16/01/2020.
-//
-
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
@@ -9,6 +5,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "Scene_End.h"
+
 #include "Scene_Level1.h"
 
 #include "data/background_game/backgroundGround/background13_set.h"
@@ -18,11 +15,10 @@
 #include "data/background_game/backgroundSun/background3_map.h"
 #include "data/background_game/background_pal.h"
 
-
-
-
 std::vector<Background *> Scene_End::backgrounds() {
-    return { backgroundGround.get(), backgroundSea.get(), backgroundSun.get()};
+    return { backgroundGround.get(),
+             backgroundSea.get(),
+             backgroundSun.get()};
 }
 
 std::vector<Sprite *> Scene_End::sprites() {
@@ -40,9 +36,8 @@ void Scene_End::load() {
     backgroundSun->scroll(0,-64);
 
     TextStream::instance().setText(std::string("YOU DIED!") , 2, 10);
-    TextStream::instance().setText(std::string("You killed ") + std::to_string(amountEnemysKilled)+ std::string(" enemies") , 3, 6);
+    TextStream::instance().setText(std::string("You killed ") + std::to_string(amountEnemiesKilled)+ std::string(" enemies") , 3, 6);
     TextStream::instance().setText(std::string("Click START to restart!") , 4, 4);
-
 }
 
 void Scene_End::tick(u16 keys) {

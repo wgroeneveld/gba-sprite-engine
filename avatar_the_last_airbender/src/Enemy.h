@@ -6,25 +6,33 @@
 class Enemy {
 private:
     std::unique_ptr<Sprite> enemySprite;
-    std::unique_ptr<Sprite> healthbarSprite;
+    std::unique_ptr<Sprite> enemyHealthbarSprite;
 
     int health;
-    bool directionLeft;
+    bool walkingLeft;
+
+    int timer = 0;
 public:
-    Enemy(std::unique_ptr<Sprite> enemySprite, std::unique_ptr<Sprite> healthbarSprite) : enemySprite(std::move(enemySprite)), healthbarSprite(std::move(healthbarSprite)), directionLeft(true), health(3) {}
+    ///CONSTRUCTOR
+    Enemy(std::unique_ptr<Sprite> enemySprite,
+            std::unique_ptr<Sprite> healthbarSprite) :
+            enemySprite(std::move(enemySprite)),
+            enemyHealthbarSprite(std::move(healthbarSprite)),
+            walkingLeft(true),
+            health(3) {}
 
+            ///GETTERS
     Sprite* getEnemySprite() {return enemySprite.get();}
-    Sprite* getHealthBarSprite() {return healthbarSprite.get();}
+    Sprite* getHealthBarSprite() {return enemyHealthbarSprite.get();}
     int getHealth(){return health;}
-    bool isDeath(){ return health <= 0; }
+    bool isDeath(){return health <= 0;}
 
-    void setDirectionLeft(bool newDirectionLeft) { directionLeft = newDirectionLeft;}
+    ///SETTERS
+    void setDirectionLeft(bool newDirectionLeft) { walkingLeft = newDirectionLeft;}
 
+    ///OTHERS
     void tick();
-    void updateHealth(int health);
-
-
-
+    void updateHealth(int newHealth);
 };
 
 

@@ -23,7 +23,13 @@ add_executable(avatar_the_last_airbender.elf
         src/data/sprites/sprite_enemy.h
         src/data/sprites/sprite_airball.h
         src/data/sprites/sprite_pal.h
-        src/Enemy.cpp src/Enemy.h src/Aang.cpp src/Aang.h src/Scene_End.cpp src/Scene_End.h music/avatar_music.h src/data/music/avatar_music.h)
+        src/Enemy.cpp
+        src/Enemy.h
+        src/Aang.cpp
+        src/Aang.h
+        src/Scene_End.cpp
+        src/Scene_End.h
+        src/data/music/avatar_music.h)
 
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)

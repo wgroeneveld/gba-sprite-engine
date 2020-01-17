@@ -90,9 +90,4 @@ const unsigned int healthbarAangTiles[384] __attribute__((aligned(4)))=
 	0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,
 };
 
-//}}BLOCK(extra_healthbaraang)
-
-
 #endif // GRIT_EXTRA_HEALTHBARAANG_H
-
-//}}BLOCK(extra_healthbaraang)

@@ -1,41 +1,5 @@
-
-//{{BLOCK(titlescreen_newgame)
-
-//======================================================================
-//
-//	titlescreen_newgame, 256x256@8, 
-//	Transparent palette entry: 100.
-//	+ 547 tiles (t|f|p reduced) not compressed
-//	+ regular map (in SBBs), not compressed, 32x32 
-//	Total size: 35008 + 2048 = 37056
-//
-//	Time-stamp: 2020-01-09, 15:58:53
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_TITLESCREEN_NEWGAME_H
 #define GRIT_TITLESCREEN_NEWGAME_H
-
-
-
-//{{BLOCK(titlescreen)
-
-//======================================================================
-//
-//	titlescreen, 256x256@8, 
-//	Transparent palette entry: 55.
-//	+ palette 256 entries, not compressed
-//	+ 554 tiles (t|f reduced) not compressed
-//	+ regular map (in SBBs), not compressed, 32x32 
-//	Total size: 512 + 35456 + 2048 = 38016
-//
-//	Time-stamp: 2020-01-09, 14:25:36
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
 
 const unsigned int titlescreenTiles[8864] __attribute__((aligned(4)))=
 {
@@ -1473,10 +1437,4 @@ const unsigned short titlescreenPal[256] __attribute__((aligned(4)))=
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
 };
 
-//}}BLOCK(titlescreen)
-
-
-
 #endif // GRIT_TITLESCREEN_NEWGAME_H
-
-//}}BLOCK(titlescreen_newgame)

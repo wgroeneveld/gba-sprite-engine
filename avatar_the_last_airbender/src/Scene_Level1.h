@@ -15,6 +15,9 @@
 
 class Scene_Level1: public Scene {
 private:
+    std::unique_ptr<Aang> aang;
+    std::vector<std::unique_ptr<Enemy>> activeEnemies;
+    std::vector<std::unique_ptr<AirBall>> airBalls;
 
     std::unique_ptr<Sprite> someEnemySprite;
     std::unique_ptr<Sprite> someAirBallSprite;
@@ -24,42 +27,35 @@ private:
     std::unique_ptr<Background> backgroundSea;
     std::unique_ptr<Background> backgroundSun;
 
-    std::unique_ptr<Aang> aang;
-    std::vector<std::unique_ptr<Enemy>> activeEnemies;
-    std::vector<std::unique_ptr<AirBall>> airBalls;
-
     int xScrollingGround = 0;
     int xScrollingSea = 0;
     int xScrollingSun = 0;
 
     int amountEnemysKilled=0;
     double attackCounter2 =0;
-    //COMMENTAAR DAT WEG MAG: Is niet meer nodig als we de enemies op voorhand plaatsen
     double newEnemyTimer = 0;
     double newEnemyTimerVelocity =1;
-    bool enemiesUpdated;
-
-    enum Direction {LEFT, RIGHT};
-    Direction previousPosition = RIGHT;   //Dit houdt bij aan welke kant van eht scherm de vorige enemy gekomen is
-
+    bool previousEnemyPositionLeft=false;
 
     int previousAmountOfAirballs=0;
     int previousAmountOfEnemies =0;
 
     SpriteBuilder<Sprite> builder;
 public:
+    ///CONSTRUCTOR
+    Scene_Level1(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
+
+    ///GETTERS
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    void moveOthers();
-    std::unique_ptr<Enemy> createNewEnemy(int xPosition);
-    std::unique_ptr<AirBall> createAirBall();
-    bool collidesWith(Sprite &s1, Sprite &s2);
-
-    Scene_Level1(std::shared_ptr<GBAEngine> engine) : Scene(engine) {    }
-
+    ///OTHERS
     void load() override;
     void tick(u16 keys) override;
+    std::unique_ptr<Enemy> createNewEnemy(int xPosition);
+    std::unique_ptr<AirBall> createAirBall();
+    void moveOthers();
+    bool collidesWith(Sprite &s1, Sprite &s2);
 };
 
 #endif

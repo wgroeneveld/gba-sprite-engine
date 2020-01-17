@@ -1,18 +1,3 @@
-
-//{{BLOCK(background_pal)
-
-//======================================================================
-//
-//	background_pal, 16x16@8, 
-//	+ palette 24 entries, not compressed
-//	Total size: 48 = 48
-//
-//	Time-stamp: 2020-01-09, 13:02:31
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_BACKGROUND_PAL_H
 #define GRIT_BACKGROUND_PAL_H
 

@@ -1,37 +1,5 @@
-
-//{{BLOCK(aang_down6432)
-
-//======================================================================
-//
-//	aang_down6432, 64x256@8, 
-//	Transparent palette entry: 1.
-//	+ 256 tiles not compressed
-//	Total size: 16384 = 16384
-//
-//	Time-stamp: 2020-01-14, 23:20:01
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_AANG_DOWN6432_H
 #define GRIT_AANG_DOWN6432_H
-
-
-//{{BLOCK(aang_down6432)
-
-//======================================================================
-//
-//	aang_down6432, 64x256@8, 
-//	Transparent palette entry: 1.
-//	+ 256 tiles not compressed
-//	Total size: 16384 = 16384
-//
-//	Time-stamp: 2020-01-14, 23:20:01
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
 
 const unsigned int aangDownTiles[4096] __attribute__((aligned(4)))=
 {
@@ -612,9 +580,4 @@ const unsigned int aangDownTiles[4096] __attribute__((aligned(4)))=
 	0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,
 };
 
-//}}BLOCK(aang_down6432)
-
-
 #endif // GRIT_AANG_DOWN6432_H
-
-//}}BLOCK(aang_down6432)

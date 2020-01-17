@@ -252,9 +252,4 @@ const unsigned int enemyTiles[1536] __attribute__((aligned(4)))=
 	0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,
 };
 
-//}}BLOCK(enemy3264)
-
-
 #endif // GRIT_ENEMY3264_H
-
-//}}BLOCK(enemy3264)

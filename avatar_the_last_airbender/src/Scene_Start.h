@@ -6,14 +6,15 @@
 class Scene_Start: public Scene {
 private:
     std::unique_ptr<Background> background;
-
-
 public:
+    ///CONSTRUCTOR
+    Scene_Start(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
+
+    ///GETTERS
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    Scene_Start(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}
-
+    ///OTHERS
     void load() override;
     void tick(u16 keys) override;
 };

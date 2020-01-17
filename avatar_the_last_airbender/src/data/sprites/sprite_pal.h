@@ -1,37 +1,5 @@
-
-//{{BLOCK(sprite_pal)
-
-//======================================================================
-//
-//	sprite_pal, 16x16@8, 
-//	Transparent palette entry: 1.
-//	+ palette 33 entries, not compressed
-//	Total size: 66 = 66
-//
-//	Time-stamp: 2020-01-14, 23:20:01
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_SPRITE_PAL_H
 #define GRIT_SPRITE_PAL_H
-
-
-//{{BLOCK(sprite_pal)
-
-//======================================================================
-//
-//	sprite_pal, 16x16@8, 
-//	Transparent palette entry: 1.
-//	+ palette 33 entries, not compressed
-//	Total size: 66 = 66
-//
-//	Time-stamp: 2020-01-14, 23:20:01
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
 
 const unsigned short spritePal[34] __attribute__((aligned(4)))=
 {
@@ -42,9 +10,4 @@ const unsigned short spritePal[34] __attribute__((aligned(4)))=
 	0x0389,
 };
 
-//}}BLOCK(sprite_pal)
-
-
 #endif // GRIT_SPRITE_PAL_H
-
-//}}BLOCK(sprite_pal)

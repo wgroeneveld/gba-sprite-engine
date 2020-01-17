@@ -1,18 +1,20 @@
 #include "Aang.h"
+
 #include <libgba-sprite-engine/gba_engine.h>
-#include "Scene_Level1.h"
-#include <math.h>
+
+#include <cmath>
 
 void Aang::tick(u16 keys) {
-
     if (keys & KEY_LEFT) {
-        if (!walkingLeft) walkingLeft = true;
-    } else {
+        if(!walkingLeft) walkingLeft = true;
+    }
+    else {
         walkingLeft = false;
     }
     if (keys & KEY_RIGHT) {
-        if (!walkingRight) walkingRight = true;
-    } else {
+        if(!walkingRight) walkingRight = true;
+    }
+    else {
         walkingRight = false;
     }
     if (keys & KEY_A) {
@@ -29,7 +31,6 @@ void Aang::tick(u16 keys) {
     }
 
     if (walkingLeft && !attacking) {
-
         aangDownSprite->flipHorizontally(true);
         aangUpSprite->flipHorizontally(true);
         launchLeft = true;
@@ -58,8 +59,7 @@ void Aang::tick(u16 keys) {
     }
 
 
-    if (((!walkingLeft && !walkingRight) || jumping || attacking) && aangDownSprite->isAnimating() &&
-        (aangDownSprite->getCurrentFrame() == 1 || aangDownSprite->getCurrentFrame() == 2)) {
+    if (((!walkingLeft && !walkingRight) || jumping || attacking) && aangDownSprite->isAnimating() && (aangDownSprite->getCurrentFrame() == 1 || aangDownSprite->getCurrentFrame() == 2)) {
         aangDownSprite->stopAnimating();
         aangDownSprite->animateToFrame(0);
     }
@@ -72,16 +72,16 @@ void Aang::tick(u16 keys) {
             aangUpSprite->moveTo(aangDownSprite->getX(), yPosition - 32);
         }
 
-        yVelocity = -(pow(((0.17 * time) - 3), 2)) + ((2 * time) - 3) + 12;
+        yVelocity = -(pow(((0.17 * timer) - 3), 2)) + ((2 * timer) - 3) + 12;
         int yPosition = 83 - yVelocity;
         aangDownSprite->moveTo(aangDownSprite->getX(), yPosition);
         aangUpSprite->moveTo(aangUpSprite->getX(), yPosition - 32);
 
         if (aangDownSprite->getY() != yPositionDefault) {
-            time++;
+            timer++;
         } else {
             jumping = false;
-            time = 1;
+            timer = 1;
             aangDownSprite->stopAnimating();
             aangDownSprite->animateToFrame(0);
             aangUpSprite->stopAnimating();
@@ -90,8 +90,6 @@ void Aang::tick(u16 keys) {
 
     }
 
-    //COMMENTAAR DAT WEG MAG: Ik heb de attack verplaatst van de scene naar hier
-    // De launche airbal dient om in de scene klasse de airbal dan toe te voegen aan de airballs (lijst)
     if (attacking && !aangDownSprite->isAnimating()) aangDownSprite->makeAnimated(5, 4, 20);
     if (attacking && aangDownSprite->getCurrentFrame() == 6) {
         aangUpSprite->animateToFrame(2);
@@ -112,10 +110,6 @@ void Aang::tick(u16 keys) {
     else {
         launchAirball = false;
     }
-
-
-
-
 }
 
 void Aang::move() {

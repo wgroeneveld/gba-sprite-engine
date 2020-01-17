@@ -9,13 +9,19 @@ private:
     std::unique_ptr<Background> backgroundSea;
     std::unique_ptr<Background> backgroundSun;
 
-    int amountEnemysKilled;
+    int amountEnemiesKilled;
 public:
-    Scene_End(std::shared_ptr<GBAEngine> engine, int amountKilled) : Scene(engine), amountEnemysKilled(amountKilled) {}
+    ///CONSTRUCTOR
+    Scene_End(std::shared_ptr<GBAEngine> engine,
+            int amountEnemiesKilled) :
+            Scene(engine),
+            amountEnemiesKilled(amountEnemiesKilled) {}
 
+    ///GETTERS
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
+    ///OTHERS
     void load() override;
     void tick(u16 keys) override;
 };

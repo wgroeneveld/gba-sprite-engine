@@ -1,11 +1,5 @@
-//
-// Created by woute on 27/12/2019.
-// With a lot of inspiration from demo 3
-//
-
 #ifndef GBA_SPRITE_ENGINE_PROJECT_AIRBALL_H
 #define GBA_SPRITE_ENGINE_PROJECT_AIRBALL_H
-
 
 #include <libgba-sprite-engine/sprites/sprite.h>
 #ifdef CODE_COMPILED_AS_PART_OF_TEST
@@ -18,20 +12,28 @@
 class AirBall {
 private:
     std::unique_ptr<Sprite> airballSprite;
-    bool left;
+
+    bool flyingLeft;
     bool collided;
-
 public:
-   // AirBall(std::unique_ptr<Sprite> airballSprite) : airballSprite(std::move(airballSprite)), left(true) {}
-    AirBall(std::unique_ptr<Sprite> airballSprite, bool directionTogo) : airballSprite(std::move(airballSprite)), left(directionTogo), collided(false){}
+    ///CONSTRUCTOR
+    AirBall(std::unique_ptr<Sprite> airballSprite,
+            bool flyingLeft) :
+            airballSprite(std::move(airballSprite)),
+            flyingLeft(flyingLeft),
+            collided(false){}
 
-    void tick();
-    void setLeft(bool left);
-    bool isOffScreen() { return airballSprite->isOffScreen(); }
-    bool collidesWith(Sprite *ohterSprite){ return airballSprite->collidesWith(*ohterSprite);}
-    Sprite* getSprite() { return airballSprite.get(); }
+    ///GETTERS
+    Sprite* getSprite() {return airballSprite.get();}
+    bool getCollided(){ return collided; }
+    bool isOffScreen() {return airballSprite->isOffScreen();}
+    bool collidesWith(Sprite *otherSprite){return airballSprite->collidesWith(*otherSprite);}
+
+    ///SETTERS
     void setCollided(){collided =true;}
-    bool getCollided(){return collided;}
+
+    ///OTHERS
+    void tick();
 };
 
 

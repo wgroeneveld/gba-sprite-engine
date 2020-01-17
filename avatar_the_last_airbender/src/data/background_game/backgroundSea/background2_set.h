@@ -1,18 +1,3 @@
-
-//{{BLOCK(background2_2)
-
-//======================================================================
-//
-//	background2_2, 104x40@8, 
-//	+ 65 tiles not compressed
-//	Total size: 4160 = 4160
-//
-//	Time-stamp: 2020-01-09, 13:02:31
-//	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
-//	( http://www.coranac.com/projects/#grit )
-//
-//======================================================================
-
 #ifndef GRIT_BACKGROUND2_2_H
 #define GRIT_BACKGROUND2_2_H
 
@@ -167,5 +152,3 @@ const unsigned int background2Tiles[1040] __attribute__((aligned(4)))=
 };
 
 #endif // GRIT_BACKGROUND2_2_H
-
-//}}BLOCK(background2_2)

@@ -3,8 +3,6 @@
 
 #include <libgba-sprite-engine/scene.h>
 
-
-
 class Aang {
 private:
     std::unique_ptr<Sprite> aangDownSprite;
@@ -14,9 +12,8 @@ private:
     int health=3;
     int xVelocity = 1;
     double yPosition;
-    double yVelocity;
-    int time;
     int yPositionDefault = 87;
+    double yVelocity;
 
     bool walkingLeft;
     bool walkingRight;
@@ -26,30 +23,36 @@ private:
     bool launchAirball;
     bool launchLeft;
 
-public:
-    Aang(std::unique_ptr<Sprite> aangDownSprite, std::unique_ptr<Sprite> aangUpSprite,  std::unique_ptr<Sprite> aangHealthbarSprite) : aangDownSprite(std::move(aangDownSprite)), aangUpSprite(std::move(aangUpSprite)), aangHealthbarSprite(std::move(aangHealthbarSprite)), health(3) {}
 
+    int timer;
+public:
+    ///CONSTRUCTOR
+    Aang(std::unique_ptr<Sprite> aangDownSprite,
+            std::unique_ptr<Sprite> aangUpSprite,
+            std::unique_ptr<Sprite> aangHealthbarSprite) :
+            aangDownSprite(std::move(aangDownSprite)),
+            aangUpSprite(std::move(aangUpSprite)),
+            aangHealthbarSprite(std::move(aangHealthbarSprite)),
+            health(3) {}
+
+    ///GETTERS
     Sprite* getAangDownSprite() {return aangDownSprite.get();}
     Sprite* getAangUpSprite() {return aangUpSprite.get();}
     Sprite* getHealthBarSprite() {return aangHealthbarSprite.get();}
 
-    void tick(u16 keys);
-
 
     int getHealth() {return health;}
     int getXVelocity() {return xVelocity;}
-    double getYPosition() {return yPosition;}
-    int getYPositionDefault() {return yPositionDefault;}
     bool isWalkingLeft() {return walkingLeft;}
     bool isWalkingRight() {return walkingRight;}
-    bool isJumping() {return jumping;}
     bool isAttacking() {return attacking;}
-    bool isLaunchAirball() {return launchAirball;}
     bool isMoveOthers() {return moveOthers;}
+    bool isLaunchAirball() {return launchAirball;}
     bool isLaunchLeft() {return launchLeft;}
 
     void setHealth(int health);
 
+    void tick(u16 keys);
     void move();
 };
 

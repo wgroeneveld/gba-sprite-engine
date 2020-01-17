@@ -1,6 +1,3 @@
-/* created by GBA Tile Editor
-   regular map */
-
 #define background22_map_width 32
 #define background22_map_height 32
 
