@@ -230,7 +230,7 @@ As such, `CMake` was an easy choice. Use the following commands to build everyth
 2. `cmake ./../`
 3. `make`
 
-The demos will be in `cmake-build-debug/demox/demoname.gba`. 
+The demos will be in `cmake-build-debug/demos/demoname.gba`. 
 
 Things you might need to change in `CMakeLists.txt` files:
 
