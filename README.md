@@ -129,7 +129,7 @@ If you want to create bigger maps than 32x32, use `MAPLAYOUT_64x64` or similar i
 
 Conjuring sprites on the screen is a matter of exposing them to the sprites vector in your scene. Create them in your load and set them as a `std::unique_ptr` member variable in your scene so they get cleaned up automatically. 
 
-Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite you want to make as a template argument (`<Sprite>` or `<AffineSprite>`) and speficy your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
+Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite you want to make as a template argument (`<Sprite>` or `<AffineSprite>`) and specify your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
 
 **Affine sprites can transform** using for example `rotate(angle)` - check out demo 1 or 3 for that. 
 
@@ -148,7 +148,7 @@ Useful sprite methods:
 * `setVelocity(dx, dy)` (auto-updates) or `moveTo(x, y)`
 * `setWithinBounds(bool)` automatically keeps your sprite within the GBA resolution bounds
 * `collidesWith(otherSprite)` or `isOffScreen()`
-* Various getters like `getWith()` etc
+* Various getters like `getWidth()` etc
 
 ![stay within bounds](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/bounds.gif?raw=true)
 
@@ -240,7 +240,7 @@ Things you might need to change in `CMakeLists.txt` files:
 
 ##### Building using Windows
 
-Tested ander working under Windows 10. Use [MinGW](http://www.mingw.org) or Cygwin, and add the `-G "Unix Makefiles"` option to your `cmake ./../` command. 
+Tested and working under Windows 10. Use [MinGW](http://www.mingw.org) or Cygwin, and add the `-G "Unix Makefiles"` option to your `cmake ./../` command. 
 
 Cygwin is also a possibility, but combined with CLion the Unix and Windows path structures will clash. If using an IDE like CLion, resort to using MinGW.
 
