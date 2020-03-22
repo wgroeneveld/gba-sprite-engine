@@ -3,7 +3,7 @@ project(partyGame)
 add_executable(${PROJECT_NAME}.elf
 
 
-        main.cpp MainMenu.cpp MainMenu.h)
+        main.cpp MainMenu.cpp MainMenu.h About.cpp About.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

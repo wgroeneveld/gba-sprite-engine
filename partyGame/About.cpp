@@ -1,35 +1,29 @@
 //
-// Created by michi on 21/03/2020.
+// Created by michi on 22/03/2020.
 //
 
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include "MainMenu.h"
 #include "About.h"
+#include "MainMenu.h"
 
-std::vector<Background *> MainMenu::backgrounds() {
-    return {};
-}
-
-
-std::vector<Sprite *> MainMenu::sprites() {
+std::vector<Background *> About::backgrounds() {return {};}
 
 
-    return {};
-}
+std::vector<Sprite *> About::sprites() { return {};}
 
-void MainMenu::load() {
+void About::load() {
     //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
-   // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
+    // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
-    TextStream::instance().setText("PRESS START", 3, 8);
+    TextStream::instance().setText("About", 3, 8);
 }
 
-void MainMenu::tick(u16 keys) {
-    if (keys & KEY_START) { //KEY_START = enter
-        engine->transitionIntoScene(new About(engine), new FadeOutScene(2));
+void About::tick(u16 keys) {
+    if (keys & KEY_START) {
+        engine->transitionIntoScene(new MainMenu(engine), new FadeOutScene(2));
     }
      /*
     if (keys & KEY_START) {
@@ -39,4 +33,4 @@ void MainMenu::tick(u16 keys) {
 
             //engine->transitionIntoScene(new level1(engine), new FadeOutScene(2));
         }*/
-    }
+}
