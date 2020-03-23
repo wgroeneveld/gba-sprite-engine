@@ -8,6 +8,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "MainMenu.h"
 #include "About.h"
+#include "boardScreen.h"
 
 std::vector<Background *> MainMenu::backgrounds() {
     return {};
@@ -31,6 +32,10 @@ void MainMenu::tick(u16 keys) {
     if (keys & KEY_START) { //KEY_START = enter
         engine->transitionIntoScene(new About(engine), new FadeOutScene(2));
     }
+    if (keys & KEY_UP) { //KEY_START = enter
+        engine->transitionIntoScene(new boardScreen(engine), new FadeOutScene(2));
+    }
+
      /*
     if (keys & KEY_START) {
         if (!engine->isTransitioning()) {
