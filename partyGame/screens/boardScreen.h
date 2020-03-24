@@ -14,7 +14,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
     boardScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
-    //~MainMenu(){};
+    //MainMenuScreenScreen(){};
 
 
     void load() override;
