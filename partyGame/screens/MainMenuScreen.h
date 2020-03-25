@@ -12,6 +12,7 @@ class MainMenuScreen : public Scene {
 
 private:
     std::unique_ptr<Sprite> minion;
+    std::unique_ptr<Background> background;
     void updateSelect();
 
 public:

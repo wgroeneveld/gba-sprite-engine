@@ -10,7 +10,8 @@
 
 class AboutScreen : public Scene {
 private:
-    std::unique_ptr<Background> bg;
+
+    std::unique_ptr<Background> background;
 
 public:
     std::vector<Sprite *> sprites() override;

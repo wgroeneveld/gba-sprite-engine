@@ -10,9 +10,11 @@
 #include "AboutScreen.h"
 #include "MainMenuScreen.h"
 
+#include "../testtest2.h"
 
-
-std::vector<Background *> AboutScreen::backgrounds() {return {};}
+std::vector<Background *> AboutScreen::backgrounds() {
+    return {/*background.get()*/}; //als ik hier dat laat staan, crasht ie, omdat dat zelfde naam is als bij de andere? Of gewoon omdat er geen background gecreeerd wordt?
+}
 
 
 std::vector<Sprite *> AboutScreen::sprites() { return {};}
@@ -23,6 +25,10 @@ void AboutScreen::load() {
     //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(bg_palette, sizeof(bg_palette)));
 
     TextStream::instance().setText("AboutScreen", 3, 8);
+
+    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(testPal, sizeof(testPal)));
+    //background = std::unique_ptr<Background>(new Background(1, testTiles, sizeof(testTiles), testMap, sizeof(testMap)));
+    //background->useMapScreenBlock(8);
 
 
 }

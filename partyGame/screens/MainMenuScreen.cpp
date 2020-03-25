@@ -11,10 +11,11 @@
 #include "AboutScreen.h"
 #include "boardScreen.h"
 #include "../img/minion_image.h"
+#include "../testtest2.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
-    return {};
+    return {background.get() };
 }
 
 std::vector<Sprite *> MainMenuScreen::sprites() {
@@ -43,6 +44,14 @@ void MainMenuScreen::load() {
             .withAnimated(2, 20)
             .withLocation(70, 320)
             .buildPtr();
+
+    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
+    //background = std::unique_ptr<Background>(new Background(1, backgroundTiles, sizeof(backgroundTiles), backgroundMap, sizeof(backgroundMap)));
+    //background->useMapScreenBlock(24);
+
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(CityBGPal, sizeof(CityBGPal)));
+    background = std::unique_ptr<Background>(new Background(1, CityBGTiles, sizeof(CityBGTiles), City_Map, sizeof(City_Map)));
+    background.get()->useMapScreenBlock(16);
 }
 
 void MainMenuScreen::tick(u16 keys) {
