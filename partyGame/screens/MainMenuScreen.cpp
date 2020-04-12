@@ -14,6 +14,7 @@
 #include "../backgrounds/testtest2.h"
 #include "../img/basketballAnimated.h"
 #include "../img/stickmanAnimated.h"
+#include "../img/shared.h"
 
 
 
@@ -34,7 +35,7 @@ void MainMenuScreen::load() {
    // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(minion_palette, sizeof(minion_palette)));
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(stickmanAnimatedPal, sizeof(stickmanAnimatedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
     //TextStream::instance().setText("WELCOME TO PARTY GAME", 3, 3);
     //TextStream::instance().setText("BoardScreen", 7, 8);

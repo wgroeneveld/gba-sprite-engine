@@ -17,6 +17,8 @@ add_executable(${PROJECT_NAME}.elf
         img/basketballAnimated.h
         img/stickmanAnimated.c
         img/stickmanAnimated.h
+        img/shared.c
+        img/shared.h
 
 
         backgrounds/testtest2.h)
