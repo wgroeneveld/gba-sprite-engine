@@ -11,38 +11,55 @@
 #include "AboutScreen.h"
 #include "boardScreen.h"
 #include "../img/minion_image.h"
-#include "../testtest2.h"
+#include "../backgrounds/testtest2.h"
+#include "../img/basketballAnimated.h"
+#include "../img/stickmanAnimated.h"
+
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
-    return {background.get() };
+    return {background.get()};
 }
 
 std::vector<Sprite *> MainMenuScreen::sprites() {
-    return {minion.get()};
+    return {stickman.get(), basketball.get()};
 }
 
 void MainMenuScreen::updateSelect() {
-    minion->moveTo(70, 360);
+    //minion->moveTo(70, 360);
 }
 
 void MainMenuScreen::load() {
     //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
    // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(minion_palette, sizeof(minion_palette)));
+    //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(minion_palette, sizeof(minion_palette)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(stickmanAnimatedPal, sizeof(stickmanAnimatedPal)));
 
-    TextStream::instance().setText("WELCOME TO PARTY GAME", 3, 3);
-    TextStream::instance().setText("BoardScreen", 7, 8);
-    TextStream::instance().setText("AboutScreen", 11, 8);
+    //TextStream::instance().setText("WELCOME TO PARTY GAME", 3, 3);
+    //TextStream::instance().setText("BoardScreen", 7, 8);
+    //TextStream::instance().setText("AboutScreen", 11, 8);
 
     SpriteBuilder<Sprite> spriteBuilder;
-
-    minion = spriteBuilder
+/*
+   minion = spriteBuilder
             .withData(minion_data, sizeof(minion_data))
             .withSize(SIZE_32_32)
             .withAnimated(2, 20)
             .withLocation(70, 320)
+            .buildPtr();*/
+    stickman = spriteBuilder
+            .withData(stickmanAnimatedTiles, sizeof(stickmanAnimatedTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(4, 40)
+            .withLocation(110, 300)
+            .buildPtr();
+
+    basketball = spriteBuilder
+            .withData(basketballAnimatedTiles, sizeof(basketballAnimatedTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(4, 40)
+            .withLocation(70, 300)
             .buildPtr();
 
     //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));

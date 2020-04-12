@@ -10,7 +10,7 @@
 #include "AboutScreen.h"
 #include "MainMenuScreen.h"
 
-#include "../testtest2.h"
+#include "../backgrounds/testtest2.h"
 
 std::vector<Background *> AboutScreen::backgrounds() {
     return {/*background.get()*/}; //als ik hier dat laat staan, crasht ie, omdat dat zelfde naam is als bij de andere? Of gewoon omdat er geen background gecreeerd wordt?

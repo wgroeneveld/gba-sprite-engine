@@ -13,3 +13,6 @@
 maar het scrolt de hele tijd naar rechts (of onder ofzo) en als ze ingehaald worden door het scherm, gaan ze dood.
 
 * of het schermt versnelt/vertraagt en ze moeten binnen beeld blijven. (eventueel dit als extra moeilijkheid voor hogere levels)
+
+* eentje laten generen met GUI, de andere via command line, kijken of ik hetzelfde resultaat krijg. ALS dat lukt, met shared palette proberen
+en dan nadien shared palette in aparte file genereren/zetten
