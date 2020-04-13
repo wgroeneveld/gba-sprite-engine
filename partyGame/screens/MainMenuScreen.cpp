@@ -11,11 +11,12 @@
 #include "AboutScreen.h"
 #include "boardScreen.h"
 #include "../img/minion_image.h"
-#include "../backgrounds/testtest2.h"
+//#include "../backgrounds/testtest2.h"
 #include "../img/basketballAnimated.h"
 #include "../img/stickmanAnimated.h"
 #include "../img/shared.h"
-
+#include "../backgrounds/map.h"
+#include "../backgrounds/tiles.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
@@ -67,8 +68,12 @@ void MainMenuScreen::load() {
     //background = std::unique_ptr<Background>(new Background(1, backgroundTiles, sizeof(backgroundTiles), backgroundMap, sizeof(backgroundMap)));
     //background->useMapScreenBlock(24);
 
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(CityBGPal, sizeof(CityBGPal)));
-    background = std::unique_ptr<Background>(new Background(1, CityBGTiles, sizeof(CityBGTiles), City_Map, sizeof(City_Map)));
+   // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(CityBGPal, sizeof(CityBGPal)));
+   // background = std::unique_ptr<Background>(new Background(1, CityBGTiles, sizeof(CityBGTiles), City_Map, sizeof(City_Map)));
+    //background.get()->useMapScreenBlock(16);
+
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesPal, sizeof(tilesPal)));
+    background = std::unique_ptr<Background>(new Background(1, tilesTiles, sizeof(tilesTiles), map, sizeof(map)));
     background.get()->useMapScreenBlock(16);
 }
 
@@ -81,6 +86,14 @@ void MainMenuScreen::tick(u16 keys) {
     }
     if (keys & KEY_DOWN) { //KEY_START = enter
         updateSelect();
+    }
+
+    if(keys & KEY_LEFT) {
+        background.get()->scroll(5,0);
+
+    }
+    if (keys & KEY_RIGHT) {
+        background.get()->scrollSpeed(5,0);
     }
 
 }

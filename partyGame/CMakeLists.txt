@@ -20,6 +20,9 @@ add_executable(${PROJECT_NAME}.elf
         img/shared.c
         img/shared.h
 
+        backgrounds/map.h
+        backgrounds/tiles.h
+        backgrounds/tiles.c
 
         backgrounds/testtest2.h)
 
