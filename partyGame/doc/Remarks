@@ -20,3 +20,13 @@ en dan nadien shared palette in aparte file genereren/zetten --> gelukt!
 * sprite toevoegen die je kan besturen met pijltjestoetsen.
 
 * huidige sprite ook met pointer ofzo werken?
+
+* Gameboy heeft vanboven nog 2 extra knoppen
+
+*  if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
+
+* colliding van sprites
+
+* met mannetje kunnen rondlopen en punten verdienen door te colliden
+
+*

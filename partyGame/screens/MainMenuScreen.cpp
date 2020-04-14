@@ -28,9 +28,6 @@ std::vector<Sprite *> MainMenuScreen::sprites() {
     return {stickman.get(), basketball.get()};
 }
 
-void MainMenuScreen::updateSelect() {
-    //minion->moveTo(70, 360);
-}
 
 void MainMenuScreen::load() {
     //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
@@ -79,28 +76,30 @@ void MainMenuScreen::load() {
 }
 
 void MainMenuScreen::tick(u16 keys) {
-    if (keys & KEY_START) { //KEY_START = enter
+
+    if (firstTick) {
+        firstTick = false;
+        lastKeys = keys;
+        return;
+    }
+
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
         engine->setScene(new GameScreen(engine));
     }
-    if (keys & KEY_UP) { //KEY_START = enter
-        engine->setScene(new boardScreen(engine));
-    }
-    if (keys & KEY_DOWN) { //KEY_START = enter
-        updateSelect();
-    }
 
-    if(keys & KEY_LEFT) {
-        //background.get()->scroll(5,0);
-        int blub = basketball.get()->getX();
-        basketball.get()->moveTo(blub-5,300);
+    /*
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
+        engine->setScene(new GameScreen(engine));
+    }*/
 
-    }
-    if (keys & KEY_RIGHT) {
+    //if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
         //background.get()->scrollSpeed(5,0);
-        int blub = basketball.get()->getX();
-        basketball.get()->moveTo(blub+5,300);
-    }
+        //int blub = basketball.get()->getX();
+        //basketball.get()->moveTo(blub+5,300);
+    //}
 
+
+    lastKeys = keys;
 
 
 }

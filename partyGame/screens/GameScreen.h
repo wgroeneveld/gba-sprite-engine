@@ -16,6 +16,9 @@ private:
     std::unique_ptr<Sprite> speler1Sprite;
     std::unique_ptr<Sprite> spelerAISprite;
 
+    u16 lastKeys = 0;
+    bool firstTick = true;
+
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
