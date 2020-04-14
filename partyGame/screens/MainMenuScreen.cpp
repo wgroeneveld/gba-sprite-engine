@@ -17,6 +17,7 @@
 #include "../img/shared.h"
 #include "../backgrounds/map.h"
 #include "../backgrounds/tiles.h"
+#include "GameScreen.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
@@ -79,7 +80,7 @@ void MainMenuScreen::load() {
 
 void MainMenuScreen::tick(u16 keys) {
     if (keys & KEY_START) { //KEY_START = enter
-        engine->setScene(new AboutScreen(engine));
+        engine->setScene(new GameScreen(engine));
     }
     if (keys & KEY_UP) { //KEY_START = enter
         engine->setScene(new boardScreen(engine));
@@ -89,11 +90,17 @@ void MainMenuScreen::tick(u16 keys) {
     }
 
     if(keys & KEY_LEFT) {
-        background.get()->scroll(5,0);
+        //background.get()->scroll(5,0);
+        int blub = basketball.get()->getX();
+        basketball.get()->moveTo(blub-5,300);
 
     }
     if (keys & KEY_RIGHT) {
-        background.get()->scrollSpeed(5,0);
+        //background.get()->scrollSpeed(5,0);
+        int blub = basketball.get()->getX();
+        basketball.get()->moveTo(blub+5,300);
     }
+
+
 
 }

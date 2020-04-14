@@ -4,10 +4,10 @@
 //======================================================================
 //
 //	shared, 16x16@8, 
-//	+ palette 5 entries, not compressed
-//	Total size: 10 = 10
+//	+ palette 13 entries, not compressed
+//	Total size: 26 = 26
 //
-//	Time-stamp: 2020-04-12, 20:11:14
+//	Time-stamp: 2020-04-14, 17:59:28
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -16,8 +16,8 @@
 #ifndef GRIT_SHARED_H
 #define GRIT_SHARED_H
 
-#define sharedPalLen 10
-extern const unsigned short sharedPal[6];
+#define sharedPalLen 26
+extern const unsigned short sharedPal[14];
 
 #endif // GRIT_SHARED_H
 

@@ -1,0 +1,14 @@
+//
+// Created by michi on 14/04/2020.
+//
+
+#ifndef GBA_SPRITE_ENGINE_PROJECT_CONTROLLER_H
+#define GBA_SPRITE_ENGINE_PROJECT_CONTROLLER_H
+
+
+class controller {
+
+};
+
+
+#endif //GBA_SPRITE_ENGINE_PROJECT_CONTROLLER_H

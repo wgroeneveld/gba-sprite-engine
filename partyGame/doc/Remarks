@@ -16,3 +16,7 @@ maar het scrolt de hele tijd naar rechts (of onder ofzo) en als ze ingehaald wor
 
 * eentje laten generen met GUI, de andere via command line, kijken of ik hetzelfde resultaat krijg. ALS dat lukt, met shared palette proberen
 en dan nadien shared palette in aparte file genereren/zetten --> gelukt!
+
+* sprite toevoegen die je kan besturen met pijltjestoetsen.
+
+* huidige sprite ook met pointer ofzo werken?
