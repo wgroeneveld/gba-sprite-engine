@@ -9,7 +9,11 @@
 #include "../img/shared.h"
 #include "../img/speler1.h"
 #include "../img/spelerAI.h"
+#include "../img/hoofdpersonage.h"
 #include "MainMenuScreen.h"
+#include "../backgrounds/tilesNummers.h"
+#include "../backgrounds/tilesMetRandMap.h"
+#include "VangspelScreen.h"
 
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
@@ -17,33 +21,34 @@
 
 
 void GameScreen::load() {
-    TextStream::instance().setText("Game Screen", 3, 3);
-    TextStream::instance().setText(std::string(std::to_string(game.getSpeler1()->getScore())), 5, 3);
+    //TextStream::instance().setText(std::string("Blub."), 3, 1);
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesNummersPal, sizeof(tilesNummersPal)));
+    background = std::unique_ptr<Background>(new Background(1, tilesNummersTiles, sizeof(tilesNummersTiles), tilesMetRandMap, sizeof(tilesMetRandMap)));
+    background.get()->useMapScreenBlock(16);
+
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
+
     SpriteBuilder<Sprite> spriteBuilder;
 
+
+
     speler1Sprite = spriteBuilder
-            .withData(speler1Tiles, sizeof(speler1Tiles))
+            .withData(hoofdpersonageTiles, sizeof(hoofdpersonageTiles))
             .withSize(SIZE_32_32)
-            .withAnimated(4, 40)
-            .withLocation(70, 300)
+            .withAnimated(1, 40)
+            .withLocation(0, 0)
             .buildPtr();
 
-    spelerAISprite = spriteBuilder
-            .withData(spelerAITiles, sizeof(spelerAITiles))
-            .withSize(SIZE_32_32)
-            .withAnimated(4, 40)
-            .withLocation(70, 100)
-            .buildPtr();
 }
 
 std::vector<Sprite *> GameScreen::sprites() {
-    return {speler1Sprite.get(), spelerAISprite.get()};
+    return {speler1Sprite.get()};
+
 }
 
 std::vector<Background *> GameScreen::backgrounds() {
-    return {};
+    return {background.get()};
 }
 
 void GameScreen::tick(u16 keys) {
@@ -54,33 +59,41 @@ void GameScreen::tick(u16 keys) {
         return;
     }
 
-    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
-        engine->setScene(new MainMenuScreen(engine));
+
+    if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
+        game.movePlayer();
     }
 
-    if (keys & KEY_DOWN) {
-        if (game.getSelectedPlayer() == game.getSpeler1()) {
-            speler1Sprite.get()->moveTo(speler1Sprite.get()->getX(), speler1Sprite.get()->getY()+1);
-        }
-        else {
-            spelerAISprite.get()->moveTo(spelerAISprite.get()->getX(), spelerAISprite.get()->getY()+1);
-        }
-    }
-    if (keys & KEY_UP) {
-        if (game.getSelectedPlayer() == game.getSpeler1()) {
-            speler1Sprite.get()->moveTo(speler1Sprite.get()->getX(), speler1Sprite.get()->getY()-1);
-        }
-        else {
-            spelerAISprite.get()->moveTo(spelerAISprite.get()->getX(), spelerAISprite.get()->getY()-1);
-        }
-    }
+    /*
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
         game.switchSelectedPlayer();
+    }*/
+
+
+    updateSpeler1();
+
+    if (double(game.getSpeler1Vakje()) == 1) {
+        int n = 0;
+        while(n < 500000) {
+            n++;
+        }
+        engine->setScene(new VangspelScreen(engine));
     }
 
 
     lastKeys = keys;
 
+
+}
+
+void GameScreen::updateSpeler1() {
+    int teller = 0;
+    int n = game.getSpeler1Vakje();
+    while (n >= 5) {
+        teller++;
+        n = n - 5;
+    }
+    speler1Sprite.get()->moveTo(n * 32, teller*32);
 }
 
 

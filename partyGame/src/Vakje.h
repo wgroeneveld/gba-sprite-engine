@@ -7,6 +7,11 @@
 
 
 class Vakje {
+private:
+    int soortVakje;
+public:
+    Vakje(int soort);
+    int getSoortVakje();
 
 };
 

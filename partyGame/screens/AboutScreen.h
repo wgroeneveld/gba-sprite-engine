@@ -13,6 +13,9 @@ private:
 
     std::unique_ptr<Background> background;
 
+    u16 lastKeys = 0;
+    bool firstTick = true;
+
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

@@ -9,45 +9,37 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "MainMenuScreen.h"
 #include "AboutScreen.h"
-#include "boardScreen.h"
-#include "../img/minion_image.h"
-//#include "../backgrounds/testtest2.h"
 #include "../img/basketballAnimated.h"
 #include "../img/stickmanAnimated.h"
 #include "../img/shared.h"
-#include "../backgrounds/map.h"
-#include "../backgrounds/tiles.h"
+//#include "../backgrounds/map.h"
+//#include "../backgrounds/tiles.h"
+#include "../backgrounds/tilesMetRand.h"
+#include "../backgrounds/tilesMetRandMap.h"
+#include "../backgrounds/tilesNummers.h"
 #include "GameScreen.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
-    return {background.get()};
+    return {/*background.get()*/};
 }
 
 std::vector<Sprite *> MainMenuScreen::sprites() {
-    return {stickman.get(), basketball.get()};
+    return {/*stickman.get(), basketball.get()*/};
 }
 
 
 void MainMenuScreen::load() {
-    //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(spritesPal, sizeof(spritesPal)));
-   // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
-
-    //foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(minion_palette, sizeof(minion_palette)));
+    TextStream::instance().setText(std::string("UP go to the game"), 1, 1);
+    TextStream::instance().setText(std::string("DOWN read more about the game"), 3, 1);
+/*
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
-    //TextStream::instance().setText("WELCOME TO PARTY GAME", 3, 3);
-    //TextStream::instance().setText("BoardScreen", 7, 8);
-    //TextStream::instance().setText("AboutScreen", 11, 8);
 
     SpriteBuilder<Sprite> spriteBuilder;
-/*
-   minion = spriteBuilder
-            .withData(minion_data, sizeof(minion_data))
-            .withSize(SIZE_32_32)
-            .withAnimated(2, 20)
-            .withLocation(70, 320)
-            .buildPtr();*/
+
+
+
     stickman = spriteBuilder
             .withData(stickmanAnimatedTiles, sizeof(stickmanAnimatedTiles))
             .withSize(SIZE_32_32)
@@ -62,17 +54,10 @@ void MainMenuScreen::load() {
             .withLocation(70, 300)
             .buildPtr();
 
-    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(backgroundPal, sizeof(backgroundPal)));
-    //background = std::unique_ptr<Background>(new Background(1, backgroundTiles, sizeof(backgroundTiles), backgroundMap, sizeof(backgroundMap)));
-    //background->useMapScreenBlock(24);
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesNummersPal, sizeof(tilesNummersPal)));
+    background = std::unique_ptr<Background>(new Background(1, tilesNummersTiles, sizeof(tilesNummersTiles), tilesMetRandMap, sizeof(tilesMetRandMap)));
+    background.get()->useMapScreenBlock(16);*/
 
-   // backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(CityBGPal, sizeof(CityBGPal)));
-   // background = std::unique_ptr<Background>(new Background(1, CityBGTiles, sizeof(CityBGTiles), City_Map, sizeof(City_Map)));
-    //background.get()->useMapScreenBlock(16);
-
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tilesPal, sizeof(tilesPal)));
-    background = std::unique_ptr<Background>(new Background(1, tilesTiles, sizeof(tilesTiles), map, sizeof(map)));
-    background.get()->useMapScreenBlock(16);
 }
 
 void MainMenuScreen::tick(u16 keys) {
@@ -83,20 +68,14 @@ void MainMenuScreen::tick(u16 keys) {
         return;
     }
 
-    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
+    if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
         engine->setScene(new GameScreen(engine));
     }
 
-    /*
-    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
-        engine->setScene(new GameScreen(engine));
-    }*/
+    if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {// ENTER key, wait until released
+        engine->setScene(new AboutScreen(engine));
+    }
 
-    //if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-        //background.get()->scrollSpeed(5,0);
-        //int blub = basketball.get()->getX();
-        //basketball.get()->moveTo(blub+5,300);
-    //}
 
 
     lastKeys = keys;

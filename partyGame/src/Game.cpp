@@ -31,4 +31,28 @@ Game::Game() {
     speler1 = new Speler;
     spelerAI = new Speler;
     spelerAanZet = speler1;
+    bord = new Bord;
+    speler1Vakje = 0;
+    //spelerAIVakje = 0;
+}
+
+void Game::movePlayer() {
+    if (spelerAanZet = speler1) {
+        speler1Vakje++;
+    }
+    else {
+        spelerAIVakje++;
+    }
+}
+
+int Game::getSpeler1Vakje() {
+    return speler1Vakje;
+}
+
+int Game::getSpelerAIVakje() {
+    return spelerAIVakje;
+}
+
+Bord *Game::getBord() {
+    return bord;
 }

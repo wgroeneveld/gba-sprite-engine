@@ -14,10 +14,9 @@ class GameScreen : public Scene {
 private:
     Game game;
     std::unique_ptr<Sprite> speler1Sprite;
-    std::unique_ptr<Sprite> spelerAISprite;
-
     u16 lastKeys = 0;
     bool firstTick = true;
+    std::unique_ptr<Background> background;
 
 public:
     std::vector<Sprite *> sprites() override;
@@ -27,6 +26,8 @@ public:
 
     void load() override;
     void tick(u16 keys) override;
+
+    void updateSpeler1();
 };
 
 

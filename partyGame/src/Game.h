@@ -13,11 +13,10 @@ private:
     Speler *spelerAanZet;
     Speler *speler1;
     Speler *spelerAI;
-    Bord bord;
-    int speler1PositieX;
-    int speler1PositieY;
-    int spelerAIPositieX;
-    int spelerAIpositieY;
+    Bord *bord;
+    int speler1Vakje;
+    int spelerAIVakje;
+
 
 public:
     Game();
@@ -25,6 +24,10 @@ public:
     Speler* getSpelerAI();
     Speler* getSelectedPlayer();
     void switchSelectedPlayer();
+    void movePlayer();
+    int getSpeler1Vakje();
+    int getSpelerAIVakje();
+    Bord* getBord();
 
 
 

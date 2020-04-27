@@ -3,3 +3,11 @@
 //
 
 #include "Vakje.h"
+
+Vakje::Vakje(int soort) {
+    soortVakje = soort;
+}
+
+int Vakje::getSoortVakje() {
+    return soortVakje;
+}

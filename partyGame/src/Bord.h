@@ -8,7 +8,11 @@
 #include "Vakje.h"
 
 class Bord {
-    Vakje vakjes[5][5];
+private:
+    Vakje *vakjes[20];
+public:
+    Bord();
+    Vakje* getVakje(int nummer);
 
 };
 
