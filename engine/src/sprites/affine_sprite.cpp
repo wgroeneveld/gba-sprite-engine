@@ -13,11 +13,11 @@ void AffineSprite::identity() {
 }
 
 AffineSprite::AffineSprite(const AffineSprite &other) : Sprite(other), affIndex(other.affIndex) {
-
+  isAffine = true;
 }
 
 AffineSprite::AffineSprite(const void *imgData, int imgSize, int xC, int yC, SpriteSize spriteSize)  : Sprite(imgData, imgSize, xC, yC, spriteSize), affIndex(0) {
-
+  isAffine = true;
 }
 
 void AffineSprite::rotate(u16 alpha) {
