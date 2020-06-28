@@ -61,6 +61,7 @@ protected:
     u8 animationDelay, numberOfFrames, beginFrame, currentFrame, previousFrame, animationCounter;
     bool animating;
     OBJ_ATTR oam;
+    bool isAffine;
 
     void syncAnimation();
     virtual void syncOam();

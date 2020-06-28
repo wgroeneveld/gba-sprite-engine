@@ -17,7 +17,7 @@ Sprite::Sprite(const Sprite &other) : Sprite(nullptr, 0, other.x, other.y, other
 }
 
 Sprite::Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size)
-        : x(x), y(y), data(imageData), imageSize(imageSize), spriteSize(size), priority(0),
+        : x(x), y(y), data(imageData), imageSize(imageSize), spriteSize(size), priority(0), isAffine(false),
           animationDelay(0), numberOfFrames(0), beginFrame(0), currentFrame(0), animationCounter(0) {
     setAttributesBasedOnSize(size);
 }
