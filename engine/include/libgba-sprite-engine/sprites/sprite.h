@@ -96,8 +96,8 @@ public:
     GBAVector getPosAsVector() { return GBAVector(getPos()); }
     VECTOR getCenter() { return { x + w / 2, y + h / 2 }; }
     VECTOR getVelocity() { return { dx, dy}; }
-    u32 getX() { return x; }
-    u32 getY() { return y; }
+    int getX() { return x; }
+    int getY() { return y; }
     u32 getDx() { return dx; }
     u32 getDy() { return dy; }
     u32 getWidth() { return w; }
