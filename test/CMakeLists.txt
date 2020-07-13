@@ -14,6 +14,9 @@ SET(CMAKE_EXE_LINKER_FLAGS "${BASE_CMAKE_LINK_FLAGS}")
 SET(CMAKE_C_COMPILER gcc)
 SET(CMAKE_CXX_COMPILER g++)
 
+# remove -03 optimization flag otherwise debugging will be annoying as hell
+SET(CMAKE_CXX_FLAGS "-Wno-narrowing")
+
 add_definitions(-DCODE_COMPILED_AS_PART_OF_TEST)
 
 include_directories(${GTEST_LIBRARY}/include)
