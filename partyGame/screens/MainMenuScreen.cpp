@@ -12,11 +12,8 @@
 #include "../img/basketballAnimated.h"
 #include "../img/stickmanAnimated.h"
 #include "../img/shared.h"
-//#include "../backgrounds/map.h"
-//#include "../backgrounds/tiles.h"
-#include "../backgrounds/tilesMetRand.h"
-#include "../backgrounds/tilesMetRandMap.h"
-#include "../backgrounds/tilesNummers.h"
+
+
 #include "GameScreen.h"
 
 

@@ -14,8 +14,8 @@ private:
     Speler *speler1;
     Speler *spelerAI;
     Bord *bord;
-    int speler1Vakje;
-    int spelerAIVakje;
+    int speler1X;
+    int speler1Y;
 
 
 public:
@@ -24,9 +24,12 @@ public:
     Speler* getSpelerAI();
     Speler* getSelectedPlayer();
     void switchSelectedPlayer();
-    void movePlayer();
-    int getSpeler1Vakje();
-    int getSpelerAIVakje();
+    void beweegSpelerNaarRechts();
+    void beweegSpelerNaarLinks();
+    void beweegSpelerNaarBoven();
+    void beweegSpelerNaarOnder();
+    int getSpeler1X();
+    int getSpeler1Y();
     Bord* getBord();
 
 

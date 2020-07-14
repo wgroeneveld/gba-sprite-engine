@@ -7,7 +7,7 @@
 
 
 #include <libgba-sprite-engine/scene.h>
-#include "../src/Game.h"
+#include "../src/Game/Game.h"
 
 class GameScreen : public Scene {
 
@@ -17,6 +17,9 @@ private:
     u16 lastKeys = 0;
     bool firstTick = true;
     std::unique_ptr<Background> background;
+    std::unique_ptr<Background> background2;
+    //int backgroundX = 0;
+   // int backgroundY = 0;
 
 public:
     std::vector<Sprite *> sprites() override;
@@ -27,7 +30,8 @@ public:
     void load() override;
     void tick(u16 keys) override;
 
-    void updateSpeler1();
+    //void updateSpeler1(); //Dit misschien terug toevoegen als ik bewegende sprite heb?
+    void updatePosition();
 };
 
 

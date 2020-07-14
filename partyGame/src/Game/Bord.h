@@ -5,14 +5,13 @@
 #ifndef GBA_SPRITE_ENGINE_PROJECT_BORD_H
 #define GBA_SPRITE_ENGINE_PROJECT_BORD_H
 
-#include "Vakje.h"
 
 class Bord {
 private:
-    Vakje *vakjes[20];
+    int vakjes[9][9];  //Moet ik hier met pointer werken ofzo?
 public:
     Bord();
-    Vakje* getVakje(int nummer);
+
 
 };
 

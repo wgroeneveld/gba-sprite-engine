@@ -4,16 +4,12 @@ add_executable(${PROJECT_NAME}.elf
 
 
         src/main.cpp
-        src/Bord.cpp
-        src/Bord.h
-        src/Game.cpp
-        src/Game.h
-        src/Speler.cpp
-        src/Speler.h
-        src/Vakje.cpp
-        src/Vakje.h
-        src/controller.cpp
-        src/controller.h
+        src/Game/Bord.cpp
+        src/Game/Bord.h
+        src/Game/Game.cpp
+        src/Game/Game.h
+        src/Game/Speler.cpp
+        src/Game/Speler.h
 
         screens/MainMenuScreen.cpp
         screens/MainMenuScreen.h
@@ -36,16 +32,11 @@ add_executable(${PROJECT_NAME}.elf
         img/hoofdpersonage.c
         img/hoofdpersonage.h
 
-        backgrounds/map.h
-        backgrounds/tiles.h
-        backgrounds/tiles.c
-        backgrounds/tilesMetRand.c
-        backgrounds/tilesMetRand.h
-        backgrounds/tilesMetRandMap.h
-        backgrounds/tilesNummers.c
-        backgrounds/tilesNummers.h
+        backgrounds/Tiles8x8.c
+        backgrounds/Tiles8x8.h
+        backgrounds/eerste7x7Map.h
 
-        backgrounds/testtest2.h src/Game.cpp src/Game.h src/Vakje.cpp src/Vakje.h src/Speler.cpp src/Speler.h src/Bord.cpp src/Bord.h screens/GameScreen.cpp screens/GameScreen.h src/controller.cpp src/controller.h screens/VangspelScreen.cpp screens/VangspelScreen.h)
+        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h src/Game/Bord.cpp src/Game/Bord.h screens/GameScreen.cpp screens/GameScreen.h screens/VangspelScreen.cpp screens/VangspelScreen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame1/VallendVoorwerp.cpp src/Minigame1/VallendVoorwerp.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 
