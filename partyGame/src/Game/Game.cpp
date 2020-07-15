@@ -33,8 +33,8 @@ Game::Game() {
     spelerAI = new Speler;
     spelerAanZet = speler1;
     bord = new Bord;
-    speler1X = 4;
-    speler1Y = 4;
+    speler1X = 0;
+    speler1Y = 0;
 }
 
 Bord *Game::getBord() {
@@ -42,26 +42,26 @@ Bord *Game::getBord() {
 }
 
 void Game::beweegSpelerNaarRechts() {
-    if ((speler1Y == 0 or speler1Y == 4 or speler1Y == 8) and speler1X != 8) {
+    if ((speler1Y == 0 or speler1Y == 3 or speler1Y == 6) and speler1X != 6) {
         speler1X++;
     }
     //speler1X = std::min(speler1X+1, 8);
 }
 
 void Game::beweegSpelerNaarLinks() {
-    if ((speler1Y == 0 or speler1Y == 4 or speler1Y == 8) and speler1X != 0) {
+    if ((speler1Y == 0 or speler1Y == 3 or speler1Y == 6) and speler1X != 0) {
         speler1X--;
     }
     //speler1X = std::max(speler1X-1, 0);
 }
 void Game::beweegSpelerNaarBoven() {
-    if ((speler1X == 0 or speler1X == 4 or speler1X == 8) and speler1Y != 0) {
+    if ((speler1X == 0 or speler1X == 3 or speler1X == 6) and speler1Y != 0) {
         speler1Y--;
     }
     //speler1Y = std::max(speler1Y-1, 0);
 }
 void Game::beweegSpelerNaarOnder() {
-    if ((speler1X == 0 or speler1X == 4 or speler1X == 8) and speler1Y != 8) {
+    if ((speler1X == 0 or speler1X == 3 or speler1X == 6) and speler1Y != 6) {
         speler1Y++;
     }
     //speler1Y = std::min(speler1Y+1, 8);

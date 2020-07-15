@@ -95,14 +95,10 @@ void GameScreen::updatePosition() {
         case 0: case 1: case 2:
             bgX = 0;
             break;
-        case 3:
+        case 3: case 4: case 5: case 6:
             bgX = 1;
             break;
-        case 4:
-            bgX = 2;
-            break;
-        case 5: case 6: case 7: case 8:
-            bgX = 3;
+
     }
     switch (game.getSpeler1X()) {
         case 0:
@@ -111,18 +107,19 @@ void GameScreen::updatePosition() {
         case 1:
             spX = 1;
             break;
-        case 2: case 3: case 4: case 5:
+        case 2: case 3:
             spX = 2;
             break;
-        case 6:
+        case 4:
             spX = 3;
             break;
-        case 7:
+        case 5:
             spX = 4;
             break;
-        case 8:                                     //Moet achter de laatste hier (en bij de andere switch cases) nog een break;?
+        case 6:
             spX = 5;
             break;
+
     }
 
     switch (game.getSpeler1Y()) {
@@ -132,14 +129,8 @@ void GameScreen::updatePosition() {
         case 3:
             bgY = 1;
             break;
-        case 4:
+            case 4: case 5: case 6:
             bgY = 2;
-            break;
-        case 5:
-            bgY = 3;
-            break;
-        case 6: case 7: case 8:
-            bgY = 4;
             break;
     }
     switch (game.getSpeler1Y()) {
@@ -149,13 +140,13 @@ void GameScreen::updatePosition() {
         case 1:
             spY = 1;
             break;
-        case 2: case 3: case 4: case 5: case 6:
+        case 2: case 3: case 4:
             spY = 2;
             break;
-        case 7:
+        case 5:
             spY = 3;
             break;
-        case 8:
+        case 6:
             spY = 4;
             break;
     }
