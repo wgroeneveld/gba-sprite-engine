@@ -22,12 +22,13 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-   Minigame2Screen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
+   Minigame2Screen(std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}; //Kijken of ik hier &engine ofzo moet doen
 
     void load() override;
     void tick(u16 keys) override;
 
     void updatePosition();
+    void endScene();
 };
 
 

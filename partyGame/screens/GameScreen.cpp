@@ -15,6 +15,7 @@
 #include "../backgrounds/Tiles8x8.h"
 #include "../backgrounds/eerste7x7Map.h"
 #include "../backgrounds/Background8x8Map.h"
+
 //#include "VangspelScreen.h"
 
 
@@ -79,6 +80,11 @@ void GameScreen::tick(u16 keys) {
         game.beweegSpelerNaarOnder();
         updatePosition();
     }
+
+    else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+        engine->setScene(new MainMenuScreen(engine));
+    }
+
 
     //updateSpeler1();
 

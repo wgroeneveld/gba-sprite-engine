@@ -12,7 +12,7 @@
 
 
 std::vector<Background *> AboutScreen::backgrounds() {
-    return {/*background.get()*/}; //als ik hier dat laat staan, crasht ie, omdat dat zelfde naam is als bij de andere? Of gewoon omdat er geen background gecreeerd wordt?
+    return {/*background.get()*/}; //als ik hier dat laat staan, crasht ie, omdat dat zelfde naam is als bij de andere? Of gewoon omdat er geen background gecreeerd wordt? Het tweede.
 }
 
 

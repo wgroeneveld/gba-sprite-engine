@@ -17,7 +17,7 @@ int Minigame2::getScore() {
 
 void Minigame2::MakePicture() {
     int positie = positieX; //Checken of ik deze tussenstap eigenlijk wel moet doen.
-    score = std::abs(104-positie);
+    score = 104-(std::abs(104-positie));
 }
 
 void Minigame2::beweeg() {
