@@ -29,9 +29,6 @@ en dan nadien shared palette in aparte file genereren/zetten --> gelukt!
 
 * met mannetje kunnen rondlopen en punten verdienen door te colliden
 
-*27/04 bord maken dat uit 20 vakjes bestaat, kijken of je vooruit kunt gaan
-
-* 1 tile fout geplaatst (bij de 3)
-
 * sprite verspringt niet meer voor ie naar spel moet gaan.
 
+* BUG: VERSIE van 15/07 21.23u soms crasht ie als je naar GameScreen gaat als je eerst langs andere schermen bent gepasseerd. Weet nog niet waarom. Als je meerdere toetsen te snel na elkaar indrukt? Ik weet het niet. Zucht.

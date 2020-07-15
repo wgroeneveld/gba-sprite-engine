@@ -12,7 +12,7 @@
 #include "MainMenuScreen.h"
 
 void Minigame2Screen::load() {
-    
+
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
