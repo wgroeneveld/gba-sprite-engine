@@ -31,7 +31,7 @@ void GameScreen::load() {
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
     background2.get()->useMapScreenBlock(20);
 
-    TextStream::instance().setText(std::string("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"), 3, 1);
+    TextStream::instance().setText(std::string("Score"), 1, 25);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
@@ -43,7 +43,7 @@ void GameScreen::load() {
             .withAnimated(1, 40)
             .withLocation(0, 0)
             .buildPtr();
-
+    updatePosition();
 }
 
 std::vector<Sprite *> GameScreen::sprites() {

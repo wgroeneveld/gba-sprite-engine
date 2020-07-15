@@ -33,8 +33,8 @@ Game::Game() {
     spelerAI = new Speler;
     spelerAanZet = speler1;
     bord = new Bord;
-    speler1X = 0;
-    speler1Y = 0;
+    speler1X = 3;
+    speler1Y = 3;
 }
 
 Bord *Game::getBord() {

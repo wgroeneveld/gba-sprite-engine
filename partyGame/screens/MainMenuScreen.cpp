@@ -15,6 +15,7 @@
 
 
 #include "GameScreen.h"
+#include "Minigame2Screen.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
@@ -73,6 +74,9 @@ void MainMenuScreen::tick(u16 keys) {
         engine->setScene(new AboutScreen(engine));
     }
 
+    if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {// ENTER key, wait until released
+        engine->setScene(new Minigame2Screen(engine));
+    }
 
 
     lastKeys = keys;
