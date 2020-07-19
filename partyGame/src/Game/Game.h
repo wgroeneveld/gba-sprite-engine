@@ -14,6 +14,15 @@ private:
     //Speler *speler1;
     //Speler *spelerAI;
    // Bord *bord;
+    int bord[7][7] = {{0, 0, 0, 0, 0, 0, 1}, //Waarom kan die niet in de .cpp?
+                      {0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0},
+                      {0, 0, 0, 0, 0, 0, 0},
+                      {1, 0, 0, 0, 0, 0, 0}};
+
+
     int speler1X;
     int speler1Y;
     bool minigame1Gehaald;
@@ -39,6 +48,9 @@ public:
     bool getMinigame2Gehaald();
     void setMinigame2Gehaald(bool gehaald);
     int getScore();
+    void setScore(int getal);
+    int getVakje(int X, int Y);
+    int getHuidigVakje();
 
 
 

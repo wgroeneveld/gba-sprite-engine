@@ -16,7 +16,7 @@
 #include "../backgrounds/gunshot.h"
 
 void Minigame2Screen::load() {
-
+    TextStream::instance().clear();
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -69,6 +69,7 @@ void Minigame2Screen::updatePosition() {
 
 void Minigame2Screen::endScene() {
     minigame.MakePicture();
+    game.setScore(spelscore);
     engine->enqueueSound(gunshot, gunshot_bytes, 44100);
     TextStream::instance().setText(std::string("Gedaan"), 2, 10);
     TextStream::instance().setText(std::string("Score: " + std::to_string(minigame.getScore())), 3, 10);

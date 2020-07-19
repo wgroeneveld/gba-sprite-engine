@@ -87,8 +87,11 @@ int Game::getScore() {
     return score;
 }
 
+void Game::setScore(int getal) {
+    score += getal;
+}
+
 Game::Game(int posX, int posY, int scoretje, bool game1Gehaald, bool game2Gehaald, bool game3Gehaald) {
-    //bord = new Bord;
     speler1X = posX;
     speler1Y = posY;
     score = scoretje;
@@ -104,4 +107,15 @@ Game::Game() {
     minigame1Gehaald = false;
     minigame2Gehaald = false;
     minigame3Gehaald = false;
+
 }
+
+int Game::getVakje(int x, int y) {
+    return bord[x][y];
+}
+
+int Game::getHuidigVakje() {
+    return bord[speler1X][speler1Y];
+}
+
+

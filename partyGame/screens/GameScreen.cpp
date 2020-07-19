@@ -84,10 +84,17 @@ void GameScreen::tick(u16 keys) {
 
     else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
         engine->setScene(new MainMenuScreen(engine));
+        //engine->setScene(new Minigame2Screen(engine, referenceGame));
     }
 
+    /*
     if (game.getSpeler1Y() == 0 and game.getSpeler1X() == 0) {
         //engine->setScene(new Minigame2Screen(engine, game));
+        engine->setScene(new Minigame2Screen(engine, referenceGame));
+        //game.setScore(10);
+    }*/
+
+    if (game.getHuidigVakje() == 1) {
         engine->setScene(new Minigame2Screen(engine, referenceGame));
     }
 
@@ -95,6 +102,7 @@ void GameScreen::tick(u16 keys) {
         engine->setScene(new EndScreen(engine));
     }
     //updateSpeler1();
+    TextStream::instance().setText(std::string(std::to_string(game.getScore())), 2, 25);
 
     lastKeys = keys;
 }
