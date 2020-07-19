@@ -2,14 +2,14 @@
 // Created by michi on 27/04/2020.
 //
 
-#ifndef GBA_SPRITE_ENGINE_PROJECT_VANGSPELSCREEN_H
-#define GBA_SPRITE_ENGINE_PROJECT_VANGSPELSCREEN_H
+#ifndef GBA_SPRITE_ENGINE_PROJECT_MINIGAME1SCREEN_H
+#define GBA_SPRITE_ENGINE_PROJECT_MINIGAME1SCREEN_H
 
 
 #include <libgba-sprite-engine/scene.h>
 #include "../src/Minigame1/Minigame1.h"
 
-class VangspelScreen : public Scene {
+class Minigame1Screen : public Scene {
 private:
 
     //Minigame1 minigame(std::shared_ptr<GBAEngine> engine);
@@ -24,7 +24,8 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    VangspelScreen(std::shared_ptr<GBAEngine> engine, Minigame1 minigame) : Scene(engine), minigame(minigame) {};
+    //Minigame1Screen(std::shared_ptr<GBAEngine> engine, Minigame1 minigame) : Scene(engine) {};
+    Minigame1Screen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
     void updateSprite();
 
 
@@ -34,4 +35,4 @@ public:
 };
 
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_VANGSPELSCREEN_H
+#endif //GBA_SPRITE_ENGINE_PROJECT_MINIGAME1SCREEN_H

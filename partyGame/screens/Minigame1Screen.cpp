@@ -6,19 +6,20 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include "VangspelScreen.h"
+#include "Minigame1Screen.h"
 #include "../img/hoofdpersonage.h"
 
-std::vector<Background *> VangspelScreen::backgrounds() {
+std::vector<Background *> Minigame1Screen::backgrounds() {
     return {/*background.get()*/}; }
 
 
-std::vector<Sprite *> VangspelScreen::sprites() {
+std::vector<Sprite *> Minigame1Screen::sprites() {
     return {vallendVoorwerp1Sprite.get()};
 }
 
-void VangspelScreen::load() {
-    Minigame1 *minigame = new Minigame1(engine);
+void Minigame1Screen::load() {
+    //Minigame1 *minigame = new Minigame1(engine);
+    Minigame1 game;
     TextStream::instance().setText("Ik speel een spel.", 1, 1);
     TextStream::instance().setText("Ik speel een spel.", 1, 1);
 
@@ -38,7 +39,7 @@ void VangspelScreen::load() {
 
 }
 
-void VangspelScreen::tick(u16 keys) {
+void Minigame1Screen::tick(u16 keys) {
     if (firstTick) {
         firstTick = false;
         lastKeys = keys;
@@ -53,6 +54,6 @@ void VangspelScreen::tick(u16 keys) {
 
 }
 
-void VangspelScreen::updateSprite() {
-    vallendVoorwerp1Sprite.get()->moveTo(minigame.getVoorwerp(1).getPositieX(),minigame.getVoorwerp(1).getPositieX());
+void Minigame1Screen::updateSprite() {
+    //vallendVoorwerp1Sprite.get()->moveTo(minigame.getVoorwerp(1).getPositieX(),minigame.getVoorwerp(1).getPositieX());
 }

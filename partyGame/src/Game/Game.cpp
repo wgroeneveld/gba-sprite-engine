@@ -6,7 +6,7 @@
 #include "Game.h"
 
 
-
+/*
 Speler* Game::getSpeler1() {
     return speler1;
 }
@@ -27,7 +27,8 @@ void Game::switchSelectedPlayer() {
         spelerAanZet = speler1;
     }
 }
-
+ */
+/*
 Game::Game() {
     speler1 = new Speler;
     spelerAI = new Speler;
@@ -35,36 +36,35 @@ Game::Game() {
     bord = new Bord;
     speler1X = 3;
     speler1Y = 3;
+    minigame2Gehaald = false;
+    score = 0;
 }
-
+*/
+/*
 Bord *Game::getBord() {
     return bord;
 }
-
+*/
 void Game::beweegSpelerNaarRechts() {
     if ((speler1Y == 0 or speler1Y == 3 or speler1Y == 6) and speler1X != 6) {
         speler1X++;
     }
-    //speler1X = std::min(speler1X+1, 8);
 }
 
 void Game::beweegSpelerNaarLinks() {
     if ((speler1Y == 0 or speler1Y == 3 or speler1Y == 6) and speler1X != 0) {
         speler1X--;
     }
-    //speler1X = std::max(speler1X-1, 0);
 }
 void Game::beweegSpelerNaarBoven() {
     if ((speler1X == 0 or speler1X == 3 or speler1X == 6) and speler1Y != 0) {
         speler1Y--;
     }
-    //speler1Y = std::max(speler1Y-1, 0);
 }
 void Game::beweegSpelerNaarOnder() {
     if ((speler1X == 0 or speler1X == 3 or speler1X == 6) and speler1Y != 6) {
         speler1Y++;
     }
-    //speler1Y = std::min(speler1Y+1, 8);
 }
 
 int Game::getSpeler1X() {
@@ -73,4 +73,35 @@ int Game::getSpeler1X() {
 
 int Game::getSpeler1Y() {
     return speler1Y;
+}
+
+bool Game::getMinigame2Gehaald() {
+    return minigame2Gehaald;
+}
+
+void Game::setMinigame2Gehaald(bool gehaald) {
+    minigame2Gehaald = gehaald;
+}
+
+int Game::getScore() {
+    return score;
+}
+
+Game::Game(int posX, int posY, int scoretje, bool game1Gehaald, bool game2Gehaald, bool game3Gehaald) {
+    //bord = new Bord;
+    speler1X = posX;
+    speler1Y = posY;
+    score = scoretje;
+    minigame1Gehaald = game1Gehaald;
+    minigame2Gehaald = game2Gehaald;
+    minigame3Gehaald = game3Gehaald;
+}
+
+Game::Game() {
+    speler1X = 3;
+    speler1Y = 3;
+    score = 0;
+    minigame1Gehaald = false;
+    minigame2Gehaald = false;
+    minigame3Gehaald = false;
 }

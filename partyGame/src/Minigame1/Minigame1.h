@@ -19,7 +19,8 @@ private:
 public:
 
     //Minigame1(std::shared_ptr<GBAEngine> engine);
-    Minigame1(std::shared_ptr<GBAEngine> engine);
+    //Minigame1(std::shared_ptr<GBAEngine> engine);
+    Minigame1();
     int getPositieMannetjeX();
     int getPositieMannetjeY();
     void beweegMannetje(int x);

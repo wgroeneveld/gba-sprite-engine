@@ -8,22 +8,36 @@
 
 #include <libgba-sprite-engine/scene.h>
 #include "../src/Minigame2/Minigame2.h"
+#include "../src/Game/Game.h"
 
 
 class Minigame2Screen : public Scene {
 private:
-    Minigame2 game;
+    //Game *game;
+    Game game;
+    Game &referenceGame = game;
+
+    Minigame2 minigame;
     std::unique_ptr<Sprite> ufo;
     u16 lastKeys = 0;
     bool firstTick = true;
     std::unique_ptr<Background> background;
     bool bezig = true;
+
+    bool game1Gehaald;
+    bool game2Gehaald;
+    bool game3gehaald;
+    int posX;
+    int posY;
+    int spelscore;
+
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-   Minigame2Screen(std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}; //Kijken of ik hier &engine ofzo moet doen
-
+    //Minigame2Screen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {}; //Kijken of ik hier &engine ofzo moet doen
+    Minigame2Screen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine) {game = referenceGamepje;};
+    //Minigame2Screen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine) {game = gamepje;};
     void load() override;
     void tick(u16 keys) override;
 

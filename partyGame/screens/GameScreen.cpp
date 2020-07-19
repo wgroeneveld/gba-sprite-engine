@@ -15,24 +15,25 @@
 #include "../backgrounds/Tiles8x8.h"
 #include "../backgrounds/eerste7x7Map.h"
 #include "../backgrounds/Background8x8Map.h"
+#include "EndScreen.h"
+#include "Minigame2Screen.h"
 
-//#include "VangspelScreen.h"
+//#include "Minigame1Screen.h"
 
 
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 
-
 void GameScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Tiles8x8Pal, sizeof(Tiles8x8Pal)));
     background = std::unique_ptr<Background>(new Background(2, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), eerste7x7Map, sizeof(eerste7x7Map)));
     background.get()->useMapScreenBlock(4);
-   // background.get()->scroll(0,0);
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
     background2.get()->useMapScreenBlock(20);
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
+    TextStream::instance().setText(std::string(std::to_string(game.getScore())), 2, 25);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
@@ -85,7 +86,14 @@ void GameScreen::tick(u16 keys) {
         engine->setScene(new MainMenuScreen(engine));
     }
 
+    if (game.getSpeler1Y() == 0 and game.getSpeler1X() == 0) {
+        //engine->setScene(new Minigame2Screen(engine, game));
+        engine->setScene(new Minigame2Screen(engine, referenceGame));
+    }
 
+    if (game.getSpeler1X() == 3 and game.getSpeler1Y() == 3 and game.getMinigame2Gehaald()) {
+        engine->setScene(new EndScreen(engine));
+    }
     //updateSpeler1();
 
     lastKeys = keys;

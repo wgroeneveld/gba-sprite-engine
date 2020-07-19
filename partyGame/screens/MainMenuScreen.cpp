@@ -16,6 +16,7 @@
 
 #include "GameScreen.h"
 #include "Minigame2Screen.h"
+#include "Minigame1Screen.h"
 
 
 std::vector<Background *> MainMenuScreen::backgrounds() {
@@ -30,6 +31,8 @@ std::vector<Sprite *> MainMenuScreen::sprites() {
 void MainMenuScreen::load() {
     TextStream::instance().setText(std::string("UP go to the game"), 1, 1);
     TextStream::instance().setText(std::string("DOWN read more about the game"), 3, 1);
+    TextStream::instance().setText(std::string("RIGHT go to Minigame 2"), 5, 1);
+    TextStream::instance().setText(std::string("Left go to Minigame 1"), 7, 1);
 /*
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
@@ -75,8 +78,13 @@ void MainMenuScreen::tick(u16 keys) {
     }
 
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {// ENTER key, wait until released
-        engine->setScene(new Minigame2Screen(engine));
+        //engine->setScene(new Minigame2Screen(engine));
     }
+
+    /*
+    if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {// ENTER key, wait until released
+        engine->setScene(new Minigame1Screen(engine));
+    }*/
 
 
     lastKeys = keys;

@@ -6,7 +6,8 @@
 #include <libgba-sprite-engine/gba_engine.h>
 
 
-Minigame1::Minigame1(std::shared_ptr<GBAEngine> engine) {
+//Minigame1::Minigame1(std::shared_ptr<GBAEngine> engine) {
+Minigame1::Minigame1() {
     score = 0;
     positieMannetjeX = 120;
     positieMannetjeY = 230;
@@ -14,6 +15,6 @@ Minigame1::Minigame1(std::shared_ptr<GBAEngine> engine) {
     voorwerpen[1] = new VallendVoorwerp(false);
     voorwerpen[2] = new VallendVoorwerp(false);
     voorwerpen[3] = new VallendVoorwerp(false);
-    beginTijd = engine.get()->getTimer()->getSecs();
+    //beginTijd = engine.get()->getTimer()->getSecs();
 }
 

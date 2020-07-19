@@ -12,7 +12,10 @@
 class GameScreen : public Scene {
 
 private:
+    //Game *game;
     Game game;
+    Game &referenceGame = game;
+
     std::unique_ptr<Sprite> speler1Sprite;
     u16 lastKeys = 0;
     bool firstTick = true;
@@ -26,7 +29,7 @@ public:
     std::vector<Background *> backgrounds() override;
 
     GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
-
+    GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGame) : Scene(engine) {game = referenceGame;}; //Kopiëren we dat hier nu? Kan dat de bedoeling zijn?
     void load() override;
     void tick(u16 keys) override;
 
