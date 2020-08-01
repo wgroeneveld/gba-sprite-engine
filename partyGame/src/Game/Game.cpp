@@ -103,7 +103,7 @@ Game::Game(int posX, int posY, int scoretje, bool game1Gehaald, bool game2Gehaal
 Game::Game() {
     speler1X = 3;
     speler1Y = 3;
-    score = 0;
+    score = 55;
     minigame1Gehaald = false;
     minigame2Gehaald = false;
     minigame3Gehaald = false;

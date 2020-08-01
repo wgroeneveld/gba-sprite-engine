@@ -33,8 +33,8 @@ void GameScreen::load() {
     background2.get()->useMapScreenBlock(20);
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
+    //TextStream::instance().setText(std::string(std::to_string(gamePointer->getScore())), 2, 25);
     TextStream::instance().setText(std::string(std::to_string(game.getScore())), 2, 25);
-
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -67,19 +67,26 @@ void GameScreen::tick(u16 keys) {
 
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
         game.beweegSpelerNaarRechts();
+        //gamePointer->beweegSpelerNaarRechts();
         updatePosition();
     }
     else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
         game.beweegSpelerNaarLinks();
+        //gamePointer->beweegSpelerNaarLinks();
         updatePosition();
     }
     else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
         game.beweegSpelerNaarBoven();
+        //gamePointer->beweegSpelerNaarBoven();
         updatePosition();
     }
     else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
         game.beweegSpelerNaarOnder();
+        //gamePointer->beweegSpelerNaarOnder();
         updatePosition();
+        if (game.getHuidigVakje() == 1) {
+            engine->setScene(new Minigame2Screen(engine, game));
+        }
     }
 
     else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
@@ -94,9 +101,12 @@ void GameScreen::tick(u16 keys) {
         //game.setScore(10);
     }*/
 
-    if (game.getHuidigVakje() == 1) {
-        engine->setScene(new Minigame2Screen(engine, referenceGame));
-    }
+   // if (game.getHuidigVakje() == 1 and !spelGespeeld) {
+      //  //Game &referenceGame = game;
+       // spelGespeeld = true;
+       // engine->setScene(new Minigame2Screen(engine, game));
+
+   // }
 
     if (game.getSpeler1X() == 3 and game.getSpeler1Y() == 3 and game.getMinigame2Gehaald()) {
         engine->setScene(new EndScreen(engine));
