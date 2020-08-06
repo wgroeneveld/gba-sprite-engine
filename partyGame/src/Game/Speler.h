@@ -14,6 +14,11 @@ private:
     int vakjesNogVerschuiven;
     bool alGegooid;
 
+    bool magNaarLinks;
+    bool magNaarRechts;
+    bool magNaarBoven;
+    bool magNaarOnder;
+
 
 public:
     Speler();
@@ -31,6 +36,10 @@ public:
     void gooiDobbelsteen();
     int getVakjesNogVerschuiven();
 
+    void setMagNaarOnder(bool nietNaarBovenGeweest);
+    void setMagNaarBoven (bool nietNaarOnderGeweest);
+    void setMagNaarLinks (bool nietNaarRechtsGeweest);
+    void setMagNaarRechts (bool nietNaarLinksGeweest);
 
 };
 
