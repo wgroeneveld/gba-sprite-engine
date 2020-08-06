@@ -37,6 +37,8 @@ void GameScreen::load() {
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Zetten"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
+    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getTijd())), 5, 25);
+
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -48,6 +50,7 @@ void GameScreen::load() {
             .withLocation(0, 0)
             .buildPtr();
     updatePosition();
+    //game->getSpeler()->startTimer();
 }
 
 std::vector<Sprite *> GameScreen::sprites() {
@@ -80,7 +83,7 @@ void GameScreen::tick(u16 keys) {
         updatePosition();
     }
     else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-        game->getSpeler()->beweegnaarOnder();
+        game->getSpeler()->beweegNaarOnder();
         updatePosition();
     }
 
@@ -97,12 +100,28 @@ void GameScreen::tick(u16 keys) {
             engine->setScene(new Minigame2Screen(engine, game));
         }
         else if (game->getHuidigVakje() == 3) {
-            game->getSpeler()->beweegNaarLinks();
-            game->getSpeler()->beweegNaarLinks();
-            game->getSpeler()->beweegNaarLinks();
+            int random = (rand() % 1); //springt altijd naar links
+            //int random = 0;
+            if (random == 0) {
+                game->getSpeler()->springNaarLinks();
+                updatePosition();
+            }
+            else {
+                game->getSpeler()->springNaarRechts();
+                updatePosition();
+            }
         }
         else if (game->getHuidigVakje() == 4) {
-
+            int random = (rand() % 1); //spring altijd naar boven
+            //int random = 0;
+            if (random == 0) {
+                game->getSpeler()->springNaarBoven();
+                updatePosition();
+            }
+            else {
+                game->getSpeler()->springNaarOnder();
+                updatePosition();
+            }
         }
     }
 
@@ -186,6 +205,7 @@ void GameScreen::updatePosition() {
     background.get()->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
+    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getTijd())), 5, 25);
 }
 
 

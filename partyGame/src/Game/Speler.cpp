@@ -5,6 +5,8 @@
 #include "Speler.h"
 #include <ctime>
 #include <random>
+#include <iostream>
+#include <libgba-sprite-engine/gba_engine.h>
 
 Speler::Speler() {
     score = 0;
@@ -16,6 +18,7 @@ Speler::Speler() {
     magNaarLinks = true;
     magNaarBoven = true;
     magNaarOnder = true;
+    //tijd = 3;
 }
 
 int Speler::getScore() {
@@ -46,7 +49,7 @@ void Speler::beweegNaarLinks() {
     }
 }
 
-void Speler::beweegnaarOnder() {
+void Speler::beweegNaarOnder() {
     if ((posX == 0 or posX == 3 or posX == 6) and posY != 6 and vakjesNogVerschuiven != 0 and magNaarOnder) {
         posY++;
         vakjesNogVerschuiven--;
@@ -85,8 +88,11 @@ bool Speler::getAlGegooid() {
 void Speler::gooiDobbelsteen() {
     if (!alGegooid) {
 
-        std::default_random_engine e;
+        //std::uniform_int_distribution<int> u(1,10);
+        //std::default_random_engine e(time(0)*time(0)); //Dan verandert het sneller
+        //vakjesNogVerschuiven = u(e);
 
+        //tijd = timer.getSecs();
         vakjesNogVerschuiven = 1 + (rand() % 3);
         alGegooid = true;
         magNaarBoven = true;
@@ -101,6 +107,22 @@ int Speler::getVakjesNogVerschuiven() {
     return vakjesNogVerschuiven;
 }
 
+void Speler::springNaarRechts() {
+    posX = posX + 3;
+}
+
+void Speler::springNaarLinks() {
+    posX = posX - 3;
+}
+
+void Speler::springNaarOnder() {
+    posY = posY + 3;
+}
+
+void Speler::springNaarBoven() {
+    posY = posY - 3;
+}
+/*
 void Speler::setMagNaarOnder(bool nietNaarBovenGeweest) {
     magNaarOnder = nietNaarBovenGeweest;
 }
@@ -115,8 +137,16 @@ void Speler::setMagNaarLinks(bool nietNaarRechtsGeweest) {
 
 void Speler::setMagNaarRechts(bool nietNaarLinksGeweest) {
     magNaarRechts = nietNaarLinksGeweest;
+}*/
+/*
+void Speler::startTimer() {
+    timer.start();
 }
 
+int Speler::getTijd() {
+    return tijd;
+}
+*/
 
 
 

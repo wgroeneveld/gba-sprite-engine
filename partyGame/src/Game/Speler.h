@@ -6,6 +6,9 @@
 #define GBA_SPRITE_ENGINE_PROJECT_SPELER_H
 
 
+#include <ctime>
+#include <libgba-sprite-engine/timer.h>
+
 class Speler {
 private:
     int score;
@@ -18,6 +21,8 @@ private:
     bool magNaarRechts;
     bool magNaarBoven;
     bool magNaarOnder;
+    //Timer timer;
+    //int tijd;
 
 
 public:
@@ -28,19 +33,25 @@ public:
     int getPosY();
     void beweegNaarRechts();
     void beweegNaarLinks();
-    void beweegnaarOnder();
+    void beweegNaarOnder();
     void beweegNaarBoven();
+    void springNaarRechts();
+    void springNaarLinks();
+    void springNaarOnder();
+    void springNaarBoven();
 
     void setAlGegooid(bool gegooid);
     bool getAlGegooid();
     void gooiDobbelsteen();
     int getVakjesNogVerschuiven();
 
-    void setMagNaarOnder(bool nietNaarBovenGeweest);
-    void setMagNaarBoven (bool nietNaarOnderGeweest);
-    void setMagNaarLinks (bool nietNaarRechtsGeweest);
-    void setMagNaarRechts (bool nietNaarLinksGeweest);
+    //void setMagNaarOnder(bool nietNaarBovenGeweest);
+    //void setMagNaarBoven (bool nietNaarOnderGeweest);
+    //void setMagNaarLinks (bool nietNaarRechtsGeweest);
+    //void setMagNaarRechts (bool nietNaarLinksGeweest);
 
+    //void startTimer();
+    //int getTijd();
 };
 
 
