@@ -3,6 +3,8 @@
 //
 #include <algorithm>
 #include "Speler.h"
+#include <ctime>
+#include <random>
 
 Speler::Speler() {
     score = 0;
@@ -82,7 +84,10 @@ bool Speler::getAlGegooid() {
 
 void Speler::gooiDobbelsteen() {
     if (!alGegooid) {
-        vakjesNogVerschuiven = 1 + (rand() % 300);
+
+        std::default_random_engine e;
+
+        vakjesNogVerschuiven = 1 + (rand() % 3);
         alGegooid = true;
         magNaarBoven = true;
         magNaarOnder = true;

@@ -34,7 +34,6 @@ void GameScreen::load() {
     background2.get()->useMapScreenBlock(20);
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
-    //TextStream::instance().setText(std::string(std::to_string(gamePointer->getScore())), 2, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Zetten"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
@@ -65,7 +64,7 @@ void GameScreen::tick(u16 keys) {
     if (firstTick) {
         firstTick = false;
         lastKeys = keys;
-        return;
+        //return;
     }
 
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
@@ -83,42 +82,37 @@ void GameScreen::tick(u16 keys) {
     else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
         game->getSpeler()->beweegnaarOnder();
         updatePosition();
-        if (game->getHuidigVakje() == 1) {
-            TextStream::instance().clear();
-            engine->setScene(new Minigame2Screen(engine, game));
-        }
     }
 
     else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
-        //engine->setScene(new MainMenuScreen(engine));
         game->getSpeler()->gooiDobbelsteen();
         updatePosition();
     }
 
-    /*
-    else if (!(keys & KEY_A) && (lastKeys & KEY_A)) {
-        game->gooiDobbelsteen();
-    }*/
-    /*
-    if (game.getSpeler1Y() == 0 and game.getSpeler1X() == 0) {
-        //engine->setScene(new Minigame2Screen(engine, game));
-        engine->setScene(new Minigame2Screen(engine, referenceGame));
-        //game.setScore(10);
-    }*/
+    if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) {
+        if (game->getHuidigVakje() == 1) {
+            game->getSpeler()->setAlGegooid(false);
+        }
+        else if (game->getHuidigVakje() == 2) {
+            engine->setScene(new Minigame2Screen(engine, game));
+        }
+        else if (game->getHuidigVakje() == 3) {
+            game->getSpeler()->beweegNaarLinks();
+            game->getSpeler()->beweegNaarLinks();
+            game->getSpeler()->beweegNaarLinks();
+        }
+        else if (game->getHuidigVakje() == 4) {
 
-   // if (game.getHuidigVakje() == 1 and !spelGespeeld) {
-      //  //Game &referenceGame = game;
-       // spelGespeeld = true;
-       // engine->setScene(new Minigame2Screen(engine, game));
+        }
+    }
 
+
+
+    //if (game->getSpeler()->getPosX() == 3 and game->getSpeler()->getPosY() == 3) {
+        //engine->setScene(new EndScreen(engine));
    // }
 
-    if (game->getSpeler()->getPosX() == 3 and game->getSpeler()->getPosY() == 3) {
-        //engine->setScene(new EndScreen(engine));
-    }
     //updateSpeler1();
-    //TextStream::instance().setText(std::string(std::to_string(game->getScore())), 2, 25);
-
     lastKeys = keys;
 }
 // Zoveel logica mag eigenlijk nooit in een update staan, wordt veel te vaak aangeroepen?

@@ -11,26 +11,20 @@
 
 class Game {
 private:
-    int bord[7][7] = {{0, 0, 0, 0, 0, 0, 1},
-                     {0, 0, 0, 0, 0, 0, 0},
-                     {0, 0, 0, 0, 0, 0, 0},
-                     {0, 0, 0, 0, 0, 0, 0},
-                     {0, 0, 0, 0, 0, 0, 0},
-                     {0, 0, 0, 0, 0, 0, 0},
-                     {1, 0, 0, 0, 0, 0, 0}};;
+    int bord[7][7] = {{2, 1, 1, 3, 1, 1, 2},
+                     {1, 0, 0, 1, 0, 0, 1},
+                     {1, 0, 0, 1, 0, 0, 1},
+                     {4, 1, 1, 1, 1, 1, 4},
+                     {1, 0, 0, 1, 0, 0, 1},
+                     {1, 0, 0, 1, 0, 0, 1},
+                     {2, 1, 1, 3, 1, 1, 2}};;
 
     std::shared_ptr<Speler> speler = std::make_shared<Speler>(Speler());
-    //Speler speler;
-
-
 
 public:
     Game();
     int getHuidigVakje();
     std::shared_ptr<Speler> getSpeler();
-
-
-
 
 };
 
