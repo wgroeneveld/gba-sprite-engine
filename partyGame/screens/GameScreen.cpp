@@ -35,7 +35,9 @@ void GameScreen::load() {
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     //TextStream::instance().setText(std::string(std::to_string(gamePointer->getScore())), 2, 25);
-    //TextStream::instance().setText(std::string(std::to_string(game->getScore())), 2, 25);
+    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
+    TextStream::instance().setText(std::string("Zetten"), 3, 25);
+    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -88,9 +90,15 @@ void GameScreen::tick(u16 keys) {
     }
 
     else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
-        engine->setScene(new MainMenuScreen(engine));
+        //engine->setScene(new MainMenuScreen(engine));
+        game->getSpeler()->gooiDobbelsteen();
+        updatePosition();
     }
 
+    /*
+    else if (!(keys & KEY_A) && (lastKeys & KEY_A)) {
+        game->gooiDobbelsteen();
+    }*/
     /*
     if (game.getSpeler1Y() == 0 and game.getSpeler1X() == 0) {
         //engine->setScene(new Minigame2Screen(engine, game));
@@ -182,7 +190,10 @@ void GameScreen::updatePosition() {
 
     speler1Sprite.get()->moveTo(spX*32, spY*32);
     background.get()->scroll(bgX * 32,bgY*32);
+    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
 }
+
+
 
 

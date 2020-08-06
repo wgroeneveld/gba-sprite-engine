@@ -9,19 +9,17 @@ Game::Game() {
 
 }
 
-std::shared_ptr<Speler> Game::getSpeler() { //Moet dit een pointer worden?
+std::shared_ptr<Speler> Game::getSpeler() {
     return speler;
 }
 
-/*
-Speler Game::getSpeler() {
-    return speler;
-}
- */
 int Game::getHuidigVakje() {
-    //Speler blub = getSpeler();
-    //return bord[getSpeler().getPosX()][getSpeler().getPosY()];
     return bord[getSpeler()->getPosX()][getSpeler()->getPosY()];
 }
+
+
+
+
+
 
 

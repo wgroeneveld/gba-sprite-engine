@@ -11,6 +11,8 @@ private:
     int score;
     int posX;
     int posY;
+    int vakjesNogVerschuiven;
+    bool alGegooid;
 
 
 public:
@@ -23,6 +25,11 @@ public:
     void beweegNaarLinks();
     void beweegnaarOnder();
     void beweegNaarBoven();
+
+    void setAlGegooid(bool gegooid);
+    bool getAlGegooid();
+    void gooiDobbelsteen();
+    int getVakjesNogVerschuiven();
 
 
 };

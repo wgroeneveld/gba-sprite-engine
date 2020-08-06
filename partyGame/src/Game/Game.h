@@ -23,11 +23,15 @@ private:
     //Speler speler;
 
 
+
 public:
     Game();
     int getHuidigVakje();
     std::shared_ptr<Speler> getSpeler();
-    //Speler getSpeler();
+
+
+
+
 };
 
 

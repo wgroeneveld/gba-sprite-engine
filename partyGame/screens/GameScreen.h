@@ -25,18 +25,9 @@ private:
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
-
-    //GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine), gamePointer(new Game()) {};
-
-    //GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine), game(Game()) {};
-    //GameScreen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine), game(gamepje) {};
     GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
     GameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje) : Scene(engine), game(gamepje) {};
-    //GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine), referenceGame(referenceGamepje) {};
-    //GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine), game(referenceGamepje) {};
-    //GameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamePointertje) : Scene(engine) {gamePointer = gamePointertje;};
 
-    //GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine) {game = referenceGamepje;}; //Kopiëren we dat hier nu? Kan dat de bedoeling zijn?
     void load() override;
     void tick(u16 keys) override;
 

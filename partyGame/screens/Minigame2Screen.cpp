@@ -91,7 +91,7 @@ void Minigame2Screen::endScene() {
     //}
     //engine->setScene(new GameScreen(engine, game));
     //Game &referenceGame = game;
-
+    game->getSpeler()->setAlGegooid(false);
     engine->setScene(new GameScreen(engine, game));
 }
 
