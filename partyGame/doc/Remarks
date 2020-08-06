@@ -36,3 +36,7 @@ en dan nadien shared palette in aparte file genereren/zetten --> gelukt!
 * BUG: als je naar Minigame2Screen gaat, blijft er rechtsboven een getalletje staan.
 
 * bord maken, zorgen dat score er bij op geteld wordt
+
+* checken of ik nu eigenlijk niet veel te veel onnodig kopieer, reference?
+
+* Minigame2Screen verhoogt de totaalscore, niet makePicture(). Is dat oké?s

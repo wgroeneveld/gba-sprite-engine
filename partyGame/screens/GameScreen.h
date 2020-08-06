@@ -9,15 +9,11 @@
 #include <libgba-sprite-engine/scene.h>
 #include "../src/Game/Game.h"
 
+
 class GameScreen : public Scene {
 
 private:
-    //Game *game;
-    //Game game;
-    //Game &referenceGame = game;
-    //std::shared_ptr<Game> gamePointer = std::shared_ptr<Game>(new Game());
-    //std::shared_ptr<Game> gamePointer;
-    Game game;
+    std::shared_ptr<Game> game = std::make_shared<Game>();
 
     std::unique_ptr<Sprite> speler1Sprite;
     u16 lastKeys = 0;
@@ -32,8 +28,10 @@ public:
 
     //GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine), gamePointer(new Game()) {};
 
-    GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine), game() {};
-    GameScreen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine), game(gamepje) {};
+    //GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine), game(Game()) {};
+    //GameScreen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine), game(gamepje) {};
+    GameScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
+    GameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje) : Scene(engine), game(gamepje) {};
     //GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine), referenceGame(referenceGamepje) {};
     //GameScreen(std::shared_ptr<GBAEngine> engine, Game referenceGamepje) : Scene(engine), game(referenceGamepje) {};
     //GameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamePointertje) : Scene(engine) {gamePointer = gamePointertje;};

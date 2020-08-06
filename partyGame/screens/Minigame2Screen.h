@@ -18,8 +18,8 @@ private:
     //Game &referenceGame = game;
     //Game &referenceGame;
     //Game game;
-    //std::shared_ptr<Game> gamePointer;
-    Game game;
+    std::shared_ptr<Game> game;
+    //Game &game;
     Minigame2 minigame;
     std::unique_ptr<Sprite> ufo;
     u16 lastKeys = 0;
@@ -46,7 +46,7 @@ public:
     //Minigame2Screen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine) {game = gamepje;};
 
     //Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamePointertje) : Scene(engine) {gamePointer = gamePointertje;};
-    Minigame2Screen(std::shared_ptr<GBAEngine> engine, Game gamepje) : Scene(engine), game(gamepje){};
+    Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje) : Scene(engine), game(gamepje){};
     void load() override;
     void tick(u16 keys) override;
 

@@ -7,6 +7,7 @@
 
 
 #include <libgba-sprite-engine/scene.h>
+#include "../src/Game/Game.h"
 
 class MainMenuScreen : public Scene {
 
@@ -15,6 +16,7 @@ private:
     std::unique_ptr<Sprite> stickman;
     std::unique_ptr<Sprite> basketball;
     std::unique_ptr<Background> background;
+    //Game game;
 
     u16 lastKeys = 0;
     bool firstTick = true;

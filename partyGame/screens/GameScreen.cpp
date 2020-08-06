@@ -25,6 +25,7 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 
+
 void GameScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Tiles8x8Pal, sizeof(Tiles8x8Pal)));
     background = std::unique_ptr<Background>(new Background(2, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), eerste7x7Map, sizeof(eerste7x7Map)));
@@ -34,7 +35,7 @@ void GameScreen::load() {
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     //TextStream::instance().setText(std::string(std::to_string(gamePointer->getScore())), 2, 25);
-    TextStream::instance().setText(std::string(std::to_string(game.getScore())), 2, 25);
+    //TextStream::instance().setText(std::string(std::to_string(game->getScore())), 2, 25);
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -66,32 +67,28 @@ void GameScreen::tick(u16 keys) {
     }
 
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-        game.beweegSpelerNaarRechts();
-        //gamePointer->beweegSpelerNaarRechts();
+        game->getSpeler().beweegNaarRechts();
         updatePosition();
     }
     else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
-        game.beweegSpelerNaarLinks();
-        //gamePointer->beweegSpelerNaarLinks();
+        game->getSpeler().beweegNaarLinks();
         updatePosition();
     }
     else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
-        game.beweegSpelerNaarBoven();
-        //gamePointer->beweegSpelerNaarBoven();
+        game->getSpeler().beweegNaarBoven();
         updatePosition();
     }
     else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-        game.beweegSpelerNaarOnder();
-        //gamePointer->beweegSpelerNaarOnder();
+        game->getSpeler().beweegnaarOnder();
         updatePosition();
-        if (game.getHuidigVakje() == 1) {
+        if (game->getHuidigVakje() == 1) {
+            TextStream::instance().clear();
             engine->setScene(new Minigame2Screen(engine, game));
         }
     }
 
     else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
         engine->setScene(new MainMenuScreen(engine));
-        //engine->setScene(new Minigame2Screen(engine, referenceGame));
     }
 
     /*
@@ -108,11 +105,11 @@ void GameScreen::tick(u16 keys) {
 
    // }
 
-    if (game.getSpeler1X() == 3 and game.getSpeler1Y() == 3 and game.getMinigame2Gehaald()) {
-        engine->setScene(new EndScreen(engine));
+    if (game->getSpeler().getPosX() == 3 and game->getSpeler().getPosY() == 3) {
+        //engine->setScene(new EndScreen(engine));
     }
     //updateSpeler1();
-    TextStream::instance().setText(std::string(std::to_string(game.getScore())), 2, 25);
+    //TextStream::instance().setText(std::string(std::to_string(game->getScore())), 2, 25);
 
     lastKeys = keys;
 }
@@ -123,7 +120,7 @@ void GameScreen::updatePosition() {
     int bgY = 0;
     int spY = 0;
 
-    switch (game.getSpeler1X()) {
+    switch (game->getSpeler().getPosX()) {
         case 0: case 1: case 2:
             bgX = 0;
             break;
@@ -132,7 +129,7 @@ void GameScreen::updatePosition() {
             break;
 
     }
-    switch (game.getSpeler1X()) {
+    switch (game->getSpeler().getPosX()) {
         case 0:
             spX = 0;
             break;
@@ -154,7 +151,7 @@ void GameScreen::updatePosition() {
 
     }
 
-    switch (game.getSpeler1Y()) {
+    switch (game->getSpeler().getPosY()) {
         case 0: case 1: case 2:
             bgY = 0;
             break;
@@ -165,7 +162,7 @@ void GameScreen::updatePosition() {
             bgY = 2;
             break;
     }
-    switch (game.getSpeler1Y()) {
+    switch (game->getSpeler().getPosY()) {
         case 0:
             spY = 0;
             break;

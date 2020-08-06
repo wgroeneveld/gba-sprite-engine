@@ -8,12 +8,21 @@
 
 class Speler {
 private:
-    int score{};
+    int score;
+    int posX;
+    int posY;
+
 
 public:
     Speler();
     int getScore();
-    void setScore(int nieuweScore);
+    void setScore(int extraScore);
+    int getPosX();
+    int getPosY();
+    void beweegNaarRechts();
+    void beweegNaarLinks();
+    void beweegnaarOnder();
+    void beweegNaarBoven();
 
 
 };

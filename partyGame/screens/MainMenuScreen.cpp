@@ -32,7 +32,6 @@ void MainMenuScreen::load() {
     TextStream::instance().setText(std::string("UP go to the game"), 1, 1);
     TextStream::instance().setText(std::string("DOWN read more about the game"), 3, 1);
     TextStream::instance().setText(std::string("RIGHT go to Minigame 2"), 5, 1);
-    TextStream::instance().setText(std::string("Left go to Minigame 1"), 7, 1);
 /*
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 

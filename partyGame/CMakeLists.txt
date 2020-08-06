@@ -4,8 +4,6 @@ add_executable(${PROJECT_NAME}.elf
 
 
         src/main.cpp
-        src/Game/Bord.cpp
-        src/Game/Bord.h
         src/Game/Game.cpp
         src/Game/Game.h
         src/Game/Speler.cpp
@@ -40,7 +38,7 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/grasBackground.h
         backgrounds/gunshot.h
 
-        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h src/Game/Bord.cpp src/Game/Bord.h screens/GameScreen.cpp screens/GameScreen.h screens/Minigame1Screen.cpp screens/Minigame1Screen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame1/VallendVoorwerp.cpp src/Minigame1/VallendVoorwerp.h src/Minigame2/Minigame2.cpp src/Minigame2/Minigame2.h screens/Minigame2Screen.cpp screens/Minigame2Screen.h screens/EndScreen.cpp screens/EndScreen.h)
+        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h screens/GameScreen.cpp screens/GameScreen.h screens/Minigame1Screen.cpp screens/Minigame1Screen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame1/VallendVoorwerp.cpp src/Minigame1/VallendVoorwerp.h src/Minigame2/Minigame2.cpp src/Minigame2/Minigame2.h screens/Minigame2Screen.cpp screens/Minigame2Screen.h screens/EndScreen.cpp screens/EndScreen.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 
