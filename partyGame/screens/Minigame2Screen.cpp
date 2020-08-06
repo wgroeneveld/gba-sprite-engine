@@ -77,8 +77,8 @@ void Minigame2Screen::endScene() {
     //engine->enqueueSound(gunshot, gunshot_bytes, 44100);
     TextStream::instance().setText(std::string("Gedaan"), 2, 10);
     TextStream::instance().setText(std::string("Spel Score: " + std::to_string(minigame.getScore())), 3, 10);
-    game->getSpeler().setScore(minigame.getScore());
-    TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler().getScore())), 4, 10);
+    game->getSpeler()->setScore(minigame.getScore());
+    TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
     engine->getTimer()->start(); // checken of onderstaande methode beter is dan wat ik in commentaar heb staan.
     while (engine->getTimer()->getSecs() < 3) {
         // doe niks

@@ -6,8 +6,8 @@
 
 Speler::Speler() {
     score = 0;
-    posX = 3;
-    posY = 3;
+    posX = 0;
+    posY = 1;
 }
 
 int Speler::getScore() {

@@ -67,19 +67,19 @@ void GameScreen::tick(u16 keys) {
     }
 
     if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-        game->getSpeler().beweegNaarRechts();
+        game->getSpeler()->beweegNaarRechts();
         updatePosition();
     }
     else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
-        game->getSpeler().beweegNaarLinks();
+        game->getSpeler()->beweegNaarLinks();
         updatePosition();
     }
     else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
-        game->getSpeler().beweegNaarBoven();
+        game->getSpeler()->beweegNaarBoven();
         updatePosition();
     }
     else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-        game->getSpeler().beweegnaarOnder();
+        game->getSpeler()->beweegnaarOnder();
         updatePosition();
         if (game->getHuidigVakje() == 1) {
             TextStream::instance().clear();
@@ -105,7 +105,7 @@ void GameScreen::tick(u16 keys) {
 
    // }
 
-    if (game->getSpeler().getPosX() == 3 and game->getSpeler().getPosY() == 3) {
+    if (game->getSpeler()->getPosX() == 3 and game->getSpeler()->getPosY() == 3) {
         //engine->setScene(new EndScreen(engine));
     }
     //updateSpeler1();
@@ -120,7 +120,7 @@ void GameScreen::updatePosition() {
     int bgY = 0;
     int spY = 0;
 
-    switch (game->getSpeler().getPosX()) {
+    switch (game->getSpeler()->getPosX()) {
         case 0: case 1: case 2:
             bgX = 0;
             break;
@@ -129,7 +129,7 @@ void GameScreen::updatePosition() {
             break;
 
     }
-    switch (game->getSpeler().getPosX()) {
+    switch (game->getSpeler()->getPosX()) {
         case 0:
             spX = 0;
             break;
@@ -151,7 +151,7 @@ void GameScreen::updatePosition() {
 
     }
 
-    switch (game->getSpeler().getPosY()) {
+    switch (game->getSpeler()->getPosY()) {
         case 0: case 1: case 2:
             bgY = 0;
             break;
@@ -162,7 +162,7 @@ void GameScreen::updatePosition() {
             bgY = 2;
             break;
     }
-    switch (game->getSpeler().getPosY()) {
+    switch (game->getSpeler()->getPosY()) {
         case 0:
             spY = 0;
             break;

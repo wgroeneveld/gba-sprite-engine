@@ -6,20 +6,22 @@
 #include "Game.h"
 
 Game::Game() {
-    speler = Speler();
+
 }
-/*
+
 std::shared_ptr<Speler> Game::getSpeler() { //Moet dit een pointer worden?
     return speler;
 }
-*/
+
+/*
 Speler Game::getSpeler() {
     return speler;
 }
+ */
 int Game::getHuidigVakje() {
     //Speler blub = getSpeler();
     //return bord[getSpeler().getPosX()][getSpeler().getPosY()];
-    return bord[3][3];
+    return bord[getSpeler()->getPosX()][getSpeler()->getPosY()];
 }
 
 

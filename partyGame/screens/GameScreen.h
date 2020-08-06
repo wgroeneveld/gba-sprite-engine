@@ -13,7 +13,7 @@
 class GameScreen : public Scene {
 
 private:
-    std::shared_ptr<Game> game = std::make_shared<Game>();
+    std::shared_ptr<Game> game = std::make_shared<Game>(Game());
 
     std::unique_ptr<Sprite> speler1Sprite;
     u16 lastKeys = 0;

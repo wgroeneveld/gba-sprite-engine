@@ -6,7 +6,7 @@
 #define GBA_SPRITE_ENGINE_PROJECT_GAME_H
 
 
-
+#include <memory>
 #include "Speler.h"
 
 class Game {
@@ -19,15 +19,15 @@ private:
                      {0, 0, 0, 0, 0, 0, 0},
                      {1, 0, 0, 0, 0, 0, 0}};;
 
-    //std::shared_ptr<Speler> speler = std::make_shared<Speler>(Speler());
-    Speler speler;
+    std::shared_ptr<Speler> speler = std::make_shared<Speler>(Speler());
+    //Speler speler;
 
 
 public:
     Game();
     int getHuidigVakje();
-    //std::shared_ptr<Speler> getSpeler();
-    Speler getSpeler();
+    std::shared_ptr<Speler> getSpeler();
+    //Speler getSpeler();
 };
 
 
