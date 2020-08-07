@@ -23,7 +23,7 @@
 
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
-
+#include <random>
 
 
 void GameScreen::load() {
@@ -51,6 +51,7 @@ void GameScreen::load() {
             .buildPtr();
     updatePosition();
     //game->getSpeler()->startTimer();
+    engine->getTimer()->start();
 }
 
 std::vector<Sprite *> GameScreen::sprites() {
@@ -70,27 +71,46 @@ void GameScreen::tick(u16 keys) {
         //return;
     }
 
-    if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-        game->getSpeler()->beweegNaarRechts();
-        updatePosition();
+    if (!aanHetGooien) {
+        if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
+            game->getSpeler()->beweegNaarRechts();
+            updatePosition();
+        }
+        else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
+            game->getSpeler()->beweegNaarLinks();
+            updatePosition();
+        }
+        else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
+            game->getSpeler()->beweegNaarBoven();
+            updatePosition();
+        }
+        else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
+            game->getSpeler()->beweegNaarOnder();
+            updatePosition();
+        }
+
+        else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+            aanHetGooien = true;
+            //engine->getTimer()->start();
+            //timer.start();
+            TextStream::instance().setText(std::string("gooiend"), 8, 25);
+
+        }
     }
-    else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
-        game->getSpeler()->beweegNaarLinks();
-        updatePosition();
-    }
-    else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
-        game->getSpeler()->beweegNaarBoven();
-        updatePosition();
-    }
-    else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-        game->getSpeler()->beweegNaarOnder();
-        updatePosition();
+    else {
+        if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+            int seed = engine->getTimer()->getTotalMsecs();
+            //engine->getTimer()->stop();
+            //engine->getTimer()->reset();
+            game->getSpeler()->gooiDobbelsteen(seed);
+            TextStream::instance().setText(std::string("gegooid"), 8, 25);
+            TextStream::instance().setText(std::string(std::to_string(seed)), 9, 25);
+
+            aanHetGooien = false;
+            updatePosition();
+        }
     }
 
-    else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
-        game->getSpeler()->gooiDobbelsteen();
-        updatePosition();
-    }
 
     if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) {
         if (game->getHuidigVakje() == 1) {
@@ -100,21 +120,30 @@ void GameScreen::tick(u16 keys) {
             engine->setScene(new Minigame2Screen(engine, game));
         }
         else if (game->getHuidigVakje() == 3) {
-            int random = (rand() % 1); //springt altijd naar links
-            //int random = 0;
-            if (random == 0) {
+
+            int seed = engine->getTimer()->getTotalMsecs();
+            std::uniform_int_distribution<unsigned> u(1,2);
+            std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
+            int random = u(e);
+
+            if (random == 1) {
                 game->getSpeler()->springNaarLinks();
-                updatePosition();
+                //updatePosition();
             }
             else {
                 game->getSpeler()->springNaarRechts();
-                updatePosition();
+                //updatePosition();
             }
+            updatePosition();
         }
         else if (game->getHuidigVakje() == 4) {
-            int random = (rand() % 1); //spring altijd naar boven
-            //int random = 0;
-            if (random == 0) {
+
+            int seed = engine->getTimer()->getTotalMsecs();
+            std::uniform_int_distribution<unsigned> u(1,2);
+            std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
+            int random = u(e);
+
+            if (random == 1) {
                 game->getSpeler()->springNaarBoven();
                 updatePosition();
             }

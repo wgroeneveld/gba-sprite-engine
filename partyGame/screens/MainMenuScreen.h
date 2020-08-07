@@ -18,6 +18,7 @@ private:
     std::unique_ptr<Background> background;
     //Game game;
 
+
     u16 lastKeys = 0;
     bool firstTick = true;
 

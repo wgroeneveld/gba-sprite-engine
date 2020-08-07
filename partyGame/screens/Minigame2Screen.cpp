@@ -79,6 +79,8 @@ void Minigame2Screen::endScene() {
     TextStream::instance().setText(std::string("Spel Score: " + std::to_string(minigame.getScore())), 3, 10);
     game->getSpeler()->setScore(minigame.getScore());
     TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
+    engine->getTimer()->stop();
+    engine->getTimer()->reset();
     engine->getTimer()->start(); // checken of onderstaande methode beter is dan wat ik in commentaar heb staan.
     while (engine->getTimer()->getSecs() < 3) {
         // doe niks

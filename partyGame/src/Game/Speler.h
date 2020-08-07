@@ -42,7 +42,7 @@ public:
 
     void setAlGegooid(bool gegooid);
     bool getAlGegooid();
-    void gooiDobbelsteen();
+    void gooiDobbelsteen(int seed);
     int getVakjesNogVerschuiven();
 
     //void setMagNaarOnder(bool nietNaarBovenGeweest);

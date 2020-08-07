@@ -80,10 +80,6 @@ void MainMenuScreen::tick(u16 keys) {
         //engine->setScene(new Minigame2Screen(engine));
     }
 
-    /*
-    if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {// ENTER key, wait until released
-        engine->setScene(new Minigame1Screen(engine));
-    }*/
 
 
     lastKeys = keys;

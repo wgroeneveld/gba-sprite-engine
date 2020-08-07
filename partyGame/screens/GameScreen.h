@@ -21,6 +21,8 @@ private:
     bool spelGespeeld = false;
     std::unique_ptr<Background> background;
     std::unique_ptr<Background> background2;
+    bool aanHetGooien = false;
+    //Timer timer;
 
 public:
     std::vector<Sprite *> sprites() override;

@@ -85,15 +85,15 @@ bool Speler::getAlGegooid() {
     return alGegooid;
 }
 
-void Speler::gooiDobbelsteen() {
-    if (!alGegooid) {
+void Speler::gooiDobbelsteen(int seed) {
+    if (!alGegooid or alGegooid) {
 
-        //std::uniform_int_distribution<int> u(1,10);
-        //std::default_random_engine e(time(0)*time(0)); //Dan verandert het sneller
-        //vakjesNogVerschuiven = u(e);
+        std::uniform_int_distribution<unsigned> u(1,3);
+        std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
+        vakjesNogVerschuiven = u(e);
 
         //tijd = timer.getSecs();
-        vakjesNogVerschuiven = 1 + (rand() % 3);
+        //vakjesNogVerschuiven = 1 + (rand() % 3);
         alGegooid = true;
         magNaarBoven = true;
         magNaarOnder = true;
