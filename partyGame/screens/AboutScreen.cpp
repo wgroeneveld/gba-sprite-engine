@@ -35,11 +35,11 @@ void AboutScreen::tick(u16 keys) {
     }
 
     if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
-        engine->setScene(new MainMenuScreen(engine));
+        engine->transitionIntoScene(new MainMenuScreen(engine), new FadeOutScene(2));
     }
 
     if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {// ENTER key, wait until released
-        engine->setScene(new MainMenuScreen(engine));
+        engine->transitionIntoScene(new MainMenuScreen(engine), new FadeOutScene(2));
     }
 
 

@@ -69,16 +69,14 @@ void MainMenuScreen::tick(u16 keys) {
     }
 
     if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
-        engine->setScene(new GameScreen(engine));
+        engine->transitionIntoScene(new GameScreen(engine), new FadeOutScene(2));
     }
 
     if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {// ENTER key, wait until released
-        engine->setScene(new AboutScreen(engine));
+        engine->transitionIntoScene(new AboutScreen(engine), new FadeOutScene(2));
     }
 
-    if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {// ENTER key, wait until released
-        //engine->setScene(new Minigame2Screen(engine));
-    }
+
 
 
 

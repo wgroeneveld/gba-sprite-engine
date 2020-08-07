@@ -8,6 +8,7 @@
 #include "../img/hoofdpersonage.h"
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 
 #include "MainMenuScreen.h"
 #include "GameScreen.h"
@@ -87,13 +88,8 @@ void Minigame2Screen::endScene() {
     }
     engine->getTimer()->stop();
     engine->getTimer()->reset();
-    //int i = 0;
-   // while (i < 500000) { //Kijken of ik hier beter ingebouwde timer voor gebruik
-    //    i++;
-    //}
-    //engine->setScene(new GameScreen(engine, game));
-    //Game &referenceGame = game;
-    game->getSpeler()->setAlGegooid(false);
-    engine->setScene(new GameScreen(engine, game));
+    game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp
+    engine->transitionIntoScene(new GameScreen(engine, game), new FadeOutScene(2));
+
 }
 
