@@ -86,7 +86,7 @@ bool Speler::getAlGegooid() {
 }
 
 void Speler::gooiDobbelsteen(int seed) {
-    if (!alGegooid) {
+    if (!alGegooid or alGegooid) {
 
         std::uniform_int_distribution<unsigned> u(1,3);
         std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.

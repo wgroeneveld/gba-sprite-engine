@@ -107,18 +107,19 @@ void GameScreen::tick(u16 keys) {
     }
 
 
-    if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) {
+    if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) { // nog eens gooien
         if (game->getHuidigVakje() == 1) {
             game->getSpeler()->setAlGegooid(false);
         }
-        else if (game->getHuidigVakje() == 2) {
+        else if (game->getHuidigVakje() == 2) { //Minigame 2
             if (!engine->isTransitioning()) {
-                engine->transitionIntoScene(new Minigame2Screen(engine, game), new FadeOutScene(2)); //faden lukt hier niet om één of andere reden..
-
+                engine->transitionIntoScene(new Minigame2Screen(engine, game), new FadeOutScene(2));
             }
         }
 
         else if (game->getHuidigVakje() == 3) {
+            TextStream::instance().setText(std::string("Jeej!"), 15, 25);
+
             //updatePosition();
             int seed = engine->getTimer()->getTotalMsecs();
             std::uniform_int_distribution<unsigned> u(1,2);
@@ -127,14 +128,18 @@ void GameScreen::tick(u16 keys) {
 
             engine->getTimer()->stop();
             engine->getTimer()->reset();
-            engine ->getTimer()->start();
-            while (engine->getTimer()->getTotalMsecs() < 500) {}
+            engine->getTimer()->start();
+            //while (engine->getTimer()->getTotalMsecs() < 2000) {}
+            for (int i = 0; i < 500000; i++) {}
 
             if (random == 1) {
                 game->getSpeler()->springNaarLinks();
+                //game->getSpeler()->beweegNaarLinks();
+                //updatePosition();
             }
             else {
                 game->getSpeler()->springNaarRechts();
+                //updatePosition();
             }
 
             updatePosition();
@@ -146,6 +151,12 @@ void GameScreen::tick(u16 keys) {
             std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
             int random = u(e);
 
+
+            engine->getTimer()->stop();
+            engine->getTimer()->reset();
+            engine->getTimer()->start();
+            while (engine->getTimer()->getTotalMsecs() < 2000) {}
+
             if (random == 1) {
                 game->getSpeler()->springNaarBoven();
             }
@@ -153,6 +164,18 @@ void GameScreen::tick(u16 keys) {
                 game->getSpeler()->springNaarOnder();
             }
             updatePosition();
+        }
+        else if (game->getHuidigVakje() == 5) {
+            game->getSpeler()->beweegNaarLinks();
+            updatePosition();
+            TextStream::instance().setText(std::string("Links!"), 11, 25);
+
+            for (int i = 0; i < 500000; i++) {}
+            game->getSpeler()->beweegNaarRechts();
+            updatePosition();
+            TextStream::instance().setText(std::string("Rechts!"), 11, 25);
+            for (int i = 0; i < 300000; i++) {}
+
         }
     }
 
