@@ -36,7 +36,6 @@ void Speler::beweegNaarRechts() {
         magNaarLinks = false;
         magNaarBoven = true;
         magNaarOnder = true;
-        score = 100;
     }
 }
 

@@ -22,6 +22,7 @@ private:
     std::unique_ptr<Background> background;
     std::unique_ptr<Background> background2;
     bool aanHetGooien = false;
+    bool aanHetSpringen = false;
     //Timer timer;
 
 public:
