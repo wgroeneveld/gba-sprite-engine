@@ -37,7 +37,6 @@ void GameScreen::load() {
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Zetten"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
-    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getTijd())), 5, 25);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
@@ -50,7 +49,6 @@ void GameScreen::load() {
             .withLocation(0, 0)
             .buildPtr();
     updatePosition();
-    //game->getSpeler()->startTimer();
     engine->getTimer()->start();
 }
 
@@ -68,117 +66,97 @@ void GameScreen::tick(u16 keys) {
     if (firstTick) {
         firstTick = false;
         lastKeys = keys;
-        //return;
-    }
-
-    if (!aanHetGooien) {
-        if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-            game->getSpeler()->beweegNaarRechts();
-            updatePosition();
-        }
-        else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
-            game->getSpeler()->beweegNaarLinks();
-            updatePosition();
-        }
-        else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
-            game->getSpeler()->beweegNaarBoven();
-            updatePosition();
-        }
-        else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-            game->getSpeler()->beweegNaarOnder();
-            updatePosition();
-        }
-
-        else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
-            aanHetGooien = true;
-            TextStream::instance().setText(std::string("gooiend"), 8, 25);
-        }
-    }
-    else {
-        if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
-            int seed = engine->getTimer()->getTotalMsecs();
-            game->getSpeler()->gooiDobbelsteen(seed);
-            TextStream::instance().setText(std::string("gegooid"), 8, 25);
-            TextStream::instance().setText(std::string(std::to_string(seed)), 9, 25);
-
-            aanHetGooien = false;
-            updatePosition();
-        }
+        return;
     }
 
 
-    if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) { // nog eens gooien
-        if (game->getHuidigVakje() == 1) {
-            game->getSpeler()->setAlGegooid(false);
-        }
-        else if (game->getHuidigVakje() == 2) { //Minigame 2
-            if (!engine->isTransitioning()) {
-                engine->transitionIntoScene(new Minigame2Screen(engine, game), new FadeOutScene(2));
+        if (aanHetGooien) {
+            if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+                int seed = engine->getTimer()->getTotalMsecs();
+                game->getSpeler()->gooiDobbelsteen(seed);
+                TextStream::instance().setText(std::string("gegooid"), 8, 25);
+                TextStream::instance().setText(std::string(std::to_string(seed)), 9, 25);
+
+                aanHetGooien = false;
+                updatePosition();
+            }
+        } else {
+            if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
+                game->getSpeler()->beweegNaarRechts();
+                updatePosition();
+            } else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
+                game->getSpeler()->beweegNaarLinks();
+                updatePosition();
+            } else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
+                game->getSpeler()->beweegNaarBoven();
+                updatePosition();
+            } else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
+                game->getSpeler()->beweegNaarOnder();
+                updatePosition();
+            } else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+                aanHetGooien = true;
+                TextStream::instance().setText(std::string("gooiend"), 8, 25);
             }
         }
 
-        else if (game->getHuidigVakje() == 3) {
-            TextStream::instance().setText(std::string("Jeej!"), 15, 25);
 
-            //updatePosition();
-            int seed = engine->getTimer()->getTotalMsecs();
-            std::uniform_int_distribution<unsigned> u(1,2);
-            std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
-            int random = u(e);
+        if (game->getSpeler()->getAlGegooid() and
+            game->getSpeler()->getVakjesNogVerschuiven() == 0) { // nog eens gooien
+            if (game->getHuidigVakje() == 1) {
+                game->getSpeler()->setAlGegooid(false);
+            } else if (game->getHuidigVakje() == 2) { //Minigame 2
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new Minigame2Screen(engine, game), new FadeOutScene(2));
+                }
+            } else if (game->getHuidigVakje() == 3) {
 
-            engine->getTimer()->stop();
-            engine->getTimer()->reset();
-            engine->getTimer()->start();
-            //while (engine->getTimer()->getTotalMsecs() < 2000) {}
-            for (int i = 0; i < 500000; i++) {}
+                //updatePosition();
+                int seed = engine->getTimer()->getTotalMsecs();
+                std::uniform_int_distribution<unsigned> u(1, 2);
+                std::default_random_engine e(seed *
+                                             seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
+                int random = u(e);
 
-            if (random == 1) {
-                game->getSpeler()->springNaarLinks();
-                //game->getSpeler()->beweegNaarLinks();
+                engine->getTimer()->stop();
+                engine->getTimer()->reset();
+                engine->getTimer()->start();
+                //while (engine->getTimer()->getTotalMsecs() < 2000) {}
+                for (int i = 0; i < 500000; i++) {}
+                TextStream::instance().setText(std::string("Jeej!"), 15, 25);
+
+                if (random == 1) {
+                    //game->getSpeler()->springNaarLinks();
+                    //game->getSpeler()->beweegNaarLinks();
+                    //updatePosition();
+                } else {
+                    //game->getSpeler()->springNaarRechts();
+                    //updatePosition();
+                }
+
+                //updatePosition();
+            } else if (game->getHuidigVakje() == 4) {
+
+                int seed = engine->getTimer()->getTotalMsecs();
+                std::uniform_int_distribution<unsigned> u(1, 2);
+                std::default_random_engine e(seed *
+                                             seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
+                int random = u(e);
+
+
+                engine->getTimer()->stop();
+                engine->getTimer()->reset();
+                engine->getTimer()->start();
+                while (engine->getTimer()->getTotalMsecs() < 2000) {}
+
+                if (random == 1) {
+                    //game->getSpeler()->springNaarBoven();
+                } else {
+                    //game->getSpeler()->springNaarOnder();
+                }
                 //updatePosition();
             }
-            else {
-                game->getSpeler()->springNaarRechts();
-                //updatePosition();
-            }
 
-            updatePosition();
-        }
-        else if (game->getHuidigVakje() == 4) {
-
-            int seed = engine->getTimer()->getTotalMsecs();
-            std::uniform_int_distribution<unsigned> u(1,2);
-            std::default_random_engine e(seed*seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
-            int random = u(e);
-
-
-            engine->getTimer()->stop();
-            engine->getTimer()->reset();
-            engine->getTimer()->start();
-            while (engine->getTimer()->getTotalMsecs() < 2000) {}
-
-            if (random == 1) {
-                game->getSpeler()->springNaarBoven();
-            }
-            else {
-                game->getSpeler()->springNaarOnder();
-            }
-            updatePosition();
-        }
-        else if (game->getHuidigVakje() == 5) {
-            game->getSpeler()->beweegNaarLinks();
-            updatePosition();
-            TextStream::instance().setText(std::string("Links!"), 11, 25);
-
-            for (int i = 0; i < 500000; i++) {}
-            game->getSpeler()->beweegNaarRechts();
-            updatePosition();
-            TextStream::instance().setText(std::string("Rechts!"), 11, 25);
-            for (int i = 0; i < 300000; i++) {}
-
-        }
     }
-
 
 
     //if (game->getSpeler()->getPosX() == 3 and game->getSpeler()->getPosY() == 3) {
@@ -260,8 +238,8 @@ void GameScreen::updatePosition() {
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosX())), 10, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosY())), 11, 25);
+    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 15, 25);
 
-    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getTijd())), 5, 25);
 }
 
 
