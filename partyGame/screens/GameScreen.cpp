@@ -17,6 +17,8 @@
 #include "../backgrounds/Background8x8Map.h"
 #include "EndScreen.h"
 #include "Minigame2Screen.h"
+#include "../backgrounds/hallo.h"
+#include "../backgrounds/blubikbeneenvis.h"
 
 //#include "Minigame1Screen.h"
 
@@ -33,6 +35,7 @@ void GameScreen::load() {
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
     background2.get()->useMapScreenBlock(20);
 
+    //TextStream::instance().setFontColor(0xF800); //https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Moves"), 3, 25);
@@ -48,6 +51,9 @@ void GameScreen::load() {
             .withAnimated(1, 40)
             .withLocation(0, 0)
             .buildPtr();
+
+
+
     updatePosition();
     engine->getTimer()->start();
 }
@@ -203,6 +209,8 @@ void GameScreen::updatePosition() {
     TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
     TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
     TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
+    engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
+
 }
 
 
