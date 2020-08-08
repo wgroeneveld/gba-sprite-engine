@@ -52,23 +52,16 @@ void GameScreen::load() {
     engine->getTimer()->start();
 }
 
-std::vector<Sprite *> GameScreen::sprites() {
-    return {speler1Sprite.get()};
+std::vector<Sprite *> GameScreen::sprites() {return {speler1Sprite.get()};}
 
-}
-
-std::vector<Background *> GameScreen::backgrounds() {
-    return {background.get(), background2.get()};
-}
+std::vector<Background *> GameScreen::backgrounds() {return {background.get(), background2.get()};}
 
 void GameScreen::tick(u16 keys) {
-
     if (firstTick) {
         firstTick = false;
         lastKeys = keys;
         return;
     }
-
     if (aanHetGooien) {
         if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
             int seed = engine->getTimer()->getTotalMsecs();
@@ -129,12 +122,6 @@ void GameScreen::tick(u16 keys) {
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
         }
     }
-
-    //if (game->getSpeler()->getPosX() == 3 and game->getSpeler()->getPosY() == 3) {
-        //engine->setScene(new EndScreen(engine));
-   // }
-
-    //updateSpeler1();
     lastKeys = keys;
 }
 // Zoveel logica mag eigenlijk nooit in een update staan, wordt veel te vaak aangeroepen?
@@ -151,7 +138,6 @@ void GameScreen::updatePosition() {
         case 3: case 4: case 5: case 6:
             bgX = 1;
             break;
-
     }
     switch (game->getSpeler()->getPosX()) {
         case 0:
@@ -172,9 +158,7 @@ void GameScreen::updatePosition() {
         case 6:
             spX = 5;
             break;
-
     }
-
     switch (game->getSpeler()->getPosY()) {
         case 0: case 1: case 2:
             bgY = 0;
@@ -203,14 +187,11 @@ void GameScreen::updatePosition() {
             spY = 4;
             break;
     }
-
-    speler1Sprite.get()->moveTo(spX*32, spY*32);
-    background.get()->scroll(bgX * 32,bgY*32);
+    speler1Sprite->moveTo(spX*32, spY*32);
+    background->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosX())), 10, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosY())), 11, 25);
-    //TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 15, 25);
-
 }
 
 
