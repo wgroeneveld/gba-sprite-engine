@@ -19,9 +19,6 @@
 #include "../backgrounds/picture1short.h"
 
 void Minigame2Screen::load() {
-    //TextStream::instance().clear();
-    //TextStream::instance().clearMap();
-    TextStream::instance().setText("HALLO", 2,2);
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -57,7 +54,6 @@ void Minigame2Screen::tick(u16 keys) {
     if (bezig) { // Als ik dit blok onder het andere zet geeft de updatePosition() problemen.
         minigame.beweeg();
         updatePosition();
-        //TextStream::instance().setText(std::string(std::to_string(game.getPositieX())), 2, 25);
     }
 
     if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
@@ -82,14 +78,22 @@ void Minigame2Screen::endScene() {
     TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
     engine->getTimer()->stop();
     engine->getTimer()->reset();
-    engine->getTimer()->start(); // checken of onderstaande methode beter is dan wat ik in commentaar heb staan.
-    while (engine->getTimer()->getSecs() < 3) {
-        // doe niks
-    }
+    engine->getTimer()->start();
+    while (engine->getTimer()->getTotalMsecs() < 2000) {}
     engine->getTimer()->stop();
     engine->getTimer()->reset();
     game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp
-    engine->transitionIntoScene(new GameScreen(engine, game), new FadeOutScene(2));
 
+    if (game->getSpeler()->getPosX() == 0 and game->getSpeler()->getPosY() == 0) { //Hier nog rondzetten if minigameScore > 100 ofzo
+        game->getSpeler()->setSpel1Gehaald(true);
+    }
+    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 0) { //op gameScreen ook weergeven welke je al gehaald hebt
+        game->getSpeler()->setSpel2Gehaald(true);
+    }
+    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 6) {
+        game->getSpeler()->setSpel3Gehaald(true);
+    }
+
+    engine->transitionIntoScene(new GameScreen(engine, game), new FadeOutScene(2));
 }
 

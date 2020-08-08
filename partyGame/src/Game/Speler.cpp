@@ -122,32 +122,30 @@ void Speler::springNaarOnder() {
 void Speler::springNaarBoven() {
     posY = posY - 3;
 }
-/*
-void Speler::setMagNaarOnder(bool nietNaarBovenGeweest) {
-    magNaarOnder = nietNaarBovenGeweest;
+
+bool Speler::getSpel1Gehaald() {
+    return spel1Gehaald;
 }
 
-void Speler::setMagNaarBoven(bool nietNaarOnderGeweest) {
-    magNaarBoven = nietNaarOnderGeweest;
+bool Speler::getSpel2Gehaald() {
+    return spel2Gehaald;
 }
 
-void Speler::setMagNaarLinks(bool nietNaarRechtsGeweest) {
-    magNaarLinks = nietNaarRechtsGeweest;
+bool Speler::getSpel3Gehaald() {
+    return spel3Gehaald;
 }
 
-void Speler::setMagNaarRechts(bool nietNaarLinksGeweest) {
-    magNaarRechts = nietNaarLinksGeweest;
-}*/
-/*
-void Speler::startTimer() {
-    timer.start();
+void Speler::setSpel1Gehaald(bool gehaald) {
+    spel1Gehaald = gehaald;
 }
 
-int Speler::getTijd() {
-    return tijd;
+void Speler::setSpel2Gehaald(bool gehaald) {
+    spel2Gehaald = gehaald;
 }
-*/
 
+void Speler::setSpel3Gehaald(bool gehaald) {
+    spel3Gehaald = gehaald;
+}
 
 
 

@@ -21,8 +21,10 @@ private:
     bool magNaarRechts;
     bool magNaarBoven;
     bool magNaarOnder;
-    //Timer timer;
-    //int tijd;
+
+    bool spel1Gehaald = false;
+    bool spel2Gehaald = false;
+    bool spel3Gehaald = false;
 
 
 public:
@@ -45,13 +47,14 @@ public:
     void gooiDobbelsteen(int seed);
     int getVakjesNogVerschuiven();
 
-    //void setMagNaarOnder(bool nietNaarBovenGeweest);
-    //void setMagNaarBoven (bool nietNaarOnderGeweest);
-    //void setMagNaarLinks (bool nietNaarRechtsGeweest);
-    //void setMagNaarRechts (bool nietNaarLinksGeweest);
+    bool getSpel1Gehaald(); //checken of ik hier beter een array ofzo van maak
+    bool getSpel2Gehaald();
+    bool getSpel3Gehaald();
 
-    //void startTimer();
-    //int getTijd();
+    void setSpel1Gehaald(bool gehaald);
+    void setSpel2Gehaald(bool gehaald);
+    void setSpel3Gehaald(bool gehaald);
+
 };
 
 

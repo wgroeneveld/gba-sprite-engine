@@ -98,7 +98,7 @@ void GameScreen::tick(u16 keys) {
         engine->getTimer()->stop();
         engine->getTimer()->reset();
         engine->getTimer()->start();
-        while (engine->getTimer()->getTotalMsecs() < 2000) {}
+        while (engine->getTimer()->getTotalMsecs() < 1000) {}
 
         if (game->getHuidigVakje() == 3) {
             if (random == 1) {game->getSpeler()->springNaarLinks();}
