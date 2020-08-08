@@ -83,15 +83,16 @@ void Minigame2Screen::endScene() {
     engine->getTimer()->stop();
     engine->getTimer()->reset();
     game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp
-
-    if (game->getSpeler()->getPosX() == 0 and game->getSpeler()->getPosY() == 0) { //Hier nog rondzetten if minigameScore > 100 ofzo
-        game->getSpeler()->setSpel1Gehaald(true);
-    }
-    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 0) { //op gameScreen ook weergeven welke je al gehaald hebt
-        game->getSpeler()->setSpel2Gehaald(true);
-    }
-    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 6) {
-        game->getSpeler()->setSpel3Gehaald(true);
+    if (minigame.getScore() >= 80) {
+        if (game->getSpeler()->getPosX() == 0 and game->getSpeler()->getPosY() == 0) { //Hier nog rondzetten if minigameScore > 100 ofzo
+            game->getSpeler()->setSpel1Gehaald(true);
+        }
+        else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 0) { //op gameScreen ook weergeven welke je al gehaald hebt
+            game->getSpeler()->setSpel2Gehaald(true);
+        }
+        else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 6) {
+            game->getSpeler()->setSpel3Gehaald(true);
+        }
     }
 
     engine->transitionIntoScene(new GameScreen(engine, game), new FadeOutScene(2));

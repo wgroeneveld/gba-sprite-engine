@@ -35,7 +35,7 @@ void GameScreen::load() {
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
-    TextStream::instance().setText(std::string("Zetten"), 3, 25);
+    TextStream::instance().setText(std::string("Moves"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
@@ -66,7 +66,7 @@ void GameScreen::tick(u16 keys) {
         if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
             int seed = engine->getTimer()->getTotalMsecs();
             game->getSpeler()->gooiDobbelsteen(seed);
-            TextStream::instance().setText(std::string("gegooid"), 8, 25);
+            TextStream::instance().setText(std::string("gegooid"), 5, 25);
             aanHetGooien = false;
             updatePosition();
         }
@@ -86,7 +86,7 @@ void GameScreen::tick(u16 keys) {
             updatePosition();
         } else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
             aanHetGooien = true;
-            TextStream::instance().setText(std::string("gooiend"), 8, 25);
+            TextStream::instance().setText(std::string("gooiend"), 5, 25);
         }
     }
     if (aanHetSpringen and (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4)) {
@@ -120,6 +120,16 @@ void GameScreen::tick(u16 keys) {
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
+            else if (game->getHuidigVakje() == 5) {
+                if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
+                    if (!engine->isTransitioning()) {
+                        engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
+                    }
+                }
+                else {
+                    game->getSpeler()->setAlGegooid(false);
+                }
+            }
         }
     }
     lastKeys = keys;
@@ -190,8 +200,9 @@ void GameScreen::updatePosition() {
     speler1Sprite->moveTo(spX*32, spY*32);
     background->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
-    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosX())), 10, 25);
-    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getPosY())), 11, 25);
+    TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
+    TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
+    TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
 }
 
 
