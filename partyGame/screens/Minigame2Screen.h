@@ -14,6 +14,7 @@
 class Minigame2Screen : public Scene {
 private:
     std::shared_ptr<Game> game;
+    int spriteKeuze;
     Minigame2 minigame;
     std::unique_ptr<Sprite> ufo;
     u16 lastKeys = 0;
@@ -24,7 +25,7 @@ public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje) : Scene(engine), game(gamepje){};
+    Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite){};
     void load() override;
     void tick(u16 keys) override;
 

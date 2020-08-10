@@ -12,8 +12,8 @@
 #include "../backgrounds/Background8x8Map.h"
 #include "EndScreen.h"
 #include "Minigame2Screen.h"
-#include "../backgrounds/hallo.h"
-#include "../backgrounds/blubikbeneenvis.h"
+//#include "../backgrounds/hallo.h"
+//#include "../backgrounds/blubikbeneenvis.h"
 #include "../backgrounds/gameScreenFull.h"
 #include "../backgrounds/gameScreenFull.c"
 #include "../backgrounds/gameScreenMap.h"
@@ -56,19 +56,23 @@ void GameScreen::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
 
-    spook1Sprite = spriteBuilder
-            .withData(witspook1Tiles, sizeof(witspook1Tiles))
-            .withSize(SIZE_32_32)
-            .withAnimated(6, 8)
-            .withLocation(0, 0)
-            .buildPtr();
+    if (spriteKeuze == 0) {
+        spook1Sprite = spriteBuilder
+                .withData(witspook1Tiles, sizeof(witspook1Tiles))
+                .withSize(SIZE_32_32)
+                .withAnimated(6, 8)
+                .withLocation(0, 0)
+                .buildPtr();
+    }
+    else {
+        spook1Sprite = spriteBuilder
+                .withData(witspook2Tiles, sizeof(witspook2Tiles))
+                .withSize(SIZE_32_32)
+                .withAnimated(6, 8)
+                .withLocation(40, 0)
+                .buildPtr();
+    }
 
-    spook2Sprite = spriteBuilder
-            .withData(witspook2Tiles, sizeof(witspook2Tiles))
-            .withSize(SIZE_32_32)
-            .withAnimated(6, 8)
-            .withLocation(40, 0)
-            .buildPtr();
     dobbelSteenSprite = spriteBuilder
             .withData(dobbelsteenTiles, sizeof(dobbelsteenTiles))
             .withSize(SIZE_32_32)
@@ -82,7 +86,7 @@ void GameScreen::load() {
     engine->getTimer()->start();
 }
 
-std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), spook2Sprite.get(), dobbelSteenSprite.get()};}
+std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), dobbelSteenSprite.get()};}
 
 std::vector<Background *> GameScreen::backgrounds() {return {background.get(), background2.get()};}
 
@@ -147,7 +151,7 @@ void GameScreen::tick(u16 keys) {
             if (game->getHuidigVakje() == 1) {game->getSpeler()->setAlGegooid(false);}
             else if (game->getHuidigVakje() == 2) { //Minigame 2
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame2Screen(engine, game), new FadeOutScene(2));
+                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}

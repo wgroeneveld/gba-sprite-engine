@@ -95,6 +95,6 @@ void Minigame2Screen::endScene() {
         }
     }
 
-    engine->transitionIntoScene(new GameScreen(engine, game), new FadeOutScene(2));
+    engine->transitionIntoScene(new GameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
 }
 

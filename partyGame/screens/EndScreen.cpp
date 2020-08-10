@@ -5,6 +5,7 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "EndScreen.h"
+#include "MainMenuScreen.h"
 
 std::vector<Background *> EndScreen::backgrounds() {
     return {/*background.get()*/};
@@ -16,7 +17,9 @@ std::vector<Sprite *> EndScreen::sprites() {
 
 
 void EndScreen::load() {
-    TextStream::instance().setText(std::string("EndScreen"), 1, 1);
+    TextStream::instance().setText(std::string("Yay! You made it!"), 1, 1);
+    TextStream::instance().setText(std::string("Press start to go to the main menu"), 3, 1);
+
 }
 
 void EndScreen::tick(u16 keys) {
@@ -27,8 +30,8 @@ void EndScreen::tick(u16 keys) {
         return;
     }
 
-    if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
-        //engine->setScene(new GameScreen(engine));
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
+        engine->setScene(new MainMenuScreen(engine));
     }
 
     lastKeys = keys;
