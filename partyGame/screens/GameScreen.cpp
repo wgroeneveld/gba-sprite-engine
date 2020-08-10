@@ -11,7 +11,7 @@
 #include "../backgrounds/eerste7x7Map.h"
 #include "../backgrounds/Background8x8Map.h"
 #include "EndScreen.h"
-#include "Minigame2Screen.h"
+#include "MinigameScreen.h"
 //#include "../backgrounds/hallo.h"
 //#include "../backgrounds/blubikbeneenvis.h"
 #include "../backgrounds/gameScreenFull.h"
@@ -151,7 +151,12 @@ void GameScreen::tick(u16 keys) {
             if (game->getHuidigVakje() == 1) {game->getSpeler()->setAlGegooid(false);}
             else if (game->getHuidigVakje() == 2) { //Minigame 2
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
+                }
+            }
+            else if (game->getHuidigVakje() == 6) {
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}

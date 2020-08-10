@@ -4,7 +4,7 @@
 
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
-#include "Minigame2Screen.h"
+#include "MinigameScreen.h"
 #include "../img/hoofdpersonage.h"
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
@@ -18,7 +18,7 @@
 #include "../backgrounds/gunshot.h"
 #include "../backgrounds/picture1short.h"
 
-void Minigame2Screen::load() {
+void MinigameScreen::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
@@ -27,23 +27,23 @@ void Minigame2Screen::load() {
             .withData(hoofdpersonageTiles, sizeof(hoofdpersonageTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
-            .withLocation(0, 64)
+            .withLocation(minigame.getPosX(), minigame.getPosY())
             .buildPtr();
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background.get()->useMapScreenBlock(16);
 }
-std::vector<Sprite *> Minigame2Screen::sprites() {
+std::vector<Sprite *> MinigameScreen::sprites() {
     return {ufo.get()};
 
 }
 
-std::vector<Background *> Minigame2Screen::backgrounds() {
+std::vector<Background *> MinigameScreen::backgrounds() {
     return {background.get()};
 }
 
-void Minigame2Screen::tick(u16 keys) {
+void MinigameScreen::tick(u16 keys) {
 
     if (firstTick) {
         firstTick = false;
@@ -64,12 +64,16 @@ void Minigame2Screen::tick(u16 keys) {
     lastKeys = keys;
 }
 
-void Minigame2Screen::updatePosition() {
-   ufo.get()->moveTo(minigame.getPositieX(), 64);
+void MinigameScreen::updatePosition() {
+   ufo.get()->moveTo(minigame.getPosX(), minigame.getPosY());
+    TextStream::instance().setText(std::string("X: " + std::to_string(minigame.getPosX())), 1, 10);
+    TextStream::instance().setText(std::string("Y: " + std::to_string(minigame.getPosY())), 2, 10);
+
+
 }
 
-void Minigame2Screen::endScene() {
-    minigame.MakePicture();
+void MinigameScreen::endScene() {
+    minigame.makePicture();
 
     //engine->enqueueSound(gunshot, gunshot_bytes, 44100);
     TextStream::instance().setText(std::string("Gedaan"), 2, 10);
@@ -83,16 +87,14 @@ void Minigame2Screen::endScene() {
     engine->getTimer()->stop();
     engine->getTimer()->reset();
     game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp
-    if (minigame.getScore() >= 80) {
-        if (game->getSpeler()->getPosX() == 0 and game->getSpeler()->getPosY() == 0) { //Hier nog rondzetten if minigameScore > 100 ofzo
-            game->getSpeler()->setSpel1Gehaald(true);
-        }
-        else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 0) { //op gameScreen ook weergeven welke je al gehaald hebt
-            game->getSpeler()->setSpel2Gehaald(true);
-        }
-        else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 6) {
-            game->getSpeler()->setSpel3Gehaald(true);
-        }
+    if (game->getSpeler()->getPosX() == 0 and game->getSpeler()->getPosY() == 0 and minigame.getGehaald()) { //Hier nog rondzetten if minigameScore > 100 ofzo
+        game->getSpeler()->setSpel1Gehaald(true);
+    }
+    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 0 and minigame.getGehaald()) { //op gameScreen ook weergeven welke je al gehaald hebt
+        game->getSpeler()->setSpel2Gehaald(true);
+    }
+    else if (game->getSpeler()->getPosX() == 6 and game->getSpeler()->getPosY() == 6 and minigame.getGehaald()) {
+        game->getSpeler()->setSpel3Gehaald(true);
     }
 
     engine->transitionIntoScene(new GameScreen(engine, game, spriteKeuze), new FadeOutScene(2));

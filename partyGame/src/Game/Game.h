@@ -11,22 +11,20 @@
 
 class Game {
 private:
-    int bord[7][7] = {{2, 1, 1, 4, 1, 1, 2}, //bord is rijen en kolommen omgedraaid :)
+    int bord[7][7] = {{2, 1, 1, 4, 1, 1, 1}, //bord is rijen en kolommen omgedraaid :)
                      {1, 0, 0, 1, 0, 0, 1},
                      {1, 0, 0, 1, 0, 0, 1},
                      {3, 1, 1, 5, 1, 1, 3},
                      {1, 0, 0, 1, 0, 0, 1},
                      {1, 0, 0, 1, 0, 0, 1},
-                     {2, 1, 1, 4, 1, 1, 2}};;
+                     {6, 1, 1, 4, 1, 1, 2}};;
 
     std::shared_ptr<Speler> speler = std::make_shared<Speler>(Speler());
-    //int tijd;
 
 public:
     Game();
     int getHuidigVakje();
     std::shared_ptr<Speler> getSpeler();
-    //int getTijd();
 
 };
 

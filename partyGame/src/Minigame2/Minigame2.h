@@ -6,18 +6,16 @@
 #define GBA_SPRITE_ENGINE_PROJECT_MINIGAME2_H
 
 
-class Minigame2 {
+#include "../Minigame.h"
+
+class Minigame2 : public Minigame {
 private:
-    int score;
-    int positieX;
     bool rechts;
 public:
     Minigame2();
-    int getScore();
-    void MakePicture();
-    void GameOver();
-    void beweeg();
-    int getPositieX();
+    //void makePicture() override;
+    void beweeg() override;
+    void berekenScore() override;
     void wisselRichting();
 };
 
