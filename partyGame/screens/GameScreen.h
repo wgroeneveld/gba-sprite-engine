@@ -15,14 +15,17 @@ class GameScreen : public Scene {
 private:
     std::shared_ptr<Game> game = std::make_shared<Game>(Game());
 
-    std::unique_ptr<Sprite> speler1Sprite;
+    std::unique_ptr<Sprite> spook1Sprite;
+    std::unique_ptr<Sprite> spook2Sprite;
     std::unique_ptr<Sprite> dobbelSteenSprite;
+
 
     u16 lastKeys = 0;
     bool firstTick = true;
     bool spelGespeeld = false;
     std::unique_ptr<Background> background;
     std::unique_ptr<Background> background2;
+
     bool aanHetGooien = false;
     bool aanHetSpringen = false;
 

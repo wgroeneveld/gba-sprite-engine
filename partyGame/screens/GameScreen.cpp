@@ -9,7 +9,7 @@
 //#include "../img/shared.h"
 //#include "../img/speler1.h"
 //#include "../img/spelerAI.h"
-#include "../img/hoofdpersonage.h"
+//#include "../img/hoofdpersonage.h"
 #include "MainMenuScreen.h"
 
 #include "../backgrounds/Tiles8x8.h"
@@ -19,6 +19,20 @@
 #include "Minigame2Screen.h"
 #include "../backgrounds/hallo.h"
 #include "../backgrounds/blubikbeneenvis.h"
+#include "../backgrounds/gameScreenFull.h"
+#include "../backgrounds/gameScreenFull.c"
+#include "../backgrounds/gameScreenMap.h"
+#include "../backgrounds/gameScreenBorder.h"
+#include "../backgrounds/tiles10_08.h"
+#include "../backgrounds/tiles10_08.c"
+#include "../backgrounds/blackAndTransparantMap.h"
+#include "../backgrounds/red_green.c"
+#include "../backgrounds/red_green.h"
+
+#include "../backgrounds/dobbelsteen.h"
+#include "../backgrounds/witspook1.h"
+#include "../backgrounds/witspook2.h"
+#include "../backgrounds/shared10_08.h"
 
 //#include "Minigame1Screen.h"
 
@@ -35,21 +49,43 @@ void GameScreen::load() {
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
     background2.get()->useMapScreenBlock(20);
 
+    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPal, sizeof(gameScreenFullPal)));
+    //background = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), gameScreenFull, sizeof(gameScreenFull)));
+    //background.get()->useMapScreenBlock(4);
+    //background2 = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), Background8x8Map, sizeof(Background8x8Map)));
+    //background2.get()->useMapScreenBlock(20);
+
+
+
     //TextStream::instance().setFontColor(0xF800); //https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
+
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Moves"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(hoofdpersonagePal, sizeof(hoofdpersonagePal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
 
-    speler1Sprite = spriteBuilder
-            .withData(hoofdpersonageTiles, sizeof(hoofdpersonageTiles))
+    spook1Sprite = spriteBuilder
+            .withData(witspook1Tiles, sizeof(witspook1Tiles))
             .withSize(SIZE_32_32)
-            .withAnimated(1, 40)
+            .withAnimated(6, 8)
             .withLocation(0, 0)
+            .buildPtr();
+
+    spook2Sprite = spriteBuilder
+            .withData(witspook2Tiles, sizeof(witspook2Tiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(6, 8)
+            .withLocation(40, 0)
+            .buildPtr();
+    dobbelSteenSprite = spriteBuilder
+            .withData(dobbelsteenTiles, sizeof(dobbelsteenTiles))
+            .withSize(SIZE_32_32)
+            .withAnimated(3, 8)
+            .withLocation(80, 0)
             .buildPtr();
 
 
@@ -58,7 +94,7 @@ void GameScreen::load() {
     engine->getTimer()->start();
 }
 
-std::vector<Sprite *> GameScreen::sprites() {return {speler1Sprite.get()};}
+std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), spook2Sprite.get(), dobbelSteenSprite.get()};}
 
 std::vector<Background *> GameScreen::backgrounds() {return {background.get(), background2.get()};}
 
@@ -203,7 +239,7 @@ void GameScreen::updatePosition() {
             spY = 4;
             break;
     }
-    speler1Sprite->moveTo(spX*32, spY*32);
+    spook1Sprite->moveTo(spX*32, spY*32);
     background->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
     TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
