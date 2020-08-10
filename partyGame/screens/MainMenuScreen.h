@@ -12,12 +12,9 @@
 class MainMenuScreen : public Scene {
 
 private:
-    std::unique_ptr<Sprite> minion;
-    std::unique_ptr<Sprite> stickman;
-    std::unique_ptr<Sprite> basketball;
+    std::unique_ptr<Sprite> pijl;
     std::unique_ptr<Background> background;
-    //Game game;
-
+    int keuze = 0;
 
     u16 lastKeys = 0;
     bool firstTick = true;
@@ -32,6 +29,7 @@ public:
 
     void load() override;
     void tick(u16 keys) override;
+    void updatePijl();
 };
 
 
