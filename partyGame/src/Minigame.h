@@ -15,6 +15,7 @@ protected:
     int posY;
     int minScore;
     bool gehaald;
+    int snelheid;
 public:
     Minigame();
     int getScore();

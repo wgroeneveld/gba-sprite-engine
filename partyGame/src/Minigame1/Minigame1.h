@@ -7,9 +7,16 @@
 
 
 #include <libgba-sprite-engine/gba_engine.h>
+#include "../Minigame.h"
 
-class Minigame1 {
-
+class Minigame1 : public Minigame {
+private:
+    bool onder;
+public:
+    Minigame1();
+    void beweeg() override;
+    void berekenScore() override;
+    //void wisselRichting();
 
 };
 

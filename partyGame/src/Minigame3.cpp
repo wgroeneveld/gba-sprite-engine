@@ -10,27 +10,27 @@ Minigame3::Minigame3() : Minigame() {
     minScore = 80;
     onder = true;
     rechts = true;
+    snelheid = 2;
 }
 
 void Minigame3::beweeg() {
     if (onder) {
-        posY++;
+        posY = posY + snelheid;
         if (posY == 128) {onder = false;};
     }
     else {
         if (rechts) {
-            posY--;
-            posX++;
+            posY = posY + snelheid;
+            posX = posX + snelheid;
         }
         else {
-            posY--;
-            posX--;
+            posY = posY + snelheid;
+            posX = posX + snelheid;
         }
         if (posY == 0) {
             onder = true;
             rechts = !rechts;
         }
-
     }
 }
 

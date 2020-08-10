@@ -10,18 +10,19 @@ Minigame2::Minigame2() : Minigame() {
     posY = 64;
     minScore = 80;
     rechts = true;
+    snelheid = 2;
 }
 
 
 void Minigame2::beweeg() { //beweegsnelheid aanpassen adhv getal
-    if (rechts) {posX += 2;}
-    else {posX -= 2;}
-    if (posX == 0 or posX == 208) {wisselRichting();}
+    if (rechts) {posX += snelheid;}
+    else {posX -= snelheid;}
+    if (posX == 0 or posX == 208) {rechts = !rechts;}
 }
-
+/*
 void Minigame2::wisselRichting() {
     rechts = !rechts;
-}
+}*/
 
 void Minigame2::berekenScore() {
     int positie = posX; //Checken of ik deze tussenstap eigenlijk wel moet doen.

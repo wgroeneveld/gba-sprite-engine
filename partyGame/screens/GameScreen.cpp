@@ -24,10 +24,18 @@
 #include "../backgrounds/red_green.c"
 #include "../backgrounds/red_green.h"
 
-#include "../backgrounds/dobbelsteen.h"
-#include "../backgrounds/witspook1.h"
-#include "../backgrounds/witspook2.h"
-#include "../backgrounds/shared10_08.h"
+//#include "../backgrounds/dobbelsteen.h"
+//#include "../backgrounds/witspook1.h"
+//#include "../backgrounds/witspook2.h"
+//#include "../backgrounds/shared10.h"
+
+#include "../backgrounds/GameScreen/dobbelsteen.h"
+#include "../backgrounds/GameScreen/wit_spook_1.h"
+#include "../backgrounds/GameScreen/wit_spook_2.h"
+#include "../backgrounds/GameScreen/red_stone_with_border.h"
+#include "../backgrounds/GameScreen/green_stone_with_border.h"
+#include "../backgrounds/GameScreen/blue_stone_with_border.h"
+#include "../backgrounds/GameScreen/shared10.h"
 
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
@@ -37,9 +45,9 @@
 void GameScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Tiles8x8Pal, sizeof(Tiles8x8Pal)));
     background = std::unique_ptr<Background>(new Background(2, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), eerste7x7Map, sizeof(eerste7x7Map)));
-    background.get()->useMapScreenBlock(4);
+    background->useMapScreenBlock(4);
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
-    background2.get()->useMapScreenBlock(20);
+    background2->useMapScreenBlock(20);
 
     //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPal, sizeof(gameScreenFullPal)));
     //background = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), gameScreenFull, sizeof(gameScreenFull)));
@@ -53,12 +61,12 @@ void GameScreen::load() {
     TextStream::instance().setText(std::string("Moves"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(shared10Pal, sizeof(shared10Pal)));
     SpriteBuilder<Sprite> spriteBuilder;
 
     if (spriteKeuze == 0) {
         spook1Sprite = spriteBuilder
-                .withData(witspook1Tiles, sizeof(witspook1Tiles))
+                .withData(wit_spook_1Tiles, sizeof(wit_spook_1Tiles))
                 .withSize(SIZE_32_32)
                 .withAnimated(6, 8)
                 .withLocation(0, 0)
@@ -66,10 +74,10 @@ void GameScreen::load() {
     }
     else {
         spook1Sprite = spriteBuilder
-                .withData(witspook2Tiles, sizeof(witspook2Tiles))
+                .withData(wit_spook_2Tiles, sizeof(wit_spook_2Tiles))
                 .withSize(SIZE_32_32)
                 .withAnimated(6, 8)
-                .withLocation(40, 0)
+                .withLocation(0, 0)
                 .buildPtr();
     }
 
@@ -80,13 +88,36 @@ void GameScreen::load() {
             .withLocation(200, 120)
             .buildPtr();
 
+    steenRoodSprite = spriteBuilder
+            .withData(red_stone_with_borderTiles, sizeof(red_stone_with_borderTiles))
+            .withSize(SIZE_32_32)
+            //.withAnimated(2, 8)
+            .withLocation(200, 50)
+            .buildPtr();
+    steenGroenSprite = spriteBuilder
+            .withData(green_stone_with_borderTiles, sizeof(green_stone_with_borderTiles))
+            .withSize(SIZE_32_32)
+            //.withAnimated(2, 8)
+            .withLocation(200, 70)
+            .buildPtr();
+    steenBlauwSprite = spriteBuilder
+            .withData(blue_stone_with_borderTiles, sizeof(blue_stone_with_borderTiles))
+            .withSize(SIZE_32_32)
+            //.withAnimated(2, 8)
+            .withLocation(200, 90)
+            .buildPtr();
+
     dobbelSteenSprite->stopAnimating();
+
+
+
+
 
     updatePosition();
     engine->getTimer()->start();
 }
 
-std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), dobbelSteenSprite.get()};}
+std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), dobbelSteenSprite.get(), steenRoodSprite.get(), steenGroenSprite.get(), steenBlauwSprite.get()};}
 
 std::vector<Background *> GameScreen::backgrounds() {return {background.get(), background2.get()};}
 
@@ -151,12 +182,12 @@ void GameScreen::tick(u16 keys) {
             if (game->getHuidigVakje() == 1) {game->getSpeler()->setAlGegooid(false);}
             else if (game->getHuidigVakje() == 2) { //Minigame 2
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 1), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 6) {
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 2), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
@@ -244,6 +275,10 @@ void GameScreen::updatePosition() {
     TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
     TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
     //engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
+
+    if (game->getSpeler()->getSpel1Gehaald()) {steenRoodSprite.get()->animateToFrame(1);}
+    if (game->getSpeler()->getSpel2Gehaald()) {steenGroenSprite.get()->animateToFrame(1);}
+    if (game->getSpeler()->getSpel3Gehaald()) {steenBlauwSprite.get()->animateToFrame(1);}
 
 }
 

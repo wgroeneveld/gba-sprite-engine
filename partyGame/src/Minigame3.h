@@ -13,7 +13,6 @@ class Minigame3 : public Minigame {
     bool onder;
 public:
     Minigame3();
-    //void makePicture() override;
     void berekenScore() override;
     void beweeg() override;
 

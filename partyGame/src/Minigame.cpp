@@ -20,9 +20,7 @@ void Minigame::makePicture() {
     berekenGehaald();
 }
 
-void Minigame::berekenGehaald() {
-    gehaald = score > minScore;
-}
+void Minigame::berekenGehaald() {gehaald = score > minScore;}
 
 
 

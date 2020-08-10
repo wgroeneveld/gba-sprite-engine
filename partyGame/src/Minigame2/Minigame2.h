@@ -13,10 +13,9 @@ private:
     bool rechts;
 public:
     Minigame2();
-    //void makePicture() override;
     void beweeg() override;
     void berekenScore() override;
-    void wisselRichting();
+    //void wisselRichting();
 };
 
 

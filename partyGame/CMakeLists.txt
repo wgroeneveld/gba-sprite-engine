@@ -45,6 +45,19 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/dobbelsteen.c
         backgrounds/dobbelsteen.h
 
+        backgrounds/GameScreen/wit_spook_1.h
+        backgrounds/GameScreen/wit_spook_1.c
+        backgrounds/GameScreen/wit_spook_2.h
+        backgrounds/GameScreen/wit_spook_2.c
+        backgrounds/GameScreen/red_stone_with_border.h
+        backgrounds/GameScreen/red_stone_with_border.c
+        backgrounds/GameScreen/green_stone_with_border.h
+        backgrounds/GameScreen/green_stone_with_border.c
+        backgrounds/GameScreen/blue_stone_with_border.h
+        backgrounds/GameScreen/blue_stone_with_border.c
+        backgrounds/GameScreen/shared10.h
+        backgrounds/GameScreen/shared10.c
+
         backgrounds/MainMenu/pijl.c
         backgrounds/MainMenu/pijl.h
 

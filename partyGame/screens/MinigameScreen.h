@@ -11,13 +11,16 @@
 
 #include "../src/Game/Game.h"
 #include "../src/Minigame3.h"
+#include "../src/Minigame1/Minigame1.h"
 
 
 class MinigameScreen : public Scene {
 private:
+
     std::shared_ptr<Game> game;
     int spriteKeuze;
-    Minigame3 minigame;
+    std::shared_ptr<Minigame> minigame;
+    //Minigame minigame = Minigame2();
     std::unique_ptr<Sprite> ufo;
     u16 lastKeys = 0;
     bool firstTick = true;
@@ -26,8 +29,9 @@ private:
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
+    MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite, int spel);
 
-    MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite){};
+    //MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite){};
     void load() override;
     void tick(u16 keys) override;
 
