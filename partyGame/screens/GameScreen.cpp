@@ -49,13 +49,6 @@ void GameScreen::load() {
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
     background2->useMapScreenBlock(20);
 
-    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPal, sizeof(gameScreenFullPal)));
-    //background = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), gameScreenFull, sizeof(gameScreenFull)));
-    //background.get()->useMapScreenBlock(4);
-    //background2 = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), Background8x8Map, sizeof(Background8x8Map)));
-    //background2.get()->useMapScreenBlock(20);
-    //TextStream::instance().setFontColor(0xF800); //https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
-
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
     TextStream::instance().setText(std::string("Moves"), 3, 25);
@@ -108,12 +101,8 @@ void GameScreen::load() {
             .buildPtr();
 
     dobbelSteenSprite->stopAnimating();
-
-
-
-
-
     updatePosition();
+    updateInformation();
     engine->getTimer()->start();
 }
 
@@ -188,6 +177,11 @@ void GameScreen::tick(u16 keys) {
             else if (game->getHuidigVakje() == 6) {
                 if (!engine->isTransitioning()) {
                     engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 2), new FadeOutScene(2));
+                }
+            }
+            else if (game->getHuidigVakje() == 7) {
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 3), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
@@ -271,14 +265,29 @@ void GameScreen::updatePosition() {
     spook1Sprite->moveTo(spX*32, spY*32);
     background->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
-    TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
-    TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
-    TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
+
     //engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
 
-    if (game->getSpeler()->getSpel1Gehaald()) {steenRoodSprite.get()->animateToFrame(1);}
-    if (game->getSpeler()->getSpel2Gehaald()) {steenGroenSprite.get()->animateToFrame(1);}
-    if (game->getSpeler()->getSpel3Gehaald()) {steenBlauwSprite.get()->animateToFrame(1);}
+    //if (game->getSpeler()->getSpel1Gehaald()) {steenRoodSprite.get()->animateToFrame(1);}
+    //if (game->getSpeler()->getSpel2Gehaald()) {steenGroenSprite.get()->animateToFrame(1);}
+    //if (game->getSpeler()->getSpel3Gehaald()) {steenBlauwSprite.get()->animateToFrame(1);}
+
+}
+
+void GameScreen::updateInformation() {
+    if (game->getSpeler()->getSpel1Gehaald()) {
+        TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
+        steenGroenSprite->animateToFrame(1);
+    }
+    
+    if (game->getSpeler()->getSpel2Gehaald()) {
+        TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
+        steenRoodSprite->animateToFrame(0);
+    }
+    if (game->getSpeler()->getSpel3Gehaald()) {
+        TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
+        steenBlauwSprite->animateToFrame(1);
+    }
 
 }
 

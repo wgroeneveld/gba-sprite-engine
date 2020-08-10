@@ -43,6 +43,7 @@ public:
     void tick(u16 keys) override;
 
     void updatePosition();
+    void updateInformation();
 };
 
 
