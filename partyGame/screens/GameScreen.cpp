@@ -6,11 +6,6 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include "GameScreen.h"
-//#include "../img/shared.h"
-//#include "../img/speler1.h"
-//#include "../img/spelerAI.h"
-//#include "../img/hoofdpersonage.h"
-#include "MainMenuScreen.h"
 
 #include "../backgrounds/Tiles8x8.h"
 #include "../backgrounds/eerste7x7Map.h"
@@ -34,9 +29,6 @@
 #include "../backgrounds/witspook2.h"
 #include "../backgrounds/shared10_08.h"
 
-//#include "Minigame1Screen.h"
-
-
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <random>
@@ -54,9 +46,6 @@ void GameScreen::load() {
     //background.get()->useMapScreenBlock(4);
     //background2 = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), Background8x8Map, sizeof(Background8x8Map)));
     //background2.get()->useMapScreenBlock(20);
-
-
-
     //TextStream::instance().setFontColor(0xF800); //https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
@@ -65,7 +54,6 @@ void GameScreen::load() {
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
-
     SpriteBuilder<Sprite> spriteBuilder;
 
     spook1Sprite = spriteBuilder
@@ -85,10 +73,10 @@ void GameScreen::load() {
             .withData(dobbelsteenTiles, sizeof(dobbelsteenTiles))
             .withSize(SIZE_32_32)
             .withAnimated(3, 8)
-            .withLocation(80, 0)
+            .withLocation(200, 120)
             .buildPtr();
 
-
+    dobbelSteenSprite->stopAnimating();
 
     updatePosition();
     engine->getTimer()->start();
@@ -108,7 +96,8 @@ void GameScreen::tick(u16 keys) {
         if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
             int seed = engine->getTimer()->getTotalMsecs();
             game->getSpeler()->gooiDobbelsteen(seed);
-            TextStream::instance().setText(std::string("gegooid"), 5, 25);
+            dobbelSteenSprite->stopAnimating();
+            dobbelSteenSprite->animateToFrame(game->getSpeler()->getVakjesNogVerschuiven()-1);
             aanHetGooien = false;
             updatePosition();
         }
@@ -128,7 +117,7 @@ void GameScreen::tick(u16 keys) {
             updatePosition();
         } else if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
             aanHetGooien = true;
-            TextStream::instance().setText(std::string("gooiend"), 5, 25);
+            dobbelSteenSprite->animate();
         }
     }
     if (aanHetSpringen and (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4)) {
@@ -245,7 +234,7 @@ void GameScreen::updatePosition() {
     TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
     TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
     TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
-    engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
+    //engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
 
 }
 

@@ -19,10 +19,8 @@ private:
     std::unique_ptr<Sprite> spook2Sprite;
     std::unique_ptr<Sprite> dobbelSteenSprite;
 
-
     u16 lastKeys = 0;
     bool firstTick = true;
-    bool spelGespeeld = false;
     std::unique_ptr<Background> background;
     std::unique_ptr<Background> background2;
 
@@ -38,7 +36,6 @@ public:
     void load() override;
     void tick(u16 keys) override;
 
-    //void updateSpeler1(); //Dit misschien terug toevoegen als ik bewegende sprite heb?
     void updatePosition();
 };
 

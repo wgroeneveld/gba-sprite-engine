@@ -16,7 +16,6 @@
 #include "../backgrounds/gras.h"
 #include "../backgrounds/grasBackground.h"
 
-
 std::vector<Background *> MainMenuScreen::backgrounds() {return {background.get()};}
 
 std::vector<Sprite *> MainMenuScreen::sprites() {return {pijl.get()};}
