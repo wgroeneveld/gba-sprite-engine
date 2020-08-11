@@ -7,14 +7,11 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "Minigame1Screen.h"
 
-//#include "../../backgrounds/Minigame/box.h"
-//#include "../../backgrounds/Minigame/redEnemy.h"
 
 #include "../../Sprites/redEnemyCenter.h"
 #include "../../Sprites/box.h"
 #include "../../Sprites/shared.h"
 
-//#include "../../backgrounds/Minigame/sharedMinigame.h"
 #include "../GameScreen/GameScreen.h"
 
 #include "../../backgrounds/gras.h"

@@ -5,14 +5,11 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Minigame3Screen.h"
-//#include "../../backgrounds/Minigame/box.h"
-//#include "../../backgrounds/Minigame/blueEnemy.h"
 
 #include "../../Sprites/box.h"
 #include "../../Sprites/blueEnemyCenter.h"
 #include "../../Sprites/shared.h"
 
-//#include "../../backgrounds/Minigame/sharedMinigame.h"
 #include "../../sound/thirdLaugh.h"
 #include "../../sound/scream1.h"
 

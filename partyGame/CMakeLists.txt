@@ -24,10 +24,6 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/grasBackground.h
 
 
-        
-        backgrounds/GameScreen/shared10.h
-        backgrounds/GameScreen/shared10.c
-
         img/playerSelect/wit_spook_1.h
         img/playerSelect/wit_spook_2.h
         img/playerSelect/pijl.h
@@ -36,8 +32,6 @@ add_executable(${PROJECT_NAME}.elf
 
 
 
-        backgrounds/Minigame/sharedMinigame.h
-        backgrounds/Minigame/sharedMinigame.c
 
 
 

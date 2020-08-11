@@ -13,28 +13,14 @@
 
 #include "../GameScreen/GameScreen.h"
 
-//#include "../backgrounds/MainMenu/pijl.h"
 #include "../../backgrounds/gras.h"
 #include "../../backgrounds/grasBackground.h"
-//#include "../../backgrounds/PlayerSelect/shared.h"
-//#include "../../backgrounds/PlayerSelect/witspook2.h"
-//#include "../../backgrounds/PlayerSelect/witspook1.h"
-//#include "../../backgrounds/PlayerSelect/pijl.h"
-//#include "../../img/playerSelect/pijl.h"
-//#include "../../img/playerSelect/wit_spook_1.h"
-//#include "../../img/playerSelect/wit_spook_2.h"
-//#include "../../img/playerSelect/greenEnemyCenter.h"
-//#include "../../img/playerSelect/blueEnemyCenter.h"
-//#include "../../img/playerSelect/sharedPlayerSelect.h"
 
 #include "../../Sprites/wit_spook_1.h"
 #include "../../Sprites/wit_spook_2.h"
 #include "../../Sprites/pijl.h"
 #include "../../Sprites/shared.h"
 
-//#include "../../backgrounds/GameScreen/shared10.h"
-//#include "../../backgrounds/GameScreen/wit_spook_1.h"
-//#include "../../backgrounds/GameScreen/wit_spook_2.h"
 
 
 std::vector<Background *> PlayerSelectScreen::backgrounds() {return {background.get()};}

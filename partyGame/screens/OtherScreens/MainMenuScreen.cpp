@@ -13,7 +13,6 @@
 #include "../GameScreen/GameScreen.h"
 #include "PlayerSelectScreen.h"
 
-//#include "../../backgrounds/MainMenu/pijl.h"
 #include "../../Sprites/pijl.h"
 #include "../../Sprites/shared.h"
 

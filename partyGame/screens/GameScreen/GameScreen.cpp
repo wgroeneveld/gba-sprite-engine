@@ -23,18 +23,8 @@
 #include "../../backgrounds/red_green.c"
 #include "../../backgrounds/red_green.h"
 
-//#include "../backgrounds/dobbelsteen.h"
-//#include "../backgrounds/witspook1.h"
-//#include "../backgrounds/witspook2.h"
-//#include "../backgrounds/shared10.h"
 
-//#include "../../backgrounds/GameScreen/dobbelsteen.h"
-//#include "../../backgrounds/GameScreen/wit_spook_1.h"
-//#include "../../backgrounds/GameScreen/wit_spook_2.h"
-//#include "../../backgrounds/GameScreen/red_stone_with_border.h"
-//#include "../../backgrounds/GameScreen/green_stone_with_border.h"
-//#include "../../backgrounds/GameScreen/blue_stone_with_border.h"
-//#include "../../backgrounds/GameScreen/shared10.h"
+
 
 #include "../../Sprites/dobbelsteen.h"
 #include "../../Sprites/wit_spook_1.h"
