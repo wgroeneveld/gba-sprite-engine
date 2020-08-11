@@ -11,6 +11,10 @@
 
 #include "../backgrounds/Minigame/sharedMinigame.h"
 
+#include "../sound/secondLaugh.h"
+#include "../sound/scream3.h"
+
+
 Minigame2Screen::Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : MinigameScreen(engine, gamepje, sprite) {
     minigame = std::make_shared<Minigame2>();
 }
@@ -49,10 +53,14 @@ void Minigame2Screen::setEindtekst() {
     if (minigame->getGehaald()) {
         TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
         TextStream::instance().setText(std::string("Gregory is captured!"), 3, 2);
+        engine.get()->enqueueSound(scream3, sizeof(scream3), 44100);
+
 
     }
     else {
         TextStream::instance().setText(std::string("Oh no! Gregory escaped!"), 2, 2);
+        engine.get()->enqueueSound(secondLaugh, sizeof(secondLaugh), 44100);
+
     }
 }
 void Minigame2Screen::setGehaald() {

@@ -9,6 +9,8 @@
 #include "../backgrounds/Minigame/blueEnemy.h"
 
 #include "../backgrounds/Minigame/sharedMinigame.h"
+#include "../sound/thirdLaugh.h"
+#include "../sound/scream1.h"
 
 Minigame3Screen::Minigame3Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : MinigameScreen(engine, gamepje, sprite) {
     minigame = std::make_shared<Minigame3>();
@@ -42,15 +44,19 @@ void Minigame3Screen::load() {
 void Minigame3Screen::setBegintekst() {
     TextStream::instance().setText(std::string("Billy Blue isn't strong,"), 2, 1);
     TextStream::instance().setText(std::string("but he is the most agile one!"), 3, 1);
+
 }
 
 void Minigame3Screen::setEindtekst() {
     if (minigame->getGehaald()) {
         TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
         TextStream::instance().setText(std::string("Billy is captured!"), 3, 2);
+        engine.get()->enqueueSound(scream1, sizeof(scream1), 44100);
+
     }
     else {
         TextStream::instance().setText(std::string("Oh no! Billy escaped!"), 2, 2);
+        engine.get()->enqueueSound(thirdLaugh, sizeof(thirdLaugh), 44100);
     }
 }
 
