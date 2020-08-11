@@ -6,10 +6,14 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Minigame2Screen.h"
 
-#include "../../backgrounds/Minigame/box.h"
-#include "../../backgrounds/Minigame/greenEnemy.h"
+//#include "../../backgrounds/Minigame/box.h"
+//#include "../../backgrounds/Minigame/greenEnemy.h"
 
-#include "../../backgrounds/Minigame/sharedMinigame.h"
+#include "../../Sprites/greenEnemyCenter.h"
+#include "../../Sprites/box.h"
+#include "../../Sprites/shared.h"
+
+//#include "../../backgrounds/Minigame/sharedMinigame.h"
 
 #include "../../sound/secondLaugh.h"
 #include "../../sound/scream3.h"
@@ -23,7 +27,7 @@ void Minigame2Screen::load() {
 
     MinigameScreen::load();
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder

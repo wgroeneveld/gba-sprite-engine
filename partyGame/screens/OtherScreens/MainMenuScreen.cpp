@@ -14,26 +14,29 @@
 #include "PlayerSelectScreen.h"
 
 //#include "../../backgrounds/MainMenu/pijl.h"
+#include "../../Sprites/pijl.h"
+#include "../../Sprites/shared.h"
+
 #include "../../backgrounds/gras.h"
 #include "../../backgrounds/grasBackground.h"
 
 std::vector<Background *> MainMenuScreen::backgrounds() {return {background.get()};}
 
-std::vector<Sprite *> MainMenuScreen::sprites() {return {/*pijl.get()*/};}
+std::vector<Sprite *> MainMenuScreen::sprites() {return {pijl.get()};}
 
 void MainMenuScreen::load() {
     TextStream::instance().setText(std::string("Start Game"), 7, 5);
     TextStream::instance().setText(std::string("Read more about the game"), 10, 5);
     TextStream::instance().setText(std::string("Welcome to Ghost Town"), 2, 5);
-/*
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(pijlPal, sizeof(pijlPal)));
+
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
     pijl = spriteBuilder
             .withData(pijlTiles, sizeof(pijlTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
             .withLocation(5, 46)
-            .buildPtr();*/
+            .buildPtr();
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));

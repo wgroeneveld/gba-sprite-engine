@@ -23,15 +23,8 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/gras.h
         backgrounds/grasBackground.h
 
-        backgrounds/dobbelsteen.c
-        backgrounds/dobbelsteen.h
 
-        backgrounds/GameScreen/red_stone_with_border.h
-        backgrounds/GameScreen/red_stone_with_border.c
-        backgrounds/GameScreen/green_stone_with_border.h
-        backgrounds/GameScreen/green_stone_with_border.c
-        backgrounds/GameScreen/blue_stone_with_border.h
-        backgrounds/GameScreen/blue_stone_with_border.c
+        
         backgrounds/GameScreen/shared10.h
         backgrounds/GameScreen/shared10.c
 
@@ -45,14 +38,8 @@ add_executable(${PROJECT_NAME}.elf
 
         backgrounds/Minigame/sharedMinigame.h
         backgrounds/Minigame/sharedMinigame.c
-        backgrounds/Minigame/box.h
-        backgrounds/Minigame/box.c
-        backgrounds/Minigame/redEnemy.h
-        backgrounds/Minigame/redEnemy.c
-        backgrounds/Minigame/greenEnemy.h
-        backgrounds/Minigame/greenEnemy.c
-        backgrounds/Minigame/blueEnemy.h
-        backgrounds/Minigame/blueEnemy.c
+
+
 
         Sprites/wit_spook_1.h
         Sprites/wit_spook_1.c

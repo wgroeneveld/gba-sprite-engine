@@ -20,27 +20,32 @@
 //#include "../../backgrounds/PlayerSelect/witspook2.h"
 //#include "../../backgrounds/PlayerSelect/witspook1.h"
 //#include "../../backgrounds/PlayerSelect/pijl.h"
-#include "../../img/playerSelect/pijl.h"
-#include "../../img/playerSelect/wit_spook_1.h"
-#include "../../img/playerSelect/wit_spook_2.h"
-#include "../../img/playerSelect/greenEnemyCenter.h"
-#include "../../img/playerSelect/blueEnemyCenter.h"
-#include "../../img/playerSelect/sharedPlayerSelect.h"
+//#include "../../img/playerSelect/pijl.h"
+//#include "../../img/playerSelect/wit_spook_1.h"
+//#include "../../img/playerSelect/wit_spook_2.h"
+//#include "../../img/playerSelect/greenEnemyCenter.h"
+//#include "../../img/playerSelect/blueEnemyCenter.h"
+//#include "../../img/playerSelect/sharedPlayerSelect.h"
 
-#include "../../backgrounds/GameScreen/shared10.h"
+#include "../../Sprites/wit_spook_1.h"
+#include "../../Sprites/wit_spook_2.h"
+#include "../../Sprites/pijl.h"
+#include "../../Sprites/shared.h"
+
+//#include "../../backgrounds/GameScreen/shared10.h"
 //#include "../../backgrounds/GameScreen/wit_spook_1.h"
 //#include "../../backgrounds/GameScreen/wit_spook_2.h"
 
 
 std::vector<Background *> PlayerSelectScreen::backgrounds() {return {background.get()};}
 
-std::vector<Sprite *> PlayerSelectScreen::sprites() {return {/*pijl.get(), spook1.get(), spook2.get()*/};}
+std::vector<Sprite *> PlayerSelectScreen::sprites() {return {pijl.get(), spook1.get(), spook2.get()};}
 
 void PlayerSelectScreen::load() {
     TextStream::instance().setText(std::string("Choose Your player"), 2, 5);
 
-/*
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(shared10Pal, sizeof(shared10Pal)));
+
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
     pijl = spriteBuilder
             .withData(pijlTiles, sizeof(pijlTiles))
@@ -59,7 +64,7 @@ void PlayerSelectScreen::load() {
             .withSize(SIZE_32_32)
             .withAnimated(6, 8)
             .withLocation(40, 90)
-            .buildPtr();*/
+            .buildPtr();
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));

@@ -27,26 +27,26 @@ std::vector<Background *> FlyingStuffScene::backgrounds() {
 }
 
 void FlyingStuffScene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPlayerSelectPal, sizeof(sharedPlayerSelectPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(bg_palette, sizeof(bg_palette)));
 
     SpriteBuilder<Sprite> builder;
     SpriteBuilder<AffineSprite> affineBuilder;
 
     smiley = builder
-            .withData(wit_spook_1Tiles, sizeof(wit_spook_1Tiles))
+            .withData(piskel2Tiles, sizeof(piskel2Tiles))
             .withSize(SIZE_32_32)
             .withLocation(10, 10)
             .buildPtr();
 
     kul = builder
-            .withData(pijlTiles, sizeof(pijlTiles))
+            .withData(piskel2Tiles, sizeof(piskel2Tiles))
             .withSize(SIZE_32_32)
             .withLocation(30, 30)
             .buildPtr();
 
     kulFlying = affineBuilder
-            .withData(wit_spook_2Tiles, sizeof(wit_spook_2Tiles))
+            .withData(piskel2Tiles, sizeof(piskel2Tiles))
             .withSize(SIZE_32_32)
             .withLocation(100, 50)
             .withVelocity(1, 1)

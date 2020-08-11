@@ -14,11 +14,6 @@
 #include "../../backgrounds/grasBackground.h"
 #include "../../backgrounds/gras.h"
 
-#include "../../backgrounds/Minigame/box.h"
-#include "../../backgrounds/Minigame/redEnemy.h"
-#include "../../backgrounds/Minigame/greenEnemy.h"
-#include "../../backgrounds/Minigame/blueEnemy.h"
-#include "../../backgrounds/Minigame/sharedMinigame.h"
 
 MinigameScreen::MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite) {}
 

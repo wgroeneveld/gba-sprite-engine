@@ -10,7 +10,11 @@
 //#include "../../backgrounds/Minigame/box.h"
 //#include "../../backgrounds/Minigame/redEnemy.h"
 
-#include "../../backgrounds/Minigame/sharedMinigame.h"
+#include "../../Sprites/redEnemyCenter.h"
+#include "../../Sprites/box.h"
+#include "../../Sprites/shared.h"
+
+//#include "../../backgrounds/Minigame/sharedMinigame.h"
 #include "../GameScreen/GameScreen.h"
 
 #include "../../backgrounds/gras.h"
@@ -27,9 +31,9 @@ Minigame1Screen::Minigame1Screen(std::shared_ptr<GBAEngine> engine, std::shared_
 void Minigame1Screen::load() {
     MinigameScreen::load();
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
-/*
+
     badGuy = spriteBuilder
             .withData(redEnemyCenterTiles, sizeof(redEnemyCenterTiles))
             .withSize(SIZE_32_32)
@@ -43,7 +47,7 @@ void Minigame1Screen::load() {
             .withAnimated(1, 40)
             .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
-    //updatePosition();*/
+    //updatePosition();
 }
 
 void Minigame1Screen::setGehaald() {
