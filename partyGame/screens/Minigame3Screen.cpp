@@ -40,11 +40,18 @@ void Minigame3Screen::load() {
 }
 
 void Minigame3Screen::setBegintekst() {
-    TextStream::instance().setText(std::string("Begin Spel 3"), 2, 10);
+    TextStream::instance().setText(std::string("Billy Blue isn't strong,"), 2, 1);
+    TextStream::instance().setText(std::string("but he is the most agile one!"), 3, 1);
 }
 
 void Minigame3Screen::setEindtekst() {
-    TextStream::instance().setText(std::string("Einde Spel 3"), 2, 10);
+    if (minigame->getGehaald()) {
+        TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
+        TextStream::instance().setText(std::string("Billy is captured!"), 3, 2);
+    }
+    else {
+        TextStream::instance().setText(std::string("Oh no! Billy escaped!"), 2, 2);
+    }
 }
 
 void Minigame3Screen::setGehaald() {
@@ -52,28 +59,6 @@ void Minigame3Screen::setGehaald() {
         game->getSpeler()->setSpel3Gehaald(true);
     }
 }
-/*
-void Minigame3Screen::tick(u16 keys) {
-    MinigameScreen::tick(keys);
-
-    if (bezig) {
-        if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
-            minigame->moveBoxRight();
-        }
-        else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
-            minigame->moveBoxLeft();
-        }
-        else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
-            minigame->moveBoxUp();
-        }
-        else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
-            minigame->moveBoxDown();
-        }
-    }
-    updatePosition();
-
-
-}*/
 
 
 

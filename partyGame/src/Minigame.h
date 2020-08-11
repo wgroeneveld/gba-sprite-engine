@@ -7,15 +7,12 @@
 
 
 class Minigame {
-private:
-
 protected:
     int score;
     int posX;
     int posY;
     int posBoxX;
     int posBoxY;
-    //int minScore;
     bool gehaald;
     int snelheid;
 public:
@@ -31,10 +28,10 @@ public:
     virtual void beweeg() = 0;
     virtual void berekenScore() = 0;
 
-    void moveBoxRight();
-    void moveBoxLeft();
-    void moveBoxUp();
-    void moveBoxDown();
+    //void moveBoxRight();
+    //void moveBoxLeft();
+    //void moveBoxUp();
+    //void moveBoxDown();
 };
 
 

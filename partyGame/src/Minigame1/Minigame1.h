@@ -17,7 +17,6 @@ public:
     void beweeg() override;
     void berekenScore() override;
     void berekenGehaald() override;
-
 };
 
 

@@ -24,16 +24,14 @@
 #include "../backgrounds/Minigame/blueEnemy.h"
 #include "../backgrounds/Minigame/sharedMinigame.h"
 
-MinigameScreen::MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite) {
-
-}
+MinigameScreen::MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite) {}
 
 void MinigameScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background.get()->useMapScreenBlock(16);
-
 }
+
 std::vector<Sprite *> MinigameScreen::sprites() {return {badGuy.get(), box.get()};}
 
 std::vector<Background *> MinigameScreen::backgrounds() {return {background.get()};}
@@ -42,7 +40,7 @@ void MinigameScreen::tick(u16 keys) {
 
     if (firstTick) {
         setBegintekst();
-        wachtEven(2000);
+        wachtEven(10000);
         removeTekst();
         firstTick = false;
         lastKeys = keys;
@@ -58,14 +56,11 @@ void MinigameScreen::tick(u16 keys) {
         bezig = false;
         endScene();
     }
-
     lastKeys = keys;
 }
 
 void MinigameScreen::updatePosition() {
-   badGuy->moveTo(minigame->getPosX(), minigame->getPosY());
-    TextStream::instance().setText(std::string("X: " + std::to_string(minigame->getPosX())), 1, 10);
-    TextStream::instance().setText(std::string("Y: " + std::to_string(minigame->getPosY())), 2, 10);
+    badGuy->moveTo(minigame->getPosX(), minigame->getPosY());
     box->moveTo(minigame->getPosBoxX(), minigame->getPosBoxY());
 }
 
@@ -75,7 +70,7 @@ void MinigameScreen::endScene() {
     setGehaald();
     setEindtekst();
     wachtEven(2000);
-    game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp*/
+    game->getSpeler()->setAlGegooid(false);
     engine->setScene(new GameScreen(engine, game, spriteKeuze));
 }
 
@@ -90,7 +85,6 @@ void MinigameScreen::wachtEven(int tijd) {
 
 void MinigameScreen::removeTekst() {
     TextStream::instance().clear();
-
 }
 
 

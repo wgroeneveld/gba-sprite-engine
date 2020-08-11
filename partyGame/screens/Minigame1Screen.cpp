@@ -21,10 +21,9 @@ Minigame1Screen::Minigame1Screen(std::shared_ptr<GBAEngine> engine, std::shared_
 }
 
 void Minigame1Screen::load() {
-    TextStream::instance().setText(std::string("Test"), 4, 10);
+    MinigameScreen::load();
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
-
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder
@@ -40,12 +39,8 @@ void Minigame1Screen::load() {
             .withAnimated(1, 40)
             .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
-
-    MinigameScreen::load();
-
+    //updatePosition();
 }
-
-
 
 void Minigame1Screen::setGehaald() {
     if (minigame->getGehaald()) {
@@ -54,18 +49,20 @@ void Minigame1Screen::setGehaald() {
 }
 
 void Minigame1Screen::setBegintekst() {
-    TextStream::instance().setText(std::string("Rodrick is a very fast!"), 2, 10);
-    TextStream::instance().setText(std::string("Luckily, he isn't strong enough to lift the box"), 3, 10);
-    TextStream::instance().setText(std::string("if it falls partially on top of him!"), 4, 10);
-
+    TextStream::instance().setText(std::string("Rodrick Red is very fast!"), 2, 1);
+    TextStream::instance().setText(std::string("But he isn't strong enough"), 3, 1);
+    TextStream::instance().setText(std::string("to lift the box if it falls"), 4, 1);
+    TextStream::instance().setText(std::string("partially on top of him!"), 5, 1);
 }
 
 void Minigame1Screen::setEindtekst() {
     if (minigame->getGehaald()) {
-        TextStream::instance().setText(std::string("Yay! You did it! Rodrick is captured!"), 2, 10);
+        TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
+        TextStream::instance().setText(std::string("Rodrick is captured!"), 3, 2);
+
     }
     else {
-        TextStream::instance().setText(std::string("Oh no! Rodrick escaped!"), 2, 10);
+        TextStream::instance().setText(std::string("Oh no! Rodrick escaped!"), 2, 2);
     }
 }
 

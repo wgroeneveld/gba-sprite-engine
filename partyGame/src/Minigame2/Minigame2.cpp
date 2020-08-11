@@ -6,17 +6,16 @@
 #include <algorithm>
 
 Minigame2::Minigame2() : Minigame() {
-    posX = 0;
-    posY = 64;
-    //minScore = 80;
-    rechts = true;
-    snelheid = 1;
-
     posBoxX = 104;
     posBoxY = 64;
+    posX = 0;
+    posY = 64;
+    snelheid = 1;
+
+    rechts = true;
 }
 
-void Minigame2::beweeg() { //beweegsnelheid aanpassen adhv getal
+void Minigame2::beweeg() {
     if (rechts) {posX += snelheid;}
     else {posX -= snelheid;}
     if (posX == 0 or posX == 208) {rechts = !rechts;}
@@ -27,5 +26,5 @@ void Minigame2::berekenScore() {
 }
 
 void Minigame2::berekenGehaald() {
-    gehaald = (posX >= 98 and posX <= 110);
+    gehaald = (posX >= (posBoxX - 6) and posX <= (posBoxX + 6));
 }

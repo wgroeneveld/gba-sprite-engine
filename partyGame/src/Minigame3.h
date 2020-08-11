@@ -13,12 +13,9 @@ class Minigame3 : public Minigame {
     bool onder;
 public:
     Minigame3();
-    void berekenScore() override;
     void beweeg() override;
+    void berekenScore() override;
     void berekenGehaald() override;
-
-
-
 };
 
 

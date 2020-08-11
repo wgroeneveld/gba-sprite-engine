@@ -16,12 +16,10 @@ Minigame2Screen::Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_
 }
 
 void Minigame2Screen::load() {
-    TextStream::instance().setText(std::string("Test"), 4, 10);
 
     MinigameScreen::load();
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
-
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder
@@ -37,19 +35,24 @@ void Minigame2Screen::load() {
             .withAnimated(1, 40)
             .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
-
 }
 
 void Minigame2Screen::setBegintekst() {
-    TextStream::instance().setText(std::string("Gregory Green isn't very fast, but he is very strong! Make sure you got the box completely on top of him!"), 2, 10);
+    TextStream::instance().setText(std::string("Gregory Green isn't very fast,"), 2, 1);
+    TextStream::instance().setText(std::string("but he is very strong!"), 3, 1);
+    TextStream::instance().setText(std::string("Make sure you get the box"), 4, 1);
+    TextStream::instance().setText(std::string("completely on top of him!"), 5, 1);
+
 }
 
 void Minigame2Screen::setEindtekst() {
     if (minigame->getGehaald()) {
-        TextStream::instance().setText(std::string("Yay! You did it! Gregory is captured!"), 2, 10);
+        TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
+        TextStream::instance().setText(std::string("Gregory is captured!"), 3, 2);
+
     }
     else {
-        TextStream::instance().setText(std::string("Oh no! Gregory escaped!"), 2, 10);
+        TextStream::instance().setText(std::string("Oh no! Gregory escaped!"), 2, 2);
     }
 }
 void Minigame2Screen::setGehaald() {
