@@ -4,7 +4,7 @@
 
 #include <libgba-sprite-engine/gba_engine.h>
 
-#include "../screens/MainMenuScreen.h"
+#include "../screens/OtherScreens/MainMenuScreen.h"
 
 int main() {
 

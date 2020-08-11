@@ -8,6 +8,11 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "flying_stuff_scene.h"
 #include "kul.h"
+#include "../../../partyGame/img/playerSelect/wit_spook_1.h"
+#include "../../../partyGame/img/playerSelect/wit_spook_2.h"
+#include "../../../partyGame/img/playerSelect/pijl.h"
+#include "../../../partyGame/img/playerSelect/sharedPlayerSelect.h"
+
 
 std::vector<Sprite *> FlyingStuffScene::sprites() {
     return {
@@ -22,27 +27,27 @@ std::vector<Background *> FlyingStuffScene::backgrounds() {
 }
 
 void FlyingStuffScene::load() {
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPlayerSelectPal, sizeof(sharedPlayerSelectPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(bg_palette, sizeof(bg_palette)));
 
     SpriteBuilder<Sprite> builder;
     SpriteBuilder<AffineSprite> affineBuilder;
 
     smiley = builder
-            .withData(piskelTiles, sizeof(piskelTiles))
-            .withSize(SIZE_16_16)
+            .withData(wit_spook_1Tiles, sizeof(wit_spook_1Tiles))
+            .withSize(SIZE_32_32)
             .withLocation(10, 10)
             .buildPtr();
 
     kul = builder
-            .withData(kulTiles, sizeof(kulTiles))
-            .withSize(SIZE_64_32)
+            .withData(pijlTiles, sizeof(pijlTiles))
+            .withSize(SIZE_32_32)
             .withLocation(30, 30)
             .buildPtr();
 
     kulFlying = affineBuilder
-            .withData(kulTiles, sizeof(kulTiles))
-            .withSize(SIZE_64_32)
+            .withData(wit_spook_2Tiles, sizeof(wit_spook_2Tiles))
+            .withSize(SIZE_32_32)
             .withLocation(100, 50)
             .withVelocity(1, 1)
             .buildPtr();

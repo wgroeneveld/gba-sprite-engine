@@ -45,7 +45,7 @@ void SampleStartScene::load() {
     TextStream::instance().setText("PRESS START", 3, 8);
 
     engine->getTimer()->start();
-    engine->enqueueSound(gunshot, gunshot_bytes, 44100);
+    //engine->enqueueSound(gunshot, gunshot_bytes, 44100);
 }
 
 void SampleStartScene::tick(u16 keys) {

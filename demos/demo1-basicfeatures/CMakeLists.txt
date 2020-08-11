@@ -8,7 +8,16 @@ add_executable(${PROJECT_NAME}.elf
         src/sample_sound.h
         src/kul.h
         src/flying_stuff_scene.cpp
-        src/flying_stuff_scene.h src/ff.h)
+        src/flying_stuff_scene.h src/ff.h
+        src/wit_spook_2.h
+        src/wit_spook_2.c
+        ../../../partyGame/img/playerSelect/sharedPlayerSelect.h
+        ../../../partyGame/img/playerSelect/pijl.h
+        ../../../partyGame/img/playerSelect/wit_spook_1.h
+        ../../../partyGame/img/playerSelect/wit_spook_2.h
+
+        src/sharedPlayerSelect.c
+        )
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

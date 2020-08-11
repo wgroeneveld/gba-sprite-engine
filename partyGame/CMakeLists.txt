@@ -9,26 +9,12 @@ add_executable(${PROJECT_NAME}.elf
         src/Game/Speler.cpp
         src/Game/Speler.h
 
-        screens/MainMenuScreen.cpp
-        screens/MainMenuScreen.h
-        screens/AboutScreen.cpp
-        screens/AboutScreen.h
-        screens/GameScreen.cpp
-        screens/GameScreen.h
-
-        img/minion_image.h
-        img/basketballAnimated.c
-        img/basketballAnimated.h
-        img/stickmanAnimated.c
-        img/stickmanAnimated.h
-        img/shared.c
-        img/shared.h
-        img/speler1.c
-        img/speler1.h
-        img/spelerAI.c
-        img/spelerAI.h
-        img/hoofdpersonage.c
-        img/hoofdpersonage.h
+        screens/OtherScreens/MainMenuScreen.cpp
+        screens/OtherScreens/MainMenuScreen.h
+        screens/OtherScreens/AboutScreen.cpp
+        screens/OtherScreens/AboutScreen.h
+        screens/GameScreen/GameScreen.cpp
+        screens/GameScreen/GameScreen.h
 
         backgrounds/Tiles8x8.c
         backgrounds/Tiles8x8.h
@@ -36,7 +22,6 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/gras.c
         backgrounds/gras.h
         backgrounds/grasBackground.h
-        backgrounds/gunshot.h
 
         backgrounds/witspook1.c
         backgrounds/witspook1.h
@@ -58,6 +43,13 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/GameScreen/shared10.h
         backgrounds/GameScreen/shared10.c
 
+        img/playerSelect/wit_spook_1.h
+        img/playerSelect/wit_spook_2.h
+        img/playerSelect/pijl.h
+        img/playerSelect/sharedPlayerSelect.h
+        img/playerSelect/sharedPlayerSelect.c
+
+
         backgrounds/MainMenu/pijl.c
         backgrounds/MainMenu/pijl.h
 
@@ -72,7 +64,7 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/Minigame/blueEnemy.h
         backgrounds/Minigame/blueEnemy.c
 
-        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h screens/GameScreen.cpp screens/GameScreen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame2/Minigame2.cpp src/Minigame2/Minigame2.h screens/MinigameScreen.cpp screens/MinigameScreen.h screens/EndScreen.cpp screens/EndScreen.h screens/PlayerSelectScreen.cpp screens/PlayerSelectScreen.h src/Minigame.cpp src/Minigame.h src/Minigame3.cpp src/Minigame3.h screens/Minigame1Screen.cpp screens/Minigame1Screen.h screens/Minigame2Screen.cpp screens/Minigame2Screen.h screens/Minigame3Screen.cpp screens/Minigame3Screen.h)
+        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h screens/GameScreen/GameScreen.cpp screens/GameScreen/GameScreen.h src/Minigames/Minigame1.cpp src/Minigames/Minigame1.h src/Minigames/Minigame2.cpp src/Minigames/Minigame2.h screens/MinigameScreens/MinigameScreen.cpp screens/MinigameScreens/MinigameScreen.h screens/OtherScreens/EndScreen.cpp screens/OtherScreens/EndScreen.h screens/OtherScreens/PlayerSelectScreen.cpp screens/OtherScreens/PlayerSelectScreen.h src/Minigames/Minigame.cpp src/Minigames/Minigame.h src/Minigames/Minigame3.cpp src/Minigames/Minigame3.h screens/MinigameScreens/Minigame1Screen.cpp screens/MinigameScreens/Minigame1Screen.h screens/MinigameScreens/Minigame2Screen.cpp screens/MinigameScreens/Minigame2Screen.h screens/MinigameScreens/Minigame3Screen.cpp screens/MinigameScreens/Minigame3Screen.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 
