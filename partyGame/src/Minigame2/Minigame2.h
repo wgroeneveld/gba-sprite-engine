@@ -15,6 +15,7 @@ public:
     Minigame2();
     void beweeg() override;
     void berekenScore() override;
+    void berekenGehaald() override;
     //void wisselRichting();
 };
 

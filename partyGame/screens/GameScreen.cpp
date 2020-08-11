@@ -171,33 +171,36 @@ void GameScreen::tick(u16 keys) {
         aanHetSpringen = false;
     }
     else {
-        if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) { // nog eens gooien
-            if (game->getHuidigVakje() == 1) {game->getSpeler()->setAlGegooid(false);}
-            else if (game->getHuidigVakje() == 2) { //Minigame 2
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 6) {
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 7) {
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
-            else if (game->getHuidigVakje() == 5) {
-                if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
-                    if (!engine->isTransitioning()) {
-                        engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
-                    }
-                }
-                else {
+        if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) {
+            switch(game->getHuidigVakje()) {
+                case 0:
                     game->getSpeler()->setAlGegooid(false);
-                }
+                    break;
+                case 1:
+                    if (!engine->isTransitioning()) {
+                        engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    }
+                case 2:
+                    if (!engine->isTransitioning()) {
+                        engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    }
+                case 3:
+                    if (!engine->isTransitioning()) {
+                        engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                    }
+                case 4:
+                case 5:
+                    aanHetSpringen = true;
+
+                case 6:
+                    if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
+                        if (!engine->isTransitioning()) {
+                            engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
+                        }
+                    }
+                    else {
+                        game->getSpeler()->setAlGegooid(false);
+                    }
             }
         }
     }

@@ -23,7 +23,7 @@ public:
     int getPosY();
     bool getGehaald();
     void makePicture();
-    void berekenGehaald();
+    virtual void berekenGehaald() = 0;
     virtual void beweeg() = 0;
     virtual void berekenScore() = 0;
 };

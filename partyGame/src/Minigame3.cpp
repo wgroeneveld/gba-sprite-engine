@@ -38,4 +38,8 @@ void Minigame3::berekenScore() {
     score = 100;
 }
 
+void Minigame3::berekenGehaald() {
+    gehaald = (score >= minScore);
+}
+
 

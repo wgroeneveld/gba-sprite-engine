@@ -13,18 +13,16 @@ Minigame2::Minigame2() : Minigame() {
     snelheid = 2;
 }
 
-
 void Minigame2::beweeg() { //beweegsnelheid aanpassen adhv getal
     if (rechts) {posX += snelheid;}
     else {posX -= snelheid;}
     if (posX == 0 or posX == 208) {rechts = !rechts;}
 }
-/*
-void Minigame2::wisselRichting() {
-    rechts = !rechts;
-}*/
 
 void Minigame2::berekenScore() {
-    int positie = posX; //Checken of ik deze tussenstap eigenlijk wel moet doen.
-    score = 104-(std::abs(104-positie));
+    score = 104-(std::abs(104-posX));
+}
+
+void Minigame2::berekenGehaald() {
+    gehaald = (score >= minScore);
 }
