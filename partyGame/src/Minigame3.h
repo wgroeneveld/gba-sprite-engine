@@ -17,6 +17,8 @@ public:
     void beweeg() override;
     void berekenGehaald() override;
 
+
+
 };
 
 

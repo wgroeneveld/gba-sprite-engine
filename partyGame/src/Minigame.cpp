@@ -30,6 +30,26 @@ int Minigame::getPosBoxY() {
 /*
 void Minigame::berekenGehaald() {gehaald = score > minScore;}
 */
+/*
+void Minigame::moveBoxRight() {
+    if (!posBoxX >= 208) {
+        posBoxX++;
+    }
+}
 
-
+void Minigame::moveBoxLeft() {
+    if (!posBoxX <= 0) {
+        posBoxX--;
+    }
+}
+void Minigame::moveBoxUp() {
+    if (!posBoxY <= 0) {
+        posBoxY--;
+    }
+}
+void Minigame::moveBoxDown() {
+    if (!posBoxY >= 128) {
+        posBoxY++;
+    }
+}*/
 

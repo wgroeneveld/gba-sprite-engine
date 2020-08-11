@@ -16,9 +16,7 @@
 
 class MinigameScreen : public Scene {
 private:
-    u16 lastKeys = 0;
     bool firstTick = true;
-    bool bezig = true;
 protected:
     int spriteKeuze;
     std::unique_ptr<Background> background;
@@ -27,6 +25,8 @@ protected:
     std::shared_ptr<Minigame> minigame;
     std::unique_ptr<Sprite> badGuy;
     std::unique_ptr<Sprite> box;
+    bool bezig = true;
+    u16 lastKeys = 0;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

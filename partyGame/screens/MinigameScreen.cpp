@@ -54,7 +54,7 @@ void MinigameScreen::tick(u16 keys) {
         updatePosition();
     }
 
-    if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {// ENTER key, wait until released
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
         bezig = false;
         endScene();
     }
@@ -63,9 +63,10 @@ void MinigameScreen::tick(u16 keys) {
 }
 
 void MinigameScreen::updatePosition() {
-   badGuy.get()->moveTo(minigame->getPosX(), minigame->getPosY());
+   badGuy->moveTo(minigame->getPosX(), minigame->getPosY());
     TextStream::instance().setText(std::string("X: " + std::to_string(minigame->getPosX())), 1, 10);
     TextStream::instance().setText(std::string("Y: " + std::to_string(minigame->getPosY())), 2, 10);
+    box->moveTo(minigame->getPosBoxX(), minigame->getPosBoxY());
 }
 
 

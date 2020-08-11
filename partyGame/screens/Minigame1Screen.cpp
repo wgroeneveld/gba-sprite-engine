@@ -54,7 +54,10 @@ void Minigame1Screen::setGehaald() {
 }
 
 void Minigame1Screen::setBegintekst() {
-    TextStream::instance().setText(std::string("Rodrick is a very fast, luckily he isn't strong enough to lift the box if it falls partially on top of him!"), 2, 10);
+    TextStream::instance().setText(std::string("Rodrick is a very fast!"), 2, 10);
+    TextStream::instance().setText(std::string("Luckily, he isn't strong enough to lift the box"), 3, 10);
+    TextStream::instance().setText(std::string("if it falls partially on top of him!"), 4, 10);
+
 }
 
 void Minigame1Screen::setEindtekst() {

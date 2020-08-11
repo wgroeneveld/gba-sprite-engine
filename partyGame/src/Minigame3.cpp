@@ -3,17 +3,17 @@
 //
 
 #include "Minigame3.h"
+#include <algorithm>
 
 Minigame3::Minigame3() : Minigame() {
-    posX = 24;
+    posX = 40;
     posY = 10;
-    //minScore = 80;
     onder = true;
     rechts = true;
-    snelheid = 2;
+    snelheid = 1;
 
-    posBoxX = 100;
-    posBoxY = 100;
+    posBoxX = 104;
+    posBoxY = 64;
 }
 
 void Minigame3::beweeg() {
@@ -38,11 +38,10 @@ void Minigame3::beweeg() {
 }
 
 void Minigame3::berekenScore() {
-    score = 100;
+    score = posBoxX - (std::abs(posBoxX-posX));
+    score = posBoxY - (std::abs(posBoxY-posY));
 }
 
 void Minigame3::berekenGehaald() {
-    gehaald = true;
+    gehaald = (posX >= (posBoxX - 15) and posX <= (posBoxX + 15) and posBoxY >= (posY -15) and posBoxY <= (posBoxY + 15));
 }
-
-

@@ -52,4 +52,29 @@ void Minigame3Screen::setGehaald() {
         game->getSpeler()->setSpel3Gehaald(true);
     }
 }
+/*
+void Minigame3Screen::tick(u16 keys) {
+    MinigameScreen::tick(keys);
+
+    if (bezig) {
+        if (!(keys & KEY_RIGHT) && (lastKeys & KEY_RIGHT)) {
+            minigame->moveBoxRight();
+        }
+        else if (!(keys & KEY_LEFT) && (lastKeys & KEY_LEFT)) {
+            minigame->moveBoxLeft();
+        }
+        else if (!(keys & KEY_UP) && (lastKeys & KEY_UP)) {
+            minigame->moveBoxUp();
+        }
+        else if (!(keys & KEY_DOWN) && (lastKeys & KEY_DOWN)) {
+            minigame->moveBoxDown();
+        }
+    }
+    updatePosition();
+
+
+}*/
+
+
+
 

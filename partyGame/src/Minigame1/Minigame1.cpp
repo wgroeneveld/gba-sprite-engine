@@ -11,7 +11,7 @@ Minigame1::Minigame1() : Minigame() {
     posX = 104;
     posY = 0;
     onder = true;
-    snelheid = 2;
+    snelheid = 3;
     posBoxX = 104;
     posBoxY = 64;
 }
