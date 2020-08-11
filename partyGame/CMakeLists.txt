@@ -61,7 +61,18 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/MainMenu/pijl.c
         backgrounds/MainMenu/pijl.h
 
-        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h screens/GameScreen.cpp screens/GameScreen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame2/Minigame2.cpp src/Minigame2/Minigame2.h screens/MinigameScreen.cpp screens/MinigameScreen.h screens/EndScreen.cpp screens/EndScreen.h screens/PlayerSelectScreen.cpp screens/PlayerSelectScreen.h src/Minigame.cpp src/Minigame.h src/Minigame3.cpp src/Minigame3.h)
+        backgrounds/Minigame/sharedMinigame.h
+        backgrounds/Minigame/sharedMinigame.c
+        backgrounds/Minigame/box.h
+        backgrounds/Minigame/box.c
+        backgrounds/Minigame/redEnemy.h
+        backgrounds/Minigame/redEnemy.c
+        backgrounds/Minigame/greenEnemy.h
+        backgrounds/Minigame/greenEnemy.c
+        backgrounds/Minigame/blueEnemy.h
+        backgrounds/Minigame/blueEnemy.c
+
+        src/Game/Game.cpp src/Game/Game.h src/Game/Speler.cpp src/Game/Speler.h screens/GameScreen.cpp screens/GameScreen.h src/Minigame1/Minigame1.cpp src/Minigame1/Minigame1.h src/Minigame2/Minigame2.cpp src/Minigame2/Minigame2.h screens/MinigameScreen.cpp screens/MinigameScreen.h screens/EndScreen.cpp screens/EndScreen.h screens/PlayerSelectScreen.cpp screens/PlayerSelectScreen.h src/Minigame.cpp src/Minigame.h src/Minigame3.cpp src/Minigame3.h screens/Minigame1Screen.cpp screens/Minigame1Screen.h screens/Minigame2Screen.cpp screens/Minigame2Screen.h screens/Minigame3Screen.cpp screens/Minigame3Screen.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

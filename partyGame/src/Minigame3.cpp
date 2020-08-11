@@ -16,18 +16,18 @@ Minigame3::Minigame3() : Minigame() {
 void Minigame3::beweeg() {
     if (onder) {
         posY = posY + snelheid;
-        if (posY == 128) {onder = false;};
+        if (posY >= 128) {onder = false;};
     }
     else {
         if (rechts) {
-            posY = posY + snelheid;
+            posY = posY - snelheid;
             posX = posX + snelheid;
         }
         else {
-            posY = posY + snelheid;
-            posX = posX + snelheid;
+            posY = posY - snelheid;
+            posX = posX - snelheid;
         }
-        if (posY == 0) {
+        if (posY <= 0) {
             onder = true;
             rechts = !rechts;
         }

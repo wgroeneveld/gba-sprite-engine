@@ -37,6 +37,10 @@
 #include "../backgrounds/GameScreen/blue_stone_with_border.h"
 #include "../backgrounds/GameScreen/shared10.h"
 
+#include "Minigame1Screen.h"
+#include "Minigame2Screen.h"
+#include "Minigame3Screen.h"
+
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include <random>
@@ -171,17 +175,17 @@ void GameScreen::tick(u16 keys) {
             if (game->getHuidigVakje() == 1) {game->getSpeler()->setAlGegooid(false);}
             else if (game->getHuidigVakje() == 2) { //Minigame 2
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 1), new FadeOutScene(2));
+                    engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 6) {
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 2), new FadeOutScene(2));
+                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 7) {
                 if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new MinigameScreen(engine, game, spriteKeuze, 3), new FadeOutScene(2));
+                    engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                 }
             }
             else if (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4) {aanHetSpringen = true;}
@@ -279,7 +283,7 @@ void GameScreen::updateInformation() {
         TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
         steenGroenSprite->animateToFrame(1);
     }
-    
+
     if (game->getSpeler()->getSpel2Gehaald()) {
         TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
         steenRoodSprite->animateToFrame(0);
