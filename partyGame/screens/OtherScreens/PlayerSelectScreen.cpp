@@ -28,18 +28,18 @@
 #include "../../img/playerSelect/sharedPlayerSelect.h"
 
 #include "../../backgrounds/GameScreen/shared10.h"
-#include "../../backgrounds/GameScreen/wit_spook_1.h"
-#include "../../backgrounds/GameScreen/wit_spook_2.h"
+//#include "../../backgrounds/GameScreen/wit_spook_1.h"
+//#include "../../backgrounds/GameScreen/wit_spook_2.h"
 
 
 std::vector<Background *> PlayerSelectScreen::backgrounds() {return {background.get()};}
 
-std::vector<Sprite *> PlayerSelectScreen::sprites() {return {pijl.get(), spook1.get(), spook2.get()};}
+std::vector<Sprite *> PlayerSelectScreen::sprites() {return {/*pijl.get(), spook1.get(), spook2.get()*/};}
 
 void PlayerSelectScreen::load() {
     TextStream::instance().setText(std::string("Choose Your player"), 2, 5);
 
-
+/*
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(shared10Pal, sizeof(shared10Pal)));
     SpriteBuilder<Sprite> spriteBuilder;
     pijl = spriteBuilder
@@ -59,7 +59,7 @@ void PlayerSelectScreen::load() {
             .withSize(SIZE_32_32)
             .withAnimated(6, 8)
             .withLocation(40, 90)
-            .buildPtr();
+            .buildPtr();*/
 
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));

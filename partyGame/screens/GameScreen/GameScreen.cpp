@@ -28,13 +28,28 @@
 //#include "../backgrounds/witspook2.h"
 //#include "../backgrounds/shared10.h"
 
-#include "../../backgrounds/GameScreen/dobbelsteen.h"
-#include "../../backgrounds/GameScreen/wit_spook_1.h"
-#include "../../backgrounds/GameScreen/wit_spook_2.h"
-#include "../../backgrounds/GameScreen/red_stone_with_border.h"
-#include "../../backgrounds/GameScreen/green_stone_with_border.h"
-#include "../../backgrounds/GameScreen/blue_stone_with_border.h"
-#include "../../backgrounds/GameScreen/shared10.h"
+//#include "../../backgrounds/GameScreen/dobbelsteen.h"
+//#include "../../backgrounds/GameScreen/wit_spook_1.h"
+//#include "../../backgrounds/GameScreen/wit_spook_2.h"
+//#include "../../backgrounds/GameScreen/red_stone_with_border.h"
+//#include "../../backgrounds/GameScreen/green_stone_with_border.h"
+//#include "../../backgrounds/GameScreen/blue_stone_with_border.h"
+//#include "../../backgrounds/GameScreen/shared10.h"
+
+#include "../../Sprites/dobbelsteen.h"
+#include "../../Sprites/wit_spook_1.h"
+#include "../../Sprites/wit_spook_2.h"
+#include "../../Sprites/blue_stone_with_border.h"
+#include "../../Sprites/red_stone_with_border.h"
+#include "../../Sprites/green_stone_with_border.h"
+#include "../../Sprites/shared.h"
+
+
+
+
+
+
+
 
 #include "../MinigameScreens/Minigame1Screen.h"
 #include "../MinigameScreens/Minigame2Screen.h"
@@ -57,7 +72,7 @@ void GameScreen::load() {
     TextStream::instance().setText(std::string("Moves"), 3, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
-    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(shared10Pal, sizeof(shared10Pal)));
+    foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
 
     if (spriteKeuze == 0) {

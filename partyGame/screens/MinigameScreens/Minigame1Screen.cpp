@@ -7,8 +7,8 @@
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "Minigame1Screen.h"
 
-#include "../../backgrounds/Minigame/box.h"
-#include "../../backgrounds/Minigame/redEnemy.h"
+//#include "../../backgrounds/Minigame/box.h"
+//#include "../../backgrounds/Minigame/redEnemy.h"
 
 #include "../../backgrounds/Minigame/sharedMinigame.h"
 #include "../GameScreen/GameScreen.h"
@@ -29,7 +29,7 @@ void Minigame1Screen::load() {
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
     SpriteBuilder<Sprite> spriteBuilder;
-
+/*
     badGuy = spriteBuilder
             .withData(redEnemyCenterTiles, sizeof(redEnemyCenterTiles))
             .withSize(SIZE_32_32)
@@ -43,7 +43,7 @@ void Minigame1Screen::load() {
             .withAnimated(1, 40)
             .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
-    //updatePosition();
+    //updatePosition();*/
 }
 
 void Minigame1Screen::setGehaald() {
