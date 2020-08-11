@@ -207,35 +207,6 @@ void GameScreen::tick(u16 keys) {
                     game->getSpeler()->setAlGegooid(false);
                     break;
             }
-            /*
-            if (game->getHuidigVakje() == 1) { //Minigame 2
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 2) {
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 3) {
-                if (!engine->isTransitioning()) {
-                    engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
-                }
-            }
-            else if (game->getHuidigVakje() == 4 or game->getHuidigVakje() == 5) {aanHetSpringen = true;}
-            else if (game->getHuidigVakje() == 6) {
-                if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
-                    if (!engine->isTransitioning()) {
-                        engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
-                    }
-                }
-                else {
-                    game->getSpeler()->setAlGegooid(false);
-                }
-            }
-            if (game->getHuidigVakje() == 7) {game->getSpeler()->setAlGegooid(false);}*/
-
         }
     }
     lastKeys = keys;

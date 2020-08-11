@@ -7,10 +7,13 @@
 Minigame3::Minigame3() : Minigame() {
     posX = 24;
     posY = 10;
-    minScore = 80;
+    //minScore = 80;
     onder = true;
     rechts = true;
     snelheid = 2;
+
+    posBoxX = 100;
+    posBoxY = 100;
 }
 
 void Minigame3::beweeg() {
@@ -39,7 +42,7 @@ void Minigame3::berekenScore() {
 }
 
 void Minigame3::berekenGehaald() {
-    gehaald = (score >= minScore);
+    gehaald = true;
 }
 
 

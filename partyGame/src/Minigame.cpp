@@ -19,6 +19,14 @@ void Minigame::makePicture() {
     berekenScore();
     berekenGehaald();
 }
+
+int Minigame::getPosBoxX() {
+    return posBoxX;
+}
+
+int Minigame::getPosBoxY() {
+    return posBoxY;
+}
 /*
 void Minigame::berekenGehaald() {gehaald = score > minScore;}
 */

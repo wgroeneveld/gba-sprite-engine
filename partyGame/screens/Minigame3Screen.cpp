@@ -24,7 +24,7 @@ void Minigame3Screen::load() {
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder
-            .withData(blue_enemyTiles, sizeof(blue_enemyTiles))
+            .withData(blueEnemyCenterTiles, sizeof(blueEnemyCenterTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
             .withLocation(minigame->getPosX(), minigame->getPosY())
@@ -34,16 +34,17 @@ void Minigame3Screen::load() {
             .withData(boxTiles, sizeof(boxTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
-            .withLocation(104, 64)
+            .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
 
 }
 
-void Minigame3Screen::zegIets() {
-    TextStream::instance().setText(std::string("Spel 3 gehaald"), 2, 10);
-    TextStream::instance().setText(std::string("Spel Score: " + std::to_string(minigame->getScore())), 3, 10);
-    game->getSpeler()->setScore(minigame->getScore());
-    TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
+void Minigame3Screen::setBegintekst() {
+    TextStream::instance().setText(std::string("Begin Spel 3"), 2, 10);
+}
+
+void Minigame3Screen::setEindtekst() {
+    TextStream::instance().setText(std::string("Einde Spel 3"), 2, 10);
 }
 
 void Minigame3Screen::setGehaald() {

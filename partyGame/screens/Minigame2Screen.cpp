@@ -25,7 +25,7 @@ void Minigame2Screen::load() {
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder
-            .withData(green_enemyTiles, sizeof(green_enemyTiles))
+            .withData(greenEnemyCenterTiles, sizeof(greenEnemyCenterTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
             .withLocation(minigame->getPosX(), minigame->getPosY())
@@ -35,18 +35,23 @@ void Minigame2Screen::load() {
             .withData(boxTiles, sizeof(boxTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
-            .withLocation(104, 64)
+            .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
 
 }
 
-void Minigame2Screen::zegIets() {
-    TextStream::instance().setText(std::string("Spel 2 gehaald!"), 2, 10);
-    TextStream::instance().setText(std::string("Spel Score: " + std::to_string(minigame->getScore())), 3, 10);
-    game->getSpeler()->setScore(minigame->getScore());
-    TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
+void Minigame2Screen::setBegintekst() {
+    TextStream::instance().setText(std::string("Gregory Green isn't very fast, but he is very strong! Make sure you got the box completely on top of him!"), 2, 10);
 }
 
+void Minigame2Screen::setEindtekst() {
+    if (minigame->getGehaald()) {
+        TextStream::instance().setText(std::string("Yay! You did it! Gregory is captured!"), 2, 10);
+    }
+    else {
+        TextStream::instance().setText(std::string("Oh no! Gregory escaped!"), 2, 10);
+    }
+}
 void Minigame2Screen::setGehaald() {
     if (minigame->getGehaald()) {
         game->getSpeler()->setSpel2Gehaald(true);

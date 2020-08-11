@@ -29,10 +29,10 @@ MinigameScreen::MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_pt
 }
 
 void MinigameScreen::load() {
-
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background.get()->useMapScreenBlock(16);
+
 }
 std::vector<Sprite *> MinigameScreen::sprites() {return {badGuy.get(), box.get()};}
 
@@ -41,6 +41,9 @@ std::vector<Background *> MinigameScreen::backgrounds() {return {background.get(
 void MinigameScreen::tick(u16 keys) {
 
     if (firstTick) {
+        setBegintekst();
+        wachtEven(2000);
+        removeTekst();
         firstTick = false;
         lastKeys = keys;
         return;
@@ -66,26 +69,27 @@ void MinigameScreen::updatePosition() {
 }
 
 
-
-
-
-
 void MinigameScreen::endScene() {
     minigame->makePicture();
-    zegIets();
-    wachtEven();
-    game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp*/
     setGehaald();
-    engine->transitionIntoScene(new GameScreen(engine, game, spriteKeuze), new FadeOutScene(2));
+    setEindtekst();
+    wachtEven(2000);
+    game->getSpeler()->setAlGegooid(false); //Moet dat hier of bij Minigame2.cpp*/
+    engine->setScene(new GameScreen(engine, game, spriteKeuze));
 }
 
-void MinigameScreen::wachtEven() {
+void MinigameScreen::wachtEven(int tijd) {
     engine->getTimer()->stop();
     engine->getTimer()->reset();
     engine->getTimer()->start();
-    while (engine->getTimer()->getTotalMsecs() < 2000) {}
+    while (engine->getTimer()->getTotalMsecs() < tijd) {}
     engine->getTimer()->stop();
     engine->getTimer()->reset();
+}
+
+void MinigameScreen::removeTekst() {
+    TextStream::instance().clear();
+
 }
 
 

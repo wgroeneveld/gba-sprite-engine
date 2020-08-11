@@ -38,9 +38,13 @@ public:
     void updatePosition();
     void endScene();
 
-    virtual void zegIets() = 0;
+    virtual void setBegintekst() = 0;
+    virtual void setEindtekst() = 0;
+
     virtual void setGehaald() = 0;
-    void wachtEven();
+    void wachtEven(int tijd);
+
+    void removeTekst();
 };
 
 

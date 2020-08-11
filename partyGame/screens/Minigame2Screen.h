@@ -14,7 +14,8 @@ class Minigame2Screen : public  MinigameScreen{
 public:
     Minigame2Screen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite);
     void load() override;
-    void zegIets() override;
+    void setBegintekst() override;
+    void setEindtekst() override;
     void setGehaald() override;
 };
 

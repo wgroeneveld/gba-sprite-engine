@@ -23,14 +23,12 @@ Minigame1Screen::Minigame1Screen(std::shared_ptr<GBAEngine> engine, std::shared_
 void Minigame1Screen::load() {
     TextStream::instance().setText(std::string("Test"), 4, 10);
 
-    MinigameScreen::load();
-
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedMinigamePal, sizeof(sharedMinigamePal)));
 
     SpriteBuilder<Sprite> spriteBuilder;
 
     badGuy = spriteBuilder
-            .withData(red_enemyTiles, sizeof(red_enemyTiles))
+            .withData(redEnemyCenterTiles, sizeof(redEnemyCenterTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
             .withLocation(minigame->getPosX(), minigame->getPosY())
@@ -40,21 +38,31 @@ void Minigame1Screen::load() {
             .withData(boxTiles, sizeof(boxTiles))
             .withSize(SIZE_32_32)
             .withAnimated(1, 40)
-            .withLocation(104, 64)
+            .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
 
+    MinigameScreen::load();
+
 }
 
-void Minigame1Screen::zegIets() {
-    TextStream::instance().setText(std::string("Gedaan"), 2, 10);
-    TextStream::instance().setText(std::string("Spel Score: " + std::to_string(minigame->getScore())), 3, 10);
-    game->getSpeler()->setScore(minigame->getScore());
-    TextStream::instance().setText(std::string("Totaal Score: " + std::to_string(game->getSpeler()->getScore())), 4, 10);
-}
+
 
 void Minigame1Screen::setGehaald() {
     if (minigame->getGehaald()) {
         game->getSpeler()->setSpel1Gehaald(true);
+    }
+}
+
+void Minigame1Screen::setBegintekst() {
+    TextStream::instance().setText(std::string("Rodrick is a very fast, luckily he isn't strong enough to lift the box if it falls partially on top of him!"), 2, 10);
+}
+
+void Minigame1Screen::setEindtekst() {
+    if (minigame->getGehaald()) {
+        TextStream::instance().setText(std::string("Yay! You did it! Rodrick is captured!"), 2, 10);
+    }
+    else {
+        TextStream::instance().setText(std::string("Oh no! Rodrick escaped!"), 2, 10);
     }
 }
 

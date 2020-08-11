@@ -8,11 +8,12 @@
 
 
 Minigame1::Minigame1() : Minigame() {
-    posX = 64;
+    posX = 104;
     posY = 0;
-    minScore = 80;
     onder = true;
     snelheid = 2;
+    posBoxX = 104;
+    posBoxY = 64;
 }
 
 
@@ -24,9 +25,10 @@ void Minigame1::beweeg() { //beweegsnelheid aanpassen adhv getal
 
 
 void Minigame1::berekenScore() {
-    score = 90;
+    score = posBoxY-(std::abs(posBoxY-posY));
 }
 
 void Minigame1::berekenGehaald() {
-    gehaald = (score >= minScore);
+
+    gehaald = (posY >= 49 and posY <= 79);
 }

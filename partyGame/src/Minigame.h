@@ -13,7 +13,9 @@ protected:
     int score;
     int posX;
     int posY;
-    int minScore;
+    int posBoxX;
+    int posBoxY;
+    //int minScore;
     bool gehaald;
     int snelheid;
 public:
@@ -21,6 +23,8 @@ public:
     int getScore();
     int getPosX();
     int getPosY();
+    int getPosBoxX();
+    int getPosBoxY();
     bool getGehaald();
     void makePicture();
     virtual void berekenGehaald() = 0;
