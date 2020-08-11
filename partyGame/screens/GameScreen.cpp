@@ -148,7 +148,7 @@ void GameScreen::tick(u16 keys) {
             dobbelSteenSprite->animate();
         }
     }
-    if (aanHetSpringen and (game->getHuidigVakje() == 3 or game->getHuidigVakje() == 4)) {
+    if (aanHetSpringen and (game->getHuidigVakje() == 4 or game->getHuidigVakje() == 5)) {
         int seed = engine->getTimer()->getTotalMsecs();
         std::uniform_int_distribution<unsigned> u(1, 2);
         std::default_random_engine e(seed * seed); //anders kwam je denk ik te vaak op hetzelfde. Nog eens fatsoenlijk uitzoeken hoe dit zit.
@@ -159,7 +159,7 @@ void GameScreen::tick(u16 keys) {
         engine->getTimer()->start();
         while (engine->getTimer()->getTotalMsecs() < 1000) {}
 
-        if (game->getHuidigVakje() == 3) {
+        if (game->getHuidigVakje() == 4) {
             if (random == 1) {game->getSpeler()->springNaarLinks();}
             else {game->getSpeler()->springNaarRechts();}
         }
@@ -173,24 +173,25 @@ void GameScreen::tick(u16 keys) {
     else {
         if (game->getSpeler()->getAlGegooid() and game->getSpeler()->getVakjesNogVerschuiven() == 0) {
             switch(game->getHuidigVakje()) {
-                case 0:
-                    game->getSpeler()->setAlGegooid(false);
-                    break;
                 case 1:
                     if (!engine->isTransitioning()) {
                         engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                     }
+                    break;
                 case 2:
                     if (!engine->isTransitioning()) {
                         engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                     }
+                    break;
                 case 3:
                     if (!engine->isTransitioning()) {
                         engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
                     }
+                    break;
                 case 4:
                 case 5:
                     aanHetSpringen = true;
+                    break;
 
                 case 6:
                     if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
@@ -201,7 +202,40 @@ void GameScreen::tick(u16 keys) {
                     else {
                         game->getSpeler()->setAlGegooid(false);
                     }
+                    break;
+                case 7:
+                    game->getSpeler()->setAlGegooid(false);
+                    break;
             }
+            /*
+            if (game->getHuidigVakje() == 1) { //Minigame 2
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new Minigame1Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                }
+            }
+            else if (game->getHuidigVakje() == 2) {
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new Minigame2Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                }
+            }
+            else if (game->getHuidigVakje() == 3) {
+                if (!engine->isTransitioning()) {
+                    engine->transitionIntoScene(new Minigame3Screen(engine, game, spriteKeuze), new FadeOutScene(2));
+                }
+            }
+            else if (game->getHuidigVakje() == 4 or game->getHuidigVakje() == 5) {aanHetSpringen = true;}
+            else if (game->getHuidigVakje() == 6) {
+                if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
+                    if (!engine->isTransitioning()) {
+                        engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
+                    }
+                }
+                else {
+                    game->getSpeler()->setAlGegooid(false);
+                }
+            }
+            if (game->getHuidigVakje() == 7) {game->getSpeler()->setAlGegooid(false);}*/
+
         }
     }
     lastKeys = keys;
