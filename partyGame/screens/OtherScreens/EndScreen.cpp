@@ -6,13 +6,15 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "EndScreen.h"
 #include "MainMenuScreen.h"
+#include "../../backgrounds/gras.h"
+#include "../../backgrounds/grasBackground.h"
 
 std::vector<Background *> EndScreen::backgrounds() {
-    return {/*background.get()*/};
+    return {background.get()};
 }
 
 std::vector<Sprite *> EndScreen::sprites() {
-    return {/*stickman.get(), basketball.get()*/};
+    return {};
 }
 
 
@@ -22,6 +24,9 @@ void EndScreen::load() {
 
     TextStream::instance().setText(std::string("Press start for the main menu"), 10, 1);
 
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
+    background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
+    background->useMapScreenBlock(16);
 }
 
 void EndScreen::tick(u16 keys) {
@@ -32,7 +37,7 @@ void EndScreen::tick(u16 keys) {
         return;
     }
 
-    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
         engine->setScene(new MainMenuScreen(engine));
     }
 

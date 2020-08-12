@@ -10,7 +10,6 @@
 
 class EndScreen : public Scene{
 private:
-    //std::unique_ptr<Sprite> ufo;
     u16 lastKeys = 0;
     bool firstTick = true;
     std::unique_ptr<Background> background;

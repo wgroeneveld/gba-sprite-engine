@@ -210,8 +210,6 @@ void GameScreen::tick(u16 keys) {
             }
         }
     }
-
-
     lastKeys = keys;
 }
 // Zoveel logica mag eigenlijk nooit in een update staan, wordt veel te vaak aangeroepen?
