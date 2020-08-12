@@ -211,24 +211,7 @@ void GameScreen::tick(u16 keys) {
         }
     }
 
-    if (game->getSpeler()->getSpel1Gehaald()) {// ENTER key, wait until released
-        steenRoodSprite->animateToFrame(1);
-    }
-    else {
-        steenRoodSprite->animateToFrame(0);
-    }
-    if (game->getSpeler()->getSpel2Gehaald()) {// ENTER key, wait until released
-        steenGroenSprite->animateToFrame(1);
-    }
-    else {
-        steenGroenSprite->animateToFrame(0);
-    }
-    if (game->getSpeler()->getSpel3Gehaald()) {// ENTER key, wait until released
-        steenBlauwSprite->animateToFrame(1);
-    }
-    else {
-        steenBlauwSprite->animateToFrame(0);
-    }
+
     lastKeys = keys;
 }
 // Zoveel logica mag eigenlijk nooit in een update staan, wordt veel te vaak aangeroepen?
@@ -298,29 +281,21 @@ void GameScreen::updatePosition() {
     background->scroll(bgX * 32,bgY*32);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getVakjesNogVerschuiven())), 4, 25);
 
-    //engine.get()->enqueueSound(blubikbeneenvis, sizeof(blubikbeneenvis), 64000);
-
-    //if (game->getSpeler()->getSpel1Gehaald()) {steenRoodSprite.get()->animateToFrame(1);}
-    //if (game->getSpeler()->getSpel2Gehaald()) {steenGroenSprite.get()->animateToFrame(1);}
-    //if (game->getSpeler()->getSpel3Gehaald()) {steenBlauwSprite.get()->animateToFrame(1);}
-
 }
 
 void GameScreen::updateInformation() {
-    if (game->getSpeler()->getSpel1Gehaald()) {
-        steenGroenSprite->animateToFrame(1);
-    }
 
+    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
+
+    if (game->getSpeler()->getSpel1Gehaald()) {
+        steenRoodSprite->animateToFrame(1);
+    }
     if (game->getSpeler()->getSpel2Gehaald()) {
-        steenRoodSprite->animateToFrame(0);
+        steenGroenSprite->animateToFrame(1);
     }
     if (game->getSpeler()->getSpel3Gehaald()) {
         steenBlauwSprite->animateToFrame(1);
     }
-
-    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
-
-
 }
 
 
