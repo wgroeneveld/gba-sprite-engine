@@ -106,7 +106,7 @@ void GBAEngine::enableTimer0AndVBlank() {
 GBAEngine::GBAEngine() {
     GBAEngine::timer = std::unique_ptr<Timer>(new Timer());
     // setup screen control flags
-    REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
+    REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0 | DCNT_BG1 | DCNT_BG2 /*| DCNT_BG3*/;
 
     // setup interrupt control flags for vblank IRQing (started only when sound played)
     REG_DISPSTAT |= DISPLAY_INTERRUPT_VBLANK_ENABLE;
