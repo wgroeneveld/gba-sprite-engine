@@ -46,19 +46,61 @@
 #include "../../backgrounds/tiles12_08.h"
 
 #include "../../backgrounds/GamescreenColours/rood.c"
+#include "../../backgrounds/GamescreenColours/groen.c"
+#include "../../backgrounds/GamescreenColours/blauw.c"
+#include "../../backgrounds/GamescreenColours/roodEnGroen.c"
+#include "../../backgrounds/GamescreenColours/roodEnBlauw.c"
+#include "../../backgrounds/GamescreenColours/groenEnBlauw.c"
+#include "../../backgrounds/GamescreenColours/wit.c"
+#include "../../backgrounds/GamescreenColours/zwart.c"
 
 
 void GameScreen::load() {
 
-    if (spriteKeuze == 1) {
-        backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+    if (game->getSpeler()->getSpel1Gehaald()) {
+        if (game->getSpeler() ->getSpel2Gehaald()) {
+            if (game->getSpeler()->getSpel3Gehaald()) {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(
+                        new BackgroundPaletteManager(gameScreenFullPalWit, sizeof(gameScreenFullPalWit)));
+            } else {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(
+                        new BackgroundPaletteManager(gameScreenFullPalRoodEnGroen,
+                                                     sizeof(gameScreenFullPalRoodEnGroen)));
+            }
+        }
+        else {
+            if (game->getSpeler()->getSpel3Gehaald())  {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRoodEnBlauw, sizeof(gameScreenFullPalRoodEnGroen)));
+            }
+            else {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+            }
+        }
     }
     else {
-        backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+        if (game->getSpeler()->getSpel2Gehaald()) {
+            if (game->getSpeler()->getSpel3Gehaald()) {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalGroenEnBlauw, sizeof(gameScreenFullPalGroenEnBlauw)));
+            }
+            else {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalGroen, sizeof(gameScreenFullPalGroen)));
+
+            }
+
+        }
+        else {
+            if (game->getSpeler()->getSpel3Gehaald()) {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalBlauw, sizeof(gameScreenFullPalBlauw)));
+            }
+            else {
+                backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalZwart, sizeof(gameScreenFullPalZwart)));
+            }
+
+        }
 
     }
 
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
     background = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), tijdelijk, sizeof(tijdelijk)));
     background->useMapScreenBlock(4);
     background2 = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
