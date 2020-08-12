@@ -68,11 +68,11 @@ void PlayerSelectScreen::tick(u16 keys) {
     if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
         if (spelerKeuze == 0) {
             if (!engine->isTransitioning()) {
-                engine->transitionIntoScene(new GameScreen(engine,0), new FadeOutScene(2));
+                engine->setScene(new GameScreen(engine,0));
             }
         }
         else {
-            engine->transitionIntoScene(new GameScreen(engine, 1), new FadeOutScene(2));
+            engine->setScene(new GameScreen(engine, 1));
         }
     }
     else if ((keys & KEY_DOWN) && !(lastKeys & KEY_DOWN)) {

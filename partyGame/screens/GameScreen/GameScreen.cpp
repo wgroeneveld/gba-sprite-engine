@@ -5,26 +5,10 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
+#include <libgba-sprite-engine/gba_engine.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
+#include <random>
 #include "GameScreen.h"
-
-#include "../../backgrounds/Tiles8x8.h"
-#include "../../backgrounds/eerste7x7Map.h"
-#include "../../backgrounds/Background8x8Map.h"
-#include "../OtherScreens/EndScreen.h"
-#include "../MinigameScreens/MinigameScreen.h"
-
-#include "../../backgrounds/gameScreenFull.h"
-#include "../../backgrounds/gameScreenFull.c"
-#include "../../backgrounds/gameScreenMap.h"
-#include "../../backgrounds/gameScreenBorder.h"
-#include "../../backgrounds/tiles10_08.h"
-#include "../../backgrounds/tiles10_08.c"
-#include "../../backgrounds/blackAndTransparantMap.h"
-#include "../../backgrounds/red_green.c"
-#include "../../backgrounds/red_green.h"
-
-
-
 
 #include "../../Sprites/dobbelsteen.h"
 #include "../../Sprites/wit_spook_1.h"
@@ -34,22 +18,56 @@
 #include "../../Sprites/green_stone_with_border.h"
 #include "../../Sprites/shared.h"
 
-
 #include "../MinigameScreens/Minigame1Screen.h"
 #include "../MinigameScreens/Minigame2Screen.h"
 #include "../MinigameScreens/Minigame3Screen.h"
+#include "../OtherScreens/EndScreen.h"
 
-#include <libgba-sprite-engine/gba_engine.h>
-#include <libgba-sprite-engine/effects/fade_out_scene.h>
-#include <random>
 
+/* reserve
+#include "../../backgrounds/Tiles8x8.h"
+#include "../../backgrounds/eerste7x7Map.h"
+#include "../../backgrounds/Background8x8Map.h"*/
+
+#include "../../backgrounds/gameScreenMap.h"
+#include "../../backgrounds/gameScreenBorder.h"
+#include "../../backgrounds/tiles10_08.c"
+#include "../../backgrounds/blackAndTransparantMap.h"
+#include "../../backgrounds/red_green.c"
+#include "../../backgrounds/red_green.h"
+
+#include "../../backgrounds/tiles10_08.h"
+#include "../../backgrounds/gameScreenFull.h"
+#include "../../backgrounds/gameScreenFull.c"
+
+#include "../../backgrounds/bord.h"
+#include "../../backgrounds/bord.c"
+#include "../../backgrounds/transparantAndRedMap.h"
+#include "../../backgrounds/tiles12_08.h"
 
 void GameScreen::load() {
+
+
+
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tiles12_08Pal, sizeof(tiles12_08Pal)));
+    background = std::unique_ptr<Background>(new Background(2, tiles12_08Tiles, sizeof(tiles12_08Tiles), tijdelijk, sizeof(tijdelijk)));
+    background->useMapScreenBlock(4);
+    background2 = std::unique_ptr<Background>(new Background(1, tiles12_08Tiles, sizeof(tiles12_08Tiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
+    background2->useMapScreenBlock(21);
+    /* // reserve
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tiles12_08Pal, sizeof(tiles12_08Pal)));
+    background = std::unique_ptr<Background>(new Background(2, tiles12_08Tiles, sizeof(tiles12_08Tiles), tijdelijk, sizeof(tijdelijk)));
+    background->useMapScreenBlock(4);
+    background2 = std::unique_ptr<Background>(new Background(1, tiles12_08Tiles, sizeof(tiles12_08Tiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
+    background2->useMapScreenBlock(21);
+    */
+
+    /* //reserve
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Tiles8x8Pal, sizeof(Tiles8x8Pal)));
     background = std::unique_ptr<Background>(new Background(2, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), eerste7x7Map, sizeof(eerste7x7Map)));
     background->useMapScreenBlock(4);
     background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
-    background2->useMapScreenBlock(20);
+    background2->useMapScreenBlock(20);*/
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);

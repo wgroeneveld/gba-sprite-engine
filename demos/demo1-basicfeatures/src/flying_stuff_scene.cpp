@@ -8,10 +8,6 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "flying_stuff_scene.h"
 #include "kul.h"
-#include "../../../partyGame/img/playerSelect/wit_spook_1.h"
-#include "../../../partyGame/img/playerSelect/wit_spook_2.h"
-#include "../../../partyGame/img/playerSelect/pijl.h"
-#include "../../../partyGame/img/playerSelect/sharedPlayerSelect.h"
 
 
 std::vector<Sprite *> FlyingStuffScene::sprites() {

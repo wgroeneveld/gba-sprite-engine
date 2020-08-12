@@ -22,17 +22,9 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/gras.c
         backgrounds/gras.h
         backgrounds/grasBackground.h
-
-
-        img/playerSelect/wit_spook_1.h
-        img/playerSelect/wit_spook_2.h
-        img/playerSelect/pijl.h
-        img/playerSelect/sharedPlayerSelect.h
-        img/playerSelect/sharedPlayerSelect.c
-
-
-
-
+        backgrounds/tiles12_08.h
+        backgrounds/tiles12_08.c
+        backgrounds/transparantAndRedMap.h
 
 
         Sprites/wit_spook_1.h
