@@ -45,14 +45,23 @@
 #include "../../backgrounds/transparantAndRedMap.h"
 #include "../../backgrounds/tiles12_08.h"
 
+#include "../../backgrounds/GamescreenColours/rood.c"
+
+
 void GameScreen::load() {
 
+    if (spriteKeuze == 1) {
+        backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+    }
+    else {
+        backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
 
+    }
 
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tiles12_08Pal, sizeof(tiles12_08Pal)));
-    background = std::unique_ptr<Background>(new Background(2, tiles12_08Tiles, sizeof(tiles12_08Tiles), tijdelijk, sizeof(tijdelijk)));
+    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
+    background = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), tijdelijk, sizeof(tijdelijk)));
     background->useMapScreenBlock(4);
-    background2 = std::unique_ptr<Background>(new Background(1, tiles12_08Tiles, sizeof(tiles12_08Tiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
+    background2 = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
     background2->useMapScreenBlock(21);
     /* // reserve
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tiles12_08Pal, sizeof(tiles12_08Pal)));
