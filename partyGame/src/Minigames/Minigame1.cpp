@@ -10,7 +10,7 @@ Minigame1::Minigame1() : Minigame() {
     posBoxY = 64;
     posX = 104;
     posY = 0;
-    snelheid = 3;
+    snelheid = 4;
 
     onder = true;
 }
@@ -26,5 +26,5 @@ void Minigame1::berekenScore() {
 }
 
 void Minigame1::berekenGehaald() {
-    gehaald = (posY >= (posBoxY - 15) and posY <= (posBoxY + 15));
+    gehaald = (posY >= (posBoxY - 30) and posY <= (posBoxY + 29));
 }
