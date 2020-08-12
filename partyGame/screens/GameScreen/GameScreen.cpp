@@ -86,21 +86,24 @@ void GameScreen::load() {
     steenRoodSprite = spriteBuilder
             .withData(red_stone_with_borderTiles, sizeof(red_stone_with_borderTiles))
             .withSize(SIZE_32_32)
-            //.withAnimated(2, 8)
-            .withLocation(200, 50)
+            .withAnimated(2, 8)
+            .withLocation(210, 50)
             .buildPtr();
+    steenRoodSprite->stopAnimating();
     steenGroenSprite = spriteBuilder
             .withData(green_stone_with_borderTiles, sizeof(green_stone_with_borderTiles))
             .withSize(SIZE_32_32)
-            //.withAnimated(2, 8)
-            .withLocation(200, 70)
+            .withAnimated(2, 8)
+            .withLocation(210, 70)
             .buildPtr();
+    steenGroenSprite->stopAnimating();
     steenBlauwSprite = spriteBuilder
             .withData(blue_stone_with_borderTiles, sizeof(blue_stone_with_borderTiles))
             .withSize(SIZE_32_32)
-            //.withAnimated(2, 8)
-            .withLocation(200, 90)
+            .withAnimated(2, 8)
+            .withLocation(210, 90)
             .buildPtr();
+    steenBlauwSprite->stopAnimating();
 
     dobbelSteenSprite->stopAnimating();
     updatePosition();
@@ -207,6 +210,25 @@ void GameScreen::tick(u16 keys) {
             }
         }
     }
+
+    if (game->getSpeler()->getSpel1Gehaald()) {// ENTER key, wait until released
+        steenRoodSprite->animateToFrame(1);
+    }
+    else {
+        steenRoodSprite->animateToFrame(0);
+    }
+    if (game->getSpeler()->getSpel2Gehaald()) {// ENTER key, wait until released
+        steenGroenSprite->animateToFrame(1);
+    }
+    else {
+        steenGroenSprite->animateToFrame(0);
+    }
+    if (game->getSpeler()->getSpel3Gehaald()) {// ENTER key, wait until released
+        steenBlauwSprite->animateToFrame(1);
+    }
+    else {
+        steenBlauwSprite->animateToFrame(0);
+    }
     lastKeys = keys;
 }
 // Zoveel logica mag eigenlijk nooit in een update staan, wordt veel te vaak aangeroepen?
@@ -286,16 +308,13 @@ void GameScreen::updatePosition() {
 
 void GameScreen::updateInformation() {
     if (game->getSpeler()->getSpel1Gehaald()) {
-        TextStream::instance().setText(std::string("#1 " + std::to_string(game->getSpeler()->getSpel1Gehaald())), 6, 25);
         steenGroenSprite->animateToFrame(1);
     }
 
     if (game->getSpeler()->getSpel2Gehaald()) {
-        TextStream::instance().setText(std::string("#2 " + std::to_string(game->getSpeler()->getSpel2Gehaald())), 7, 25);
         steenRoodSprite->animateToFrame(0);
     }
     if (game->getSpeler()->getSpel3Gehaald()) {
-        TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
         steenBlauwSprite->animateToFrame(1);
     }
 

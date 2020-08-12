@@ -12,19 +12,20 @@ class AboutScreen : public Scene {
 private:
 
     std::unique_ptr<Background> background;
+    bool booltje = false;
 
-    std::unique_ptr<Sprite> spook1Sprite;
-    std::unique_ptr<Sprite> spook2Sprite;
+    //std::unique_ptr<Sprite> spook1Sprite;
+    //std::unique_ptr<Sprite> spook2Sprite;
     std::unique_ptr<Sprite> steenRoodSprite;
     std::unique_ptr<Sprite> steenGroenSprite;
     std::unique_ptr<Sprite> steenBlauwSprite;
-    std::unique_ptr<Sprite> boxSprite;
-    std::unique_ptr<Sprite> pijlSprite;
-    std::unique_ptr<Sprite> dobbelsteenSprite;
-    std::unique_ptr<Sprite> spookGroenSprite;
-    std::unique_ptr<Sprite> spookRoodSprite;
-    std::unique_ptr<Sprite> spookBlauwSprite;
-    std::unique_ptr<Sprite> alleKleurenSprite;
+    //std::unique_ptr<Sprite> boxSprite;
+    //std::unique_ptr<Sprite> pijlSprite;
+    //std::unique_ptr<Sprite> dobbelsteenSprite;
+    //std::unique_ptr<Sprite> spookGroenSprite;
+    //std::unique_ptr<Sprite> spookRoodSprite;
+    //std::unique_ptr<Sprite> spookBlauwSprite;
+    //std::unique_ptr<Sprite> alleKleurenSprite;
 
 
 
