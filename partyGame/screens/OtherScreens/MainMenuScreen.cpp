@@ -10,7 +10,6 @@
 
 #include "MainMenuScreen.h"
 #include "AboutScreen.h"
-#include "../GameScreen/GameScreen.h"
 #include "PlayerSelectScreen.h"
 
 #include "../../Sprites/pijl.h"
@@ -19,14 +18,11 @@
 #include "../../backgrounds/gras.h"
 #include "../../backgrounds/grasBackground.h"
 
-std::vector<Background *> MainMenuScreen::backgrounds() {return {background.get()};}
-
-std::vector<Sprite *> MainMenuScreen::sprites() {return {pijl.get()};}
 
 void MainMenuScreen::load() {
     TextStream::instance().setText(std::string("Start Game"), 7, 5);
-    TextStream::instance().setText(std::string("Read more about the game"), 10, 5);
-    TextStream::instance().setText(std::string("Welcome to Ghost Town"), 2, 5);
+    TextStream::instance().setText(std::string("More about the game"), 10, 5);
+    TextStream::instance().setText(std::string("WELCOME TO SPOOK-Y TOWN"), 2, 3);
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     SpriteBuilder<Sprite> spriteBuilder;
@@ -41,6 +37,10 @@ void MainMenuScreen::load() {
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background->useMapScreenBlock(16);
 }
+
+std::vector<Background *> MainMenuScreen::backgrounds() {return {background.get()};}
+
+std::vector<Sprite *> MainMenuScreen::sprites() {return {pijl.get()};}
 
 void MainMenuScreen::tick(u16 keys) {
 

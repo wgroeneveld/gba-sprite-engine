@@ -45,6 +45,7 @@ void Minigame1Screen::load() {
             .withLocation(minigame->getPosBoxX(), minigame->getPosBoxY())
             .buildPtr();
     //updatePosition();
+
 }
 
 void Minigame1Screen::setGehaald() {

@@ -29,7 +29,6 @@ void AboutScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background->useMapScreenBlock(16);
-
 }
 
 void AboutScreen::tick(u16 keys) {
@@ -38,7 +37,8 @@ void AboutScreen::tick(u16 keys) {
         lastKeys = keys;
         return;
     }
-
-
-        lastKeys = keys;
+    if (!(keys & KEY_START) && (lastKeys & KEY_START)) {
+        engine->setScene(new MainMenuScreen(engine));
+    }
+    lastKeys = keys;
 }

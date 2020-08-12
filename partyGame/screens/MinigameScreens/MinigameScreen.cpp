@@ -13,6 +13,7 @@
 
 #include "../../backgrounds/grasBackground.h"
 #include "../../backgrounds/gras.h"
+#include "../../sound/minigame.h"
 
 
 MinigameScreen::MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite) {}
@@ -21,6 +22,8 @@ void MinigameScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background.get()->useMapScreenBlock(16);
+    engine->enqueueMusic(minigameSound, sizeof(minigameSound), 44100);
+
 }
 
 std::vector<Sprite *> MinigameScreen::sprites() {return {badGuy.get(), box.get()};}
@@ -58,9 +61,10 @@ void MinigameScreen::updatePosition() {
 
 void MinigameScreen::endScene() {
     minigame->makePicture();
+    engine->dequeueAllSounds();
     setGehaald();
     setEindtekst();
-    wachtEven(2000);
+    wachtEven(5000);
     game->getSpeler()->setScore(minigame->getScore());
     game->getSpeler()->setAlGegooid(false);
     engine->setScene(new GameScreen(engine, game, spriteKeuze));

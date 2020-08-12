@@ -8,6 +8,7 @@
 #include "MainMenuScreen.h"
 #include "../../backgrounds/gras.h"
 #include "../../backgrounds/grasBackground.h"
+#include "../../sound/win.h"
 
 std::vector<Background *> EndScreen::backgrounds() {
     return {background.get()};
@@ -27,6 +28,8 @@ void EndScreen::load() {
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(grasPal, sizeof(grasPal)));
     background = std::unique_ptr<Background>(new Background(1, grasTiles, sizeof(grasTiles), grasBackground, sizeof(grasBackground)));
     background->useMapScreenBlock(16);
+
+    engine->enqueueMusic(win, sizeof(win), 44100);
 }
 
 void EndScreen::tick(u16 keys) {
