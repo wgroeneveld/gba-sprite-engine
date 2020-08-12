@@ -18,8 +18,6 @@ Minigame3Screen::Minigame3Screen(std::shared_ptr<GBAEngine> engine, std::shared_
 }
 
 void Minigame3Screen::load() {
-    TextStream::instance().setText(std::string("Test"), 4, 10);
-
     MinigameScreen::load();
 
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
@@ -52,6 +50,7 @@ void Minigame3Screen::setEindtekst() {
     if (minigame->getGehaald()) {
         TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
         TextStream::instance().setText(std::string("Billy is captured!"), 3, 2);
+
         engine.get()->enqueueSound(scream1, sizeof(scream1), 44100);
 
     }
@@ -59,6 +58,8 @@ void Minigame3Screen::setEindtekst() {
         TextStream::instance().setText(std::string("Oh no! Billy escaped!"), 2, 2);
         engine.get()->enqueueSound(thirdLaugh, sizeof(thirdLaugh), 44100);
     }
+    TextStream::instance().setText(std::string("Score: " + std::to_string(minigame->getScore())), 5, 2);
+
 }
 
 void Minigame3Screen::setGehaald() {

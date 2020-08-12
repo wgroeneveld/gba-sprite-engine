@@ -35,12 +35,6 @@
 #include "../../Sprites/shared.h"
 
 
-
-
-
-
-
-
 #include "../MinigameScreens/Minigame1Screen.h"
 #include "../MinigameScreens/Minigame2Screen.h"
 #include "../MinigameScreens/Minigame3Screen.h"
@@ -198,9 +192,9 @@ void GameScreen::tick(u16 keys) {
                     break;
 
                 case 6:
-                    if (game->getSpeler()->getSpel1Gehaald() and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()) {
+                    if (game->getSpeler()->getSpel1Gehaald()/* and game->getSpeler()->getSpel2Gehaald() and game->getSpeler()->getSpel3Gehaald()*/) {
                         if (!engine->isTransitioning()) {
-                            engine->transitionIntoScene(new EndScreen(engine), new FadeOutScene(2));
+                            engine->transitionIntoScene(new EndScreen(engine, game->getSpeler()->getScore()), new FadeOutScene(2));
                         }
                     }
                     else {
@@ -304,6 +298,9 @@ void GameScreen::updateInformation() {
         TextStream::instance().setText(std::string("#3 " + std::to_string(game->getSpeler()->getSpel3Gehaald())), 8, 25);
         steenBlauwSprite->animateToFrame(1);
     }
+
+    TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);
+
 
 }
 

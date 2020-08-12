@@ -16,12 +16,10 @@ private:
     std::shared_ptr<Game> game = std::make_shared<Game>(Game());
 
     std::unique_ptr<Sprite> spook1Sprite;
-    //std::unique_ptr<Sprite> spook2Sprite;
     std::unique_ptr<Sprite> dobbelSteenSprite;
     std::unique_ptr<Sprite> steenRoodSprite;
     std::unique_ptr<Sprite> steenGroenSprite;
     std::unique_ptr<Sprite> steenBlauwSprite;
-
 
     u16 lastKeys = 0;
     bool firstTick = true;

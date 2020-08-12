@@ -18,7 +18,9 @@ std::vector<Sprite *> EndScreen::sprites() {
 
 void EndScreen::load() {
     TextStream::instance().setText(std::string("Yay! You made it!"), 1, 1);
-    TextStream::instance().setText(std::string("Press start to go to the main menu"), 3, 1);
+    TextStream::instance().setText(std::string("Score: " + std::to_string(score)), 2, 1);
+
+    TextStream::instance().setText(std::string("Press start for the main menu"), 10, 1);
 
 }
 

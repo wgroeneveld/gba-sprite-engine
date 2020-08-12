@@ -14,11 +14,12 @@ private:
     u16 lastKeys = 0;
     bool firstTick = true;
     std::unique_ptr<Background> background;
+    int score;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    EndScreen(std::shared_ptr<GBAEngine> &engine) : Scene(engine) {}; //Kijken of ik hier &engine ofzo moet doen
+    EndScreen(std::shared_ptr<GBAEngine> &engine, int score) : Scene(engine), score(score){}; //Kijken of ik hier &engine ofzo moet doen
 
     void load() override;
     void tick(u16 keys) override;

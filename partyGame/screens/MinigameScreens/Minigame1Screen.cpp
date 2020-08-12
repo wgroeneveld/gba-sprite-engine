@@ -64,6 +64,7 @@ void Minigame1Screen::setEindtekst() {
     if (minigame->getGehaald()) {
         TextStream::instance().setText(std::string("Yay! You did it!"), 2, 2);
         TextStream::instance().setText(std::string("Rodrick is captured!"), 3, 2);
+
         engine.get()->enqueueSound(scream2, sizeof(scream2), 44100);
 
     }
@@ -71,6 +72,8 @@ void Minigame1Screen::setEindtekst() {
         TextStream::instance().setText(std::string("Oh no! Rodrick escaped!"), 2, 2);
         engine.get()->enqueueSound(firstLaugh, sizeof(firstLaugh), 44100);
     }
+    TextStream::instance().setText(std::string("Score: " + std::to_string(minigame->getScore())), 5, 2);
+
 }
 
 
