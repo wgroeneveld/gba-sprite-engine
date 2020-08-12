@@ -54,6 +54,8 @@
 #include "../../backgrounds/GamescreenColours/wit.c"
 #include "../../backgrounds/GamescreenColours/zwart.c"
 
+#include "../../sound/gameScreenMusic.h"
+
 
 void GameScreen::load() {
 
@@ -178,6 +180,9 @@ void GameScreen::load() {
     updatePosition();
     updateInformation();
     engine->getTimer()->start();
+
+    engine->enqueueMusic(gameScreenMusic, sizeof(gameScreenMusic), 44100);
+
 }
 
 std::vector<Sprite *> GameScreen::sprites() {return {spook1Sprite.get(), dobbelSteenSprite.get(), steenRoodSprite.get(), steenGroenSprite.get(), steenBlauwSprite.get()};}
