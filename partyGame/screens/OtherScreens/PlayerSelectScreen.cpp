@@ -13,8 +13,8 @@
 
 #include "../GameScreen/GameScreen.h"
 
-#include "../../backgrounds/gras.h"
-#include "../../backgrounds/grasBackground.h"
+#include "../../backgrounds/standard/gras.h"
+#include "../../backgrounds/standard/grasBackground.h"
 
 #include "../../Sprites/wit_spook_1.h"
 #include "../../Sprites/wit_spook_2.h"

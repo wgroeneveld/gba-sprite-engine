@@ -15,8 +15,8 @@
 #include "../../Sprites/pijl.h"
 #include "../../Sprites/shared.h"
 
-#include "../../backgrounds/gras.h"
-#include "../../backgrounds/grasBackground.h"
+#include "../../backgrounds/standard/gras.h"
+#include "../../backgrounds/standard/grasBackground.h"
 
 
 void MainMenuScreen::load() {

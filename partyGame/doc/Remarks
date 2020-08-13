@@ -1,42 +1,7 @@
-* kijken wat transitionIntoScene precies doet? Zijn er verschillende effecten beschikbaar?
-    --> misschien zelf effectje creëren? een klasse maken zoals fade_out_scene.cpp denk ik
-* switching tussen screens klokken ofzo. Of checken wat de laatste key was
 
-* vangspelletje
-  hindernissenparcours
-  schietspelletje
-  timing spelletje
-  woordspelletje
-  chancespelletje
-
-* soort hindernissenparcours waarbij ze sterren ofzo moeten verzamelen (hoe meer sterren, hoe meer punten)
-maar het scrolt de hele tijd naar rechts (of onder ofzo) en als ze ingehaald worden door het scherm, gaan ze dood.
-
-* of het schermt versnelt/vertraagt en ze moeten binnen beeld blijven. (eventueel dit als extra moeilijkheid voor hogere levels)
-
-* eentje laten generen met GUI, de andere via command line, kijken of ik hetzelfde resultaat krijg. ALS dat lukt, met shared palette proberen
-en dan nadien shared palette in aparte file genereren/zetten --> gelukt!
-
-* sprite toevoegen die je kan besturen met pijltjestoetsen.
-
-* huidige sprite ook met pointer ofzo werken?
 
 * Gameboy heeft vanboven nog 2 extra knoppen
 
-*  if (!(keys & KEY_START) && (lastKeys & KEY_START)) {// ENTER key, wait until released
-
-* colliding van sprites
-
-* met mannetje kunnen rondlopen en punten verdienen door te colliden
-
-* sprite verspringt niet meer voor ie naar spel moet gaan.
-
-* BUG: VERSIE van 15/07 21.23u soms crasht ie als je naar GameScreen gaat als je eerst langs andere schermen bent gepasseerd. Weet nog niet waarom. Als je meerdere toetsen te snel na elkaar indrukt? Ik weet het niet. Zucht.
-
-* BUG: als je naar Minigame2Screen gaat, blijft er rechtsboven een getalletje staan.
-
-* bord maken, zorgen dat score er bij op geteld wordt
-
 * checken of ik nu eigenlijk niet veel te veel onnodig kopieer, reference?
 
-* Minigame2Screen verhoogt de totaalscore, niet makePicture(). Is dat oké?s
+* Minigame2Screen verhoogt de totaalscore, niet makePicture(). Is dat oké?

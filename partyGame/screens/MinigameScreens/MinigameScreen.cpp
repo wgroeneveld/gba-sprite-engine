@@ -11,8 +11,8 @@
 
 #include "../GameScreen/GameScreen.h"
 
-#include "../../backgrounds/grasBackground.h"
-#include "../../backgrounds/gras.h"
+#include "../../backgrounds/standard/grasBackground.h"
+#include "../../backgrounds/standard/gras.h"
 #include "../../sound/minigame.h"
 
 

@@ -28,10 +28,6 @@ public:
     virtual void beweeg() = 0;
     virtual void berekenScore() = 0;
 
-    //void moveBoxRight();
-    //void moveBoxLeft();
-    //void moveBoxUp();
-    //void moveBoxDown();
 };
 
 

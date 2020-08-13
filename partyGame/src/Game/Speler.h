@@ -47,7 +47,7 @@ public:
     void gooiDobbelsteen(int seed);
     int getVakjesNogVerschuiven();
 
-    bool getSpel1Gehaald(); //checken of ik hier beter een array ofzo van maak
+    bool getSpel1Gehaald();
     bool getSpel2Gehaald();
     bool getSpel3Gehaald();
 

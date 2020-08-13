@@ -6,8 +6,8 @@
 #include <libgba-sprite-engine/background/text_stream.h>
 #include "EndScreen.h"
 #include "MainMenuScreen.h"
-#include "../../backgrounds/gras.h"
-#include "../../backgrounds/grasBackground.h"
+#include "../../backgrounds/standard/gras.h"
+#include "../../backgrounds/standard/grasBackground.h"
 #include "../../sound/win.h"
 
 std::vector<Background *> EndScreen::backgrounds() {

@@ -24,26 +24,18 @@
 #include "../OtherScreens/EndScreen.h"
 
 
-/* reserve
-#include "../../backgrounds/Tiles8x8.h"
-#include "../../backgrounds/eerste7x7Map.h"
-#include "../../backgrounds/Background8x8Map.h"*/
 
-#include "../../backgrounds/gameScreenMap.h"
-#include "../../backgrounds/gameScreenBorder.h"
-#include "../../backgrounds/tiles10_08.c"
-#include "../../backgrounds/blackAndTransparantMap.h"
-#include "../../backgrounds/red_green.c"
-#include "../../backgrounds/red_green.h"
 
-#include "../../backgrounds/tiles10_08.h"
-#include "../../backgrounds/gameScreenFull.h"
-#include "../../backgrounds/gameScreenFull.c"
 
-#include "../../backgrounds/bord.h"
-#include "../../backgrounds/bord.c"
-#include "../../backgrounds/transparantAndRedMap.h"
-#include "../../backgrounds/tiles12_08.h"
+#include "../../backgrounds/gameScreen/gameScreenMap.h"
+
+
+
+#include "../../backgrounds/gameScreen/gameScreenFull.h"
+#include "../../backgrounds/gameScreen/gameScreenFull.c"
+
+#include "../../backgrounds/gameScreen/transparantAndRedMap.h"
+
 
 #include "../../backgrounds/GamescreenColours/rood.c"
 #include "../../backgrounds/GamescreenColours/groen.c"
@@ -102,25 +94,11 @@ void GameScreen::load() {
 
     }
 
-    //backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(gameScreenFullPalRood, sizeof(gameScreenFullPalRood)));
     background = std::unique_ptr<Background>(new Background(2, gameScreenFullTiles, sizeof(gameScreenFullTiles), tijdelijk, sizeof(tijdelijk)));
     background->useMapScreenBlock(4);
     background2 = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
     background2->useMapScreenBlock(21);
-    /* // reserve
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(tiles12_08Pal, sizeof(tiles12_08Pal)));
-    background = std::unique_ptr<Background>(new Background(2, tiles12_08Tiles, sizeof(tiles12_08Tiles), tijdelijk, sizeof(tijdelijk)));
-    background->useMapScreenBlock(4);
-    background2 = std::unique_ptr<Background>(new Background(1, tiles12_08Tiles, sizeof(tiles12_08Tiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
-    background2->useMapScreenBlock(21);
-    */
-
-    /* //reserve
-    backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(Tiles8x8Pal, sizeof(Tiles8x8Pal)));
-    background = std::unique_ptr<Background>(new Background(2, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), eerste7x7Map, sizeof(eerste7x7Map)));
-    background->useMapScreenBlock(4);
-    background2 = std::unique_ptr<Background>(new Background(1, Tiles8x8Tiles, sizeof(Tiles8x8Tiles), Background8x8Map, sizeof(Background8x8Map)));
-    background2->useMapScreenBlock(20);*/
+    
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);

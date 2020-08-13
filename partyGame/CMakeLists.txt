@@ -16,15 +16,10 @@ add_executable(${PROJECT_NAME}.elf
         screens/GameScreen/GameScreen.cpp
         screens/GameScreen/GameScreen.h
 
-        backgrounds/Tiles8x8.c
-        backgrounds/Tiles8x8.h
-        backgrounds/eerste7x7Map.h
-        backgrounds/gras.c
-        backgrounds/gras.h
-        backgrounds/grasBackground.h
-        backgrounds/tiles12_08.h
-        backgrounds/tiles12_08.c
-        backgrounds/transparantAndRedMap.h
+        backgrounds/standard/gras.c
+        backgrounds/standard/gras.h
+        backgrounds/standard/grasBackground.h
+        backgrounds/gameScreen/transparantAndRedMap.h
 
 
         Sprites/wit_spook_1.h

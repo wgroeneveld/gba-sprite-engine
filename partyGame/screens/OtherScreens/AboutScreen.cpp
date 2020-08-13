@@ -10,8 +10,8 @@
 #include "AboutScreen.h"
 #include "MainMenuScreen.h"
 
-#include "../../backgrounds/gras.h"
-#include "../../backgrounds/grasBackground.h"
+#include "../../backgrounds/standard/gras.h"
+#include "../../backgrounds/standard/grasBackground.h"
 
 #include "../../Sprites/pijl.h"
 #include "../../Sprites/wit_spook_1.h"
