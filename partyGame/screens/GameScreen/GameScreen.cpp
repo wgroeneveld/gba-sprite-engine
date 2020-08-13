@@ -158,7 +158,7 @@ void GameScreen::load() {
     updatePosition();
     updateInformation();
     engine->getTimer()->start();
-
+ 
     engine->enqueueMusic(gameScreenMusic, sizeof(gameScreenMusic), 44100);
 
 }
