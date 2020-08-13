@@ -7,9 +7,9 @@
 #include "Minigame2Screen.h"
 
 
-#include "../../Sprites/greenEnemyCenter.h"
-#include "../../Sprites/box.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/greenEnemyCenter.h"
+#include "../../sprites/box.h"
+#include "../../sprites/shared.h"
 
 
 #include "../../sound/secondLaugh.h"

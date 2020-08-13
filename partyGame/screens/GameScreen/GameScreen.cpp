@@ -10,13 +10,13 @@
 #include <random>
 #include "GameScreen.h"
 
-#include "../../Sprites/dobbelsteen.h"
-#include "../../Sprites/wit_spook_1.h"
-#include "../../Sprites/wit_spook_2.h"
-#include "../../Sprites/blue_stone_with_border.h"
-#include "../../Sprites/red_stone_with_border.h"
-#include "../../Sprites/green_stone_with_border.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/dobbelsteen.h"
+#include "../../sprites/wit_spook_1.h"
+#include "../../sprites/wit_spook_2.h"
+#include "../../sprites/blue_stone_with_border.h"
+#include "../../sprites/red_stone_with_border.h"
+#include "../../sprites/green_stone_with_border.h"
+#include "../../sprites/shared.h"
 
 #include "../MinigameScreens/Minigame1Screen.h"
 #include "../MinigameScreens/Minigame2Screen.h"
@@ -98,7 +98,7 @@ void GameScreen::load() {
     background->useMapScreenBlock(4);
     background2 = std::unique_ptr<Background>(new Background(1, gameScreenFullTiles, sizeof(gameScreenFullTiles), transparantAndRedMap, sizeof(transparantAndRedMap)));
     background2->useMapScreenBlock(21);
-    
+
 
     TextStream::instance().setText(std::string("Score"), 1, 25);
     TextStream::instance().setText(std::string(std::to_string(game->getSpeler()->getScore())), 2, 25);

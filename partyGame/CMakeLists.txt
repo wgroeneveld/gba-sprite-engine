@@ -22,37 +22,37 @@ add_executable(${PROJECT_NAME}.elf
         backgrounds/gameScreen/transparantAndRedMap.h
 
 
-        Sprites/wit_spook_1.h
-        Sprites/wit_spook_1.c
-        Sprites/wit_spook_2.h
-        Sprites/wit_spook_2.c
+        sprites/wit_spook_1.h
+        sprites/wit_spook_1.c
+        sprites/wit_spook_2.h
+        sprites/wit_spook_2.c
 
-        Sprites/redEnemyCenter.h
-        Sprites/greenEnemyCenter.h
-        Sprites/blueEnemyCenter.h
-        Sprites/redEnemyCenter.c
-        Sprites/greenEnemyCenter.c
-        Sprites/blueEnemyCenter.c
+        sprites/redEnemyCenter.h
+        sprites/greenEnemyCenter.h
+        sprites/blueEnemyCenter.h
+        sprites/redEnemyCenter.c
+        sprites/greenEnemyCenter.c
+        sprites/blueEnemyCenter.c
 
-        Sprites/pijl.h
-        Sprites/dobbelsteen.h
-        Sprites/box.h
-        Sprites/pijl.c
-        Sprites/dobbelsteen.c
-        Sprites/box.c
+        sprites/pijl.h
+        sprites/dobbelsteen.h
+        sprites/box.h
+        sprites/pijl.c
+        sprites/dobbelsteen.c
+        sprites/box.c
 
-        Sprites/red_stone_with_border.h
-        Sprites/green_stone_with_border.h
-        Sprites/blue_stone_with_border.h
-        Sprites/red_stone_with_border.c
-        Sprites/green_stone_with_border.c
-        Sprites/blue_stone_with_border.c
+        sprites/red_stone_with_border.h
+        sprites/green_stone_with_border.h
+        sprites/blue_stone_with_border.h
+        sprites/red_stone_with_border.c
+        sprites/green_stone_with_border.c
+        sprites/blue_stone_with_border.c
 
-        Sprites/alleKleuren.h
-        Sprites/alleKleuren.c
+        sprites/alleKleuren.h
+        sprites/alleKleuren.c
 
-        Sprites/shared.h
-        Sprites/shared.c
+        sprites/shared.h
+        sprites/shared.c
 
 
 

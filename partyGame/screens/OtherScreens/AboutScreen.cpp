@@ -13,9 +13,9 @@
 #include "../../backgrounds/standard/gras.h"
 #include "../../backgrounds/standard/grasBackground.h"
 
-#include "../../Sprites/pijl.h"
-#include "../../Sprites/wit_spook_1.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/pijl.h"
+#include "../../sprites/wit_spook_1.h"
+#include "../../sprites/shared.h"
 
 
 

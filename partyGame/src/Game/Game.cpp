@@ -16,11 +16,7 @@ std::shared_ptr<Speler> Game::getSpeler() {
 int Game::getHuidigVakje() {
     return bord[getSpeler()->getPosX()][getSpeler()->getPosY()];
 }
-/*
-int Game::getTijd() {
-    return tijd;
-}
-*/
+
 
 
 

@@ -12,19 +12,17 @@ class AboutScreen : public Scene {
 private:
 
     std::unique_ptr<Background> background;
-
     std::unique_ptr<Sprite> pijl;
     std::unique_ptr<Sprite> spook;
-
 
     u16 lastKeys = 0;
     bool firstTick = true;
 
 public:
+    AboutScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
+
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
-
-    AboutScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
 
     void load() override;
     void tick(u16 keys) override;

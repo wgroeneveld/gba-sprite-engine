@@ -21,21 +21,22 @@ private:
     std::unique_ptr<Sprite> steenGroenSprite;
     std::unique_ptr<Sprite> steenBlauwSprite;
 
-    u16 lastKeys = 0;
-    bool firstTick = true;
     std::unique_ptr<Background> background;
     std::unique_ptr<Background> background2;
 
+    u16 lastKeys = 0;
+    bool firstTick = true;
+
     bool aanHetGooien = false;
     bool aanHetSpringen = false;
-
     int spriteKeuze;
 
 public:
-    std::vector<Sprite *> sprites() override;
-    std::vector<Background *> backgrounds() override;
     GameScreen(std::shared_ptr<GBAEngine> engine, int sprite) : Scene(engine), spriteKeuze(sprite) {};
     GameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite) : Scene(engine), game(gamepje), spriteKeuze(sprite) {};
+
+    std::vector<Sprite *> sprites() override;
+    std::vector<Background *> backgrounds() override;
 
     void load() override;
     void tick(u16 keys) override;

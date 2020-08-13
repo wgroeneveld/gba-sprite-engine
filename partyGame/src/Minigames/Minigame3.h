@@ -9,6 +9,7 @@
 #include "Minigame.h"
 
 class Minigame3 : public Minigame {
+private:
     bool rechts;
     bool onder;
 public:

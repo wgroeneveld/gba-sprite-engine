@@ -18,19 +18,21 @@ class MinigameScreen : public Scene {
 private:
     bool firstTick = true;
 protected:
-    int spriteKeuze;
-    std::unique_ptr<Background> background;
+    u16 lastKeys = 0;
 
     std::shared_ptr<Game> game;
     std::shared_ptr<Minigame> minigame;
     std::unique_ptr<Sprite> badGuy;
     std::unique_ptr<Sprite> box;
+    std::unique_ptr<Background> background;
+
     bool bezig = true;
-    u16 lastKeys = 0;
+    int spriteKeuze;
+
 public:
+    MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite);
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
-    MinigameScreen(std::shared_ptr<GBAEngine> engine, std::shared_ptr<Game> gamepje, int sprite);
 
     void load() override = 0;
     void tick(u16 keys) override;
@@ -40,11 +42,11 @@ public:
 
     virtual void setBegintekst() = 0;
     virtual void setEindtekst() = 0;
+    void removeTekst();
 
     virtual void setGehaald() = 0;
     void wachtEven(int tijd);
 
-    void removeTekst();
 };
 
 

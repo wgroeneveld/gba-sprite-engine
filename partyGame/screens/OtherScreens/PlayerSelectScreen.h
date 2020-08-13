@@ -17,23 +17,22 @@ private:
     std::unique_ptr<Sprite> pijl;
     std::unique_ptr<Sprite> spook1;
     std::unique_ptr<Sprite> spook2;
-
     std::unique_ptr<Background> background;
-    int spelerKeuze = 0;
 
     u16 lastKeys = 0;
     bool firstTick = true;
 
+    int spelerKeuze = 0;
+
 public:
+    PlayerSelectScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
+
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;
 
-    PlayerSelectScreen(std::shared_ptr<GBAEngine> engine) : Scene(engine) {};
-    //~MainMenuScreen(){};
-
-
     void load() override;
     void tick(u16 keys) override;
+
     void updatePijl();
 
 };

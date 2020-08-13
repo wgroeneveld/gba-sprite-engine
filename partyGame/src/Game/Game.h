@@ -8,6 +8,9 @@
 
 #include <memory>
 #include "Speler.h"
+#include "../Minigames/Minigame1.h"
+#include "../Minigames/Minigame2.h"
+#include "../Minigames/Minigame3.h"
 
 class Game {
 private:

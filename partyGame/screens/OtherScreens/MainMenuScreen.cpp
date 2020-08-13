@@ -12,8 +12,8 @@
 #include "AboutScreen.h"
 #include "PlayerSelectScreen.h"
 
-#include "../../Sprites/pijl.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/pijl.h"
+#include "../../sprites/shared.h"
 
 #include "../../backgrounds/standard/gras.h"
 #include "../../backgrounds/standard/grasBackground.h"

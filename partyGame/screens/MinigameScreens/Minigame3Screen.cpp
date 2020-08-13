@@ -6,9 +6,9 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include "Minigame3Screen.h"
 
-#include "../../Sprites/box.h"
-#include "../../Sprites/blueEnemyCenter.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/box.h"
+#include "../../sprites/blueEnemyCenter.h"
+#include "../../sprites/shared.h"
 
 #include "../../sound/thirdLaugh.h"
 #include "../../sound/scream1.h"

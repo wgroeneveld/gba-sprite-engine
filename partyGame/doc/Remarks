@@ -2,6 +2,6 @@
 
 * Gameboy heeft vanboven nog 2 extra knoppen
 
-* checken of ik nu eigenlijk niet veel te veel onnodig kopieer, reference?
-
 * Minigame2Screen verhoogt de totaalscore, niet makePicture(). Is dat oké?
+
+* Soms is er een extra spook en een steen te weinig bij GameScreen

@@ -8,9 +8,9 @@
 #include "Minigame1Screen.h"
 
 
-#include "../../Sprites/redEnemyCenter.h"
-#include "../../Sprites/box.h"
-#include "../../Sprites/shared.h"
+#include "../../sprites/redEnemyCenter.h"
+#include "../../sprites/box.h"
+#include "../../sprites/shared.h"
 
 #include "../GameScreen/GameScreen.h"
 
