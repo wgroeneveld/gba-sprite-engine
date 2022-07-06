@@ -1,4 +1,11 @@
 
+⚠️⚠️ **PLEASE READ** ⚠️⚠️: this is an ARCHIVED version. I moved this to my own Git repository. See https://giveupgithub.org/ 
+
+The new URL is at https://git.brainbaking.com/wgroeneveld/gba-sprite-engine 
+I will leave this here on Github since it has accumulated quite a few stars.
+
+---
+
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
 [![Build Status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-sprite-engine)
